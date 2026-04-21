@@ -14,6 +14,7 @@
   --b:#448aff;--b2:rgba(68,138,255,.12);
   --t:#e2e8f0;--t2:#64748b;--t3:#334155;
   --radius:12px;
+  --l1:#00e676;--l2:#448aff;--l3:#64748b;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -219,9 +220,100 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 @media(max-width:900px){.earn-grid{grid-template-columns:repeat(3,1fr)}.fg-wrapper{grid-template-columns:1fr}}
 @media(max-width:640px){.port-grid{grid-template-columns:1fr 1fr}.earn-grid{grid-template-columns:repeat(2,1fr)}.main{padding:14px 14px}.hdr{padding:10px 14px}}
 @media(max-width:420px){.port-grid{grid-template-columns:1fr}}
+
+/* ── Layer labels ── */
+.layer-band{display:flex;align-items:center;gap:10px;margin:28px 0 16px;padding:0 2px}
+.layer-num{font-size:9px;font-weight:900;letter-spacing:2px;padding:3px 8px;border-radius:4px;white-space:nowrap}
+.layer-num.l1{background:rgba(0,230,118,.15);color:var(--l1);border:1px solid rgba(0,230,118,.25)}
+.layer-num.l2{background:rgba(68,138,255,.1);color:var(--l2);border:1px solid rgba(68,138,255,.2)}
+.layer-num.l3{background:rgba(100,116,139,.1);color:var(--l3);border:1px solid rgba(100,116,139,.2)}
+.layer-title{font-size:13px;font-weight:700;color:var(--t)}
+.layer-desc{font-size:11px;color:var(--t3);margin-left:2px}
+.layer-line{flex:1;height:1px;background:var(--border)}
+
+/* ── Collapsible card ── */
+.coll-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.coll-card:hover{border-color:var(--border2)}
+.coll-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;user-select:none;gap:12px}
+.coll-header:hover{background:rgba(255,255,255,.02)}
+.coll-left{display:flex;align-items:center;gap:10px;min-width:0}
+.coll-icon{font-size:14px;flex-shrink:0}
+.coll-name{font-size:12px;font-weight:700;color:var(--t);white-space:nowrap}
+.coll-summary{font-size:11px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.coll-annotation{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;flex-shrink:0}
+.coll-annotation.bullish{background:var(--g2);color:var(--g)}
+.coll-annotation.bearish{background:var(--r2);color:var(--r)}
+.coll-annotation.neutral{background:rgba(255,255,255,.06);color:var(--t2)}
+.coll-annotation.warning{background:var(--a2);color:var(--a)}
+.coll-chevron{color:var(--t3);font-size:12px;flex-shrink:0;transition:transform .2s}
+.coll-chevron.open{transform:rotate(180deg)}
+.coll-body{padding:0 16px 16px;border-top:1px solid var(--border)}
+.coll-body.collapsed{display:none}
+
+/* ── DCA diff badge ── */
+.dca-diff{font-size:10px;font-weight:700;padding:1px 6px;border-radius:4px;margin-left:6px}
+.dca-diff.up{background:rgba(0,230,118,.15);color:var(--g)}
+.dca-diff.dn{background:rgba(255,61,113,.12);color:var(--r)}
+.dca-diff.same{background:rgba(255,255,255,.06);color:var(--t3)}
+
+/* ── Inputs drawer ── */
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:199;opacity:0;pointer-events:none;transition:opacity .25s}
+.drawer-overlay.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;top:0;right:0;height:100%;width:320px;max-width:90vw;background:rgba(10,14,26,.97);backdrop-filter:blur(20px);border-left:1px solid var(--border2);z-index:200;transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;padding:20px}
+.drawer.open{transform:translateX(0)}
+.drawer-title{font-size:14px;font-weight:800;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+.drawer-close{cursor:pointer;color:var(--t2);font-size:18px;line-height:1;padding:4px}
+.drawer-section{margin-bottom:20px}
+.drawer-section-title{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.drawer-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)}
+.drawer-row:last-child{border-bottom:none}
+.drawer-label{color:var(--t2)}
+.drawer-val{font-weight:700;color:var(--t)}
+.settings-btn{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;color:var(--t2);font-size:11px;font-weight:700;padding:6px 12px;cursor:pointer;transition:all .2s}
+.settings-btn:hover{background:rgba(255,255,255,.1);color:var(--t);border-color:var(--border2)}
+
+/* ── Polymarket ── */
+.pm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.pm-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
+.pm-question{font-size:11px;font-weight:600;color:var(--t);margin-bottom:8px;line-height:1.4}
+.pm-bar-wrap{height:6px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;margin-bottom:5px}
+.pm-bar-fill{height:100%;border-radius:3px;background:var(--g);transition:width .3s}
+.pm-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--t2)}
+.pm-signal-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:12px}
+.pm-signal{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center}
+.pm-signal-val{font-size:22px;font-weight:900;line-height:1}
+.pm-signal-label{font-size:9px;color:var(--t2);margin-top:3px;font-weight:600}
 </style>
 </head>
 <body>
+
+<!-- Inputs Drawer Overlay -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<!-- Inputs Drawer -->
+<div class="drawer" id="inputs-drawer">
+  <div class="drawer-title">
+    <span>⚙️ Portfolio Settings</span>
+    <span class="drawer-close" onclick="closeDrawer()">✕</span>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Capital</div>
+    <div id="drawer-capital"></div>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Holdings</div>
+    <div id="drawer-holdings"></div>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Risk Horizon</div>
+    <div id="drawer-risk"></div>
+  </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">Watchlist</div>
+    <div id="drawer-watchlist"></div>
+  </div>
+</div>
+
 <!-- Ticker tape -->
 <div class="tape-wrap">
   <div class="tape" id="tape"></div>
@@ -237,6 +329,7 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
     <div id="fx-rates" style="font-size:11px;font-weight:700;color:var(--t2);display:flex;gap:14px"></div>
     <div id="market-status" class="regime-pill regime-off" style="font-size:10px;min-width:180px;text-align:center"></div>
     <div id="regime-pill" class="regime-pill"></div>
+    <button class="settings-btn" onclick="openDrawer()">⚙️ Inputs</button>
   </div>
 </div>
 
@@ -245,47 +338,161 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 <!-- Macro alert banner -->
 <div id="macro-banner" style="display:none" class="macro-banner"></div>
 
-<!-- Sentiment + Earnings (top) -->
-<div style="display:grid;grid-template-columns:280px 1fr;gap:16px;margin-bottom:28px;align-items:start" id="fg-earn-row">
-  <div class="section" style="margin:0">
-    <div class="sec-label">Market Sentiment</div>
-    <div class="fg-card" id="fg-card"></div>
-  </div>
-  <div class="section" style="margin:0">
-    <div class="sec-label">Earnings This Week</div>
-    <div class="earn-grid" id="earn-grid"></div>
-  </div>
-</div>
-
-<!-- VIX + DXY pulse strip -->
-<div class="section">
-  <div class="sec-label">Market Pulse</div>
-  <div id="pulse-strip"></div>
+<!-- ═══ LAYER 1: THE ANSWER ═══ -->
+<div class="layer-band">
+  <div class="layer-num l1">LAYER 1</div>
+  <div class="layer-title">The Answer</div>
+  <div class="layer-desc">— today, do X with $Y</div>
+  <div class="layer-line"></div>
 </div>
 
 <!-- Action Center -->
-<div class="section" id="action-section">
+<div class="section" id="action-section" style="margin-bottom:16px">
   <div class="sec-label">Action Center <span id="action-date" style="font-weight:400;opacity:.6;font-size:11px"></span></div>
   <div id="action-center"></div>
 </div>
 
-<!-- Allocation Table -->
+<!-- DCA Allocation -->
 <div class="section" id="alloc-section">
-  <div class="sec-label">DCA Allocation — $10,000</div>
+  <div class="sec-label">DCA Allocation <span id="dca-budget-label" style="font-weight:400;opacity:.7;font-size:11px"></span></div>
   <div id="alloc-table"></div>
 </div>
 
-<!-- Portfolio Summary -->
+<!-- ═══ LAYER 2: THE WHY ═══ -->
+<div class="layer-band">
+  <div class="layer-num l2">LAYER 2</div>
+  <div class="layer-title">The Why</div>
+  <div class="layer-desc">— context behind your actions</div>
+  <div class="layer-line"></div>
+</div>
+
+<!-- Collapsible: Market Sentiment -->
+<div class="coll-card">
+  <div class="coll-header" onclick="toggleCard('fg')">
+    <div class="coll-left">
+      <span class="coll-icon">😰</span>
+      <span class="coll-name">Market Sentiment</span>
+      <span class="coll-summary" id="fg-summary">—</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="coll-annotation" id="fg-annotation">—</span>
+      <span class="coll-chevron open" id="fg-chevron">▼</span>
+    </div>
+  </div>
+  <div class="coll-body" id="fg-body">
+    <div style="display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:start;padding-top:12px">
+      <div class="fg-card" id="fg-card"></div>
+      <div class="earn-grid" id="earn-grid" style="margin-top:0"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Collapsible: Market Pulse -->
+<div class="coll-card">
+  <div class="coll-header" onclick="toggleCard('pulse')">
+    <div class="coll-left">
+      <span class="coll-icon">📡</span>
+      <span class="coll-name">Market Pulse</span>
+      <span class="coll-summary" id="pulse-summary">—</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="coll-annotation" id="pulse-annotation">—</span>
+      <span class="coll-chevron" id="pulse-chevron">▼</span>
+    </div>
+  </div>
+  <div class="coll-body collapsed" id="pulse-body">
+    <div style="padding-top:12px" id="pulse-strip"></div>
+  </div>
+</div>
+
+<!-- Collapsible: Polymarket -->
+<div class="coll-card" id="polymarket-card">
+  <div class="coll-header" onclick="toggleCard('poly')">
+    <div class="coll-left">
+      <span class="coll-icon">🎲</span>
+      <span class="coll-name">Prediction Markets</span>
+      <span class="coll-summary" id="poly-summary">—</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="coll-annotation" id="poly-annotation">—</span>
+      <span class="coll-chevron" id="poly-chevron">▼</span>
+    </div>
+  </div>
+  <div class="coll-body collapsed" id="poly-body">
+    <div style="padding-top:12px" id="poly-content"></div>
+  </div>
+</div>
+
+<!-- Collapsible: Sector Rotation -->
+<div class="coll-card">
+  <div class="coll-header" onclick="toggleCard('sectors')">
+    <div class="coll-left">
+      <span class="coll-icon">🔄</span>
+      <span class="coll-name">Sector Rotation</span>
+      <span class="coll-summary" id="sectors-summary">—</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="coll-annotation" id="sectors-annotation">—</span>
+      <span class="coll-chevron" id="sectors-chevron">▼</span>
+    </div>
+  </div>
+  <div class="coll-body collapsed" id="sectors-body">
+    <div class="sector-grid" id="sector-grid" style="padding-top:12px"></div>
+  </div>
+</div>
+
+<!-- Collapsible: Earnings -->
+<div class="coll-card">
+  <div class="coll-header" onclick="toggleCard('earnings')">
+    <div class="coll-left">
+      <span class="coll-icon">📅</span>
+      <span class="coll-name">Earnings This Week</span>
+      <span class="coll-summary" id="earnings-summary">—</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="coll-annotation" id="earnings-annotation">—</span>
+      <span class="coll-chevron" id="earnings-chevron">▼</span>
+    </div>
+  </div>
+  <div class="coll-body collapsed" id="earnings-body">
+    <div style="padding-top:12px"><div class="earn-grid" id="earn-grid-2"></div></div>
+  </div>
+</div>
+
+<!-- Collapsible: Upcoming Events -->
+<div class="coll-card">
+  <div class="coll-header" onclick="toggleCard('events')">
+    <div class="coll-left">
+      <span class="coll-icon">🗓️</span>
+      <span class="coll-name">Upcoming Events</span>
+      <span class="coll-summary" id="events-summary">—</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="coll-annotation" id="events-annotation">—</span>
+      <span class="coll-chevron" id="events-chevron">▼</span>
+    </div>
+  </div>
+  <div class="coll-body collapsed" id="events-body">
+    <div style="padding-top:12px">
+      <div style="font-size:10px;color:var(--t3);margin-bottom:8px" id="events-tz"></div>
+      <div id="events-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LAYER 3: THE STATE ═══ -->
+<div class="layer-band">
+  <div class="layer-num l3">LAYER 3</div>
+  <div class="layer-title">The State</div>
+  <div class="layer-desc">— reference: what you hold</div>
+  <div class="layer-line"></div>
+</div>
+
+<!-- Portfolio -->
 <div class="section">
   <div class="sec-label">Portfolio</div>
   <div class="port-summary" id="port-summary"></div>
   <div class="port-grid" id="port-grid"></div>
-</div>
-
-<!-- Sectors -->
-<div class="section">
-  <div class="sec-label">Sector Rotation</div>
-  <div class="sector-grid" id="sector-grid"></div>
 </div>
 
 <!-- Crypto -->
@@ -295,18 +502,12 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
   <div class="crypto-port-grid" id="crypto-grid"></div>
 </div>
 
-<!-- Upcoming Events -->
-<div class="section">
-  <div class="sec-label">Upcoming Events <span id="events-tz" style="font-weight:400;opacity:.5;font-size:10px;letter-spacing:0"></span></div>
-  <div id="events-list"></div>
-</div>
-
 </div><!-- main -->
 
 <div class="footer" id="footer"></div>
 
 <script>
-const D = {"generated_at": "Tue 21 Apr 2026  12:47", "regime": "\ud83d\udfe2 RISK-ON \u2014 system operational, execute signals", "macro_warn": {"risk_level": "\ud83d\udfe2 No macro events this week", "upcoming": [], "reduce_size": false}, "fx": {"usdils": 2.99, "eurils": 3.51}, "market": {"spy": {"price": 708.72, "chg_1d": -0.2, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 674.54, "sma150": 674.42, "sma200": 663.68}, "qqq": {"price": 646.79, "chg_1d": -0.32, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 602.64, "sma150": 608.79, "sma200": 598.06}, "vix": {"price": 19.06, "chg_1d": 1.01, "above_50": "False", "above_150": "True", "above_200": "True", "sma50": 22.41, "sma150": 19.0, "sma200": 18.22, "level": 19.06, "signal": "neutral", "regime": "\ud83d\udfe1 Normal \u2014 moderate uncertainty"}, "dxy": {"level": 98.29, "chg_1d": 0.24, "signal": "\ud83d\udfe2 Weak USD \u2014 tailwind for international/commodities"}, "t10y": {"t10y": 4.25, "t2y": 3.6, "spread": 0.65, "curve": "\ud83d\udfe2 Normal \u2014 expansion phase", "signal": "neutral", "note": "Yields supportive for growth"}, "gold": {"price": 4802.6, "chg": -0.08, "signal": "\ud83d\udfe2 Calm"}, "oil": {"price": 86.77, "chg": -3.17}}, "portfolio": {"positions": [{"ticker": "VOO", "theme": "S&P 500", "class": "core", "avg": 503.91, "shares": 125, "cost": 62989.0, "value": 81442.0, "price": 651.54, "chg_1d": -0.19, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 620.09, "sma150": 619.93, "sma200": 610.01, "pe": null, "pnl_pct": 29.3, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 716.69, "stop_loss": 620.09, "entry_zone": [620.09, 658.06], "upside_pct": 10.0, "downside_pct": 4.8, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "QQQ", "theme": "NASDAQ 100", "class": "core", "avg": 537.12, "shares": 57, "cost": 30616.0, "value": 36867.0, "price": 646.79, "chg_1d": -0.32, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 602.64, "sma150": 608.79, "sma200": 598.06, "pe": null, "pnl_pct": 20.4, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 711.47, "stop_loss": 602.64, "entry_zone": [602.64, 653.26], "upside_pct": 10.0, "downside_pct": 6.8, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "CSPX.L", "theme": "S&P 500 (LSE/USD)", "class": "core", "avg": 567.09, "shares": 188, "cost": 106613.0, "value": 143959.0, "price": 765.74, "chg_1d": 0.36, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 728.48, "sma150": 727.86, "sma200": 716.16, "pe": null, "pnl_pct": 35.0, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 842.31, "stop_loss": 728.48, "entry_zone": [728.48, 773.4], "upside_pct": 10.0, "downside_pct": 4.9, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "CSNDX.L", "theme": "NASDAQ 100 (EBS/USD)", "class": "core", "avg": 1235.2, "shares": 14, "cost": 17293.0, "value": 17293.0, "price": null, "chg_1d": 0, "above_50": null, "above_150": null, "above_200": null, "sma50": null, "sma150": null, "sma200": null, "pe": null, "pnl_pct": 0, "verdict": "WAIT", "reason": "No price data", "alert": ["warning", "NO DATA"], "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "VERY HIGH", "target": null, "stop_loss": null, "entry_zone": null, "upside_pct": null, "downside_pct": null, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "IWDA.AS", "theme": "MSCI World (EUR)", "class": "core", "avg": 94.17, "shares": 196, "cost": 18457.0, "value": 22879.0, "price": 116.73, "chg_1d": 0.44, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 112.33, "sma150": 111.17, "sma200": 109.33, "pe": null, "pnl_pct": 24.0, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 128.4, "stop_loss": 112.33, "entry_zone": [112.33, 117.9], "upside_pct": 10.0, "downside_pct": 3.8, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "GOOG", "theme": "AI / Ads", "class": "core", "avg": 214.34, "shares": 42, "cost": 9002.0, "value": 14087.0, "price": 335.4, "chg_1d": -1.18, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 307.06, "sma150": 297.25, "sma200": 273.33, "pe": 31.1, "pnl_pct": 56.5, "verdict": "YES", "reason": "Above 200D", "alert": ["warning", "TRIM 20%"], "action": "TRIM", "trim_pct": 20, "trim_reason": "Up 56% \u2014 reduce to manage risk", "risk": "LOW", "target": 362.5, "stop_loss": 307.06, "entry_zone": [307.06, 338.75], "upside_pct": 8.1, "downside_pct": 8.4, "weight": 12.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.9, "hold_pct": 0, "sell_pct": 0.1, "buy_n": 16, "hold_n": 0, "sell_n": 2, "n_analysts": 18}, {"ticker": "MSFT", "theme": "AI / Cloud", "class": "core", "avg": 402.76, "shares": 31, "cost": 12486.0, "value": 12960.0, "price": 418.07, "chg_1d": -1.12, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 392.61, "sma150": 457.56, "sma200": 470.09, "pe": 26.2, "pnl_pct": 3.8, "verdict": "WAIT", "reason": "Below 200D", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 579.57, "stop_loss": 392.61, "entry_zone": [392.61, 422.25], "upside_pct": 38.6, "downside_pct": 6.1, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.93, "hold_pct": 0, "sell_pct": 0.07, "buy_n": 50, "hold_n": 0, "sell_n": 4, "n_analysts": 54}, {"ticker": "META", "theme": "AI / Social", "class": "core", "avg": 632.86, "shares": 18, "cost": 11391.0, "value": 12076.0, "price": 670.91, "chg_1d": -2.56, "above_50": "True", "above_150": "True", "above_200": "False", "sma50": 629.59, "sma150": 660.18, "sma200": 680.06, "pe": 28.6, "pnl_pct": 6.0, "verdict": "WAIT", "reason": "Below 200D", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 855.76, "stop_loss": 629.59, "entry_zone": [629.59, 677.62], "upside_pct": 27.6, "downside_pct": 6.2, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.91, "hold_pct": 0, "sell_pct": 0.09, "buy_n": 55, "hold_n": 0, "sell_n": 5, "n_analysts": 60}, {"ticker": "AMZN", "theme": "Cloud / Consumer", "class": "core", "avg": 197.91, "shares": 35, "cost": 6927.0, "value": 8690.0, "price": 248.28, "chg_1d": -0.91, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 214.76, "sma150": 225.38, "sma200": 225.73, "pe": 34.6, "pnl_pct": 25.5, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 281.18, "stop_loss": 214.76, "entry_zone": [214.76, 250.76], "upside_pct": 13.3, "downside_pct": 13.5, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0.91, "hold_pct": 0, "sell_pct": 0.09, "buy_n": 58, "hold_n": 0, "sell_n": 6, "n_analysts": 64}, {"ticker": "AVGO", "theme": "AI Chips", "class": "core", "avg": 342.0, "shares": 15, "cost": 5130.0, "value": 5994.0, "price": 399.63, "chg_1d": -1.7, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 334.8, "sma150": 344.25, "sma200": 332.72, "pe": 78.1, "pnl_pct": 16.9, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 475.49, "stop_loss": 371.66, "entry_zone": [334.8, 403.63], "upside_pct": 19.0, "downside_pct": 7.0, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0.93, "hold_pct": 0.0, "sell_pct": 0.07, "buy_n": 39, "hold_n": 0, "sell_n": 3, "n_analysts": 42}, {"ticker": "TSM", "theme": "Semis", "class": "core", "avg": 295.19, "shares": 29, "cost": 8561.0, "value": 10621.0, "price": 366.24, "chg_1d": -1.15, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 354.47, "sma150": 317.09, "sma200": 296.97, "pe": 31.4, "pnl_pct": 24.1, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 457.73, "stop_loss": 354.47, "entry_zone": [354.47, 369.9], "upside_pct": 25.0, "downside_pct": 3.2, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0.89, "hold_pct": 0.0, "sell_pct": 0.11, "buy_n": 16, "hold_n": 0, "sell_n": 2, "n_analysts": 18}, {"ticker": "ORCL", "theme": "Cloud DB / AI", "class": "core", "avg": 225.68, "shares": 43, "cost": 9704.0, "value": 7636.0, "price": 177.58, "chg_1d": 1.44, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 151.95, "sma150": 204.09, "sma200": 213.8, "pe": 31.8, "pnl_pct": -21.3, "verdict": "WAIT", "reason": "Below 200D", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 243.87, "stop_loss": 151.95, "entry_zone": [151.95, 179.36], "upside_pct": 37.3, "downside_pct": 14.4, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.84, "hold_pct": 0, "sell_pct": 0.16, "buy_n": 32, "hold_n": 0, "sell_n": 6, "n_analysts": 38}, {"ticker": "APP", "theme": "AI Ads / Mobile", "class": "swing", "avg": 495.1, "shares": 20, "cost": 9902.0, "value": 9819.0, "price": 490.96, "chg_1d": 2.88, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 431.81, "sma150": 553.81, "sma200": 520.8, "pe": 49.0, "pnl_pct": -0.8, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 646.86, "stop_loss": 431.81, "entry_zone": [431.81, 495.87], "upside_pct": 31.8, "downside_pct": 12.0, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.88, "hold_pct": 0, "sell_pct": 0.12, "buy_n": 25, "hold_n": 0, "sell_n": 3, "n_analysts": 28}, {"ticker": "PANW", "theme": "Cybersecurity", "class": "swing", "avg": 184.65, "shares": 20, "cost": 3693.0, "value": 3391.0, "price": 169.56, "chg_1d": 1.02, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 160.59, "sma150": 184.99, "sma200": 185.81, "pe": 94.2, "pnl_pct": -8.2, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 205.96, "stop_loss": 160.59, "entry_zone": [160.59, 171.26], "upside_pct": 21.5, "downside_pct": 5.3, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.84, "hold_pct": 0, "sell_pct": 0.16, "buy_n": 41, "hold_n": 0, "sell_n": 8, "n_analysts": 49}, {"ticker": "CEG", "theme": "Nuclear Energy", "class": "swing", "avg": 286.07, "shares": 15, "cost": 4291.0, "value": 4313.0, "price": 287.56, "chg_1d": -2.92, "above_50": "False", "above_150": "False", "above_200": "False", "sma50": 297.72, "sma150": 329.42, "sma200": 327.15, "pe": 38.9, "pnl_pct": 0.5, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 373.3, "stop_loss": 264.56, "entry_zone": [281.81, 290.44], "upside_pct": 29.8, "downside_pct": 8.0, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.8, "hold_pct": 0, "sell_pct": 0.2, "buy_n": 15, "hold_n": 0, "sell_n": 4, "n_analysts": 19}, {"ticker": "TSLA", "theme": "EV / AI / Robotics", "class": "swing", "avg": 328.6, "shares": 7, "cost": 2300.0, "value": 2748.0, "price": 392.5, "chg_1d": -2.03, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 390.24, "sma150": 422.83, "sma200": 399.25, "pe": null, "pnl_pct": 19.4, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 431.75, "stop_loss": 390.24, "entry_zone": [390.24, 396.43], "upside_pct": 10.0, "downside_pct": 0.6, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "HIMS", "theme": "Health / GLP-1", "class": "swing", "avg": 50.35, "shares": 50, "cost": 2518.0, "value": 1550.0, "price": 31.01, "chg_1d": 7.6, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 20.08, "sma150": 34.26, "sma200": 38.29, "pe": null, "pnl_pct": -38.4, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "VERY HIGH", "target": 34.11, "stop_loss": 28.53, "entry_zone": [20.08, 31.32], "upside_pct": 10.0, "downside_pct": 8.0, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "URA", "theme": "Uranium", "class": "swing", "avg": 54.81, "shares": 100, "cost": 5481.0, "value": 5605.0, "price": 56.05, "chg_1d": 0.34, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 51.4, "sma150": 49.04, "sma200": 46.28, "pe": null, "pnl_pct": 2.3, "verdict": "YES", "reason": "Both MAs clear", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 61.66, "stop_loss": 51.4, "entry_zone": [51.4, 56.61], "upside_pct": 10.0, "downside_pct": 8.3, "weight": 6.4, "allocation_pct": 5.7, "allocation_usd": 570.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "DEFT", "theme": "Defense", "class": "swing", "avg": 1.1825, "shares": 2200, "cost": 2602.0, "value": 1782.0, "price": 0.81, "chg_1d": 0.62, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 0.69, "sma150": 1.22, "sma200": 1.57, "pe": null, "pnl_pct": -31.5, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 0.89, "stop_loss": 0.69, "entry_zone": [0.69, 0.82], "upside_pct": 9.9, "downside_pct": 14.8, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "SOUN", "theme": "Voice AI", "class": "spec", "avg": 11.61, "shares": 200, "cost": 2322.0, "value": 1664.0, "price": 8.32, "chg_1d": 2.97, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 7.5, "sma150": 11.55, "sma200": 11.84, "pe": null, "pnl_pct": -28.3, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 9.15, "stop_loss": 7.5, "entry_zone": [7.5, 8.4], "upside_pct": 10.0, "downside_pct": 9.9, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "HOOD", "theme": "FinTech / Crypto", "class": "spec", "avg": 125.1, "shares": 10, "cost": 1251.0, "value": 913.0, "price": 91.28, "chg_1d": 0.58, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 75.91, "sma150": 107.82, "sma200": 107.32, "pe": null, "pnl_pct": -27.0, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 100.41, "stop_loss": 77.59, "entry_zone": [75.91, 92.19], "upside_pct": 10.0, "downside_pct": 15.0, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "COIN", "theme": "Crypto Exchange", "class": "spec", "avg": 162.7, "shares": 30, "cost": 4881.0, "value": 6349.0, "price": 211.63, "chg_1d": 2.57, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 181.5, "sma150": 249.22, "sma200": 272.34, "pe": null, "pnl_pct": 30.1, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 232.79, "stop_loss": 181.5, "entry_zone": [181.5, 213.75], "upside_pct": 10.0, "downside_pct": 14.2, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "IONQ", "theme": "Quantum Computing", "class": "spec", "avg": 39.52, "shares": 12, "cost": 474.0, "value": 580.0, "price": 48.32, "chg_1d": 4.84, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 33.77, "sma150": 47.89, "sma200": 46.5, "pe": null, "pnl_pct": 22.3, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 53.15, "stop_loss": 41.07, "entry_zone": [33.77, 48.8], "upside_pct": 10.0, "downside_pct": 15.0, "weight": 2.88, "allocation_pct": 2.6, "allocation_usd": 260.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "BMNR", "theme": "TBD", "class": "spec", "avg": 30.91, "shares": 100, "cost": 3091.0, "value": 2253.0, "price": 22.53, "chg_1d": -1.83, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 20.64, "sma150": 33.08, "sma200": 37.23, "pe": null, "pnl_pct": -27.1, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 24.78, "stop_loss": 20.64, "entry_zone": [20.64, 22.76], "upside_pct": 10.0, "downside_pct": 8.4, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "OSCR", "theme": "InsurTech", "class": "spec", "avg": 15.01, "shares": 100, "cost": 1501.0, "value": 1644.0, "price": 16.44, "chg_1d": 4.12, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 13.41, "sma150": 15.84, "sma200": 15.86, "pe": null, "pnl_pct": 9.5, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 18.08, "stop_loss": 13.97, "entry_zone": [13.41, 16.6], "upside_pct": 10.0, "downside_pct": 15.0, "weight": 2.88, "allocation_pct": 2.6, "allocation_usd": 260.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "SOFI", "theme": "FinTech", "class": "spec", "avg": 26.31, "shares": 166, "cost": 4367.0, "value": 3237.0, "price": 19.5, "chg_1d": 0.36, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 18.03, "sma150": 24.21, "sma200": 23.88, "pe": null, "pnl_pct": -25.9, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 21.45, "stop_loss": 18.03, "entry_zone": [18.03, 19.7], "upside_pct": 10.0, "downside_pct": 7.5, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "IBIT", "theme": "Bitcoin", "class": "spec", "avg": 53.43, "shares": 1073, "cost": 57330.0, "value": 46407.0, "price": 43.25, "chg_1d": -1.57, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 39.62, "sma150": 50.58, "sma200": 54.26, "pe": null, "pnl_pct": -19.1, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 47.58, "stop_loss": 39.62, "entry_zone": [39.62, 43.68], "upside_pct": 10.0, "downside_pct": 8.4, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "ETHA", "theme": "Ethereum", "class": "spec", "avg": 23.41, "shares": 599, "cost": 14023.0, "value": 10554.0, "price": 17.62, "chg_1d": -4.13, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 15.89, "sma150": 22.57, "sma200": 24.3, "pe": null, "pnl_pct": -24.7, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 19.38, "stop_loss": 15.89, "entry_zone": [15.89, 17.8], "upside_pct": 10.0, "downside_pct": 9.8, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}], "total_cost": 419196.0, "total_value": 477313.0, "total_pnl": 13.9, "spy_ytd": 0}, "sectors": [{"name": "Materials", "ticker": "XLB", "chg_1d": 0.67, "chg_5d": 0.08, "trend_3d": "up"}, {"name": "Financials", "ticker": "XLF", "chg_1d": 0.38, "chg_5d": 1.88, "trend_3d": "up"}, {"name": "Real Estate", "ticker": "XLRE", "chg_1d": 0.36, "chg_5d": 3.77, "trend_3d": "up"}, {"name": "AI / Robotics", "ticker": "BOTZ", "chg_1d": 0.24, "chg_5d": 4.25, "trend_3d": "up"}, {"name": "Industrials", "ticker": "XLI", "chg_1d": 0.22, "chg_5d": 0.68, "trend_3d": "up"}, {"name": "Technology", "ticker": "XLK", "chg_1d": 0.14, "chg_5d": 6.15, "trend_3d": "up"}, {"name": "Energy", "ticker": "XLE", "chg_1d": 0.09, "chg_5d": -3.57, "trend_3d": "down"}, {"name": "Semiconductors", "ticker": "SMH", "chg_1d": -0.04, "chg_5d": 4.65, "trend_3d": "up"}, {"name": "Cons Staples", "ticker": "XLP", "chg_1d": -0.08, "chg_5d": 1.03, "trend_3d": "up"}, {"name": "Comm Services", "ticker": "XLC", "chg_1d": -0.29, "chg_5d": 3.42, "trend_3d": "down"}, {"name": "Consumer Disc", "ticker": "XLY", "chg_1d": -0.45, "chg_5d": 5.22, "trend_3d": "up"}, {"name": "Utilities", "ticker": "XLU", "chg_1d": -0.89, "chg_5d": -1.38, "trend_3d": "down"}, {"name": "Healthcare", "ticker": "XLV", "chg_1d": -0.93, "chg_5d": -0.37, "trend_3d": "up"}], "crypto": {"positions": [{"symbol": "SOL", "price": 85.79, "avg": 186.48, "qty": 69.7138, "value_usd": 5981.0, "pnl_pct": -54.0, "pnl_label": "\ud83d\udd34 -54.0%", "change_24h": 0.73, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "L1 / DeFi"}, {"symbol": "XRP", "price": 1.44, "avg": 1.28, "qty": 3099.2488, "value_usd": 4463.0, "pnl_pct": 12.5, "pnl_label": "\ud83d\udfe2 +12.5%", "change_24h": 1.41, "verdict": "HOLD \u2014 in range", "theme": "Payments / Ripple"}, {"symbol": "LINK", "price": 9.42, "avg": 14.95, "qty": 312.1347, "value_usd": 2940.0, "pnl_pct": -37.0, "pnl_label": "\ud83d\udd34 -37.0%", "change_24h": 1.71, "verdict": "HOLD \u2014 underwater, wait for trend recovery", "theme": "Oracles"}, {"symbol": "DOT", "price": 1.28, "avg": 5.38, "qty": 917.1933, "value_usd": 1174.0, "pnl_pct": -76.2, "pnl_label": "\ud83d\udd34 -76.2%", "change_24h": 1.68, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "Interoperability"}, {"symbol": "ALGO", "price": 0.103254, "avg": 0.2439, "qty": 8889, "value_usd": 918.0, "pnl_pct": -57.7, "pnl_label": "\ud83d\udd34 -57.7%", "change_24h": 0.39, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "L1 / Payments"}, {"symbol": "AAVE", "price": 93.82, "avg": 279.92, "qty": 6.9444, "value_usd": 652.0, "pnl_pct": -66.5, "pnl_label": "\ud83d\udd34 -66.5%", "change_24h": 2.74, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "DeFi Lending"}, {"symbol": "ONDO", "price": 0.258998, "avg": 1.11, "qty": 2364, "value_usd": 612.0, "pnl_pct": -76.7, "pnl_label": "\ud83d\udd34 -76.7%", "change_24h": 1.99, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "RWA Tokenization"}, {"symbol": "NEAR", "price": 1.39, "avg": 3.15, "qty": 376.699, "value_usd": 524.0, "pnl_pct": -55.9, "pnl_label": "\ud83d\udd34 -55.9%", "change_24h": 2.31, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "L1 / AI"}, {"symbol": "AVAX", "price": 9.39, "avg": 38.02, "qty": 25.9136, "value_usd": 243.0, "pnl_pct": -75.3, "pnl_label": "\ud83d\udd34 -75.3%", "change_24h": 1.8, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "L1 / DeFi"}, {"symbol": "KAS", "price": 0.03520368, "avg": 0.13, "qty": 3076.923, "value_usd": 108.0, "pnl_pct": -72.9, "pnl_label": "\ud83d\udd34 -72.9%", "change_24h": 2.62, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "PoW / Fast"}, {"symbol": "HBAR", "price": 0.090678, "avg": 0.235, "qty": 1150, "value_usd": 104.0, "pnl_pct": -61.4, "pnl_label": "\ud83d\udd34 -61.4%", "change_24h": 1.95, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "Enterprise DLT"}, {"symbol": "DOGE", "price": 0.095574, "avg": 0.384, "qty": 611, "value_usd": 58.0, "pnl_pct": -75.1, "pnl_label": "\ud83d\udd34 -75.1%", "change_24h": 1.02, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "Meme / Payments"}], "total_value": 17778.0, "total_cost": 36381.0, "total_pnl": -51.1, "btc_dominance": 57.6, "fear_greed": {"score": 33, "delta": 4, "label": "Fear", "signal": "\ud83d\ude28 FEAR \u2014 selective buys"}, "regime": "\ud83d\udfe1 BTC Season \u2014 rotate into BTC/ETH, reduce small caps."}, "fear_greed": {"score": 70.9, "delta": 1.0, "rating": "greed", "label": "Greed \u2014 Be selective"}, "earnings": {"Mon": ["CEG", "HIMS"], "Tue": [], "Wed": ["GOOG", "MSFT", "META", "AMZN", "AVGO", "ORCL", "APP", "PANW", "TSLA"], "Thu": ["TSM", "SOUN"], "Fri": []}, "upcoming_events": [{"utc": "2026-04-29T18:00:00Z", "type": "FOMC", "title": "FOMC Rate Decision", "relevance": "CRITICAL", "detail": "Fed rate decision + Powell press conference", "ticker": null}, {"utc": "2026-04-30T12:30:00Z", "type": "MACRO", "title": "PCE Inflation (Mar 2026)", "relevance": "HIGH", "detail": "Fed's preferred inflation gauge", "ticker": null}, {"utc": "2026-05-01T12:30:00Z", "type": "MACRO", "title": "Nonfarm Payrolls (Apr 2026)", "relevance": "HIGH", "detail": "US jobs report", "ticker": null}, {"utc": "2026-05-13T12:30:00Z", "type": "MACRO", "title": "CPI Report (Apr 2026)", "relevance": "HIGH", "detail": "Consumer Price Index", "ticker": null}, {"utc": "2026-05-14T12:30:00Z", "type": "MACRO", "title": "PPI Report (Apr 2026)", "relevance": "MEDIUM", "detail": "Producer Price Index", "ticker": null}, {"utc": "2026-05-27T12:30:00Z", "type": "MACRO", "title": "PCE Inflation (Apr 2026)", "relevance": "HIGH", "detail": "Fed's preferred inflation gauge", "ticker": null}, {"utc": "2026-06-05T12:30:00Z", "type": "MACRO", "title": "Nonfarm Payrolls (May 2026)", "relevance": "HIGH", "detail": "US jobs report", "ticker": null}], "outside_opps": [{"ticker": "NVDA", "price": 202.06, "chg_1d": 0.19, "above_50": "True", "above_150": "True", "above_200": "True", "action": "STRONG BUY", "source": "watchlist"}, {"ticker": "AAPL", "price": 273.05, "chg_1d": 1.04, "above_50": "True", "above_150": "True", "above_200": "True", "action": "STRONG BUY", "source": "watchlist"}, {"ticker": "AMD", "price": 274.95, "chg_1d": -1.24, "above_50": "True", "above_150": "True", "above_200": "True", "action": "STRONG BUY", "source": "watchlist"}, {"ticker": "NET", "price": 204.81, "chg_1d": 1.9, "above_50": "True", "above_150": "True", "above_200": "True", "action": "STRONG BUY", "source": "watchlist"}, {"ticker": "RKLB", "price": 89.46, "chg_1d": 5.5, "above_50": "True", "above_150": "True", "above_200": "True", "action": "STRONG BUY", "source": "watchlist"}]};
+const D = {"generated_at": "Tue 21 Apr 2026  14:11", "regime": "\ud83d\udfe2 RISK-ON \u2014 system operational, execute signals", "macro_warn": {"risk_level": "\ud83d\udfe2 No macro events this week", "upcoming": [], "reduce_size": false}, "fx": {"usdils": 2.99, "eurils": 3.51}, "market": {"spy": {"price": 708.72, "chg_1d": -0.2, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 674.54, "sma150": 674.42, "sma200": 663.68}, "qqq": {"price": 646.79, "chg_1d": -0.32, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 602.64, "sma150": 608.79, "sma200": 598.06}, "vix": {"price": 18.85, "chg_1d": -0.11, "above_50": "False", "above_150": "False", "above_200": "True", "sma50": 22.41, "sma150": 19.0, "sma200": 18.22, "level": 18.85, "signal": "neutral", "regime": "\ud83d\udfe1 Normal \u2014 moderate uncertainty"}, "dxy": {"level": 98.26, "chg_1d": 0.21, "signal": "\ud83d\udfe2 Weak USD \u2014 tailwind for international/commodities"}, "t10y": {"t10y": 4.25, "t2y": 3.6, "spread": 0.65, "curve": "\ud83d\udfe2 Normal \u2014 expansion phase", "signal": "neutral", "note": "Yields supportive for growth"}, "gold": {"price": 4808.9, "chg": 0.05, "signal": "\ud83d\udfe2 Calm"}, "oil": {"price": 86.85, "chg": -3.08}}, "portfolio": {"positions": [{"ticker": "VOO", "theme": "S&P 500", "class": "core", "avg": 503.91, "shares": 125, "cost": 62989.0, "value": 81442.0, "price": 651.54, "chg_1d": -0.19, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 620.09, "sma150": 619.93, "sma200": 610.01, "pe": null, "pnl_pct": 29.3, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 716.69, "stop_loss": 620.09, "entry_zone": [620.09, 658.06], "upside_pct": 10.0, "downside_pct": 4.8, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "QQQ", "theme": "NASDAQ 100", "class": "core", "avg": 537.12, "shares": 57, "cost": 30616.0, "value": 36867.0, "price": 646.79, "chg_1d": -0.32, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 602.64, "sma150": 608.79, "sma200": 598.06, "pe": null, "pnl_pct": 20.4, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 711.47, "stop_loss": 602.64, "entry_zone": [602.64, 653.26], "upside_pct": 10.0, "downside_pct": 6.8, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "CSPX.L", "theme": "S&P 500 (LSE/USD)", "class": "core", "avg": 567.09, "shares": 188, "cost": 106613.0, "value": 144266.0, "price": 767.37, "chg_1d": 0.58, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 728.51, "sma150": 727.87, "sma200": 716.17, "pe": null, "pnl_pct": 35.3, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 844.11, "stop_loss": 728.51, "entry_zone": [728.51, 775.04], "upside_pct": 10.0, "downside_pct": 5.1, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "CSNDX.L", "theme": "NASDAQ 100 (EBS/USD)", "class": "core", "avg": 1235.2, "shares": 14, "cost": 17293.0, "value": 17293.0, "price": null, "chg_1d": 0, "above_50": null, "above_150": null, "above_200": null, "sma50": null, "sma150": null, "sma200": null, "pe": null, "pnl_pct": 0, "verdict": "WAIT", "reason": "No price data", "alert": ["warning", "NO DATA"], "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "VERY HIGH", "target": null, "stop_loss": null, "entry_zone": null, "upside_pct": null, "downside_pct": null, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "IWDA.AS", "theme": "MSCI World (EUR)", "class": "core", "avg": 94.17, "shares": 196, "cost": 18457.0, "value": 22920.0, "price": 116.94, "chg_1d": 0.62, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 112.33, "sma150": 111.17, "sma200": 109.33, "pe": null, "pnl_pct": 24.2, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 128.63, "stop_loss": 112.33, "entry_zone": [112.33, 118.11], "upside_pct": 10.0, "downside_pct": 3.9, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "GOOG", "theme": "AI / Ads", "class": "core", "avg": 214.34, "shares": 42, "cost": 9002.0, "value": 14087.0, "price": 335.4, "chg_1d": -1.18, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 307.06, "sma150": 297.25, "sma200": 273.33, "pe": 31.1, "pnl_pct": 56.5, "verdict": "YES", "reason": "Above 200D", "alert": ["warning", "TRIM 20%"], "action": "TRIM", "trim_pct": 20, "trim_reason": "Up 56% \u2014 reduce to manage risk", "risk": "LOW", "target": 362.5, "stop_loss": 307.06, "entry_zone": [307.06, 338.75], "upside_pct": 8.1, "downside_pct": 8.4, "weight": 12.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.9, "hold_pct": 0, "sell_pct": 0.1, "buy_n": 16, "hold_n": 0, "sell_n": 2, "n_analysts": 18}, {"ticker": "MSFT", "theme": "AI / Cloud", "class": "core", "avg": 402.76, "shares": 31, "cost": 12486.0, "value": 12960.0, "price": 418.07, "chg_1d": -1.12, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 392.61, "sma150": 457.56, "sma200": 470.09, "pe": 26.2, "pnl_pct": 3.8, "verdict": "WAIT", "reason": "Below 200D", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 579.57, "stop_loss": 392.61, "entry_zone": [392.61, 422.25], "upside_pct": 38.6, "downside_pct": 6.1, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.93, "hold_pct": 0, "sell_pct": 0.07, "buy_n": 50, "hold_n": 0, "sell_n": 4, "n_analysts": 54}, {"ticker": "META", "theme": "AI / Social", "class": "core", "avg": 632.86, "shares": 18, "cost": 11391.0, "value": 12076.0, "price": 670.91, "chg_1d": -2.56, "above_50": "True", "above_150": "True", "above_200": "False", "sma50": 629.59, "sma150": 660.18, "sma200": 680.06, "pe": 28.6, "pnl_pct": 6.0, "verdict": "WAIT", "reason": "Below 200D", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 855.76, "stop_loss": 629.59, "entry_zone": [629.59, 677.62], "upside_pct": 27.6, "downside_pct": 6.2, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.91, "hold_pct": 0, "sell_pct": 0.09, "buy_n": 55, "hold_n": 0, "sell_n": 5, "n_analysts": 60}, {"ticker": "AMZN", "theme": "Cloud / Consumer", "class": "core", "avg": 197.91, "shares": 35, "cost": 6927.0, "value": 8690.0, "price": 248.28, "chg_1d": -0.91, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 214.76, "sma150": 225.38, "sma200": 225.73, "pe": 34.6, "pnl_pct": 25.5, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 281.18, "stop_loss": 214.76, "entry_zone": [214.76, 250.76], "upside_pct": 13.3, "downside_pct": 13.5, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0.91, "hold_pct": 0, "sell_pct": 0.09, "buy_n": 58, "hold_n": 0, "sell_n": 6, "n_analysts": 64}, {"ticker": "AVGO", "theme": "AI Chips", "class": "core", "avg": 342.0, "shares": 15, "cost": 5130.0, "value": 5994.0, "price": 399.63, "chg_1d": -1.7, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 334.8, "sma150": 344.25, "sma200": 332.72, "pe": 78.1, "pnl_pct": 16.9, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 475.49, "stop_loss": 371.66, "entry_zone": [334.8, 403.63], "upside_pct": 19.0, "downside_pct": 7.0, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0.93, "hold_pct": 0.0, "sell_pct": 0.07, "buy_n": 39, "hold_n": 0, "sell_n": 3, "n_analysts": 42}, {"ticker": "TSM", "theme": "Semis", "class": "core", "avg": 295.19, "shares": 29, "cost": 8561.0, "value": 10621.0, "price": 366.24, "chg_1d": -1.15, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 354.47, "sma150": 317.09, "sma200": 296.97, "pe": 31.4, "pnl_pct": 24.1, "verdict": "YES", "reason": "Above 200D", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 457.73, "stop_loss": 354.47, "entry_zone": [354.47, 369.9], "upside_pct": 25.0, "downside_pct": 3.2, "weight": 12.0, "allocation_pct": 10.7, "allocation_usd": 1070.0, "buy_pct": 0.89, "hold_pct": 0.0, "sell_pct": 0.11, "buy_n": 16, "hold_n": 0, "sell_n": 2, "n_analysts": 18}, {"ticker": "ORCL", "theme": "Cloud DB / AI", "class": "core", "avg": 225.68, "shares": 43, "cost": 9704.0, "value": 7636.0, "price": 177.58, "chg_1d": 1.44, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 151.95, "sma150": 204.09, "sma200": 213.8, "pe": 31.8, "pnl_pct": -21.3, "verdict": "WAIT", "reason": "Below 200D", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "LOW", "target": 243.87, "stop_loss": 151.95, "entry_zone": [151.95, 179.36], "upside_pct": 37.3, "downside_pct": 14.4, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.84, "hold_pct": 0, "sell_pct": 0.16, "buy_n": 32, "hold_n": 0, "sell_n": 6, "n_analysts": 38}, {"ticker": "APP", "theme": "AI Ads / Mobile", "class": "swing", "avg": 495.1, "shares": 20, "cost": 9902.0, "value": 9819.0, "price": 490.96, "chg_1d": 2.88, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 431.81, "sma150": 553.81, "sma200": 520.8, "pe": 49.0, "pnl_pct": -0.8, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 646.86, "stop_loss": 431.81, "entry_zone": [431.81, 495.87], "upside_pct": 31.8, "downside_pct": 12.0, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.88, "hold_pct": 0, "sell_pct": 0.12, "buy_n": 25, "hold_n": 0, "sell_n": 3, "n_analysts": 28}, {"ticker": "PANW", "theme": "Cybersecurity", "class": "swing", "avg": 184.65, "shares": 20, "cost": 3693.0, "value": 3391.0, "price": 169.56, "chg_1d": 1.02, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 160.59, "sma150": 184.99, "sma200": 185.81, "pe": 94.2, "pnl_pct": -8.2, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 205.96, "stop_loss": 160.59, "entry_zone": [160.59, 171.26], "upside_pct": 21.5, "downside_pct": 5.3, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.84, "hold_pct": 0, "sell_pct": 0.16, "buy_n": 41, "hold_n": 0, "sell_n": 8, "n_analysts": 49}, {"ticker": "CEG", "theme": "Nuclear Energy", "class": "swing", "avg": 286.07, "shares": 15, "cost": 4291.0, "value": 4313.0, "price": 287.56, "chg_1d": -2.92, "above_50": "False", "above_150": "False", "above_200": "False", "sma50": 297.72, "sma150": 329.42, "sma200": 327.15, "pe": 38.9, "pnl_pct": 0.5, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 373.3, "stop_loss": 264.56, "entry_zone": [281.81, 290.44], "upside_pct": 29.8, "downside_pct": 8.0, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0.8, "hold_pct": 0, "sell_pct": 0.2, "buy_n": 15, "hold_n": 0, "sell_n": 4, "n_analysts": 19}, {"ticker": "TSLA", "theme": "EV / AI / Robotics", "class": "swing", "avg": 328.6, "shares": 7, "cost": 2300.0, "value": 2748.0, "price": 392.5, "chg_1d": -2.03, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 390.24, "sma150": 422.83, "sma200": 399.25, "pe": null, "pnl_pct": 19.4, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 431.75, "stop_loss": 390.24, "entry_zone": [390.24, 396.43], "upside_pct": 10.0, "downside_pct": 0.6, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "HIMS", "theme": "Health / GLP-1", "class": "swing", "avg": 50.35, "shares": 50, "cost": 2518.0, "value": 1550.0, "price": 31.01, "chg_1d": 7.6, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 20.08, "sma150": 34.26, "sma200": 38.29, "pe": null, "pnl_pct": -38.4, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "VERY HIGH", "target": 34.11, "stop_loss": 28.53, "entry_zone": [20.08, 31.32], "upside_pct": 10.0, "downside_pct": 8.0, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "URA", "theme": "Uranium", "class": "swing", "avg": 54.81, "shares": 100, "cost": 5481.0, "value": 5605.0, "price": 56.05, "chg_1d": 0.34, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 51.4, "sma150": 49.04, "sma200": 46.28, "pe": null, "pnl_pct": 2.3, "verdict": "YES", "reason": "Both MAs clear", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 61.66, "stop_loss": 51.4, "entry_zone": [51.4, 56.61], "upside_pct": 10.0, "downside_pct": 8.3, "weight": 6.4, "allocation_pct": 5.7, "allocation_usd": 570.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "DEFT", "theme": "Defense", "class": "swing", "avg": 1.1825, "shares": 2200, "cost": 2602.0, "value": 1782.0, "price": 0.81, "chg_1d": 0.62, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 0.69, "sma150": 1.22, "sma200": 1.57, "pe": null, "pnl_pct": -31.5, "verdict": "WAIT", "reason": "Mixed", "alert": null, "action": "WAIT", "trim_pct": null, "trim_reason": null, "risk": "MEDIUM", "target": 0.89, "stop_loss": 0.69, "entry_zone": [0.69, 0.82], "upside_pct": 9.9, "downside_pct": 14.8, "weight": 0.0, "allocation_pct": 0, "allocation_usd": 0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "SOUN", "theme": "Voice AI", "class": "spec", "avg": 11.61, "shares": 200, "cost": 2322.0, "value": 1664.0, "price": 8.32, "chg_1d": 2.97, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 7.5, "sma150": 11.55, "sma200": 11.84, "pe": null, "pnl_pct": -28.3, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 9.15, "stop_loss": 7.5, "entry_zone": [7.5, 8.4], "upside_pct": 10.0, "downside_pct": 9.9, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "HOOD", "theme": "FinTech / Crypto", "class": "spec", "avg": 125.1, "shares": 10, "cost": 1251.0, "value": 913.0, "price": 91.28, "chg_1d": 0.58, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 75.91, "sma150": 107.82, "sma200": 107.32, "pe": null, "pnl_pct": -27.0, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 100.41, "stop_loss": 77.59, "entry_zone": [75.91, 92.19], "upside_pct": 10.0, "downside_pct": 15.0, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "COIN", "theme": "Crypto Exchange", "class": "spec", "avg": 162.7, "shares": 30, "cost": 4881.0, "value": 6349.0, "price": 211.63, "chg_1d": 2.57, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 181.5, "sma150": 249.22, "sma200": 272.34, "pe": null, "pnl_pct": 30.1, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 232.79, "stop_loss": 181.5, "entry_zone": [181.5, 213.75], "upside_pct": 10.0, "downside_pct": 14.2, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "IONQ", "theme": "Quantum Computing", "class": "spec", "avg": 39.52, "shares": 12, "cost": 474.0, "value": 580.0, "price": 48.32, "chg_1d": 4.84, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 33.77, "sma150": 47.89, "sma200": 46.5, "pe": null, "pnl_pct": 22.3, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 53.15, "stop_loss": 41.07, "entry_zone": [33.77, 48.8], "upside_pct": 10.0, "downside_pct": 15.0, "weight": 2.88, "allocation_pct": 2.6, "allocation_usd": 260.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "BMNR", "theme": "TBD", "class": "spec", "avg": 30.91, "shares": 100, "cost": 3091.0, "value": 2253.0, "price": 22.53, "chg_1d": -1.83, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 20.64, "sma150": 33.08, "sma200": 37.23, "pe": null, "pnl_pct": -27.1, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 24.78, "stop_loss": 20.64, "entry_zone": [20.64, 22.76], "upside_pct": 10.0, "downside_pct": 8.4, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "OSCR", "theme": "InsurTech", "class": "spec", "avg": 15.01, "shares": 100, "cost": 1501.0, "value": 1644.0, "price": 16.44, "chg_1d": 4.12, "above_50": "True", "above_150": "True", "above_200": "True", "sma50": 13.41, "sma150": 15.84, "sma200": 15.86, "pe": null, "pnl_pct": 9.5, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "STRONG BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 18.08, "stop_loss": 13.97, "entry_zone": [13.41, 16.6], "upside_pct": 10.0, "downside_pct": 15.0, "weight": 2.88, "allocation_pct": 2.6, "allocation_usd": 260.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "SOFI", "theme": "FinTech", "class": "spec", "avg": 26.31, "shares": 166, "cost": 4367.0, "value": 3237.0, "price": 19.5, "chg_1d": 0.36, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 18.03, "sma150": 24.21, "sma200": 23.88, "pe": null, "pnl_pct": -25.9, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 21.45, "stop_loss": 18.03, "entry_zone": [18.03, 19.7], "upside_pct": 10.0, "downside_pct": 7.5, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "IBIT", "theme": "Bitcoin", "class": "spec", "avg": 53.43, "shares": 1073, "cost": 57330.0, "value": 46407.0, "price": 43.25, "chg_1d": -1.57, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 39.62, "sma150": 50.58, "sma200": 54.26, "pe": null, "pnl_pct": -19.1, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 47.58, "stop_loss": 39.62, "entry_zone": [39.62, 43.68], "upside_pct": 10.0, "downside_pct": 8.4, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}, {"ticker": "ETHA", "theme": "Ethereum", "class": "spec", "avg": 23.41, "shares": 599, "cost": 14023.0, "value": 10554.0, "price": 17.62, "chg_1d": -4.13, "above_50": "True", "above_150": "False", "above_200": "False", "sma50": 15.89, "sma150": 22.57, "sma200": 24.3, "pe": null, "pnl_pct": -24.7, "verdict": "YES", "reason": "Trend confirmed", "alert": null, "action": "BUY", "trim_pct": null, "trim_reason": null, "risk": "HIGH", "target": 19.38, "stop_loss": 15.89, "entry_zone": [15.89, 17.8], "upside_pct": 10.0, "downside_pct": 9.8, "weight": 2.34, "allocation_pct": 2.1, "allocation_usd": 210.0, "buy_pct": 0, "hold_pct": 0, "sell_pct": 0, "buy_n": 0, "hold_n": 0, "sell_n": 0, "n_analysts": 0}], "total_cost": 419196.0, "total_value": 477661.0, "total_pnl": 13.9, "spy_ytd": 0}, "sectors": [{"name": "Materials", "ticker": "XLB", "chg_1d": 0.67, "chg_5d": 0.08, "trend_3d": "up"}, {"name": "Financials", "ticker": "XLF", "chg_1d": 0.38, "chg_5d": 1.88, "trend_3d": "up"}, {"name": "Real Estate", "ticker": "XLRE", "chg_1d": 0.36, "chg_5d": 3.77, "trend_3d": "up"}, {"name": "AI / Robotics", "ticker": "BOTZ", "chg_1d": 0.24, "chg_5d": 4.25, "trend_3d": "up"}, {"name": "Industrials", "ticker": "XLI", "chg_1d": 0.22, "chg_5d": 0.68, "trend_3d": "up"}, {"name": "Technology", "ticker": "XLK", "chg_1d": 0.14, "chg_5d": 6.15, "trend_3d": "up"}, {"name": "Energy", "ticker": "XLE", "chg_1d": 0.09, "chg_5d": -3.57, "trend_3d": "down"}, {"name": "Semiconductors", "ticker": "SMH", "chg_1d": -0.04, "chg_5d": 4.65, "trend_3d": "up"}, {"name": "Cons Staples", "ticker": "XLP", "chg_1d": -0.08, "chg_5d": 1.03, "trend_3d": "up"}, {"name": "Comm Services", "ticker": "XLC", "chg_1d": -0.29, "chg_5d": 3.42, "trend_3d": "down"}, {"name": "Consumer Disc", "ticker": "XLY", "chg_1d": -0.45, "chg_5d": 5.22, "trend_3d": "up"}, {"name": "Utilities", "ticker": "XLU", "chg_1d": -0.89, "chg_5d": -1.38, "trend_3d": "down"}, {"name": "Healthcare", "ticker": "XLV", "chg_1d": -0.93, "chg_5d": -0.37, "trend_3d": "up"}], "crypto": {"positions": [{"symbol": "SOL", "price": 86.01, "avg": 186.48, "qty": 69.7138, "value_usd": 5996.0, "pnl_pct": -53.9, "pnl_label": "\ud83d\udd34 -53.9%", "change_24h": 1.17, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "L1 / DeFi"}, {"symbol": "XRP", "price": 1.44, "avg": 1.28, "qty": 3099.2488, "value_usd": 4463.0, "pnl_pct": 12.5, "pnl_label": "\ud83d\udfe2 +12.5%", "change_24h": 1.91, "verdict": "HOLD \u2014 in range", "theme": "Payments / Ripple"}, {"symbol": "LINK", "price": 9.43, "avg": 14.95, "qty": 312.1347, "value_usd": 2943.0, "pnl_pct": -36.9, "pnl_label": "\ud83d\udd34 -36.9%", "change_24h": 2.34, "verdict": "HOLD \u2014 underwater, wait for trend recovery", "theme": "Oracles"}, {"symbol": "DOT", "price": 1.29, "avg": 5.38, "qty": 917.1933, "value_usd": 1183.0, "pnl_pct": -76.0, "pnl_label": "\ud83d\udd34 -76.0%", "change_24h": 2.36, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "Interoperability"}, {"symbol": "ALGO", "price": 0.104543, "avg": 0.2439, "qty": 8889, "value_usd": 929.0, "pnl_pct": -57.1, "pnl_label": "\ud83d\udd34 -57.1%", "change_24h": 2.05, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "L1 / Payments"}, {"symbol": "AAVE", "price": 93.0, "avg": 279.92, "qty": 6.9444, "value_usd": 646.0, "pnl_pct": -66.8, "pnl_label": "\ud83d\udd34 -66.8%", "change_24h": 3.5, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "DeFi Lending"}, {"symbol": "ONDO", "price": 0.260447, "avg": 1.11, "qty": 2364, "value_usd": 616.0, "pnl_pct": -76.5, "pnl_label": "\ud83d\udd34 -76.5%", "change_24h": 2.68, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "RWA Tokenization"}, {"symbol": "NEAR", "price": 1.39, "avg": 3.15, "qty": 376.699, "value_usd": 524.0, "pnl_pct": -55.9, "pnl_label": "\ud83d\udd34 -55.9%", "change_24h": 2.74, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "L1 / AI"}, {"symbol": "AVAX", "price": 9.41, "avg": 38.02, "qty": 25.9136, "value_usd": 244.0, "pnl_pct": -75.2, "pnl_label": "\ud83d\udd34 -75.2%", "change_24h": 2.11, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "L1 / DeFi"}, {"symbol": "KAS", "price": 0.03522262, "avg": 0.13, "qty": 3076.923, "value_usd": 108.0, "pnl_pct": -72.9, "pnl_label": "\ud83d\udd34 -72.9%", "change_24h": 2.57, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "PoW / Fast"}, {"symbol": "HBAR", "price": 0.090981, "avg": 0.235, "qty": 1150, "value_usd": 105.0, "pnl_pct": -61.3, "pnl_label": "\ud83d\udd34 -61.3%", "change_24h": 2.31, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "Enterprise DLT"}, {"symbol": "DOGE", "price": 0.095634, "avg": 0.384, "qty": 611, "value_usd": 58.0, "pnl_pct": -75.1, "pnl_label": "\ud83d\udd34 -75.1%", "change_24h": 1.03, "verdict": "HOLD/SPEC \u2014 deep loss, do NOT average down unless thesis intact", "theme": "Meme / Payments"}], "total_value": 17815.0, "total_cost": 36381.0, "total_pnl": -51.0, "btc_dominance": 57.7, "fear_greed": {"score": 33, "delta": 4, "label": "Fear", "signal": "\ud83d\ude28 FEAR \u2014 selective buys"}, "regime": "\ud83d\udfe1 BTC Season \u2014 rotate into BTC/ETH, reduce small caps."}, "fear_greed": {"score": 70.9, "delta": 1.0, "rating": "greed", "label": "Greed \u2014 Be selective"}, "earnings": {"Mon": ["CEG", "HIMS"], "Tue": [], "Wed": ["GOOG", "MSFT", "META", "AMZN", "AVGO", "ORCL", "APP", "PANW", "TSLA"], "Thu": ["TSM", "SOUN"], "Fri": []}, "upcoming_events": [{"utc": "2026-04-29T18:00:00Z", "type": "FOMC", "title": "FOMC Rate Decision", "relevance": "CRITICAL", "detail": "Fed rate decision + Powell press conference", "ticker": null}, {"utc": "2026-04-30T12:30:00Z", "type": "MACRO", "title": "PCE Inflation (Mar 2026)", "relevance": "HIGH", "detail": "Fed's preferred inflation gauge", "ticker": null}, {"utc": "2026-05-01T12:30:00Z", "type": "MACRO", "title": "Nonfarm Payrolls (Apr 2026)", "relevance": "HIGH", "detail": "US jobs report", "ticker": null}, {"utc": "2026-05-13T12:30:00Z", "type": "MACRO", "title": "CPI Report (Apr 2026)", "relevance": "HIGH", "detail": "Consumer Price Index", "ticker": null}, {"utc": "2026-05-14T12:30:00Z", "type": "MACRO", "title": "PPI Report (Apr 2026)", "relevance": "MEDIUM", "detail": "Producer Price Index", "ticker": null}, {"utc": "2026-05-27T12:30:00Z", "type": "MACRO", "title": "PCE Inflation (Apr 2026)", "relevance": "HIGH", "detail": "Fed's preferred inflation gauge", "ticker": null}, {"utc": "2026-06-05T12:30:00Z", "type": "MACRO", "title": "Nonfarm Payrolls (May 2026)", "relevance": "HIGH", "detail": "US jobs report", "ticker": null}], "outside_opps": [{"ticker": "NVDA", "price": 202.06, "chg_1d": 0.19, "above_50": "True", "above_150": "True", "above_200": "True", "action": "STRONG BUY", "source": "watchlist"}, {"ticker": "AAPL", "price": 273.05, "chg_1d": 1.04, "above_50": "True", "above_150": "True", "above_200": "True", "action": "STRONG BUY", "source": "watchlist"}, {"ticker": "AMD", "price": 274.95, "chg_1d": -1.24, "above_50": "True", "above_150": "True", "above_200": "True", "action": "STRONG BUY", "source": "watchlist"}, {"ticker": "NET", "price": 204.81, "chg_1d": 1.9, "above_50": "True", "above_150": "True", "above_200": "True", "action": "STRONG BUY", "source": "watchlist"}, {"ticker": "RKLB", "price": 89.46, "chg_1d": 5.5, "above_50": "True", "above_150": "True", "above_200": "True", "action": "STRONG BUY", "source": "watchlist"}], "polymarket": {"markets": [{"id": "540844", "question": "Will bitcoin hit $1m before GTA VI?", "yes_prob": 49.5, "outcomes": ["Yes", "No"], "prices": [49.5, 50.5], "volume": 4007622, "liquidity": 496000, "end_date": "2026-07-31", "days_out": 101, "relevance": 5, "url": "https://polymarket.com/event/will-bitcoin-hit-1m-before-gta-vi-872"}], "bull_signal": null, "fed_cut_prob": null, "recession_prob": null, "btc_up_prob": null, "fetched_at": "14:11"}};
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 const $ = id => document.getElementById(id);
@@ -314,6 +515,153 @@ const fmt = (v, dec=2) => v == null ? '—' : (+v).toLocaleString('en-US', {mini
 const fmtK = v => v >= 1e6 ? '$'+(v/1e6).toFixed(1)+'M' : v >= 1e3 ? '$'+(v/1e3).toFixed(0)+'K' : '$'+Math.round(v);
 const pct = v => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
 const col = v => v == null ? '' : (v >= 0 ? 'positive' : 'negative');
+
+// ── Drawer ─────────────────────────────────────────────────────────────────
+function openDrawer() {
+  $('inputs-drawer').classList.add('open');
+  $('drawer-overlay').classList.add('open');
+}
+function closeDrawer() {
+  $('inputs-drawer').classList.remove('open');
+  $('drawer-overlay').classList.remove('open');
+}
+function buildDrawer() {
+  const p = D.portfolio;
+  const meta = {monthly_dca: 10000}; // from data if available
+  const dca = p.positions.reduce((s,x)=>s+(x.allocation_usd||0),0);
+  const sections = {
+    'drawer-capital': [
+      ['Monthly DCA', fmtK(dca || 10000)],
+      ['Portfolio Value', fmtK(p.total_value)],
+      ['Cost Basis', fmtK(p.total_cost)],
+      ['Total P&L', (p.total_pnl>=0?'+':'')+p.total_pnl+'%'],
+    ],
+    'drawer-holdings': p.positions.map(pos => [pos.ticker, `${fmtK(pos.value)} · ${(pos.pnl_pct>=0?'+':'')+pos.pnl_pct}%`]),
+    'drawer-risk': [
+      ['Core horizon', '12m+'],
+      ['Swing horizon', '1–3m'],
+      ['Spec horizon', '1–6m'],
+      ['Stop-loss rule', 'Below 200D MA'],
+    ],
+    'drawer-watchlist': (D.outside_opps||[]).map(o=>[o.ticker, o.action]),
+  };
+  for (const [id, rows] of Object.entries(sections)) {
+    const el = $(id); if (!el) continue;
+    el.innerHTML = rows.map(([k,v])=>`<div class="drawer-row"><span class="drawer-label">${k}</span><span class="drawer-val">${v}</span></div>`).join('');
+  }
+}
+
+// ── Collapsible cards ──────────────────────────────────────────────────────
+function toggleCard(id) {
+  const body = $(`${id}-body`);
+  const chev = $(`${id}-chevron`);
+  if (!body) return;
+  const collapsed = body.classList.toggle('collapsed');
+  if (chev) chev.classList.toggle('open', !collapsed);
+  try { localStorage.setItem(`card_${id}`, collapsed ? '0' : '1'); } catch(e) {}
+}
+function restoreCards() {
+  ['fg','pulse','poly','sectors','earnings','events'].forEach(id => {
+    try {
+      const state = localStorage.getItem(`card_${id}`);
+      const body = $(`${id}-body`);
+      const chev = $(`${id}-chevron`);
+      if (!body) return;
+      if (state === '0') { body.classList.add('collapsed'); if (chev) chev.classList.remove('open'); }
+      if (state === '1') { body.classList.remove('collapsed'); if (chev) chev.classList.add('open'); }
+    } catch(e) {}
+  });
+}
+
+// ── DCA diff from yesterday ────────────────────────────────────────────────
+function saveDCASnapshot() {
+  const today = new Date().toISOString().slice(0,10);
+  const snap = {};
+  D.portfolio.positions.forEach(p => { if (p.allocation_usd) snap[p.ticker] = p.allocation_usd; });
+  try { localStorage.setItem(`dca_${today}`, JSON.stringify(snap)); } catch(e) {}
+}
+function getDCAdiff(ticker, todayUsd) {
+  const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+  try {
+    const raw = localStorage.getItem(`dca_${yesterday}`);
+    if (!raw) return null;
+    const snap = JSON.parse(raw);
+    if (!(ticker in snap)) return null;
+    return todayUsd - snap[ticker];
+  } catch(e) { return null; }
+}
+function dcaDiffBadge(ticker, todayUsd) {
+  const diff = getDCAdiff(ticker, todayUsd);
+  if (diff === null) return '';
+  if (Math.abs(diff) < 1) return '<span class="dca-diff same">= same</span>';
+  const sign = diff > 0 ? '+' : '';
+  const cls  = diff > 0 ? 'up' : 'dn';
+  return `<span class="dca-diff ${cls}">${sign}$${Math.abs(diff).toLocaleString()}</span>`;
+}
+
+// ── Polymarket ─────────────────────────────────────────────────────────────
+function buildPolymarket() {
+  const pm = D.polymarket || {};
+  const markets = pm.markets || [];
+  const body = $('poly-body');
+  const content = $('poly-content');
+  const annEl  = $('poly-annotation');
+  const sumEl  = $('poly-summary');
+
+  // Signal row
+  const signals = [
+    {label:'Bull Signal', val:pm.bull_signal, col: pm.bull_signal>60?'var(--g)':pm.bull_signal<40?'var(--r)':'var(--a)'},
+    {label:'Fed Cut Prob', val:pm.fed_cut_prob, col:'var(--b)'},
+    {label:'Recession Prob', val:pm.recession_prob, col: pm.recession_prob>50?'var(--r)':'var(--g)'},
+    {label:'BTC Up Prob', val:pm.btc_up_prob, col:'var(--a)'},
+  ].filter(s => s.val != null);
+
+  let html = '';
+  if (signals.length) {
+    html += '<div class="pm-signal-row">';
+    for (const s of signals) {
+      html += `<div class="pm-signal">
+        <div class="pm-signal-val" style="color:${s.col}">${s.val}%</div>
+        <div class="pm-signal-label">${s.label}</div>
+      </div>`;
+    }
+    html += '</div>';
+  }
+
+  if (markets.length) {
+    html += '<div class="pm-grid">';
+    for (const m of markets.slice(0,9)) {
+      const yp = m.yes_prob || 0;
+      const barCol = yp > 60 ? 'var(--g)' : yp < 40 ? 'var(--r)' : 'var(--a)';
+      html += `<div class="pm-card">
+        <div class="pm-question">${m.question}</div>
+        <div class="pm-bar-wrap"><div class="pm-bar-fill" style="width:${yp}%;background:${barCol}"></div></div>
+        <div class="pm-meta">
+          <span style="color:${barCol};font-weight:700">YES ${yp}%</span>
+          <span>Vol $${(m.volume/1000).toFixed(0)}k · ${m.days_out != null ? m.days_out+'d' : m.end_date}</span>
+        </div>
+      </div>`;
+    }
+    html += '</div>';
+  } else {
+    html += '<div style="color:var(--t3);font-size:12px">No prediction markets loaded.</div>';
+  }
+
+  if (content) content.innerHTML = html;
+
+  // Summary + annotation
+  const bull = pm.bull_signal;
+  if (sumEl) sumEl.textContent = markets.length ? `${markets.length} markets · fetched ${pm.fetched_at||''}` : 'No data';
+  if (annEl) {
+    if (bull != null) {
+      annEl.textContent = `Bull ${bull}%`;
+      annEl.className = 'coll-annotation ' + (bull>60?'bullish':bull<40?'bearish':'neutral');
+    } else {
+      annEl.textContent = markets.length ? `${markets.length} signals` : '—';
+      annEl.className = 'coll-annotation neutral';
+    }
+  }
+}
 
 // ── FX Rates (header) ──────────────────────────────────────────────────────
 function buildFX() {
@@ -407,6 +755,13 @@ function buildPulseStrip() {
       scale:'> $2500: Risk-off demand  |  rising = hedge signal' },
   ];
 
+  // Collapsible summary
+  const pSumEl = $('pulse-summary'); const pAnnEl = $('pulse-annotation');
+  if (pSumEl) pSumEl.textContent = `VIX ${fmt(vix,1)} · DXY ${fmt(dxy,2)} · ${vc.label}`;
+  if (pAnnEl) {
+    pAnnEl.textContent = vc.label;
+    pAnnEl.className = 'coll-annotation ' + (vix < 20 ? 'bullish' : vix < 28 ? 'warning' : 'bearish');
+  }
   $('pulse-strip').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">` +
     tiles.map(({name, val, chg, cfg, scale}) => `
     <div style="background:${cfg.bg};border:1px solid ${cfg.col}33;border-radius:var(--radius);padding:14px 16px">
@@ -580,6 +935,15 @@ function buildMacro() {
 
 // ── Sectors ────────────────────────────────────────────────────────────────
 function buildSectors() {
+  const secs = D.sectors;
+  const top = secs[0] || {}; const bot = secs[secs.length-1] || {};
+  const sSumEl = $('sectors-summary'); const sAnnEl = $('sectors-annotation');
+  if (sSumEl) sSumEl.textContent = secs.length ? `Best: ${top.name} ${pct(top.chg_1d)} · Worst: ${bot.name} ${pct(bot.chg_1d)}` : '—';
+  if (sAnnEl) {
+    const nUp = secs.filter(s=>s.chg_1d>0).length;
+    sAnnEl.textContent = `${nUp}/${secs.length} up`;
+    sAnnEl.className = 'coll-annotation ' + (nUp > secs.length/2 ? 'bullish' : 'bearish');
+  }
   $('sector-grid').innerHTML = D.sectors.map(s => `
     <div class="sec-card">
       <div>
@@ -655,6 +1019,21 @@ function buildFG() {
       <span style="color:var(--t3)">${z.lo}–${z.hi}</span>
     </div>`).join('');
 
+  // Update collapsible summary + annotation
+  const sumEl = $('fg-summary'); const annEl = $('fg-annotation');
+  if (sumEl) sumEl.textContent = na ? 'Data unavailable' : `CNN F&G ${score}/100 · ${curZone.label}`;
+  if (annEl) {
+    annEl.textContent = na ? '—' : curZone.label;
+    annEl.className = 'coll-annotation ' + (score>75?'bearish':score>55?'bearish':score>45?'neutral':score>25?'bullish':'bullish');
+  }
+  const earnSumEl = $('earnings-summary');
+  if (earnSumEl) {
+    const earn = D.earnings || {};
+    const total = Object.values(earn).flat().length;
+    earnSumEl.textContent = total ? `${total} companies reporting` : 'No earnings this week';
+    const annE = $('earnings-annotation');
+    if (annE) { annE.textContent = total ? `${total} reports`:'Clear'; annE.className='coll-annotation '+(total?'warning':'neutral'); }
+  }
   $('fg-card').innerHTML = na ? `
     <div class="mc-label">CNN Fear &amp; Greed</div>
     <div style="font-size:13px;color:var(--t3);margin-top:8px">Data unavailable</div>` : `
@@ -674,7 +1053,7 @@ function buildEarnings() {
   const earn = D.earnings;
   const portTickers = new Set(D.portfolio.positions.map(p => p.ticker));
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-  $('earn-grid').innerHTML = days.map(d => {
+  const html = days.map(d => {
     const tickers = earn[d] || [];
     return `<div class="earn-day">
       <div class="earn-dayname">${d}</div>
@@ -682,6 +1061,10 @@ function buildEarnings() {
         '<div class="earn-empty">—</div>'}
     </div>`;
   }).join('');
+  // Populate both grids (fg-card row + collapsible Layer 2 card)
+  const g1 = $('earn-grid'); const g2 = $('earn-grid-2');
+  if (g1) g1.innerHTML = html;
+  if (g2) g2.innerHTML = html;
 }
 
 // ── Action Center ──────────────────────────────────────────────────────────
@@ -773,26 +1156,32 @@ function buildAllocTable() {
   const buys = positions.filter(p => ['STRONG BUY','BUY'].includes(p.action) && p.allocation_pct > 0);
   buys.sort((a,b) => b.allocation_pct - a.allocation_pct);
 
+  const totalDeploy = buys.reduce((s,p)=>s+(p.allocation_usd||0),0);
+  const budgetEl = $('dca-budget-label');
+  if (budgetEl) budgetEl.textContent = totalDeploy ? `— deploy $${totalDeploy.toLocaleString()} this cycle` : '';
+
   if (!buys.length) {
-    $('alloc-table').innerHTML = '<div style="color:var(--txt2);font-size:13px">No BUY signals — hold cash.</div>';
+    $('alloc-table').innerHTML = '<div style="color:var(--t2);font-size:13px;padding:8px 0">No BUY signals — hold cash.</div>';
     return;
   }
 
   let html = `<table class="alloc-table"><thead><tr>
-    <th>Ticker</th><th>Action</th><th>Allocation</th><th>$ Amount</th><th>Risk</th><th>Target</th><th>Stop</th><th>R:R</th>
+    <th>Ticker</th><th>Action</th><th>Allocation</th><th>$ Amount</th><th>vs Yesterday</th><th>Risk</th><th>Target</th><th>Stop</th><th>R:R</th>
   </tr></thead><tbody>`;
 
   for (const p of buys) {
     const cls = p.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
     const rr = (p.upside_pct && p.downside_pct && p.downside_pct > 0) ? (p.upside_pct/p.downside_pct).toFixed(1) : '—';
+    const diff = dcaDiffBadge(p.ticker, p.allocation_usd || 0);
     html += `<tr>
-      <td><b>${p.ticker}</b><br><span style="font-size:10px;color:var(--txt2)">${p.theme}</span></td>
+      <td><b>${p.ticker}</b><br><span style="font-size:10px;color:var(--t2)">${p.theme}</span></td>
       <td style="color:${cls};font-weight:700">${p.action}</td>
       <td>
         <div class="alloc-bar-wrap"><div class="alloc-bar ${p.action==='BUY'?'buy':''}" style="width:${p.allocation_pct}%"></div></div>
         ${p.allocation_pct}%
       </td>
       <td><b>$${(p.allocation_usd||0).toLocaleString()}</b></td>
+      <td>${diff || '<span style="color:var(--t3);font-size:10px">first run</span>'}</td>
       <td><span class="risk-badge ${p.risk==='LOW'?'low':p.risk==='MEDIUM'?'medium':p.risk==='VERY HIGH'?'very-high':'high'}">${p.risk}</span></td>
       <td>${p.target ? '$' + fmt(p.target) : '—'}</td>
       <td>${p.stop_loss ? '$' + fmt(p.stop_loss) : '—'}</td>
@@ -801,6 +1190,7 @@ function buildAllocTable() {
   }
   html += '</tbody></table>';
   $('alloc-table').innerHTML = html;
+  saveDCASnapshot();
 }
 
 // ── Footer ─────────────────────────────────────────────────────────────────
@@ -814,7 +1204,17 @@ function buildEvents() {
   const el = $('events-list');
   if (!el) return;
 
-  $('events-tz').textContent = '· Israel time (Asia/Jerusalem)';
+  $('events-tz').textContent = 'Israel time (Asia/Jerusalem)';
+  // Collapsible summary
+  const evSumEl = $('events-summary'); const evAnnEl = $('events-annotation');
+  const nextCrit = events.find(e => e.relevance === 'CRITICAL');
+  const nextHigh = events.find(e => e.relevance === 'HIGH');
+  const next = nextCrit || nextHigh || events[0];
+  if (evSumEl) evSumEl.textContent = next ? `Next: ${next.title}` : `${events.length} events`;
+  if (evAnnEl) {
+    evAnnEl.textContent = nextCrit ? '⚡ CRITICAL' : nextHigh ? 'HIGH' : `${events.length} events`;
+    evAnnEl.className = 'coll-annotation ' + (nextCrit ? 'bearish' : nextHigh ? 'warning' : 'neutral');
+  }
 
   const IL_TZ   = 'Asia/Jerusalem';
   const TYPE_CFG = {
@@ -944,6 +1344,7 @@ buildFX();
 buildFG();
 buildEarnings();
 buildPulseStrip();
+buildPolymarket();
 buildActionCenter();
 buildAllocTable();
 buildPortSummary();
@@ -951,7 +1352,9 @@ buildPortCards();
 buildSectors();
 buildCrypto();
 buildEvents();
+buildDrawer();
 buildFooter();
+restoreCards();
 </script>
 </body>
 </html>
