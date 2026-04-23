@@ -1246,6 +1246,8 @@ function buildActionCenter() {
     const zone = p.entry_zone ? `$${p.entry_zone[0]}–$${p.entry_zone[1]}` : '—';
     const isBuy = ['STRONG BUY','BUY'].includes(p.action);
     const isTrim = p.action === 'TRIM';
+    const isExit = p.action === 'EXIT';
+    const exitDetail = isExit ? `<div style="margin-top:6px;font-size:10px;padding:6px 8px;border-radius:6px;background:var(--r2);color:var(--r);line-height:1.5">🚪 ${p.reason || 'Below 200D MA — exit to protect capital'}${p.pnl_pct != null ? ` &nbsp;·&nbsp; P&L: <b>${p.pnl_pct > 0 ? '+' : ''}${p.pnl_pct}%</b>` : ''}</div>` : '';
     const holdType = p.class ? `<span style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(255,255,255,.07);margin-left:6px">${p.class.toUpperCase()} · ${horizonMap[p.class]||''}</span>` : '';
     const trimDetail = isTrim && p.trim_pct ? `<div style="margin-top:6px;font-size:10px;padding:6px 8px;border-radius:6px;background:var(--a2);color:var(--a)">✂️ Trim <b>${p.trim_pct}%</b> — ${p.trim_reason||''}</div>` : '';
     const conf = p.confidence;
@@ -1257,6 +1259,7 @@ function buildActionCenter() {
       <div class="acard-ticker">${p.ticker} ${p.risk ? `<span class="risk-badge ${riskClass(p.risk)}">${p.risk}</span>` : ''}</div>
       <div class="acard-price">$${p.price ? fmt(p.price) : '—'} · ${p.theme}</div>
       ${isTrim ? trimDetail : ''}
+      ${isExit ? exitDetail : ''}
       <div class="acard-row"><span>Target</span><b>${tgt}</b></div>
       <div class="acard-row"><span>Stop-loss</span><b>${sl}</b></div>
       <div class="acard-row"><span>Upside / R:R</span><b>${up} / ${rr}</b></div>
