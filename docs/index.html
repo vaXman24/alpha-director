@@ -1370,6 +1370,24 @@ function buildFooter() {
 }
 
 // ── Upcoming Events ────────────────────────────────────────────────────────
+function getReaction(ev) {
+  const t = ev.type || '';
+  const title = (ev.title || '').toUpperCase();
+  if (t === 'FOMC')
+    return '🛡️ <b>48h before:</b> max 25% size on any new entry (system rule). <b>Rate CUT</b> → add core ETFs on first dip, crypto bullish. <b>Rate HOLD</b> → hold positions, no new spec. <b>Rate HIKE</b> → trim spec immediately, raise cash.';
+  if (title.includes('CPI') || title.includes('CONSUMER PRICE'))
+    return '🌡️ <b>HOT (above expectations)</b> → Fed stays hawkish: trim spec, watch 200D for breaks. <b>COOL (below 3.0% YoY)</b> → rate cut signal, add growth on next EMA bounce. Wait 15 min after release before acting.';
+  if (title.includes('PCE'))
+    return '📉 Fed\'s <i>preferred</i> inflation gauge — more weight than CPI. <b>HOT PCE</b> → reduce spec exposure, no new buys. <b>COOL PCE</b> → strongest rate-cut signal, go risk-on next dip. Crypto also reacts strongly.';
+  if (title.includes('NONFARM') || title.includes('PAYROLL') || title.includes('NFP'))
+    return '💼 <b>Strong (+200k+)</b> → economy holds, bullish core & growth. <b>Very strong + low unemployment</b> → Fed stays hawkish, trim spec. <b>Weak (<100k)</b> → recession risk, cut spec, shift to core ETFs.';
+  if (title.includes('PPI') || title.includes('PRODUCER PRICE'))
+    return '📦 Leading indicator for CPI (1-2 months ahead). <b>HOT PPI</b> → pre-position defensively before next CPI: reduce spec. <b>COOL PPI</b> → inflation easing signal, maintain positions.';
+  if (t === 'EARNINGS')
+    return '📋 Key: EPS vs consensus, revenue growth, <b>forward guidance</b> (most important). <b>Beat + raised guidance above 200D</b> → buy the post-earnings dip. <b>Miss or cut guidance</b> → if position >15% loss, exit. Never hold a miss blindly.';
+  return '📌 Monitor release vs expectation. Wait 15 min for initial volatility before acting. Check if reaction aligns with your positions\' direction.';
+}
+
 function buildEvents() {
   const events = D.upcoming_events || [];
   const el = $('events-list');
@@ -1431,19 +1449,25 @@ function buildEvents() {
       lastDay = dayIL;
     }
 
-    html += `<div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid ${border};border-radius:8px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-      <div style="display:flex;align-items:center;gap:10px;min-width:0">
-        <span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;background:${tc.bg};color:${tc.color};letter-spacing:.5px">${tc.label}</span>
-        <div style="min-width:0">
-          <div style="font-size:${isCrit?'13px':isHigh?'12px':'11px'};font-weight:${isCrit?'800':isHigh?'700':'600'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
-            ${ev.title}${ev.ticker ? ` <span style="color:var(--b);font-size:10px">${ev.ticker}</span>` : ''}
+    html += `<div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid ${border};border-radius:8px;padding:10px 14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px;min-width:0">
+          <span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;background:${tc.bg};color:${tc.color};letter-spacing:.5px">${tc.label}</span>
+          <div style="min-width:0">
+            <div style="font-size:${isCrit?'13px':isHigh?'12px':'11px'};font-weight:${isCrit?'800':isHigh?'700':'600'};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
+              ${ev.title}${ev.ticker ? ` <span style="color:var(--b);font-size:10px">${ev.ticker}</span>` : ''}
+            </div>
+            ${ev.detail ? `<div style="font-size:10px;color:var(--t2);margin-top:1px">${ev.detail}</div>` : ''}
           </div>
-          ${ev.detail ? `<div style="font-size:10px;color:var(--t2);margin-top:1px">${ev.detail}</div>` : ''}
+        </div>
+        <div style="text-align:right;white-space:nowrap;flex-shrink:0">
+          <div style="font-size:11px;color:var(--t2)">${timeIL} IL</div>
+          <div style="font-size:11px;margin-top:2px">${countdown(diffMs)}</div>
         </div>
       </div>
-      <div style="text-align:right;white-space:nowrap;flex-shrink:0">
-        <div style="font-size:11px;color:var(--t2)">${timeIL} IL</div>
-        <div style="font-size:11px;margin-top:2px">${countdown(diffMs)}</div>
+      <div style="margin-top:8px;padding:6px 10px;background:rgba(68,138,255,.07);border-radius:6px;border-left:2px solid rgba(68,138,255,.4)">
+        <span style="font-size:9px;font-weight:700;letter-spacing:.5px;color:var(--b);text-transform:uppercase;margin-right:6px">How to react</span>
+        <span style="font-size:10px;color:var(--t2);line-height:1.5">${getReaction(ev)}</span>
       </div>
     </div>`;
   }
