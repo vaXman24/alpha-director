@@ -870,7 +870,8 @@ function buildPortSummary() {
 function buildPortCards() {
   const positions = D.portfolio.positions;
   $('port-grid').innerHTML = positions.map(p => {
-    const vclass = p.verdict.toLowerCase();
+    const verdict = p.verdict || (p.above_200 === true ? 'YES' : p.above_200 === false ? 'NO' : 'WAIT');
+    const vclass = verdict.toLowerCase();
     const pnlCap = Math.min(Math.max(p.pnl_pct, -100), 200);
     const barW   = Math.abs(pnlCap) / 2; // 0-100% width
     const barCol = p.pnl_pct >= 0 ? 'var(--g)' : 'var(--r)';
@@ -885,7 +886,7 @@ function buildPortCards() {
     const pePill = p.pe ? `<span class="pill">PE ${p.pe}x</span>` : '';
 
     // Analyst bar
-    const total = (p.buy_pct + p.hold_pct + p.sell_pct) || 1;
+    const total = ((p.buy_pct || 0) + (p.hold_pct || 0) + (p.sell_pct || 0)) || 1;
     const bPct  = Math.round(p.buy_pct / total * 100);
     const hPct  = Math.round(p.hold_pct / total * 100);
     const sPct  = 100 - bPct - hPct;
@@ -952,8 +953,8 @@ function buildPortCards() {
       ${targetRow}
 
       <div class="sc-bot">
-        <span class="verdict-badge ${vclass}">${p.verdict}</span>
-        <span style="font-size:10px;color:var(--t2)">${p.reason}</span>
+        <span class="verdict-badge ${vclass}">${verdict}</span>
+        <span style="font-size:10px;color:var(--t2)">${p.reason || ''}</span>
         ${p.action && p.action !== 'WAIT' && p.action !== 'AVOID' ?
           `<span style="margin-left:6px;font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;
             background:${p.action==='STRONG BUY'?'rgba(0,230,118,.15)':p.action==='BUY'?'rgba(0,180,216,.15)':p.action==='TRIM'?'rgba(255,215,64,.15)':'rgba(255,61,113,.15)'};
@@ -1061,7 +1062,9 @@ function buildSectors() {
       </div>`;
     }).join('') + `</div>`;
 
-  $('sector-grid').innerHTML = `<div style="display:flex;flex-direction:column;gap:0">${focusHtml}${leaderHtml}${heatHtml}</div>`;
+  const sg = $('sector-grid');
+  sg.style.display = 'block';
+  sg.innerHTML = focusHtml + leaderHtml + heatHtml;
 }
 
 // ── Crypto ────────────────────────────────────────────────────────────────
@@ -1578,10 +1581,11 @@ function updateMarketStatus() {
 
 // ── Init ───────────────────────────────────────────────────────────────────
 function _buildAll() {
-  buildTape(); buildRegime(); buildFX(); buildFG(); buildSP500Movers();
-  buildEarnings(); buildPulseStrip(); buildPolymarket(); buildActionCenter();
-  buildAllocTable(); buildPortSummary(); buildPortCards(); buildSectors();
-  buildCrypto(); buildInsiders(); buildEvents(); buildDrawer(); buildFooter();
+  const safe = fn => { try { fn(); } catch(e) { console.error('[AD]', fn.name, e.message); } };
+  safe(buildTape); safe(buildRegime); safe(buildFX); safe(buildFG); safe(buildSP500Movers);
+  safe(buildEarnings); safe(buildPulseStrip); safe(buildPolymarket); safe(buildActionCenter);
+  safe(buildAllocTable); safe(buildPortSummary); safe(buildPortCards); safe(buildSectors);
+  safe(buildCrypto); safe(buildInsiders); safe(buildEvents); safe(buildDrawer); safe(buildFooter);
 }
 _buildAll();   // render immediately with baked-in snapshot
 
