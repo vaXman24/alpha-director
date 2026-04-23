@@ -1,5 +1,5 @@
 {
-  "generated_at": "Thu 23 Apr 2026  22:28",
+  "generated_at": "Thu 23 Apr 2026  22:41",
   "regime": "RISK-ON",
   "macro_warn": "",
   "market": {
@@ -36,15 +36,8 @@
       "signal": "Normal"
     },
     "dxy": {
-      "price": 27.53,
-      "chg_1d": 0.18,
-      "above_50": true,
-      "above_200": true,
-      "sma50": 27.4458,
-      "sma200": 27.0021,
-      "rsi": 31.9,
-      "vol_ratio": 0.28,
-      "level": 27.53
+      "level": 27.53,
+      "chg_1d": null
     },
     "gold": {
       "price": 431.04,
@@ -72,13 +65,13 @@
       "t10y": null
     },
     "btc_regime": {
-      "btc_price": 78201,
-      "btc_chg_24h": -0.45,
+      "btc_price": 78255,
+      "btc_chg_24h": -0.39,
       "btc_dominance": 58.2,
       "eth_price": 2334.0,
-      "eth_chg_24h": -2.63,
+      "eth_chg_24h": -2.62,
       "eth_dominance": 10.5,
-      "eth_btc_ratio": 0.02985,
+      "eth_btc_ratio": 0.02983,
       "dom_signal": "BTC_SEASON"
     }
   },
@@ -106,7 +99,7 @@
         "vol_ratio": 0.7,
         "risk": "LOW",
         "verdict": "YES",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Monitoring \u2014 no clear signal yet",
         "allocation_usd": 0
       },
       {
@@ -131,7 +124,7 @@
         "vol_ratio": 0.72,
         "risk": "LOW",
         "verdict": "YES",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Monitoring \u2014 no clear signal yet",
         "allocation_usd": 0
       },
       {
@@ -156,7 +149,7 @@
         "vol_ratio": 0.39,
         "risk": "LOW",
         "verdict": "YES",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Monitoring \u2014 no clear signal yet",
         "allocation_usd": 0
       },
       {
@@ -181,7 +174,7 @@
         "vol_ratio": 0.54,
         "risk": "LOW",
         "verdict": "YES",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Monitoring \u2014 no clear signal yet",
         "allocation_usd": 0
       },
       {
@@ -206,7 +199,7 @@
         "vol_ratio": 0.88,
         "risk": "LOW",
         "verdict": "YES",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Monitoring \u2014 no clear signal yet",
         "allocation_usd": 0
       },
       {
@@ -234,7 +227,7 @@
         "vol_ratio": 0.73,
         "risk": "LOW",
         "verdict": "YES",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Monitoring \u2014 no clear signal yet",
         "allocation_usd": 0
       },
       {
@@ -250,7 +243,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": 1.7,
-        "action": "WAIT",
+        "action": "BUY",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -262,8 +255,8 @@
         "vol_ratio": 1.12,
         "risk": "MEDIUM",
         "verdict": "NO",
-        "reason": "Monitoring \u2014 no signal",
-        "allocation_usd": 0
+        "reason": "Above 50D before 200D cross \u2014 early recovery entry",
+        "allocation_usd": 1111.0
       },
       {
         "ticker": "META",
@@ -278,7 +271,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": 4.2,
-        "action": "WAIT",
+        "action": "BUY",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -290,8 +283,8 @@
         "vol_ratio": 0.66,
         "risk": "MEDIUM",
         "verdict": "NO",
-        "reason": "Monitoring \u2014 no signal",
-        "allocation_usd": 0
+        "reason": "Above 50D before 200D cross \u2014 early recovery entry",
+        "allocation_usd": 1111.0
       },
       {
         "ticker": "AMZN",
@@ -315,8 +308,8 @@
         "vol_ratio": 0.68,
         "risk": "LOW",
         "verdict": "YES",
-        "reason": "Above 200D \u2014 consider adding",
-        "allocation_usd": 3333.0
+        "reason": "Above 200D or recovering 50D \u2014 consider adding",
+        "allocation_usd": 1111.0
       },
       {
         "ticker": "AVGO",
@@ -340,8 +333,8 @@
         "vol_ratio": 0.85,
         "risk": "LOW",
         "verdict": "YES",
-        "reason": "Above 200D \u2014 consider adding",
-        "allocation_usd": 3333.0
+        "reason": "Above 200D or recovering 50D \u2014 consider adding",
+        "allocation_usd": 1111.0
       },
       {
         "ticker": "TSM",
@@ -365,8 +358,8 @@
         "vol_ratio": 0.85,
         "risk": "LOW",
         "verdict": "YES",
-        "reason": "Above 200D \u2014 consider adding",
-        "allocation_usd": 3333.0
+        "reason": "Above 200D or recovering 50D \u2014 consider adding",
+        "allocation_usd": 1111.0
       },
       {
         "ticker": "ORCL",
@@ -381,7 +374,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": -21.9,
-        "action": "EXIT",
+        "action": "WAIT",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -393,7 +386,7 @@
         "vol_ratio": 1.23,
         "risk": "MEDIUM",
         "verdict": "NO",
-        "reason": "Below 200D & deep loss \u2014 exit",
+        "reason": "Below 200D but above 50D \u2014 recovery in progress, hold",
         "allocation_usd": 0
       },
       {
@@ -409,7 +402,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": -8.3,
-        "action": "WAIT",
+        "action": "BUY",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -421,8 +414,8 @@
         "vol_ratio": 0.8,
         "risk": "HIGH",
         "verdict": "NO",
-        "reason": "Monitoring \u2014 no signal",
-        "allocation_usd": 0
+        "reason": "Above 50D before 200D cross \u2014 early recovery entry",
+        "allocation_usd": 1111.0
       },
       {
         "ticker": "PANW",
@@ -437,7 +430,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": -6.2,
-        "action": "WAIT",
+        "action": "BUY",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -449,8 +442,8 @@
         "vol_ratio": 0.86,
         "risk": "HIGH",
         "verdict": "NO",
-        "reason": "Monitoring \u2014 no signal",
-        "allocation_usd": 0
+        "reason": "Above 50D before 200D cross \u2014 early recovery entry",
+        "allocation_usd": 1111.0
       },
       {
         "ticker": "CEG",
@@ -477,7 +470,7 @@
         "vol_ratio": 0.89,
         "risk": "HIGH",
         "verdict": "NO",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Monitoring \u2014 no clear signal yet",
         "allocation_usd": 0
       },
       {
@@ -505,7 +498,7 @@
         "vol_ratio": 1.37,
         "risk": "HIGH",
         "verdict": "NO",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Monitoring \u2014 no clear signal yet",
         "allocation_usd": 0
       },
       {
@@ -521,7 +514,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": -44.1,
-        "action": "EXIT",
+        "action": "WAIT",
         "alert": [
           "danger",
           "DEEP LOSS"
@@ -533,7 +526,7 @@
         "vol_ratio": 1.36,
         "risk": "VERY HIGH",
         "verdict": "NO",
-        "reason": "Below 200D & deep loss \u2014 exit",
+        "reason": "Below 200D but above 50D \u2014 recovery in progress, hold",
         "allocation_usd": 0
       },
       {
@@ -558,7 +551,7 @@
         "vol_ratio": 1.58,
         "risk": "MEDIUM",
         "verdict": "YES",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Monitoring \u2014 no clear signal yet",
         "allocation_usd": 0
       },
       {
@@ -574,7 +567,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": -34.5,
-        "action": "EXIT",
+        "action": "WAIT",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -586,7 +579,7 @@
         "vol_ratio": 0.32,
         "risk": "HIGH",
         "verdict": "NO",
-        "reason": "Below 200D & deep loss \u2014 exit",
+        "reason": "Below 200D but above 50D \u2014 recovery in progress, hold",
         "allocation_usd": 0
       },
       {
@@ -602,7 +595,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": -32.6,
-        "action": "EXIT",
+        "action": "WAIT",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -614,7 +607,7 @@
         "vol_ratio": 1.19,
         "risk": "VERY HIGH",
         "verdict": "NO",
-        "reason": "Below 200D & deep loss \u2014 exit",
+        "reason": "Below 200D but above 50D \u2014 recovery in progress, hold",
         "allocation_usd": 0
       },
       {
@@ -630,7 +623,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": -33.2,
-        "action": "EXIT",
+        "action": "WAIT",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -642,7 +635,7 @@
         "vol_ratio": 1.01,
         "risk": "VERY HIGH",
         "verdict": "NO",
-        "reason": "Below 200D & deep loss \u2014 exit",
+        "reason": "Below 200D but above 50D \u2014 recovery in progress, hold",
         "allocation_usd": 0
       },
       {
@@ -658,7 +651,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": 11.6,
-        "action": "WAIT",
+        "action": "BUY",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -670,8 +663,8 @@
         "vol_ratio": 0.82,
         "risk": "VERY HIGH",
         "verdict": "NO",
-        "reason": "Monitoring \u2014 no signal",
-        "allocation_usd": 0
+        "reason": "Above 50D before 200D cross \u2014 early recovery entry",
+        "allocation_usd": 1111.0
       },
       {
         "ticker": "IONQ",
@@ -686,7 +679,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": 10.4,
-        "action": "WAIT",
+        "action": "BUY",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -698,8 +691,8 @@
         "vol_ratio": 1.12,
         "risk": "VERY HIGH",
         "verdict": "NO",
-        "reason": "Monitoring \u2014 no signal",
-        "allocation_usd": 0
+        "reason": "Above 50D before 200D cross \u2014 early recovery entry",
+        "allocation_usd": 1111.0
       },
       {
         "ticker": "BMNR",
@@ -714,7 +707,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": -28.8,
-        "action": "EXIT",
+        "action": "WAIT",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -726,7 +719,7 @@
         "vol_ratio": 0.76,
         "risk": "VERY HIGH",
         "verdict": "NO",
-        "reason": "Below 200D & deep loss \u2014 exit",
+        "reason": "Below 200D but above 50D \u2014 recovery in progress, hold",
         "allocation_usd": 0
       },
       {
@@ -751,7 +744,7 @@
         "vol_ratio": 0.61,
         "risk": "HIGH",
         "verdict": "YES",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Monitoring \u2014 no clear signal yet",
         "allocation_usd": 0
       },
       {
@@ -767,7 +760,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": -30.4,
-        "action": "EXIT",
+        "action": "WAIT",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -779,7 +772,7 @@
         "vol_ratio": 0.94,
         "risk": "VERY HIGH",
         "verdict": "NO",
-        "reason": "Below 200D & deep loss \u2014 exit",
+        "reason": "Below 200D but above 50D \u2014 recovery in progress, hold",
         "allocation_usd": 0
       },
       {
@@ -807,7 +800,7 @@
         "vol_ratio": 0.88,
         "risk": "VERY HIGH",
         "verdict": "NO",
-        "reason": "Monitoring \u2014 no signal",
+        "reason": "Below 200D but above 50D \u2014 recovery in progress, hold",
         "allocation_usd": 0
       },
       {
@@ -823,7 +816,7 @@
         "above_50": true,
         "above_200": false,
         "pnl_pct": -25.3,
-        "action": "EXIT",
+        "action": "WAIT",
         "alert": [
           "danger",
           "BELOW 200D"
@@ -835,7 +828,7 @@
         "vol_ratio": 0.78,
         "risk": "VERY HIGH",
         "verdict": "NO",
-        "reason": "Below 200D & deep loss \u2014 exit",
+        "reason": "Below 200D but above 50D \u2014 recovery in progress, hold",
         "allocation_usd": 0
       }
     ],
@@ -1015,9 +1008,9 @@
         "symbol": "SOL",
         "theme": "L1 / DeFi",
         "price": 86.14,
-        "chg_24h": -1.39,
-        "market_cap": 49565590105,
-        "vol_24h": 4002928015,
+        "chg_24h": -1.42,
+        "market_cap": 49595737510,
+        "vol_24h": 3975873196,
         "avg": 186.48,
         "qty": 69.71379,
         "value": 6005.0,
@@ -1028,9 +1021,9 @@
         "symbol": "XRP",
         "theme": "Payments / Ripple",
         "price": 1.44,
-        "chg_24h": 0.03,
-        "market_cap": 88548279379,
-        "vol_24h": 2476176677,
+        "chg_24h": 0.04,
+        "market_cap": 88543091898,
+        "vol_24h": 2544224301,
         "avg": 1.28,
         "qty": 3099.24882,
         "value": 4463.0,
@@ -1041,9 +1034,9 @@
         "symbol": "LINK",
         "theme": "Oracles",
         "price": 9.33,
-        "chg_24h": -0.62,
-        "market_cap": 6787516940,
-        "vol_24h": 300885091,
+        "chg_24h": -0.47,
+        "market_cap": 6782851034,
+        "vol_24h": 299883673,
         "avg": 14.95,
         "qty": 312.1347,
         "value": 2912.0,
@@ -1054,9 +1047,9 @@
         "symbol": "DOT",
         "theme": "Interoperability",
         "price": 1.24,
-        "chg_24h": -2.5,
-        "market_cap": 2085070849,
-        "vol_24h": 124148773,
+        "chg_24h": -2.49,
+        "market_cap": 2084500533,
+        "vol_24h": 124778939,
         "avg": 5.38,
         "qty": 917.1933,
         "value": 1137.0,
@@ -1066,49 +1059,49 @@
       {
         "symbol": "ALGO",
         "theme": "L1 / Payments",
-        "price": 0.1045,
-        "chg_24h": 0.76,
-        "market_cap": 929827883,
-        "vol_24h": 31066431,
+        "price": 0.1047,
+        "chg_24h": 1.05,
+        "market_cap": 932142514,
+        "vol_24h": 31244068,
         "avg": 0.2439,
         "qty": 8889,
-        "value": 929.0,
-        "pnl_pct": -57.2,
-        "pnl_label": "-57.2%"
+        "value": 930.0,
+        "pnl_pct": -57.1,
+        "pnl_label": "-57.1%"
       },
       {
         "symbol": "AAVE",
         "theme": "DeFi Lending",
-        "price": 94.63,
-        "chg_24h": -0.21,
-        "market_cap": 1438786211,
-        "vol_24h": 312765173,
+        "price": 94.72,
+        "chg_24h": -0.01,
+        "market_cap": 1437492912,
+        "vol_24h": 316124526,
         "avg": 279.92,
         "qty": 6.9444,
-        "value": 657.0,
+        "value": 658.0,
         "pnl_pct": -66.2,
         "pnl_label": "-66.2%"
       },
       {
         "symbol": "ONDO",
         "theme": "RWA Tokenization",
-        "price": 0.2613,
-        "chg_24h": -1.02,
-        "market_cap": 1272330412,
-        "vol_24h": 56346158,
+        "price": 0.2616,
+        "chg_24h": -0.7,
+        "market_cap": 1273650712,
+        "vol_24h": 56230419,
         "avg": 1.11,
         "qty": 2364,
         "value": 618.0,
-        "pnl_pct": -76.5,
-        "pnl_label": "-76.5%"
+        "pnl_pct": -76.4,
+        "pnl_label": "-76.4%"
       },
       {
         "symbol": "NEAR",
         "theme": "L1 / AI",
         "price": 1.41,
-        "chg_24h": -0.16,
-        "market_cap": 1820067214,
-        "vol_24h": 147055570,
+        "chg_24h": -0.33,
+        "market_cap": 1819003845,
+        "vol_24h": 146704014,
         "avg": 3.15,
         "qty": 376.699,
         "value": 531.0,
@@ -1118,10 +1111,10 @@
       {
         "symbol": "AVAX",
         "theme": "L1 / DeFi",
-        "price": 9.37,
-        "chg_24h": -0.91,
-        "market_cap": 4044541551,
-        "vol_24h": 246262932,
+        "price": 9.36,
+        "chg_24h": -0.86,
+        "market_cap": 4042443298,
+        "vol_24h": 238228693,
         "avg": 38.02,
         "qty": 25.9136,
         "value": 243.0,
@@ -1132,35 +1125,35 @@
         "symbol": "KAS",
         "theme": "PoW / Fast",
         "price": 0.0341,
-        "chg_24h": -1.06,
-        "market_cap": 933150702,
-        "vol_24h": 21203505,
+        "chg_24h": -1.0,
+        "market_cap": 934676004,
+        "vol_24h": 21039329,
         "avg": 0.13,
         "qty": 3076.923,
         "value": 105.0,
-        "pnl_pct": -73.8,
-        "pnl_label": "-73.8%"
+        "pnl_pct": -73.7,
+        "pnl_label": "-73.7%"
       },
       {
         "symbol": "HBAR",
         "theme": "Enterprise DLT",
-        "price": 0.0909,
-        "chg_24h": -0.3,
-        "market_cap": 3938039515,
-        "vol_24h": 62249228,
+        "price": 0.0908,
+        "chg_24h": -0.51,
+        "market_cap": 3932297409,
+        "vol_24h": 61589375,
         "avg": 0.235,
         "qty": 1150,
-        "value": 105.0,
-        "pnl_pct": -61.3,
-        "pnl_label": "-61.3%"
+        "value": 104.0,
+        "pnl_pct": -61.4,
+        "pnl_label": "-61.4%"
       },
       {
         "symbol": "DOGE",
         "theme": "Meme / Payments",
-        "price": 0.0976,
-        "chg_24h": 1.15,
-        "market_cap": 15024147143,
-        "vol_24h": 1546792003,
+        "price": 0.0974,
+        "chg_24h": 1.1,
+        "market_cap": 15002435092,
+        "vol_24h": 1539661769,
         "avg": 0.384,
         "qty": 611,
         "value": 60.0,
@@ -1174,28 +1167,132 @@
       "label": "Fear"
     },
     "btc_context": {
-      "btc_price": 78201,
-      "btc_chg_24h": -0.45,
+      "btc_price": 78255,
+      "btc_chg_24h": -0.39,
       "btc_dominance": 58.2,
       "eth_price": 2334.0,
-      "eth_chg_24h": -2.63,
+      "eth_chg_24h": -2.62,
       "eth_dominance": 10.5,
-      "eth_btc_ratio": 0.02985,
+      "eth_btc_ratio": 0.02983,
       "dom_signal": "BTC_SEASON"
-    }
+    },
+    "btc_price": 78255,
+    "btc_chg": -0.39,
+    "eth_price": 2334.0,
+    "eth_chg": -2.62
   },
   "fear_greed": {
     "score": 66,
     "label": "Greed",
     "signal": ""
   },
-  "earnings": {},
+  "upcoming_events": [
+    {
+      "utc": "2026-04-24T12:30:00+00:00",
+      "title": "PCE Deflator \u2014 Apr 2026",
+      "type": "MACRO",
+      "relevance": "HIGH",
+      "detail": "Fed's preferred inflation gauge \u2014 target 2.0% YoY"
+    },
+    {
+      "utc": "2026-05-01T12:30:00+00:00",
+      "title": "Nonfarm Payrolls (NFP)",
+      "type": "MACRO",
+      "relevance": "CRITICAL",
+      "detail": "US jobs report \u2014 expect sharp volatility"
+    },
+    {
+      "utc": "2026-05-07T18:00:00+00:00",
+      "title": "FOMC Rate Decision",
+      "type": "FOMC",
+      "relevance": "CRITICAL",
+      "detail": "Fed interest rate decision + press conference"
+    },
+    {
+      "utc": "2026-05-13T12:30:00+00:00",
+      "title": "CPI \u2014 May 2026",
+      "type": "MACRO",
+      "relevance": "CRITICAL",
+      "detail": "Core CPI YoY \u2014 above 3.5% hawkish, below 2.5% bullish"
+    },
+    {
+      "utc": "2026-05-29T12:30:00+00:00",
+      "title": "PCE Deflator \u2014 May 2026",
+      "type": "MACRO",
+      "relevance": "HIGH",
+      "detail": "Fed's preferred inflation gauge \u2014 target 2.0% YoY"
+    },
+    {
+      "utc": "2026-06-05T12:30:00+00:00",
+      "title": "Nonfarm Payrolls (NFP)",
+      "type": "MACRO",
+      "relevance": "CRITICAL",
+      "detail": "US jobs report \u2014 expect sharp volatility"
+    },
+    {
+      "utc": "2026-06-10T12:30:00+00:00",
+      "title": "CPI \u2014 Jun 2026",
+      "type": "MACRO",
+      "relevance": "CRITICAL",
+      "detail": "Core CPI YoY \u2014 above 3.5% hawkish, below 2.5% bullish"
+    },
+    {
+      "utc": "2026-06-18T18:00:00+00:00",
+      "title": "FOMC Rate Decision",
+      "type": "FOMC",
+      "relevance": "CRITICAL",
+      "detail": "Fed interest rate decision + press conference"
+    },
+    {
+      "utc": "2026-06-26T12:30:00+00:00",
+      "title": "PCE Deflator \u2014 Jun 2026",
+      "type": "MACRO",
+      "relevance": "HIGH",
+      "detail": "Fed's preferred inflation gauge \u2014 target 2.0% YoY"
+    },
+    {
+      "utc": "2026-07-30T18:00:00+00:00",
+      "title": "FOMC Rate Decision",
+      "type": "FOMC",
+      "relevance": "CRITICAL",
+      "detail": "Fed interest rate decision + press conference"
+    },
+    {
+      "utc": "2026-09-17T18:00:00+00:00",
+      "title": "FOMC Rate Decision",
+      "type": "FOMC",
+      "relevance": "CRITICAL",
+      "detail": "Fed interest rate decision + press conference"
+    },
+    {
+      "utc": "2026-10-29T19:00:00+00:00",
+      "title": "FOMC Rate Decision",
+      "type": "FOMC",
+      "relevance": "CRITICAL",
+      "detail": "Fed interest rate decision + press conference"
+    },
+    {
+      "utc": "2026-12-10T19:00:00+00:00",
+      "title": "FOMC Rate Decision",
+      "type": "FOMC",
+      "relevance": "CRITICAL",
+      "detail": "Fed interest rate decision + press conference"
+    }
+  ],
+  "earnings": {
+    "Mon": [],
+    "Tue": [],
+    "Wed": [],
+    "Thu": [],
+    "Fri": []
+  },
+  "insiders": [],
   "polymarket": {
     "markets": [],
     "bull_signal": null,
     "fed_cut_prob": null,
     "recession_prob": null,
     "btc_up_prob": null,
-    "fetched_at": "22:28"
+    "fetched_at": "22:42"
   }
 }
