@@ -1061,7 +1061,7 @@ function buildSectors() {
       </div>`;
     }).join('') + `</div>`;
 
-  $('sector-grid').innerHTML = focusHtml + leaderHtml + heatHtml;
+  $('sector-grid').innerHTML = `<div style="display:flex;flex-direction:column;gap:0">${focusHtml}${leaderHtml}${heatHtml}</div>`;
 }
 
 // ── Crypto ────────────────────────────────────────────────────────────────
@@ -1251,7 +1251,7 @@ function buildActionCenter() {
     const confBadge = conf != null ? `<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;background:${confCol}22;color:${confCol};border:1px solid ${confCol}44;margin-left:6px">${conf}% ${confLabel}</span>` : '';
     html += `<div class="acard ${actionCls(p.action)}">
       <div class="acard-action" style="color:${actionColor(p.action)}">${p.action}${isBuy ? holdType : ''}${confBadge}</div>
-      <div class="acard-ticker">${p.ticker} <span class="risk-badge ${riskClass(p.risk)}">${p.risk}</span></div>
+      <div class="acard-ticker">${p.ticker} ${p.risk ? `<span class="risk-badge ${riskClass(p.risk)}">${p.risk}</span>` : ''}</div>
       <div class="acard-price">$${p.price ? fmt(p.price) : '—'} · ${p.theme}</div>
       ${isTrim ? trimDetail : ''}
       <div class="acard-row"><span>Target</span><b>${tgt}</b></div>
@@ -1319,7 +1319,7 @@ function buildAllocTable() {
       </td>
       <td><b>$${(p.allocation_usd||0).toLocaleString()}</b></td>
       <td>${diff || '<span style="color:var(--t3);font-size:10px">first run</span>'}</td>
-      <td><span class="risk-badge ${p.risk==='LOW'?'low':p.risk==='MEDIUM'?'medium':p.risk==='VERY HIGH'?'very-high':'high'}">${p.risk}</span></td>
+      <td>${p.risk ? `<span class="risk-badge ${riskClass(p.risk)}">${p.risk}</span>` : '—'}</td>
       <td>${p.target ? '$' + fmt(p.target) : '—'}</td>
       <td>${p.stop_loss ? '$' + fmt(p.stop_loss) : '—'}</td>
       <td>${rr !== '—' ? rr + ':1' : '—'}</td>
