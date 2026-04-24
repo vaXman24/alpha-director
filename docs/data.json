@@ -1,15 +1,15 @@
 {
-  "generated_at": "Fri 24 Apr 2026  20:28",
+  "generated_at": "Fri 24 Apr 2026  20:35",
   "regime": "RISK-ON",
   "macro_warn": "",
   "market": {
     "spy": {
-      "price": 713.975,
-      "chg_1d": 0.78,
+      "price": 713.94,
+      "chg_1d": 0.77,
       "above_50": true,
       "above_200": true,
-      "sma50": 676.0703,
-      "sma200": 665.5209,
+      "sma50": 676.0696,
+      "sma200": 665.5207,
       "rsi": 87.4,
       "vol_ratio": 0.57
     },
@@ -24,15 +24,15 @@
       "vol_ratio": 0.8
     },
     "vix": {
-      "price": 18.73,
-      "chg_1d": -3.0,
+      "price": 18.71,
+      "chg_1d": -3.11,
       "above_50": false,
       "above_200": true,
-      "sma50": 22.5056,
-      "sma200": 18.2562,
+      "sma50": 22.5052,
+      "sma200": 18.2561,
       "rsi": 29.8,
       "vol_ratio": null,
-      "level": 18.73,
+      "level": 18.71,
       "signal": "Normal"
     },
     "dxy": {
@@ -41,12 +41,12 @@
       "price": 98.1
     },
     "gold": {
-      "price": 433.22,
+      "price": 433.25,
       "chg_1d": 0.51,
       "above_50": false,
       "above_200": true,
-      "sma50": 447.328,
-      "sma200": 388.6424,
+      "sma50": 447.3286,
+      "sma200": 388.6425,
       "rsi": 54.5,
       "vol_ratio": 0.64,
       "chg": 0.51
@@ -66,13 +66,13 @@
       "t10y": null
     },
     "btc_regime": {
-      "btc_price": 77511,
-      "btc_chg_24h": -0.31,
+      "btc_price": 77573,
+      "btc_chg_24h": -0.46,
       "btc_dominance": 58.1,
-      "eth_price": 2317.0,
-      "eth_chg_24h": -0.09,
+      "eth_price": 2320.0,
+      "eth_chg_24h": -0.17,
       "eth_dominance": 10.5,
-      "eth_btc_ratio": 0.02989,
+      "eth_btc_ratio": 0.02991,
       "dom_signal": "BTC_SEASON"
     }
   },
@@ -408,7 +408,7 @@
         "stop_loss": 146.33,
         "entry_zone": null,
         "rsi": 68.0,
-        "vol_ratio": 1.02,
+        "vol_ratio": 0.97,
         "risk": "MEDIUM",
         "verdict": "NO",
         "reason": "Below 200D but above 50D \u2014 recovery in progress, hold",
@@ -1177,8 +1177,8 @@
     {
       "ticker": "SPY",
       "theme": "Corporate",
-      "price": 713.975,
-      "chg_1d": 0.78,
+      "price": 713.94,
+      "chg_1d": 0.77,
       "above_50": true,
       "above_200": true,
       "action": "STRONG BUY",
@@ -1187,8 +1187,8 @@
       "upside_pct": null,
       "stop_loss": 665.52,
       "entry_zone": [
-        692.56,
-        713.98
+        692.52,
+        713.94
       ],
       "rsi": 87.4,
       "sma50": 676.07,
@@ -1664,8 +1664,8 @@
     {
       "ticker": "IPOS",
       "theme": "Corporate",
-      "price": 20.925,
-      "chg_1d": 0.55,
+      "price": 20.965,
+      "chg_1d": 0.74,
       "above_50": true,
       "above_200": true,
       "action": "STRONG BUY",
@@ -1674,10 +1674,10 @@
       "upside_pct": null,
       "stop_loss": 17.62,
       "entry_zone": [
-        20.3,
-        20.93
+        20.34,
+        20.96
       ],
-      "rsi": 77.7,
+      "rsi": 77.9,
       "sma50": 19.62,
       "sma200": 17.62,
       "catalyst": "IPO Lock-up Expirations",
@@ -1693,8 +1693,8 @@
     {
       "ticker": "FPX",
       "theme": "Corporate",
-      "price": 179.19,
-      "chg_1d": 0.28,
+      "price": 179.159,
+      "chg_1d": 0.26,
       "above_50": true,
       "above_200": true,
       "action": "STRONG BUY",
@@ -1703,8 +1703,8 @@
       "upside_pct": null,
       "stop_loss": 161.46,
       "entry_zone": [
-        173.81,
-        179.19
+        173.78,
+        179.16
       ],
       "rsi": 82.7,
       "sma50": 166.31,
@@ -2122,20 +2122,20 @@
     {
       "ticker": "XRT",
       "theme": "Industry",
-      "price": 85.78,
-      "chg_1d": -0.14,
+      "price": 85.79,
+      "chg_1d": -0.13,
       "above_50": true,
       "above_200": true,
       "action": "STRONG BUY",
       "reason": "Shanghai Containerized Freight Index predicts retail gross margins 2\u20133 months ahead. Spiking rates \u2192 inventory build \u2192 margin compression \u2192 retailer earnings misses.",
       "target": null,
       "upside_pct": null,
-      "stop_loss": 81.49,
+      "stop_loss": 81.5,
       "entry_zone": [
         83.47,
-        85.78
+        85.79
       ],
-      "rsi": 66.7,
+      "rsi": 66.8,
       "sma50": 83.47,
       "sma200": 84.14,
       "catalyst": "Shipping Container Rate Cycle (SCFI)",
@@ -2258,7 +2258,7 @@
     {
       "ticker": "GLD",
       "theme": "Macro",
-      "price": 433.22,
+      "price": 433.25,
       "chg_1d": 0.51,
       "above_50": false,
       "above_200": true,
@@ -2269,7 +2269,7 @@
       "stop_loss": 388.64,
       "entry_zone": [
         447.33,
-        433.22
+        433.25
       ],
       "rsi": 54.5,
       "sma50": 447.33,
@@ -2481,20 +2481,20 @@
     {
       "ticker": "NRG",
       "theme": "Bonus",
-      "price": 159.72,
-      "chg_1d": 3.36,
+      "price": 159.81,
+      "chg_1d": 3.42,
       "above_50": false,
       "above_200": true,
       "action": "BUY",
       "reason": "Hyperscaler CAPEX guidance and new cluster deployment announcements move the entire AI supply chain. 2026 trend: power infrastructure is the bottleneck \u2014 alpha shifts from chips to utilities and networking.",
       "target": 202.47,
-      "upside_pct": 26.8,
-      "stop_loss": 151.73,
+      "upside_pct": 26.7,
+      "stop_loss": 151.82,
       "entry_zone": [
         160.69,
-        159.72
+        159.81
       ],
-      "rsi": 59.4,
+      "rsi": 59.5,
       "sma50": 160.69,
       "sma200": 159.13,
       "catalyst": "AI Compute Capacity Milestones",
@@ -2559,23 +2559,23 @@
       {
         "symbol": "SOL",
         "theme": "L1 / DeFi",
-        "price": 86.31,
-        "chg_24h": 0.9,
-        "market_cap": 49717730184,
-        "vol_24h": 2988915276,
+        "price": 86.56,
+        "chg_24h": 1.16,
+        "market_cap": 49819073929,
+        "vol_24h": 3004425051,
         "avg": 186.48,
         "qty": 69.71379,
-        "value": 6017.0,
-        "pnl_pct": -53.7,
-        "pnl_label": "-53.7%"
+        "value": 6034.0,
+        "pnl_pct": -53.6,
+        "pnl_label": "-53.6%"
       },
       {
         "symbol": "XRP",
         "theme": "Payments / Ripple",
         "price": 1.44,
-        "chg_24h": 0.24,
-        "market_cap": 88421140623,
-        "vol_24h": 2221562318,
+        "chg_24h": 0.33,
+        "market_cap": 88452801949,
+        "vol_24h": 2217398597,
         "avg": 1.28,
         "qty": 3099.24882,
         "value": 4463.0,
@@ -2585,65 +2585,65 @@
       {
         "symbol": "LINK",
         "theme": "Oracles",
-        "price": 9.38,
-        "chg_24h": 1.01,
-        "market_cap": 6823679401,
-        "vol_24h": 215527440,
+        "price": 9.39,
+        "chg_24h": 1.14,
+        "market_cap": 6823796747,
+        "vol_24h": 215864311,
         "avg": 14.95,
         "qty": 312.1347,
-        "value": 2928.0,
-        "pnl_pct": -37.3,
-        "pnl_label": "-37.3%"
+        "value": 2931.0,
+        "pnl_pct": -37.2,
+        "pnl_label": "-37.2%"
       },
       {
         "symbol": "DOT",
         "theme": "Interoperability",
-        "price": 1.25,
+        "price": 1.26,
         "chg_24h": 2.12,
-        "market_cap": 2109720076,
-        "vol_24h": 113516795,
+        "market_cap": 2107489420,
+        "vol_24h": 112861103,
         "avg": 5.38,
         "qty": 917.1933,
-        "value": 1146.0,
-        "pnl_pct": -76.8,
-        "pnl_label": "-76.8%"
+        "value": 1156.0,
+        "pnl_pct": -76.6,
+        "pnl_label": "-76.6%"
       },
       {
         "symbol": "ALGO",
         "theme": "L1 / Payments",
-        "price": 0.1085,
-        "chg_24h": 5.3,
-        "market_cap": 967555462,
-        "vol_24h": 35811816,
+        "price": 0.1087,
+        "chg_24h": 5.48,
+        "market_cap": 967683201,
+        "vol_24h": 35895250,
         "avg": 0.2439,
         "qty": 8889,
-        "value": 964.0,
-        "pnl_pct": -55.5,
-        "pnl_label": "-55.5%"
+        "value": 966.0,
+        "pnl_pct": -55.4,
+        "pnl_label": "-55.4%"
       },
       {
         "symbol": "AAVE",
         "theme": "DeFi Lending",
-        "price": 94.45,
-        "chg_24h": 1.17,
-        "market_cap": 1434152755,
-        "vol_24h": 341906679,
+        "price": 94.68,
+        "chg_24h": 1.43,
+        "market_cap": 1434786135,
+        "vol_24h": 341858629,
         "avg": 279.92,
         "qty": 6.9444,
-        "value": 656.0,
-        "pnl_pct": -66.3,
-        "pnl_label": "-66.3%"
+        "value": 657.0,
+        "pnl_pct": -66.2,
+        "pnl_label": "-66.2%"
       },
       {
         "symbol": "ONDO",
         "theme": "RWA Tokenization",
-        "price": 0.2639,
-        "chg_24h": 1.95,
-        "market_cap": 1285286270,
-        "vol_24h": 43173135,
+        "price": 0.2643,
+        "chg_24h": 2.0,
+        "market_cap": 1286193156,
+        "vol_24h": 41664749,
         "avg": 1.11,
         "qty": 2364,
-        "value": 624.0,
+        "value": 625.0,
         "pnl_pct": -76.2,
         "pnl_label": "-76.2%"
       },
@@ -2651,9 +2651,9 @@
         "symbol": "NEAR",
         "theme": "L1 / AI",
         "price": 1.41,
-        "chg_24h": 1.1,
-        "market_cap": 1825675056,
-        "vol_24h": 126772551,
+        "chg_24h": 1.28,
+        "market_cap": 1825771903,
+        "vol_24h": 127579111,
         "avg": 3.15,
         "qty": 376.699,
         "value": 531.0,
@@ -2663,49 +2663,49 @@
       {
         "symbol": "AVAX",
         "theme": "L1 / DeFi",
-        "price": 9.4,
-        "chg_24h": 1.23,
-        "market_cap": 4061355391,
-        "vol_24h": 157879289,
+        "price": 9.41,
+        "chg_24h": 1.24,
+        "market_cap": 4062666327,
+        "vol_24h": 158427735,
         "avg": 38.02,
         "qty": 25.9136,
         "value": 244.0,
-        "pnl_pct": -75.3,
-        "pnl_label": "-75.3%"
+        "pnl_pct": -75.2,
+        "pnl_label": "-75.2%"
       },
       {
         "symbol": "KAS",
         "theme": "PoW / Fast",
         "price": 0.0339,
-        "chg_24h": -0.46,
-        "market_cap": 927679514,
-        "vol_24h": 16521043,
+        "chg_24h": -0.5,
+        "market_cap": 927333049,
+        "vol_24h": 16517390,
         "avg": 0.13,
         "qty": 3076.923,
         "value": 104.0,
-        "pnl_pct": -73.9,
-        "pnl_label": "-73.9%"
+        "pnl_pct": -74.0,
+        "pnl_label": "-74.0%"
       },
       {
         "symbol": "HBAR",
         "theme": "Enterprise DLT",
-        "price": 0.0913,
-        "chg_24h": 1.02,
-        "market_cap": 3954161892,
-        "vol_24h": 52550327,
+        "price": 0.0915,
+        "chg_24h": 1.29,
+        "market_cap": 3965828617,
+        "vol_24h": 53185213,
         "avg": 0.235,
         "qty": 1150,
         "value": 105.0,
-        "pnl_pct": -61.2,
-        "pnl_label": "-61.2%"
+        "pnl_pct": -61.0,
+        "pnl_label": "-61.0%"
       },
       {
         "symbol": "DOGE",
         "theme": "Meme / Payments",
-        "price": 0.0982,
-        "chg_24h": 1.85,
-        "market_cap": 15127401315,
-        "vol_24h": 1392536926,
+        "price": 0.0983,
+        "chg_24h": 1.87,
+        "market_cap": 15134568230,
+        "vol_24h": 1397775467,
         "avg": 0.384,
         "qty": 611,
         "value": 60.0,
@@ -2719,19 +2719,19 @@
       "label": "Fear"
     },
     "btc_context": {
-      "btc_price": 77511,
-      "btc_chg_24h": -0.31,
+      "btc_price": 77573,
+      "btc_chg_24h": -0.46,
       "btc_dominance": 58.1,
-      "eth_price": 2317.0,
-      "eth_chg_24h": -0.09,
+      "eth_price": 2320.0,
+      "eth_chg_24h": -0.17,
       "eth_dominance": 10.5,
-      "eth_btc_ratio": 0.02989,
+      "eth_btc_ratio": 0.02991,
       "dom_signal": "BTC_SEASON"
     },
-    "btc_price": 77511,
-    "btc_chg": -0.31,
-    "eth_price": 2317.0,
-    "eth_chg": -0.09
+    "btc_price": 77573,
+    "btc_chg": -0.46,
+    "eth_price": 2320.0,
+    "eth_chg": -0.17
   },
   "fear_greed": {
     "score": 66,
@@ -2838,6 +2838,6 @@
     "fed_cut_prob": null,
     "recession_prob": null,
     "btc_up_prob": null,
-    "fetched_at": "20:28"
+    "fetched_at": "20:35"
   }
 }
