@@ -1581,13 +1581,29 @@ function buildActionCenter() {
         const meta = _sectorMeta[sector] || { label: '📌 ' + sector, color: 'var(--t2)' };
         const gid  = 'cat-grp-' + idx;
 
-        // Clickable header — spans full grid width
-        html += `<div style="grid-column:1/-1;display:flex;align-items:center;gap:8px;margin-top:10px;padding:7px 12px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid var(--border);cursor:pointer;user-select:none;transition:background .15s"
+        // Next upcoming opp in this group (soonest catalyst_days or days_until)
+        const _nextOpp = [...grp].sort((a, b) => (a.catalyst_days ?? 999) - (b.catalyst_days ?? 999))[0];
+        const _nextDays   = _nextOpp?.catalyst_days ?? _nextOpp?.days_until;
+        const _nextLabel  = _nextDays === 0 ? 'TODAY' : _nextDays === 1 ? 'Tomorrow' : _nextDays != null ? `in ${_nextDays}d` : '';
+        const _nextUpside = _nextOpp?.upside_pct != null ? `+${_nextOpp.upside_pct}%` : '';
+        const _nextTicker = _nextOpp?.ticker || '';
+        const _nextCat    = _nextOpp?.catalyst || _nextOpp?.theme || '';
+
+        // Clickable header — spans full grid width, two-row layout with preview
+        html += `<div style="grid-column:1/-1;margin-top:10px;padding:8px 12px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid var(--border);cursor:pointer;user-select:none;transition:background .15s"
           onmouseover="this.style.background='rgba(255,255,255,.07)'" onmouseout="this.style.background='rgba(255,255,255,.04)'"
           onclick="(function(h){var g=document.getElementById('${gid}');var isHidden=g.style.display==='none';g.style.display=isHidden?'block':'none';h.querySelector('.cat-chev').textContent=isHidden?'▼':'▶'})(this)">
-          <span style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${meta.color}">${meta.label}</span>
-          <span style="font-size:9px;color:var(--t3)">${grp.length} opp${grp.length > 1 ? 's' : ''}</span>
-          <span class="cat-chev" style="margin-left:auto;font-size:10px;color:var(--t3)">▶</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${meta.color}">${meta.label}</span>
+            <span style="font-size:9px;color:var(--t3)">${grp.length} opp${grp.length > 1 ? 's' : ''}</span>
+            <span class="cat-chev" style="margin-left:auto;font-size:10px;color:var(--t3)">▶</span>
+          </div>
+          ${_nextOpp ? `<div style="display:flex;align-items:center;gap:10px;margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,.06)">
+            <span style="font-size:12px;font-weight:800;color:#e0e0e0">${_nextTicker}</span>
+            ${_nextCat ? `<span style="font-size:10px;color:var(--t2);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_nextCat}</span>` : ''}
+            ${_nextLabel ? `<span style="font-size:10px;font-weight:700;color:${_nextDays === 0 ? 'var(--r)' : _nextDays <= 3 ? 'var(--a)' : 'var(--g)'};flex-shrink:0">${_nextLabel}</span>` : ''}
+            ${_nextUpside ? `<span style="font-size:11px;font-weight:800;color:var(--g);flex-shrink:0">${_nextUpside}</span>` : ''}
+          </div>` : ''}
         </div>`;
 
         // Cards panel — hidden by default, spans full grid width, inner grid for cards
@@ -2136,7 +2152,7 @@ window._openStockModal = function(ticker) {
     // Held position block
     infoHtml += '<div class="sm-section-title">📊 Position</div>';
     var pRows = [
-      ['Class',      (pos.class || '').toUpperCase(), null],
+      ['Class',      (function(c){var label=(c||'').toUpperCase();var col=c==='core'?'#00e676':c==='swing'?'#ffd740':c==='spec'?'#ff3d71':'#888';return '<span style="background:'+col+'22;color:'+col+';border:1px solid '+col+'55;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:.3px">'+label+'</span>';})(pos.class), null],
       ['Avg Cost',   pos.avg  != null ? '$' + _smFmt(pos.avg) : null, null],
       ['Shares',     pos.shares != null ? pos.shares : null, null],
       ['Cost Basis', pos.cost  != null ? '$' + Math.round(pos.cost).toLocaleString()  : null, null],
