@@ -1925,9 +1925,18 @@ restoreCards();
 </div>
 
 <script>
-// ── Global data stores (populated by buildPortCards / buildActionCenter) ──
-window.__portPositions__ = {};
-window.__oppData__       = {};
+// ── Global data stores — use ||= pattern so repopulation never resets ─────
+if (!window.__portPositions__) window.__portPositions__ = {};
+if (!window.__oppData__)       window.__oppData__       = {};
+
+// ── Load TradingView widget library (once) ────────────────────────────────
+(function(){
+  var s = document.createElement('script');
+  s.src = 'https://s3.tradingview.com/tv.js';
+  s.async = true;
+  s.onload = function(){ window._tvReady = true; };
+  document.head.appendChild(s);
+})();
 
 // ── Panel toggle state ────────────────────────────────────────────────────
 var _smVis = { chart: true, info: true };
@@ -1935,156 +1944,278 @@ window._smToggle = function(panel) {
   _smVis[panel] = !_smVis[panel];
   document.getElementById('sm-btn-' + panel).classList.toggle('active', _smVis[panel]);
   var body = document.getElementById('stock-modal-body');
-  if (_smVis.chart && _smVis.info)  { body.className = ''; }
-  else if (_smVis.chart)            { body.className = 'chart-only'; }
-  else if (_smVis.info)             { body.className = 'info-only'; }
-  else                              { body.className = 'chart-only'; } // both off → show chart
+  if      (_smVis.chart && _smVis.info) body.className = '';
+  else if (_smVis.chart)                body.className = 'chart-only';
+  else if (_smVis.info)                 body.className = 'info-only';
+  else                                  body.className = 'chart-only';
 };
+
+// ── Helpers ───────────────────────────────────────────────────────────────
+function _smFmt(n, dec) { return n != null && !isNaN(n) ? Number(n).toFixed(dec || 2) : '—'; }
+function _smFmtP(n)     { return n != null && !isNaN(n) ? (n >= 0 ? '+' : '') + Number(n).toFixed(1) + '%' : '—'; }
+function _smFmtDate(iso){
+  try { var d = new Date(iso + 'T00:00:00'); return d.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}); }
+  catch(e){ return iso || ''; }
+}
+function _smActionColor(a){
+  return {STRONG_BUY:'#00e676',BUY:'#69f0ae',TRIM:'#ffd740',EXIT:'#ff3d71',WATCH:'#448aff'}[a] ||
+         (a==='STRONG BUY'?'#00e676':'#90a4ae');
+}
+function _smStatusColor(s){
+  return {live:'#ff3d71',imminent:'#ffd740',upcoming:'#69f0ae',monitor:'#448aff',future:'#90a4ae'}[s]||'#90a4ae';
+}
+function _smCatEmoji(c){
+  return {seasonal:'🌿',corporate:'🏢',industry:'⚙️',macro:'🌐',bonus:'⭐'}[c]||'📌';
+}
+
+// ── Build TradingView widget chart ────────────────────────────────────────
+function _buildTVChart(ticker) {
+  var panel = document.getElementById('sm-chart-panel');
+  panel.innerHTML = '';
+
+  var containerId = 'tv_sm_' + ticker + '_' + Date.now();
+  var div = document.createElement('div');
+  div.id = containerId;
+  div.style.cssText = 'width:100%;height:100%';
+  panel.appendChild(div);
+
+  function _init() {
+    new TradingView.widget({
+      container_id:      containerId,
+      symbol:            ticker,
+      interval:          'D',
+      timezone:          'Etc/UTC',
+      theme:             'dark',
+      style:             '1',
+      locale:            'en',
+      toolbar_bg:        '#0d0d0d',
+      enable_publishing: false,
+      allow_symbol_change: false,
+      save_image:        false,
+      withdateranges:    true,
+      hide_side_toolbar: false,
+      // SMA 50, SMA 200, RSI 14, MACD — matches Alpha Director signals
+      studies: [
+        { id: 'MASimple@tv-basicstudies', inputs: { length: 50  }, override: { 'Plot.color': '#ffd740', 'Plot.linewidth': 1 } },
+        { id: 'MASimple@tv-basicstudies', inputs: { length: 200 }, override: { 'Plot.color': '#ff3d71', 'Plot.linewidth': 1 } },
+        { id: 'RSI@tv-basicstudies',      inputs: { length: 14  } },
+        { id: 'MACD@tv-basicstudies' },
+      ],
+      overrides: {
+        'mainSeriesProperties.candleStyle.upColor':          '#00e676',
+        'mainSeriesProperties.candleStyle.downColor':        '#ff3d71',
+        'mainSeriesProperties.candleStyle.borderUpColor':    '#00e676',
+        'mainSeriesProperties.candleStyle.borderDownColor':  '#ff3d71',
+        'mainSeriesProperties.candleStyle.wickUpColor':      '#00e676',
+        'mainSeriesProperties.candleStyle.wickDownColor':    '#ff3d71',
+      },
+      loading_screen: { backgroundColor: '#0d0d0d', foregroundColor: '#1e1e1e' },
+    });
+  }
+
+  // If tv.js is ready, init immediately; otherwise poll
+  if (window._tvReady && typeof TradingView !== 'undefined') {
+    _init();
+  } else {
+    var attempts = 0;
+    var poll = setInterval(function(){
+      if (typeof TradingView !== 'undefined') { clearInterval(poll); _init(); }
+      else if (++attempts > 30)               { clearInterval(poll); }
+    }, 200);
+  }
+}
 
 // ── Open stock modal ──────────────────────────────────────────────────────
 window._openStockModal = function(ticker) {
   ticker = (ticker || '').toUpperCase();
-  var pos  = (window.__portPositions__ || {})[ticker];
-  var opp  = (window.__oppData__       || {})[ticker];
-  var d    = pos || opp || {};
 
-  // Related catalyst events
+  // Primary: look up pre-populated stores
+  var pos = (window.__portPositions__ || {})[ticker];
+  var opp = (window.__oppData__       || {})[ticker];
+
+  // Fallback: read directly from D (D is let-declared in main script, accessible here)
+  try {
+    if (!pos) {
+      var allPos = D.portfolio.positions || [];
+      pos = allPos.find(function(p){ return (p.ticker||'').toUpperCase() === ticker; }) || null;
+      if (pos) window.__portPositions__[ticker] = pos;   // cache it
+    }
+    if (!opp) {
+      var allOpps = D.outside_opps || [];
+      opp = allOpps.find(function(p){ return (p.ticker||'').toUpperCase() === ticker; }) || null;
+      if (opp) window.__oppData__[ticker] = opp;
+    }
+  } catch(e) { /* D not ready */ }
+
+  var d = pos || opp || {};
+
+  // Related catalyst events from calendar.js store
   var cats = (window.__catEvents__ || [])
-    .filter(function(ev){ return (ev.instruments||[]).map(function(t){return t.toUpperCase();}).indexOf(ticker) !== -1; })
-    .sort(function(a,b){ return new Date(a.date) - new Date(b.date); });
+    .filter(function(ev){
+      return (ev.instruments || []).some(function(t){ return t.toUpperCase() === ticker; });
+    })
+    .sort(function(a, b){ return new Date(a.date) - new Date(b.date); });
 
-  var fmt2 = function(n,dec){ return n != null ? Number(n).toFixed(dec||2) : '—'; };
-  var fmtP = function(n){ return n != null ? (n>=0?'+':'') + Number(n).toFixed(1) + '%' : '—'; };
-  var fmtD = function(iso){
-    try{ var d=new Date(iso+'T00:00:00'); return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
-    catch(e){ return iso; }
-  };
-  var ac   = function(a){ return a==='STRONG BUY'?'#00e676':a==='BUY'?'#69f0ae':a==='TRIM'?'#ffd740':a==='EXIT'?'#ff3d71':'#90a4ae'; };
-  var sc   = function(s){ return {live:'#ff3d71',imminent:'#ffd740',upcoming:'#69f0ae',monitor:'#448aff',future:'#90a4ae'}[s]||'#90a4ae'; };
-  var ce   = function(c){ return {seasonal:'🌿',corporate:'🏢',industry:'⚙️',macro:'🌐',bonus:'⭐'}[c]||'📌'; };
+  // Market-level data — D is let but accessible across script tags in same page
+  var _vixLevel = null, _regime = '—';
+  try { _vixLevel = D.market.vix.level || D.market.vix.price || null; } catch(e){}
+  try { _regime   = D.regime || '—'; } catch(e){}
+  var _vixNum  = _vixLevel != null ? Number(_vixLevel) : null;
+  var _vixCol  = _vixNum != null ? (_vixNum >= 28 ? '#ff3d71' : _vixNum >= 18 ? '#ffd740' : '#00e676') : '#90a4ae';
+  var _regCol  = _regime === 'RISK-ON' ? '#00e676' : _regime === 'RISK-OFF' ? '#ff3d71' : '#ffd740';
 
-  var action    = d.action || 'WATCH';
-  var acColor   = ac(action);
-  var price     = d.price;
-  var chg1d     = d.chg_1d;
-  var pnlPct    = (pos && pos.pnl_pct != null) ? pos.pnl_pct : null;
-  var chgColor  = chg1d != null ? (chg1d >= 0 ? '#00e676' : '#ff3d71') : '#90a4ae';
-  var pnlColor  = pnlPct != null ? (pnlPct >= 0 ? '#00e676' : '#ff3d71') : '#90a4ae';
-  var vix       = (window.D && window.D.market && window.D.market.vix) ? (window.D.market.vix.level || window.D.market.vix.price) : null;
-  var regime    = (window.D && window.D.regime) ? window.D.regime : '—';
-  var vixColor  = vix ? (vix >= 28 ? '#ff3d71' : vix >= 18 ? '#ffd740' : '#00e676') : '#90a4ae';
+  var _action   = d.action  || 'WATCH';
+  var _acColor  = _smActionColor(_action);
+  var _price    = d.price;
+  var _chg1d    = d.chg_1d;
+  var _pnlPct   = (pos && pos.pnl_pct != null) ? pos.pnl_pct : null;
+  var _chgCol   = _chg1d != null ? (_chg1d >= 0 ? '#00e676' : '#ff3d71') : '#90a4ae';
+  var _pnlCol   = _pnlPct != null ? (_pnlPct >= 0 ? '#00e676' : '#ff3d71') : '#90a4ae';
 
   // ── Header ────────────────────────────────────────────────────────────────
   var titleEl = document.getElementById('stock-modal-title');
-  titleEl.innerHTML = ticker +
-    (price != null ? ' <span style="font-size:16px;font-weight:500;color:#aaa">$' + fmt2(price) + '</span>' : '') +
-    (chg1d != null ? ' <span style="font-size:13px;font-weight:700;color:' + chgColor + '">' + fmtP(chg1d) + '</span>' : '') +
-    ' <span class="sm-badge" style="background:' + acColor + '22;color:' + acColor + ';border:1px solid ' + acColor + '44">' + action + '</span>' +
-    (pnlPct != null ? ' <span class="sm-badge" style="background:' + pnlColor + '22;color:' + pnlColor + ';border:1px solid ' + pnlColor + '44">P&L ' + fmtP(pnlPct) + '</span>' : '');
+  titleEl.innerHTML =
+    '<b>' + ticker + '</b>' +
+    (_price != null ? ' <span style="font-size:15px;font-weight:400;color:#aaa">$' + _smFmt(_price) + '</span>' : '') +
+    (_chg1d != null ? ' <span style="font-size:12px;font-weight:700;color:' + _chgCol + '">' + _smFmtP(_chg1d) + '</span>' : '') +
+    ' <span class="sm-badge" style="background:' + _acColor + '22;color:' + _acColor + ';border:1px solid ' + _acColor + '44">' + _action + '</span>' +
+    (_pnlPct != null ? ' <span class="sm-badge" style="background:' + _pnlCol + '22;color:' + _pnlCol + ';border:1px solid ' + _pnlCol + '44">P&L ' + _smFmtP(_pnlPct) + '</span>' : '');
 
   // ── Metrics bar ───────────────────────────────────────────────────────────
+  var _rsi    = d.rsi    != null ? Number(d.rsi)    : null;
+  var _rsiCol = _rsi != null ? (_rsi > 70 ? '#ff3d71' : _rsi < 30 ? '#00e676' : '#ccc') : '#ccc';
+  var _a50    = d.above_50;
+  var _a200   = d.above_200;
+  var _upside = d.upside_pct != null ? Number(d.upside_pct) : null;
+
   var metrics = [
-    ['TARGET',   d.target    ? '$' + fmt2(d.target)                : '—',  '#ccc'],
-    ['UPSIDE',   d.upside_pct != null ? fmtP(d.upside_pct)        : '—',  d.upside_pct > 0 ? '#00e676' : '#ff3d71'],
-    ['STOP',     d.stop_loss  ? '$' + fmt2(d.stop_loss)            : '—',  '#ff3d71'],
-    ['ENTRY',    d.entry_zone ? '$' + fmt2(d.entry_zone[0]) + '–$' + fmt2(d.entry_zone[1]) : '—', '#69f0ae'],
-    ['RSI',      d.rsi != null ? fmt2(d.rsi, 1)                    : '—',  d.rsi > 70 ? '#ff3d71' : d.rsi < 30 ? '#00e676' : '#ccc'],
-    ['SMA50',    d.above_50  != null ? (d.above_50  ? 'ABOVE ✓' : 'BELOW ✗') : '—', d.above_50  ? '#00e676' : '#ff3d71'],
-    ['SMA200',   d.above_200 != null ? (d.above_200 ? 'ABOVE ✓' : 'BELOW ✗') : '—', d.above_200 ? '#00e676' : '#ff3d71'],
-    ['VIX',      vix != null ? fmt2(vix, 1)                        : '—',  vixColor],
-    ['REGIME',   regime,                                                    regime==='RISK-ON'?'#00e676':regime==='RISK-OFF'?'#ff3d71':'#ffd740'],
+    ['TARGET', d.target    ? '$' + _smFmt(d.target)                            : '—', '#ccc'],
+    ['UPSIDE', _upside != null ? _smFmtP(_upside)                              : '—', _upside != null && _upside > 0 ? '#00e676' : '#ff3d71'],
+    ['STOP',   d.stop_loss ? '$' + _smFmt(d.stop_loss)                         : '—', '#ff3d71'],
+    ['ENTRY',  d.entry_zone ? '$' + _smFmt(d.entry_zone[0]) + '–$' + _smFmt(d.entry_zone[1]) : '—', '#69f0ae'],
+    ['RSI',    _rsi != null ? _smFmt(_rsi, 1)                                   : '—', _rsiCol],
+    ['SMA 50', _a50  != null ? (_a50  ? 'ABOVE ✓' : 'BELOW ✗')                 : '—', _a50  ? '#00e676' : '#ff3d71'],
+    ['SMA 200',_a200 != null ? (_a200 ? 'ABOVE ✓' : 'BELOW ✗')                 : '—', _a200 ? '#00e676' : '#ff3d71'],
+    ['VIX',    _vixNum != null ? _smFmt(_vixNum, 1)                             : '—', _vixCol],
+    ['REGIME', _regime,                                                                 _regCol],
   ];
-  var mHtml = metrics.map(function(m){
+  document.getElementById('stock-modal-metrics').innerHTML = metrics.map(function(m){
     return '<div class="sm-metric"><span class="sm-metric-label">' + m[0] +
            '</span><span class="sm-metric-value" style="color:' + m[2] + '">' + m[1] + '</span></div>';
   }).join('');
-  document.getElementById('stock-modal-metrics').innerHTML = mHtml;
 
-  // ── TradingView chart ─────────────────────────────────────────────────────
-  var studies = encodeURIComponent(JSON.stringify(['RSI@tv-basicstudies','MACD@tv-basicstudies']));
-  var tvSrc   = 'https://s.tradingview.com/widgetembed/?frameElementId=tv_sm_' + ticker +
-                '&symbol=' + encodeURIComponent(ticker) +
-                '&interval=D&hidesidetoolbar=0&saveimage=0&toolbarbg=1' +
-                '&studies=' + studies +
-                '&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&locale=en';
-  document.getElementById('sm-chart-panel').innerHTML =
-    '<iframe src="' + tvSrc + '" allowtransparency="true" scrolling="no" frameborder="0" style="width:100%;height:100%;display:block"></iframe>';
+  // ── TradingView chart (JS widget: SMA50 amber, SMA200 red, RSI, MACD) ─────
+  _buildTVChart(ticker);
 
   // ── Info panel ────────────────────────────────────────────────────────────
-  var infoEl = document.getElementById('sm-info-panel');
+  var infoEl  = document.getElementById('sm-info-panel');
   var infoHtml = '';
 
-  // Position block
   if (pos) {
+    // Held position block
     infoHtml += '<div class="sm-section-title">📊 Position</div>';
     var pRows = [
-      ['Class',      (pos.class||'').toUpperCase()],
-      ['Avg Cost',   pos.avg != null ? '$' + fmt2(pos.avg) : null],
-      ['Shares',     pos.shares != null ? pos.shares : null],
-      ['Cost Basis', pos.cost  != null ? '$' + Number(pos.cost).toLocaleString('en-US',{maximumFractionDigits:0}) : null],
-      ['Mkt Value',  pos.value != null ? '$' + Number(pos.value).toLocaleString('en-US',{maximumFractionDigits:0}) : null],
-      ['P&L',        pnlPct != null ? fmtP(pnlPct) : null, pnlColor],
-      ['Risk',       pos.risk || null],
-      ['Verdict',    pos.verdict || null],
+      ['Class',      (pos.class || '').toUpperCase(), null],
+      ['Avg Cost',   pos.avg  != null ? '$' + _smFmt(pos.avg) : null, null],
+      ['Shares',     pos.shares != null ? pos.shares : null, null],
+      ['Cost Basis', pos.cost  != null ? '$' + Math.round(pos.cost).toLocaleString()  : null, null],
+      ['Mkt Value',  pos.value != null ? '$' + Math.round(pos.value).toLocaleString() : null, null],
+      ['P&L',        _pnlPct != null ? _smFmtP(_pnlPct) : null, _pnlCol],
+      ['Risk',       pos.risk || null, null],
+      ['Verdict',    pos.verdict || null, null],
     ];
-    if (pos.allocation_usd) pRows.push(['DCA Alloc', '$' + pos.allocation_usd.toLocaleString('en-US',{maximumFractionDigits:0}) + '/mo', '#00e676']);
+    if (pos.allocation_usd) pRows.push(['DCA / month', '$' + Math.round(pos.allocation_usd).toLocaleString(), '#00e676']);
+    if (d.stop_loss)  pRows.push(['Stop-loss', '$' + _smFmt(d.stop_loss), '#ff3d71']);
+    if (d.target)     pRows.push(['Target',    '$' + _smFmt(d.target), '#ccc']);
+    if (_upside != null) pRows.push(['Upside', _smFmtP(_upside), _upside > 0 ? '#00e676' : '#ff3d71']);
+
     pRows.forEach(function(r){
       if (r[1] == null) return;
-      infoHtml += '<div class="sm-row"><span class="sm-row-label">' + r[0] + '</span><span class="sm-row-value"' + (r[2]?' style="color:' + r[2] + '"':'') + '>' + r[1] + '</span></div>';
+      infoHtml += '<div class="sm-row"><span class="sm-row-label">' + r[0] + '</span>' +
+                  '<span class="sm-row-value"' + (r[2] ? ' style="color:' + r[2] + '"' : '') + '>' + r[1] + '</span></div>';
     });
     if (pos.reason) infoHtml += '<div style="font-size:10px;color:#777;margin-top:6px;line-height:1.4">' + pos.reason + '</div>';
-    if (pos.alert)  infoHtml += '<div style="margin-top:6px;padding:5px 9px;border-radius:5px;background:' + (pos.alert[0]==='danger'?'rgba(255,61,113,.12)':'rgba(255,215,64,.1)') + ';color:' + (pos.alert[0]==='danger'?'#ff3d71':'#ffd740') + ';font-size:10px;font-weight:700">⚠ ' + pos.alert[1] + '</div>';
+    if (pos.alert)  infoHtml += '<div style="margin-top:6px;padding:5px 9px;border-radius:5px;background:' +
+      (pos.alert[0] === 'danger' ? 'rgba(255,61,113,.12)' : 'rgba(255,215,64,.1)') +
+      ';color:' + (pos.alert[0] === 'danger' ? '#ff3d71' : '#ffd740') +
+      ';font-size:10px;font-weight:700">⚠ ' + pos.alert[1] + '</div>';
   } else if (opp) {
+    // Watchlist / catalyst opportunity block
     infoHtml += '<div class="sm-section-title">💡 Opportunity</div>';
-    infoHtml += '<div style="font-size:11px;color:#aaa;line-height:1.4">' + (opp.theme || 'Watchlist / Catalyst opportunity') + '</div>';
-    if (d.entry_zone) infoHtml += '<div class="sm-row" style="margin-top:8px"><span class="sm-row-label">Entry Zone</span><span class="sm-row-value" style="color:#69f0ae">$' + fmt2(d.entry_zone[0]) + '–$' + fmt2(d.entry_zone[1]) + '</span></div>';
-    if (d.stop_loss)  infoHtml += '<div class="sm-row"><span class="sm-row-label">Stop-loss</span><span class="sm-row-value" style="color:#ff3d71">$' + fmt2(d.stop_loss) + '</span></div>';
+    infoHtml += '<div style="font-size:11px;color:#aaa;line-height:1.4;margin-bottom:6px">' + (opp.theme || 'Watchlist / Catalyst opportunity') + '</div>';
+    var oppRows = [
+      ['Action',     _action, _acColor],
+      ['Price',      _price != null ? '$' + _smFmt(_price) : null, null],
+      ['Target',     d.target ? '$' + _smFmt(d.target) : null, '#ccc'],
+      ['Upside',     _upside != null ? _smFmtP(_upside) : null, _upside > 0 ? '#00e676' : '#ff3d71'],
+      ['Stop-loss',  d.stop_loss ? '$' + _smFmt(d.stop_loss) : null, '#ff3d71'],
+      ['Entry zone', d.entry_zone ? '$' + _smFmt(d.entry_zone[0]) + '–$' + _smFmt(d.entry_zone[1]) : null, '#69f0ae'],
+      ['RSI',        _rsi != null ? _smFmt(_rsi, 1) : null, _rsiCol],
+      ['SMA 50',     _a50  != null ? (_a50  ? 'ABOVE ✓' : 'BELOW ✗') : null, _a50  ? '#00e676' : '#ff3d71'],
+      ['SMA 200',    _a200 != null ? (_a200 ? 'ABOVE ✓' : 'BELOW ✗') : null, _a200 ? '#00e676' : '#ff3d71'],
+    ];
+    oppRows.forEach(function(r){
+      if (r[1] == null) return;
+      infoHtml += '<div class="sm-row"><span class="sm-row-label">' + r[0] + '</span>' +
+                  '<span class="sm-row-value"' + (r[2] ? ' style="color:' + r[2] + '"' : '') + '>' + r[1] + '</span></div>';
+    });
+    if (opp.reason) infoHtml += '<div style="font-size:10px;color:#777;margin-top:6px;line-height:1.4">' + opp.reason + '</div>';
   }
 
-  // Open on TradingView link
-  infoHtml += '<a class="sm-open-tv" href="https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(ticker) + '" target="_blank" rel="noopener">↗ Open full chart on TradingView</a>';
+  // Unknown ticker
+  if (!pos && !opp) {
+    infoHtml += '<div class="sm-section-title">📌 ' + ticker + '</div>';
+    infoHtml += '<div style="font-size:11px;color:#666">Not in portfolio or watchlist.</div>';
+  }
 
-  // Catalyst events (from __catEvents__)
+  // Open-on-TradingView link (strategies only visible when logged in there)
+  infoHtml += '<a class="sm-open-tv" href="https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(ticker) + '" target="_blank" rel="noopener">↗ Open on TradingView (full chart + your Pine strategies)</a>';
+
+  // Catalyst events
   if (cats.length) {
-    infoHtml += '<div class="sm-section-title" style="margin-top:4px">⚡ Catalyst Events (' + cats.length + ')</div>';
+    infoHtml += '<div class="sm-section-title" style="margin-top:8px">⚡ Catalyst Events (' + cats.length + ')</div>';
     cats.slice(0, 6).forEach(function(ev){
-      var days = Math.round((new Date(ev.date + 'T00:00:00') - new Date()) / 86400000);
-      var status = days <= 0 ? 'live' : days <= 3 ? 'imminent' : days <= 14 ? 'upcoming' : days <= 60 ? 'monitor' : 'future';
-      var statusCol = sc(status);
-      var dLabel = days <= 0 ? 'TODAY' : 'in ' + days + 'd';
+      var days    = Math.round((new Date(ev.date + 'T00:00:00') - new Date()) / 86400000);
+      var status  = days <= 0 ? 'live' : days <= 3 ? 'imminent' : days <= 14 ? 'upcoming' : days <= 60 ? 'monitor' : 'future';
+      var sCol    = _smStatusColor(status);
+      var dLabel  = days <= 0 ? 'TODAY' : 'in ' + days + 'd';
       infoHtml += '<div class="sm-cat-item">' +
-        '<div class="sm-cat-item-name">' + ce(ev.category) + ' ' + ev.name + '</div>' +
-        '<div class="sm-cat-item-meta"><span style="color:' + statusCol + ';font-weight:700">' + dLabel + '</span> · ' + fmtD(ev.date) +
-        (ev.trade_type ? ' · ' + ev.trade_type : '') +
-        (ev.confidence ? ' · ' + ev.confidence + '/10 conf' : '') + '</div>' +
-        (ev.why ? '<div style="font-size:10px;color:#777;margin-top:4px;line-height:1.4">' + ev.why.substring(0, 150) + (ev.why.length > 150 ? '…' : '') + '</div>' : '') +
-        (ev.id && window.openCatModal ? '<div class="sm-cat-btn" onclick="window._openCatById(\'' + ev.id + '\')">Open full playbook ↗</div>' : '') +
+        '<div class="sm-cat-item-name">' + _smCatEmoji(ev.category) + ' ' + ev.name + '</div>' +
+        '<div class="sm-cat-item-meta"><span style="color:' + sCol + ';font-weight:700">' + dLabel + '</span>' +
+        ' · ' + _smFmtDate(ev.date) +
+        (ev.trade_type  ? ' · ' + ev.trade_type        : '') +
+        (ev.confidence  ? ' · ' + ev.confidence + '/10': '') + '</div>' +
+        (ev.why ? '<div style="font-size:10px;color:#777;margin-top:4px;line-height:1.4">' +
+          ev.why.substring(0, 160) + (ev.why.length > 160 ? '…' : '') + '</div>' : '') +
+        (ev.id ? '<div class="sm-cat-btn" onclick="window._openCatById(\'' + ev.id + '\')">Open full playbook ↗</div>' : '') +
         '</div>';
     });
   } else {
-    infoHtml += '<div class="sm-section-title" style="margin-top:4px">⚡ Catalyst Events</div><div style="font-size:11px;color:#444">No upcoming catalyst events for this ticker.</div>';
+    infoHtml += '<div class="sm-section-title" style="margin-top:8px">⚡ Catalyst Events</div>' +
+                '<div style="font-size:11px;color:#444;padding:4px 0">No upcoming catalysts for this ticker.</div>';
   }
 
-  // Rules
-  infoHtml += '<div class="sm-section-title" style="margin-top:4px">📋 Rules</div><div class="sm-rule-chips">';
-  var vixBlock   = vix && vix >= 28;
-  var below200nB = d.above_200 === false && (action === 'BUY' || action === 'STRONG BUY');
-  var trimSig    = pnlPct != null && pnlPct >= 50;
-  infoHtml += '<span class="sm-chip ' + (vixBlock   ? 'sm-chip-bad'  : 'sm-chip-ok') + '">' + (vixBlock   ? '⛔ VIX ≥28 — No buys' : '✓ VIX OK') + '</span>';
-  infoHtml += '<span class="sm-chip ' + (below200nB ? 'sm-chip-bad'  : 'sm-chip-ok') + '">' + (below200nB ? '⛔ Below 200D' : '✓ MA check') + '</span>';
-  infoHtml += '<span class="sm-chip ' + (trimSig    ? 'sm-chip-warn' : 'sm-chip-ok') + '">' + (trimSig    ? '⚠ P&L ≥50% — Trim' : '✓ Size OK') + '</span>';
-  if (d.above_200 === false) infoHtml += '<span class="sm-chip sm-chip-bad">⛔ Below 200D — no avg down on SPEC</span>';
+  // Rules chips
+  infoHtml += '<div class="sm-section-title" style="margin-top:8px">📋 Rules</div><div class="sm-rule-chips">';
+  var _vixBlk  = _vixNum != null && _vixNum >= 28;
+  var _blw200  = _a200 === false && (_action === 'BUY' || _action === 'STRONG BUY');
+  var _trimSig = _pnlPct != null && _pnlPct >= 50;
+  infoHtml += '<span class="sm-chip ' + (_vixBlk  ? 'sm-chip-bad'  : 'sm-chip-ok') + '">' +
+              (_vixBlk  ? '⛔ VIX ≥28 — No buys'      : '✓ VIX ' + (_vixNum != null ? _smFmt(_vixNum,1) : '—') + ' OK') + '</span>';
+  infoHtml += '<span class="sm-chip ' + (_blw200   ? 'sm-chip-bad'  : 'sm-chip-ok') + '">' +
+              (_blw200  ? '⛔ Below 200D — no new buy'  : '✓ MA filter OK') + '</span>';
+  infoHtml += '<span class="sm-chip ' + (_trimSig  ? 'sm-chip-warn' : 'sm-chip-ok') + '">' +
+              (_trimSig ? '⚠ P&L ≥50% — trim 25%'     : '✓ Position size OK') + '</span>';
+  if (_a200 === false) infoHtml += '<span class="sm-chip sm-chip-bad">⛔ Below 200D — no avg down on SPEC</span>';
   infoHtml += '</div>';
 
   infoEl.innerHTML = infoHtml;
 
-  // ── Reset toggles to both-on ──────────────────────────────────────────────
+  // ── Reset toggles & show ──────────────────────────────────────────────────
   _smVis = { chart: true, info: true };
   document.getElementById('sm-btn-chart').classList.add('active');
   document.getElementById('sm-btn-info').classList.add('active');
   document.getElementById('stock-modal-body').className = '';
-
-  // ── Show ──────────────────────────────────────────────────────────────────
   document.getElementById('stock-modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 };
@@ -2092,11 +2223,9 @@ window._openStockModal = function(ticker) {
 window.closeStockModal = function() {
   document.getElementById('stock-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
-  // Clear iframe to stop loading
   document.getElementById('sm-chart-panel').innerHTML = '';
 };
 
-// ESC key closes modal
 document.addEventListener('keydown', function(e){
   if (e.key === 'Escape') window.closeStockModal();
 });
