@@ -1314,9 +1314,12 @@ function buildActionCenter() {
   // Outside-portfolio opportunities
   const opps = D.outside_opps || [];
   if (opps.length) {
-    html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);padding:8px 0 4px;margin-top:8px;border-top:1px solid var(--border)">Watchlist Opportunities</div>`;
-    for (const p of opps) {
-      const oc   = p.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
+    // Split: regular watchlist vs catalyst-driven
+    const regOpps = opps.filter(p => !p.catalyst);
+    const catOpps = opps.filter(p =>  p.catalyst);
+
+    function renderOppCard(p) {
+      const oc   = p.action === 'STRONG BUY' ? 'var(--g)' : p.action === 'WATCH' ? 'var(--a)' : '#00b4d8';
       const tgt  = p.target    ? '$' + fmt(p.target)    : '—';
       const sl   = p.stop_loss ? '$' + fmt(p.stop_loss) : '—';
       const up   = p.upside_pct != null ? '+' + p.upside_pct + '%' : '—';
@@ -1324,10 +1327,17 @@ function buildActionCenter() {
       const ma   = [['above_200','200D'],['above_50','50D']]
         .map(([key,label]) => `<span style="font-size:9px;padding:1px 5px;border-radius:3px;margin-right:3px;background:${p[key]?'var(--g2)':'var(--r2)'};color:${p[key]?'var(--g)':'var(--r)'}">${label} ${p[key]?'▲':'▼'}</span>`).join('');
       const rsiNote = p.rsi != null ? `<span style="font-size:9px;color:var(--t2)">RSI ${p.rsi}</span>` : '';
-      html += `<div class="acard ${p.action==='STRONG BUY'?'strong-buy':'buy'}">
+      const catStatus = {'imminent':'var(--r)','upcoming':'var(--g)','monitor':'var(--b)'};
+      const catBadge = p.catalyst ? `<div style="margin-top:6px;padding:5px 8px;border-radius:6px;background:rgba(255,215,64,.1);border:1px solid rgba(255,215,64,.25);display:flex;align-items:center;gap:6px">
+          <span style="font-size:9px;font-weight:800;color:var(--a);letter-spacing:1px">CATALYST</span>
+          <span style="font-size:10px;font-weight:600;flex:1">${p.catalyst}</span>
+          <span style="font-size:9px;font-weight:700;color:${catStatus[p.catalyst_status]||'var(--t2)'}">${p.catalyst_days === 0 ? 'TODAY' : p.catalyst_days === 1 ? 'Tomorrow' : 'in ' + p.catalyst_days + 'd'}</span>
+        </div>` : '';
+      return `<div class="acard ${p.action==='STRONG BUY'?'strong-buy':p.action==='WATCH'?'buy':'buy'}">
         <div class="acard-action" style="color:${oc}">${p.action} <span style="font-size:9px;color:var(--t3);font-weight:400">· WATCHLIST</span></div>
         <div class="acard-ticker">${p.ticker} <span style="font-size:11px;font-weight:400;color:var(--t2)">$${fmt(p.price)}</span> <span class="${col(p.chg_1d)}" style="font-size:11px">${pct(p.chg_1d)}</span></div>
         <div style="margin-top:5px;display:flex;align-items:center;gap:6px">${ma}${rsiNote}</div>
+        ${catBadge}
         <div class="acard-row"><span>Target</span><b>${tgt}</b></div>
         <div class="acard-row"><span>Stop-loss</span><b>${sl}</b></div>
         <div class="acard-row"><span>Entry zone</span><b>${zone}</b></div>
@@ -1337,6 +1347,15 @@ function buildActionCenter() {
         </div>` : ''}
         ${p.reason ? `<div style="margin-top:6px;font-size:10px;color:var(--t2);line-height:1.45;border-top:1px solid var(--border);padding-top:5px">${p.reason}</div>` : ''}
       </div>`;
+    }
+
+    if (regOpps.length) {
+      html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);padding:8px 0 4px;margin-top:8px;border-top:1px solid var(--border)">Watchlist Opportunities</div>`;
+      regOpps.forEach(p => { html += renderOppCard(p); });
+    }
+    if (catOpps.length) {
+      html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--a);padding:8px 0 4px;margin-top:8px;border-top:1px solid rgba(255,215,64,.2)">⚡ Catalyst Opportunities — Upcoming Events</div>`;
+      catOpps.forEach(p => { html += renderOppCard(p); });
     }
   }
 
