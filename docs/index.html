@@ -1322,18 +1322,25 @@ function buildCrypto() {
   const isBtcSeason = domSig === 'BTC_SEASON';
 
   function cryptoAction(p) {
+    // Prefer server-computed action when available
+    if (p.action) {
+      const colMap = {
+        'EXIT':       'var(--r)',
+        'TRIM':       'var(--a)',
+        'STRONG BUY': 'var(--g)',
+        'BUY':        '#00b4d8',
+        'WAIT':       'var(--t2)',
+      };
+      return { label: p.action, col: colMap[p.action] || 'var(--t2)' };
+    }
+    // Fallback heuristic
     const pnl = p.pnl_pct || 0;
     const chg = p.chg_24h || 0;
     const sym = p.symbol;
-    // BTC/ETH proxies: IBIT and ETHA follow BTC regime directly
-    if (['IBIT','ETHA'].includes(sym)) return isBtcSeason ? {label:'HOLD — BTC Season', col:'var(--a)'} : {label:'TRIM — Alt favoured', col:'var(--r)'};
-    // Deep loss: don't average down
-    if (pnl <= -60) return {label:'HOLD — avoid avg down', col:'var(--r)'};
-    // Alt season: alts can outperform, consider adding
+    if (pnl <= -45) return {label:'EXIT', col:'var(--r)'};
     if (!isBtcSeason && pnl > -30 && chg > 0) return {label:'WATCH — Alt Season', col:'var(--g)'};
-    // BTC season: reduce alt exposure unless holding core
     if (isBtcSeason && pnl < -30) return {label:'HOLD — wait BTC peak', col:'var(--a)'};
-    if (pnl >= 20) return {label:'TRIM 25%', col:'var(--a)'};
+    if (pnl >= 50) return {label:'TRIM 25%', col:'var(--a)'};
     return {label:'HOLD', col:'var(--t2)'};
   }
 
@@ -1367,6 +1374,8 @@ function buildCrypto() {
         <span style="font-size:12px;font-weight:800;color:${pnlCol}">${p.pnl_label || '—'}</span>
         <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;background:${act.col}22;color:${act.col};border:1px solid ${act.col}44">${act.label}</span>
       </div>
+      ${p.stop_loss ? `<div style="font-size:9px;color:var(--t2);margin-top:4px">🛑 Stop: <b>$${fmt(p.stop_loss, p.stop_loss < 1 ? 4 : 2)}</b></div>` : ''}
+      ${p.alert ? `<div style="margin-top:5px"><span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;background:var(--r2);color:var(--r);border:1px solid rgba(255,61,113,.3)">${p.alert[1] || p.alert}</span></div>` : ''}
     </div>`;
   }).join('');
 }
