@@ -265,10 +265,10 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 .drawer-close{cursor:pointer;color:var(--t2);font-size:18px;line-height:1;padding:4px}
 .drawer-section{margin-bottom:20px}
 .drawer-section-title{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--t3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)}
-.drawer-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border)}
+.drawer-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;padding:5px 0;border-bottom:1px solid var(--border);gap:8px}
 .drawer-row:last-child{border-bottom:none}
-.drawer-label{color:var(--t2)}
-.drawer-val{font-weight:700;color:var(--t)}
+.drawer-label{color:var(--t2);min-width:0;flex:1}
+.drawer-val{font-weight:700;color:var(--t);flex-shrink:0;text-align:right}
 .settings-btn{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;color:var(--t2);font-size:11px;font-weight:700;padding:6px 12px;cursor:pointer;transition:all .2s}
 .settings-btn:hover{background:rgba(255,255,255,.1);color:var(--t);border-color:var(--border2)}
 
@@ -301,15 +301,11 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
     <div id="drawer-capital"></div>
   </div>
   <div class="drawer-section">
-    <div class="drawer-section-title">Holdings</div>
+    <div class="drawer-section-title">Holdings by Risk Class</div>
     <div id="drawer-holdings"></div>
   </div>
   <div class="drawer-section">
-    <div class="drawer-section-title">Risk Horizon</div>
-    <div id="drawer-risk"></div>
-  </div>
-  <div class="drawer-section">
-    <div class="drawer-section-title">Watchlist</div>
+    <div class="drawer-section-title">Watchlist &amp; Catalyst Opps</div>
     <div id="drawer-watchlist"></div>
   </div>
 </div>
@@ -577,28 +573,90 @@ function closeDrawer() {
 }
 function buildDrawer() {
   const p = D.portfolio;
-  const meta = {monthly_dca: 10000}; // from data if available
   const dca = p.positions.reduce((s,x)=>s+(x.allocation_usd||0),0);
-  const sections = {
-    'drawer-capital': [
-      ['Monthly DCA', fmtK(dca || 10000)],
-      ['Portfolio Value', fmtK(p.total_value)],
-      ['Cost Basis', fmtK(p.total_cost)],
-      ['Total P&L', (p.total_pnl>=0?'+':'')+p.total_pnl+'%'],
-    ],
-    'drawer-holdings': p.positions.map(pos => [pos.ticker, `${fmtK(pos.value)} · ${(pos.pnl_pct>=0?'+':'')+pos.pnl_pct}%`]),
-    'drawer-risk': [
-      ['Core horizon', '12m+'],
-      ['Swing horizon', '1–3m'],
-      ['Spec horizon', '1–6m'],
-      ['Stop-loss rule', 'Below 200D MA'],
-    ],
-    'drawer-watchlist': (D.outside_opps||[]).map(o=>[o.ticker, o.action]),
+
+  // ── Capital ──
+  const pnlC = p.total_pnl >= 0 ? 'var(--g)' : 'var(--r)';
+  const dayC  = p.daily_pnl >= 0 ? 'var(--g)' : 'var(--r)';
+  $('drawer-capital').innerHTML = [
+    ['Monthly DCA',     `<b>${fmtK(dca||10000)}</b>`],
+    ['Portfolio Value', `<b>${fmtK(p.total_value)}</b>`],
+    ['Cost Basis',      `<span style="color:var(--t2)">${fmtK(p.total_cost)}</span>`],
+    ['Total P&amp;L',   `<b style="color:${pnlC}">${p.total_pnl>=0?'+':''}${p.total_pnl}%</b>`],
+    ['Daily P&amp;L',   `<b style="color:${dayC}">${p.daily_pnl>=0?'+':''}${p.daily_pnl}%</b> <span style="font-size:10px;color:var(--t3)">${p.daily_gain_usd>=0?'+':''}$${Math.round(Math.abs(p.daily_gain_usd)).toLocaleString()}</span>`],
+  ].map(([k,v]) => `<div class="drawer-row"><span class="drawer-label">${k}</span><span style="text-align:right">${v}</span></div>`).join('');
+
+  // ── Holdings by Risk Class ──
+  const CLASS_META = {
+    core:  {label:'CORE',  horizon:'12m+', color:'#00e676'},
+    swing: {label:'SWING', horizon:'1–3m', color:'#ffd740'},
+    spec:  {label:'SPEC',  horizon:'1–6m', color:'#ff3d71'},
   };
-  for (const [id, rows] of Object.entries(sections)) {
-    const el = $(id); if (!el) continue;
-    el.innerHTML = rows.map(([k,v])=>`<div class="drawer-row"><span class="drawer-label">${k}</span><span class="drawer-val">${v}</span></div>`).join('');
+  const ACTION_COLOR = {
+    'STRONG BUY':'#00e676', 'BUY':'#00b4d8', 'WAIT':'#64748b',
+    'TRIM':'#ffd740', 'EXIT':'#ff3d71',
+  };
+  let holdHtml = '';
+  for (const [cls, {label, horizon, color}] of Object.entries(CLASS_META)) {
+    const clsPos = p.positions.filter(pos => pos.class === cls);
+    if (!clsPos.length) continue;
+    holdHtml += `<div style="display:flex;align-items:center;gap:6px;margin:10px 0 5px">
+      <span style="font-size:8px;font-weight:800;letter-spacing:1px;color:${color};background:${color}1a;padding:2px 6px;border-radius:3px">${label}</span>
+      <span style="font-size:9px;color:var(--t3)">${horizon} horizon</span>
+    </div>`;
+    for (const pos of clsPos) {
+      const pnlC2 = pos.pnl_pct >= 0 ? 'var(--g)' : 'var(--r)';
+      const pnlStr = (pos.pnl_pct >= 0 ? '+' : '') + pos.pnl_pct + '%';
+      const actC   = ACTION_COLOR[pos.action] || 'var(--t2)';
+      const alertBadge = pos.alert
+        ? `<span style="font-size:8px;color:${pos.alert[0]==='danger'?'var(--r)':'var(--a)'};margin-left:3px">⚠</span>` : '';
+      holdHtml += `<div class="drawer-row" style="padding:4px 0">
+        <span style="font-weight:600;min-width:0;flex:1">${pos.ticker}${alertBadge} <span style="font-size:9px;color:var(--t3);font-weight:400">${pos.theme}</span></span>
+        <span style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <span style="font-size:9px;font-weight:700;color:${actC}">${pos.action}</span>
+          <span style="font-weight:700;color:${pnlC2};min-width:44px;text-align:right">${pnlStr}</span>
+        </span>
+      </div>`;
+    }
   }
+  $('drawer-holdings').innerHTML = holdHtml;
+
+  // ── Watchlist & Catalyst Opps (merged) ──
+  const opps   = D.outside_opps || [];
+  const regOps = opps.filter(o => !o.catalyst);
+  const catOps = opps.filter(o =>  o.catalyst);
+  let wHtml = '';
+  if (regOps.length) {
+    wHtml += `<div style="font-size:8px;font-weight:700;letter-spacing:1px;color:var(--t3);margin:4px 0 4px">WATCHLIST</div>`;
+    for (const o of regOps) {
+      const oc  = o.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
+      const up  = o.upside_pct != null ? `<span style="color:var(--g);font-size:9px">+${o.upside_pct}%</span>` : '';
+      wHtml += `<div class="drawer-row" style="padding:4px 0">
+        <span style="font-weight:600">${o.ticker}</span>
+        <span style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:9px;font-weight:700;color:${oc}">${o.action}</span>${up}
+        </span>
+      </div>`;
+    }
+  }
+  if (catOps.length) {
+    wHtml += `<div style="font-size:8px;font-weight:700;letter-spacing:1px;color:var(--a);margin:10px 0 4px">⚡ CATALYST OPPS</div>`;
+    for (const o of catOps) {
+      const oc    = o.action === 'STRONG BUY' ? 'var(--g)' : o.action === 'WATCH' ? 'var(--a)' : '#00b4d8';
+      const cdays = o.catalyst_days === 0 ? 'today' : `in ${o.catalyst_days}d`;
+      const up2   = o.upside_pct != null ? `<span style="color:var(--g);font-size:9px">+${o.upside_pct}%</span>` : '';
+      wHtml += `<div class="drawer-row" style="padding:4px 0">
+        <span style="min-width:0;flex:1">
+          <span style="font-weight:600">${o.ticker}</span>
+          <span style="font-size:9px;color:var(--a);margin-left:4px">${cdays}</span>
+        </span>
+        <span style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <span style="font-size:9px;font-weight:700;color:${oc}">${o.action}</span>${up2}
+        </span>
+      </div>`;
+    }
+  }
+  $('drawer-watchlist').innerHTML = wHtml || `<div style="color:var(--t3);font-size:11px;padding:6px 0">No opportunities yet</div>`;
 }
 
 // ── Collapsible cards ──────────────────────────────────────────────────────
@@ -755,19 +813,35 @@ function buildFX() {
 function buildTape() {
   const items = [];
   const mkt = D.market;
-  const fx  = D.fx || {};
+  const btcR = mkt.btc_regime || {};
+  const fx   = D.fx || {};
+
+  // [label, data, dotFn]  dotFn(price, chg, data) → CSS color string
   const pairs = [
-    ['SPY', mkt.spy], ['QQQ', mkt.qqq],
-    ['VIX', mkt.vix], ['Gold', mkt.gold], ['Oil', mkt.oil],
-    ['DXY', mkt.dxy], ['10Y', mkt.t10y],
+    ['SPY',  mkt.spy,   (p,c)  => c >= 0 ? '#00e676' : '#ff3d71'],
+    ['QQQ',  mkt.qqq,   (p,c)  => c >= 0 ? '#00e676' : '#ff3d71'],
+    ['VIX',  mkt.vix,   (p,c,d)=> { const v=d.level||p; return v>25?'#ff3d71':v>18?'#ffd740':'#00e676'; }],
+    ['Gold', mkt.gold,  ()     => '#ffd740'],
+    ['Oil',  mkt.oil,   (p,c)  => c >= 0 ? '#ff9800' : '#ff6b35'],
+    ['DXY',  mkt.dxy,   ()     => '#448aff'],
+    ['10Y',  mkt.t10y,  ()     => '#ce93d8'],
   ];
-  if (fx.usdils) pairs.push(['USD/NIS', {price: fx.usdils, chg_1d: 0}]);
-  if (fx.eurils) pairs.push(['EUR/NIS', {price: fx.eurils, chg_1d: 0}]);
-  for (const [name, d] of pairs) {
-    if (!d || (!d.price && !d.level && !d.t10y)) continue;
+
+  // Add BTC if available in btc_regime
+  if (btcR.btc_price) {
+    pairs.push(['BTC', {price: btcR.btc_price, chg_1d: btcR.btc_chg_24h || 0}, (p,c)=>c>=0?'#f7931a':'#c0773a']);
+  }
+  if (fx.usdils) pairs.push(['USD/NIS', {price: fx.usdils, chg_1d: 0}, ()=>'#64748b']);
+  if (fx.eurils) pairs.push(['EUR/NIS', {price: fx.eurils, chg_1d: 0}, ()=>'#64748b']);
+
+  for (const [name, d, dotFn] of pairs) {
+    if (!d) continue;
     const price = d.price || d.level || d.t10y;
-    const chg   = d.chg_1d || 0;
-    items.push(`<span class="tape-item"><span class="tape-sym">${name}</span><span class="${col(chg)}">${fmt(price,2)} ${pct(chg)}</span></span>`);
+    if (!price) continue;
+    const chg  = d.chg_1d || 0;
+    const dotC = dotFn ? dotFn(price, chg, d) : '#64748b';
+    const dot  = `<span style="width:6px;height:6px;border-radius:50%;background:${dotC};display:inline-block;flex-shrink:0"></span>`;
+    items.push(`<span class="tape-item">${dot}<span class="tape-sym">${name}</span><span class="${col(chg)}">${fmt(price,2)} ${pct(chg)}</span></span>`);
   }
   const html = items.join('') + items.join('');
   $('tape').innerHTML = html;
