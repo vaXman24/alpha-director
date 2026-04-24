@@ -1571,19 +1571,30 @@ function buildActionCenter() {
         (_grouped[key] = _grouped[key] || []).push(p);
       });
 
-      // Render known sectors first, then any unknown
+      // Render known sectors first, then any unknown — collapsed by default
       const _keys = [
         ..._sectorOrder.filter(k => _grouped[k]),
         ...Object.keys(_grouped).filter(k => !_sectorOrder.includes(k))
       ];
-      _keys.forEach(sector => {
+      _keys.forEach((sector, idx) => {
         const grp  = _grouped[sector];
         const meta = _sectorMeta[sector] || { label: '📌 ' + sector, color: 'var(--t2)' };
-        html += `<div style="grid-column:1/-1;display:flex;align-items:center;gap:8px;margin-top:10px;padding:6px 0 4px;border-top:1px solid var(--border)">
+        const gid  = 'cat-grp-' + idx;
+
+        // Clickable header — spans full grid width
+        html += `<div style="grid-column:1/-1;display:flex;align-items:center;gap:8px;margin-top:10px;padding:7px 12px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid var(--border);cursor:pointer;user-select:none;transition:background .15s"
+          onmouseover="this.style.background='rgba(255,255,255,.07)'" onmouseout="this.style.background='rgba(255,255,255,.04)'"
+          onclick="(function(h){var g=document.getElementById('${gid}');var isHidden=g.style.display==='none';g.style.display=isHidden?'block':'none';h.querySelector('.cat-chev').textContent=isHidden?'▼':'▶'})(this)">
           <span style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${meta.color}">${meta.label}</span>
           <span style="font-size:9px;color:var(--t3)">${grp.length} opp${grp.length > 1 ? 's' : ''}</span>
+          <span class="cat-chev" style="margin-left:auto;font-size:10px;color:var(--t3)">▶</span>
         </div>`;
+
+        // Cards panel — hidden by default, spans full grid width, inner grid for cards
+        html += `<div id="${gid}" style="display:none;grid-column:1/-1">
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;padding-top:8px">`;
         grp.forEach(p => { html += renderOppCard(p); });
+        html += `</div></div>`;
       });
     }
   }
