@@ -1311,6 +1311,15 @@ function buildActionCenter() {
     </div>`;
   }
 
+  // Global helper: open catalyst modal by event id
+  window._openCatById = function(eid) {
+    const evs = window.__catEvents__;
+    if (!evs) { alert('Calendar loading — try again in 2 seconds.'); return; }
+    const ev = evs.find(function(e){ return e.id === eid; });
+    if (ev && window.openCatModal) { window.openCatModal(ev); }
+    else { alert('Event not found: ' + eid); }
+  };
+
   // Outside-portfolio opportunities
   const opps = D.outside_opps || [];
   if (opps.length) {
@@ -1380,12 +1389,12 @@ function buildActionCenter() {
         ? `<div class="acard-row"><span>Exit trigger</span><b style="font-size:10px;color:var(--a);text-align:right;max-width:160px;line-height:1.4">${p.exit_trigger}</b></div>`
         : '';
 
-      // Click handler: open catalyst modal if event_id available
+      // Click handler: open catalyst modal via global helper
       const clickable = isCat && p.event_id
-        ? `style="cursor:pointer" onclick="(function(){var ev=window.__catEvents__&&window.__catEvents__.find(function(e){return e.id==='${p.event_id}';});if(ev&&window.openCatModal)window.openCatModal(ev);else alert('Catalyst details loading… try again in a moment.');})()"`
-        : '';
+        ? `style="cursor:pointer" onclick="_openCatById('${p.event_id}')"`
+        : (isCat ? 'style="cursor:default"' : '');
       const clickHint = isCat && p.event_id
-        ? `<div style="margin-top:5px;font-size:9px;color:var(--t3);text-align:center">Tap card to view full catalyst playbook ↗</div>`
+        ? `<div style="margin-top:5px;font-size:9px;color:var(--t3);text-align:center">Tap card to open full catalyst playbook ↗</div>`
         : '';
 
       return `<div class="acard ${p.action==='STRONG BUY'?'strong-buy':'buy'}" ${clickable}>
