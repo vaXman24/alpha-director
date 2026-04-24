@@ -1,5 +1,5 @@
 {
-  "generated_at": "Fri 24 Apr 2026  11:54",
+  "generated_at": "Fri 24 Apr 2026  12:03",
   "regime": "RISK-ON",
   "macro_warn": "",
   "market": {
@@ -24,15 +24,15 @@
       "vol_ratio": 0.73
     },
     "vix": {
-      "price": 18.66,
-      "chg_1d": -3.37,
+      "price": 18.78,
+      "chg_1d": -2.74,
       "above_50": false,
       "above_200": true,
-      "sma50": 22.5042,
-      "sma200": 18.2559,
-      "rsi": 29.7,
+      "sma50": 22.5066,
+      "sma200": 18.2565,
+      "rsi": 29.9,
       "vol_ratio": null,
-      "level": 18.66,
+      "level": 18.78,
       "signal": "Normal"
     },
     "dxy": {
@@ -66,13 +66,13 @@
       "t10y": null
     },
     "btc_regime": {
-      "btc_price": 78240,
-      "btc_chg_24h": 0.73,
+      "btc_price": 78269,
+      "btc_chg_24h": 0.66,
       "btc_dominance": 58.2,
       "eth_price": 2330.0,
-      "eth_chg_24h": 0.02,
+      "eth_chg_24h": 0.0,
       "eth_dominance": 10.5,
-      "eth_btc_ratio": 0.02978,
+      "eth_btc_ratio": 0.02977,
       "dom_signal": "BTC_SEASON"
     }
   },
@@ -137,19 +137,19 @@
         "avg": 567.09,
         "shares": 188,
         "cost": 106613.0,
-        "value": 144384.0,
-        "price": 768.0,
-        "chg_1d": 0.01,
+        "value": 144249.0,
+        "price": 767.28,
+        "chg_1d": -0.09,
         "above_50": true,
         "above_200": true,
-        "pnl_pct": 35.4,
+        "pnl_pct": 35.3,
         "action": "WAIT",
         "alert": null,
         "target": null,
         "upside_pct": null,
         "stop_loss": 717.67,
         "entry_zone": null,
-        "rsi": 90.1,
+        "rsi": 89.3,
         "vol_ratio": 0.16,
         "risk": "LOW",
         "verdict": "YES",
@@ -163,12 +163,12 @@
         "avg": 1235.2,
         "shares": 14,
         "cost": 17293.0,
-        "value": 21834.0,
-        "price": 1559.6,
-        "chg_1d": 0.63,
+        "value": 21818.0,
+        "price": 1558.4,
+        "chg_1d": 0.55,
         "above_50": true,
         "above_200": true,
-        "pnl_pct": 26.3,
+        "pnl_pct": 26.2,
         "action": "WAIT",
         "alert": null,
         "target": null,
@@ -176,7 +176,7 @@
         "stop_loss": 1412.34,
         "entry_zone": null,
         "rsi": 91.8,
-        "vol_ratio": 0.68,
+        "vol_ratio": 0.66,
         "risk": "LOW",
         "verdict": "YES",
         "reason": "Monitoring \u2014 no clear signal yet",
@@ -189,20 +189,20 @@
         "avg": 94.17,
         "shares": 196,
         "cost": 18457.0,
-        "value": 22918.0,
-        "price": 116.93,
-        "chg_1d": -0.05,
+        "value": 22886.0,
+        "price": 116.765,
+        "chg_1d": -0.19,
         "above_50": true,
         "above_200": true,
-        "pnl_pct": 24.2,
+        "pnl_pct": 24.0,
         "action": "WAIT",
         "alert": null,
         "target": null,
         "upside_pct": null,
         "stop_loss": 109.56,
         "entry_zone": null,
-        "rsi": 85.6,
-        "vol_ratio": 0.35,
+        "rsi": 84.1,
+        "vol_ratio": 0.42,
         "risk": "LOW",
         "verdict": "YES",
         "reason": "Monitoring \u2014 no clear signal yet",
@@ -889,10 +889,10 @@
       }
     ],
     "total_cost": 430730.0,
-    "total_value": 493769.0,
+    "total_value": 493586.0,
     "total_pnl": 14.6,
-    "daily_pnl": -0.97,
-    "daily_gain_usd": -4856.0
+    "daily_pnl": -1.01,
+    "daily_gain_usd": -5050.0
   },
   "sectors": [
     {
@@ -1036,8 +1036,8 @@
       "above_200": true,
       "action": "STRONG BUY",
       "reason": "Dominant AI GPU supplier; data center demand remains strong",
-      "target": null,
-      "upside_pct": null,
+      "target": 268.61,
+      "upside_pct": 34.5,
       "stop_loss": 182.6,
       "entry_zone": [
         193.65,
@@ -1056,8 +1056,8 @@
       "above_200": true,
       "action": "STRONG BUY",
       "reason": "Services growth + AI integration; defensive tech floor",
-      "target": null,
-      "upside_pct": null,
+      "target": 297.71,
+      "upside_pct": 8.9,
       "stop_loss": 253.04,
       "entry_zone": [
         265.23,
@@ -1076,8 +1076,8 @@
       "above_200": true,
       "action": "STRONG BUY",
       "reason": "Architecture royalties from AI chip boom; mobile + data center",
-      "target": null,
-      "upside_pct": null,
+      "target": 169.59,
+      "upside_pct": -17.1,
       "stop_loss": 139.36,
       "entry_zone": [
         198.47,
@@ -1086,6 +1086,447 @@
       "rsi": 88.8,
       "sma50": 139.46,
       "sma200": 139.36
+    },
+    {
+      "ticker": "TTWO",
+      "theme": "Gaming Blockbuster Launch",
+      "price": 209.9,
+      "chg_1d": -3.8,
+      "above_50": true,
+      "above_200": false,
+      "action": "WATCH",
+      "reason": "3 months before: LONG publisher + NVDA. 1 month before: add platform holder (MSFT/SNE). Exit on launch weekend \u2014 sell the news.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 194.14,
+      "entry_zone": [
+        204.36,
+        209.9
+      ],
+      "rsi": 60.6,
+      "catalyst": "Gaming Blockbuster Launch",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "EA",
+      "theme": "Gaming Blockbuster Launch",
+      "price": 202.51,
+      "chg_1d": -0.13,
+      "above_50": true,
+      "above_200": true,
+      "action": "STRONG BUY",
+      "reason": "3 months before: LONG publisher + NVDA. 1 month before: add platform holder (MSFT/SNE). Exit on launch weekend \u2014 sell the news.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 191.24,
+      "entry_zone": [
+        201.54,
+        202.51
+      ],
+      "rsi": 41.3,
+      "catalyst": "Gaming Blockbuster Launch",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "COPX",
+      "theme": "Copper Price Momentum",
+      "price": 82.46,
+      "chg_1d": -2.87,
+      "above_50": true,
+      "above_200": true,
+      "action": "STRONG BUY",
+      "reason": "When copper breaks 3-month high with rising 20-day MA: LONG miners (FCX/SCCO). Hold until copper makes 3-month low or miners hit 30% profit. Avoid when USD strengthening sharply.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 65.92,
+      "entry_zone": [
+        82.44,
+        82.46
+      ],
+      "rsi": 61.7,
+      "catalyst": "Copper Price Momentum",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "FCX",
+      "theme": "Copper Price Momentum",
+      "price": 61.48,
+      "chg_1d": -12.62,
+      "above_50": false,
+      "above_200": true,
+      "action": "WATCH",
+      "reason": "When copper breaks 3-month high with rising 20-day MA: LONG miners (FCX/SCCO). Hold until copper makes 3-month low or miners hit 30% profit. Avoid when USD strengthening sharply.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 50.09,
+      "entry_zone": [
+        59.64,
+        61.48
+      ],
+      "rsi": 50.5,
+      "catalyst": "Copper Price Momentum",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "SCCO",
+      "theme": "Copper Price Momentum",
+      "price": 182.25,
+      "chg_1d": -2.91,
+      "above_50": false,
+      "above_200": true,
+      "action": "WATCH",
+      "reason": "When copper breaks 3-month high with rising 20-day MA: LONG miners (FCX/SCCO). Hold until copper makes 3-month low or miners hit 30% profit. Avoid when USD strengthening sharply.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 142.43,
+      "entry_zone": [
+        176.78,
+        182.25
+      ],
+      "rsi": 53.6,
+      "catalyst": "Copper Price Momentum",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "BHP",
+      "theme": "Copper Price Momentum",
+      "price": 79.84,
+      "chg_1d": -0.89,
+      "above_50": true,
+      "above_200": true,
+      "action": "STRONG BUY",
+      "reason": "When copper breaks 3-month high with rising 20-day MA: LONG miners (FCX/SCCO). Hold until copper makes 3-month low or miners hit 30% profit. Avoid when USD strengthening sharply.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 60.76,
+      "entry_zone": [
+        77.44,
+        79.84
+      ],
+      "rsi": 71.6,
+      "catalyst": "Copper Price Momentum",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "TECK",
+      "theme": "Copper Price Momentum",
+      "price": 60.75,
+      "chg_1d": 2.51,
+      "above_50": true,
+      "above_200": true,
+      "action": "STRONG BUY",
+      "reason": "When copper breaks 3-month high with rising 20-day MA: LONG miners (FCX/SCCO). Hold until copper makes 3-month low or miners hit 30% profit. Avoid when USD strengthening sharply.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 45.25,
+      "entry_zone": [
+        58.93,
+        60.75
+      ],
+      "rsi": 72.0,
+      "catalyst": "Copper Price Momentum",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "ZIM",
+      "theme": "Shipping Container Rate Cycle (SCFI)",
+      "price": 26.08,
+      "chg_1d": -1.25,
+      "above_50": false,
+      "above_200": true,
+      "action": "WATCH",
+      "reason": "When SCFI rises 50%+ over 8 weeks: SHORT broad retail (XRT). When SCFI normalizes from spike: LONG retailers. Shipping stocks trade WITH rates \u2014 opposite direction.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 19.0,
+      "entry_zone": [
+        25.3,
+        26.08
+      ],
+      "rsi": 45.4,
+      "catalyst": "Shipping Container Rate Cycle (SCFI)",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "MATX",
+      "theme": "Shipping Container Rate Cycle (SCFI)",
+      "price": 170.36,
+      "chg_1d": -0.25,
+      "above_50": true,
+      "above_200": true,
+      "action": "STRONG BUY",
+      "reason": "When SCFI rises 50%+ over 8 weeks: SHORT broad retail (XRT). When SCFI normalizes from spike: LONG retailers. Shipping stocks trade WITH rates \u2014 opposite direction.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 126.52,
+      "entry_zone": [
+        165.25,
+        170.36
+      ],
+      "rsi": 58.3,
+      "catalyst": "Shipping Container Rate Cycle (SCFI)",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "SBLK",
+      "theme": "Shipping Container Rate Cycle (SCFI)",
+      "price": 24.17,
+      "chg_1d": -2.66,
+      "above_50": true,
+      "above_200": true,
+      "action": "STRONG BUY",
+      "reason": "When SCFI rises 50%+ over 8 weeks: SHORT broad retail (XRT). When SCFI normalizes from spike: LONG retailers. Shipping stocks trade WITH rates \u2014 opposite direction.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 20.13,
+      "entry_zone": [
+        23.87,
+        24.17
+      ],
+      "rsi": 48.5,
+      "catalyst": "Shipping Container Rate Cycle (SCFI)",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "USO",
+      "theme": "War / Ceasefire Alerts",
+      "price": 134.72,
+      "chg_1d": 4.11,
+      "above_50": true,
+      "above_200": true,
+      "action": "STRONG BUY",
+      "reason": "Escalation: LONG LMT/RTX/GLD within hours. Exit within 5 trading days. Ceasefire: SHORT defense within 24h. Cover in 3 days. Oil only if Middle East or Russia involved.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 81.96,
+      "entry_zone": [
+        130.68,
+        134.72
+      ],
+      "rsi": 47.4,
+      "catalyst": "War / Ceasefire Alerts",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "LMT",
+      "theme": "War / Ceasefire Alerts",
+      "price": 529.79,
+      "chg_1d": -4.62,
+      "above_50": false,
+      "above_200": true,
+      "action": "WATCH",
+      "reason": "Escalation: LONG LMT/RTX/GLD within hours. Exit within 5 trading days. Ceasefire: SHORT defense within 24h. Cover in 3 days. Oil only if Middle East or Russia involved.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 518.38,
+      "entry_zone": [
+        513.9,
+        529.79
+      ],
+      "rsi": 16.0,
+      "catalyst": "War / Ceasefire Alerts",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "RTX",
+      "theme": "War / Ceasefire Alerts",
+      "price": 179.3,
+      "chg_1d": -0.89,
+      "above_50": false,
+      "above_200": true,
+      "action": "WATCH",
+      "reason": "Escalation: LONG LMT/RTX/GLD within hours. Exit within 5 trading days. Ceasefire: SHORT defense within 24h. Cover in 3 days. Oil only if Middle East or Russia involved.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 177.1,
+      "entry_zone": [
+        173.92,
+        179.3
+      ],
+      "rsi": 26.8,
+      "catalyst": "War / Ceasefire Alerts",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "NOC",
+      "theme": "War / Ceasefire Alerts",
+      "price": 587.66,
+      "chg_1d": -0.33,
+      "above_50": false,
+      "above_200": false,
+      "action": "WATCH",
+      "reason": "Escalation: LONG LMT/RTX/GLD within hours. Exit within 5 trading days. Ceasefire: SHORT defense within 24h. Cover in 3 days. Oil only if Middle East or Russia involved.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 540.65,
+      "entry_zone": [
+        570.03,
+        587.66
+      ],
+      "rsi": 7.8,
+      "catalyst": "War / Ceasefire Alerts",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "GLD",
+      "theme": "War / Ceasefire Alerts",
+      "price": 431.04,
+      "chg_1d": -0.97,
+      "above_50": false,
+      "above_200": true,
+      "action": "WATCH",
+      "reason": "Escalation: LONG LMT/RTX/GLD within hours. Exit within 5 trading days. Ceasefire: SHORT defense within 24h. Cover in 3 days. Oil only if Middle East or Russia involved.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 388.0,
+      "entry_zone": [
+        418.11,
+        431.04
+      ],
+      "rsi": 51.3,
+      "catalyst": "War / Ceasefire Alerts",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "ITA",
+      "theme": "War / Ceasefire Alerts",
+      "price": 219.11,
+      "chg_1d": -0.02,
+      "above_50": false,
+      "above_200": true,
+      "action": "WATCH",
+      "reason": "Escalation: LONG LMT/RTX/GLD within hours. Exit within 5 trading days. Ceasefire: SHORT defense within 24h. Cover in 3 days. Oil only if Middle East or Russia involved.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 214.64,
+      "entry_zone": [
+        212.54,
+        219.11
+      ],
+      "rsi": 46.9,
+      "catalyst": "War / Ceasefire Alerts",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "AMD",
+      "theme": "AI Compute Capacity Milestones",
+      "price": 305.33,
+      "chg_1d": 0.62,
+      "above_50": true,
+      "above_200": true,
+      "action": "STRONG BUY",
+      "reason": "On large CAPEX announcement: LONG power enablers (VST/CEG) and networking (ANET) before chips (NVDA already priced). Hold 60\u201390 days. Exit if AI spending narrative reverses.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 205.55,
+      "entry_zone": [
+        296.17,
+        305.33
+      ],
+      "rsi": 96.4,
+      "catalyst": "AI Compute Capacity Milestones",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "SMCI",
+      "theme": "AI Compute Capacity Milestones",
+      "price": 26.75,
+      "chg_1d": -8.33,
+      "above_50": false,
+      "above_200": false,
+      "action": "WATCH",
+      "reason": "On large CAPEX announcement: LONG power enablers (VST/CEG) and networking (ANET) before chips (NVDA already priced). Hold 60\u201390 days. Exit if AI spending narrative reverses.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 24.61,
+      "entry_zone": [
+        25.95,
+        26.75
+      ],
+      "rsi": 65.0,
+      "catalyst": "AI Compute Capacity Milestones",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "ANET",
+      "theme": "AI Compute Capacity Milestones",
+      "price": 172.55,
+      "chg_1d": -2.91,
+      "above_50": true,
+      "above_200": true,
+      "action": "STRONG BUY",
+      "reason": "On large CAPEX announcement: LONG power enablers (VST/CEG) and networking (ANET) before chips (NVDA already priced). Hold 60\u201390 days. Exit if AI spending narrative reverses.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 135.65,
+      "entry_zone": [
+        167.37,
+        172.55
+      ],
+      "rsi": 90.1,
+      "catalyst": "AI Compute Capacity Milestones",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "VST",
+      "theme": "AI Compute Capacity Milestones",
+      "price": 156.85,
+      "chg_1d": 0.68,
+      "above_50": false,
+      "above_200": false,
+      "action": "WATCH",
+      "reason": "On large CAPEX announcement: LONG power enablers (VST/CEG) and networking (ANET) before chips (NVDA already priced). Hold 60\u201390 days. Exit if AI spending narrative reverses.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 144.3,
+      "entry_zone": [
+        152.14,
+        156.85
+      ],
+      "rsi": 58.0,
+      "catalyst": "AI Compute Capacity Milestones",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
+    },
+    {
+      "ticker": "NRG",
+      "theme": "AI Compute Capacity Milestones",
+      "price": 154.53,
+      "chg_1d": 3.3,
+      "above_50": false,
+      "above_200": false,
+      "action": "WATCH",
+      "reason": "On large CAPEX announcement: LONG power enablers (VST/CEG) and networking (ANET) before chips (NVDA already priced). Hold 60\u201390 days. Exit if AI spending narrative reverses.",
+      "target": null,
+      "upside_pct": null,
+      "stop_loss": 142.17,
+      "entry_zone": [
+        149.89,
+        154.53
+      ],
+      "rsi": 51.8,
+      "catalyst": "AI Compute Capacity Milestones",
+      "catalyst_days": 0,
+      "catalyst_status": "imminent"
     }
   ],
   "top_movers": {
@@ -1099,22 +1540,30 @@
         "chg_1d": 4.09
       },
       {
+        "ticker": "NRG",
+        "chg_1d": 3.3
+      },
+      {
         "ticker": "XLU",
         "chg_1d": 2.72
       },
       {
-        "ticker": "INTC",
-        "chg_1d": 2.31
-      },
-      {
-        "ticker": "SOXX",
-        "chg_1d": 2.14
+        "ticker": "TECK",
+        "chg_1d": 2.51
       }
     ],
     "losers": [
       {
+        "ticker": "FCX",
+        "chg_1d": -12.62
+      },
+      {
         "ticker": "CRM",
         "chg_1d": -8.69
+      },
+      {
+        "ticker": "SMCI",
+        "chg_1d": -8.33
       },
       {
         "ticker": "IONQ",
@@ -1123,14 +1572,6 @@
       {
         "ticker": "PLTR",
         "chg_1d": -7.24
-      },
-      {
-        "ticker": "RDDT",
-        "chg_1d": -6.91
-      },
-      {
-        "ticker": "APP",
-        "chg_1d": -6.11
       }
     ]
   },
@@ -1139,13 +1580,13 @@
       {
         "symbol": "SOL",
         "theme": "L1 / DeFi",
-        "price": 86.18,
-        "chg_24h": 0.41,
-        "market_cap": 49619337710,
-        "vol_24h": 3644616320,
+        "price": 86.19,
+        "chg_24h": 0.35,
+        "market_cap": 49605562574,
+        "vol_24h": 3648742170,
         "avg": 186.48,
         "qty": 69.71379,
-        "value": 6008.0,
+        "value": 6009.0,
         "pnl_pct": -53.8,
         "pnl_label": "-53.8%"
       },
@@ -1153,9 +1594,9 @@
         "symbol": "XRP",
         "theme": "Payments / Ripple",
         "price": 1.44,
-        "chg_24h": 1.48,
-        "market_cap": 88527024578,
-        "vol_24h": 2309099526,
+        "chg_24h": 1.54,
+        "market_cap": 88547694688,
+        "vol_24h": 2320094141,
         "avg": 1.28,
         "qty": 3099.24882,
         "value": 4463.0,
@@ -1166,9 +1607,9 @@
         "symbol": "LINK",
         "theme": "Oracles",
         "price": 9.36,
-        "chg_24h": 1.3,
-        "market_cap": 6809034469,
-        "vol_24h": 258859332,
+        "chg_24h": 0.98,
+        "market_cap": 6804534903,
+        "vol_24h": 257478986,
         "avg": 14.95,
         "qty": 312.1347,
         "value": 2922.0,
@@ -1179,9 +1620,9 @@
         "symbol": "DOT",
         "theme": "Interoperability",
         "price": 1.26,
-        "chg_24h": 0.34,
-        "market_cap": 2109299741,
-        "vol_24h": 112621655,
+        "chg_24h": 0.39,
+        "market_cap": 2109831838,
+        "vol_24h": 114466763,
         "avg": 5.38,
         "qty": 917.1933,
         "value": 1156.0,
@@ -1191,36 +1632,36 @@
       {
         "symbol": "ALGO",
         "theme": "L1 / Payments",
-        "price": 0.1078,
-        "chg_24h": 6.17,
-        "market_cap": 960872004,
-        "vol_24h": 39003037,
+        "price": 0.1074,
+        "chg_24h": 5.37,
+        "market_cap": 957046424,
+        "vol_24h": 38963964,
         "avg": 0.2439,
         "qty": 8889,
-        "value": 958.0,
-        "pnl_pct": -55.8,
-        "pnl_label": "-55.8%"
+        "value": 954.0,
+        "pnl_pct": -56.0,
+        "pnl_label": "-56.0%"
       },
       {
         "symbol": "AAVE",
         "theme": "DeFi Lending",
-        "price": 95.09,
-        "chg_24h": 2.96,
-        "market_cap": 1443214831,
-        "vol_24h": 355437061,
+        "price": 94.99,
+        "chg_24h": 3.07,
+        "market_cap": 1440589184,
+        "vol_24h": 355663024,
         "avg": 279.92,
         "qty": 6.9444,
         "value": 660.0,
-        "pnl_pct": -66.0,
-        "pnl_label": "-66.0%"
+        "pnl_pct": -66.1,
+        "pnl_label": "-66.1%"
       },
       {
         "symbol": "ONDO",
         "theme": "RWA Tokenization",
-        "price": 0.264,
-        "chg_24h": 2.51,
-        "market_cap": 1285734840,
-        "vol_24h": 45467732,
+        "price": 0.2641,
+        "chg_24h": 2.3,
+        "market_cap": 1285709057,
+        "vol_24h": 46926341,
         "avg": 1.11,
         "qty": 2364,
         "value": 624.0,
@@ -1231,9 +1672,9 @@
         "symbol": "NEAR",
         "theme": "L1 / AI",
         "price": 1.42,
-        "chg_24h": 2.31,
-        "market_cap": 1839537772,
-        "vol_24h": 131372466,
+        "chg_24h": 2.12,
+        "market_cap": 1838374141,
+        "vol_24h": 132632382,
         "avg": 3.15,
         "qty": 376.699,
         "value": 535.0,
@@ -1244,9 +1685,9 @@
         "symbol": "AVAX",
         "theme": "L1 / DeFi",
         "price": 9.44,
-        "chg_24h": 1.72,
-        "market_cap": 4075773704,
-        "vol_24h": 192894237,
+        "chg_24h": 1.62,
+        "market_cap": 4073159163,
+        "vol_24h": 193437704,
         "avg": 38.02,
         "qty": 25.9136,
         "value": 245.0,
@@ -1257,9 +1698,9 @@
         "symbol": "KAS",
         "theme": "PoW / Fast",
         "price": 0.0342,
-        "chg_24h": 1.53,
-        "market_cap": 937058452,
-        "vol_24h": 17254942,
+        "chg_24h": 1.28,
+        "market_cap": 936440377,
+        "vol_24h": 17055258,
         "avg": 0.13,
         "qty": 3076.923,
         "value": 105.0,
@@ -1270,9 +1711,9 @@
         "symbol": "HBAR",
         "theme": "Enterprise DLT",
         "price": 0.0914,
-        "chg_24h": 0.72,
-        "market_cap": 3959412972,
-        "vol_24h": 49440069,
+        "chg_24h": 0.69,
+        "market_cap": 3957047004,
+        "vol_24h": 49836347,
         "avg": 0.235,
         "qty": 1150,
         "value": 105.0,
@@ -1283,9 +1724,9 @@
         "symbol": "DOGE",
         "theme": "Meme / Payments",
         "price": 0.0982,
-        "chg_24h": 2.13,
-        "market_cap": 15123649208,
-        "vol_24h": 1562055717,
+        "chg_24h": 2.11,
+        "market_cap": 15122699141,
+        "vol_24h": 1559242265,
         "avg": 0.384,
         "qty": 611,
         "value": 60.0,
@@ -1299,19 +1740,19 @@
       "label": "Fear"
     },
     "btc_context": {
-      "btc_price": 78240,
-      "btc_chg_24h": 0.73,
+      "btc_price": 78269,
+      "btc_chg_24h": 0.66,
       "btc_dominance": 58.2,
       "eth_price": 2330.0,
-      "eth_chg_24h": 0.02,
+      "eth_chg_24h": 0.0,
       "eth_dominance": 10.5,
-      "eth_btc_ratio": 0.02978,
+      "eth_btc_ratio": 0.02977,
       "dom_signal": "BTC_SEASON"
     },
-    "btc_price": 78240,
-    "btc_chg": 0.73,
+    "btc_price": 78269,
+    "btc_chg": 0.66,
     "eth_price": 2330.0,
-    "eth_chg": 0.02
+    "eth_chg": 0.0
   },
   "fear_greed": {
     "score": 67,
@@ -1425,6 +1866,6 @@
     "fed_cut_prob": null,
     "recession_prob": null,
     "btc_up_prob": null,
-    "fetched_at": "11:54"
+    "fetched_at": "12:03"
   }
 }
