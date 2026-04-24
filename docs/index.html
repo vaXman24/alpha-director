@@ -1522,8 +1522,39 @@ function buildActionCenter() {
       regOpps.forEach(p => { html += renderOppCard(p); });
     }
     if (catOpps.length) {
-      html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--a);padding:8px 0 4px;margin-top:8px;border-top:1px solid rgba(255,215,64,.2)">⚡ Catalyst Opportunities — Upcoming Events</div>`;
-      catOpps.forEach(p => { html += renderOppCard(p); });
+      html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--a);padding:8px 0 4px;margin-top:8px;border-top:1px solid rgba(255,215,64,.2)">⚡ Catalyst Opportunities — Upcoming Events <span style="font-size:9px;font-weight:400;color:var(--t3)">(${catOpps.length})</span></div>`;
+
+      // Group by sector category (stored in p.theme from live_collector)
+      const _sectorOrder = ['Macro','Corporate','Industry','Seasonal','Bonus'];
+      const _sectorMeta  = {
+        'Macro':     { label:'🌐 Macro / Regulation',  color:'var(--b)' },
+        'Corporate': { label:'🏢 Corporate Events',    color:'var(--g)' },
+        'Industry':  { label:'⚙️ Industry / Sector',  color:'#00b4d8'  },
+        'Seasonal':  { label:'🌿 Seasonal / Cyclical', color:'#69b578'  },
+        'Bonus':     { label:'⭐ Bonus Catalysts',     color:'var(--a)' },
+      };
+
+      // Build sector → [opps] map
+      const _grouped = {};
+      catOpps.forEach(p => {
+        const key = p.theme || 'Other';
+        (_grouped[key] = _grouped[key] || []).push(p);
+      });
+
+      // Render known sectors first, then any unknown
+      const _keys = [
+        ..._sectorOrder.filter(k => _grouped[k]),
+        ...Object.keys(_grouped).filter(k => !_sectorOrder.includes(k))
+      ];
+      _keys.forEach(sector => {
+        const grp  = _grouped[sector];
+        const meta = _sectorMeta[sector] || { label: '📌 ' + sector, color: 'var(--t2)' };
+        html += `<div style="grid-column:1/-1;display:flex;align-items:center;gap:8px;margin-top:10px;padding:6px 0 4px;border-top:1px solid var(--border)">
+          <span style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${meta.color}">${meta.label}</span>
+          <span style="font-size:9px;color:var(--t3)">${grp.length} opp${grp.length > 1 ? 's' : ''}</span>
+        </div>`;
+        grp.forEach(p => { html += renderOppCard(p); });
+      });
     }
   }
 
