@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-24T10:32:08.895958Z",
+  "generated": "2026-04-24T12:06:24.231195Z",
   "events": [
     {
       "id": "brazil_frost_season",
@@ -29,9 +29,9 @@
       "date": "2026-06-21",
       "lead_days": 7,
       "instruments": [
-        "Newly added ticker",
         "VOO",
-        "SPY"
+        "SPY",
+        "IVV"
       ],
       "why": "S&P additions force index funds (trillions AUM) to buy the new component before the effective date. Announced ~5 trading days ahead. Average impact: +5\u20138% announcement to effective date.",
       "action": "Buy addition immediately on S&P announcement (before 4PM). Hold through effective date. Sell on effective date open as passive funds finish buying. Short deletions 1\u20132 days after.",
@@ -248,7 +248,8 @@
       "date": "2026-04-24",
       "lead_days": 0,
       "instruments": [
-        "Monitor SEC EDGAR 8-K filings daily"
+        "SPY",
+        "QQQ"
       ],
       "why": "On acquisition announcement, target spikes to ~90% of deal price, leaving a 5\u201310% spread. The spread reflects deal-close probability. Wider spread = higher regulatory risk.",
       "action": "On announcement: LONG target at market. Size based on spread width. Monitor antitrust news daily. Exit at deal close OR immediately on deal-break rumor. Max 3% of portfolio.",
@@ -266,7 +267,9 @@
       "date": "2026-04-24",
       "lead_days": 14,
       "instruments": [
-        "Recent IPO tickers \u2014 track 180-day lock from IPO date"
+        "IPO",
+        "IPOS",
+        "FPX"
       ],
       "why": "Insiders locked out 180 days from IPO. Expiry floods market with supply. Stock historically drops 5\u201315% in the two weeks surrounding expiry.",
       "action": "SHORT target 14 days before lockup expiry. Cover on/after expiry day. Do NOT short if stock is already down 30%+ from IPO price. Avoid if earnings catalyst is nearby.",
@@ -284,7 +287,11 @@
       "date": "2026-04-24",
       "lead_days": 0,
       "instruments": [
-        "Earnings beat tickers"
+        "SPY",
+        "QQQ",
+        "AAPL",
+        "MSFT",
+        "NVDA"
       ],
       "why": "Markets systematically under-react to earnings surprises. Stocks with large positive EPS surprises continue drifting up for 60 days. Academic literature confirms this anomaly persists.",
       "action": "After large EPS beat (+10% above consensus): LONG next trading day. Hold 30\u201360 days. Use 20-day ATR as stop. Works best with revenue beat AND guidance raise.",
@@ -302,7 +309,11 @@
       "date": "2026-04-24",
       "lead_days": 0,
       "instruments": [
-        "Announcing company ticker"
+        "AAPL",
+        "MSFT",
+        "META",
+        "GOOG",
+        "JPM"
       ],
       "why": "Buybacks >5% of float generate average +12% over 12 months vs market. Signals management confidence. Reduces share count = EPS accretion.",
       "action": "LONG on large announcement (>3% float). Add on any pullback in 30 days. Confirm FCF can fund it \u2014 avoid debt-funded buybacks in high-rate environments.",
@@ -320,7 +331,8 @@
       "date": "2026-04-24",
       "lead_days": 0,
       "instruments": [
-        "Monitor Form 4 via OpenInsider.com"
+        "SPY",
+        "QQQ"
       ],
       "why": "3+ unique insiders buying in the same 30-day window signals conviction. Cluster buying outperforms market by 8\u201310% in the following year vs single insider buys.",
       "action": "On cluster detection: LONG within 48h. Prefer CEO/CFO/Director over VP. Avoid if pending M&A (arbitrage incentive). Hold 6\u201312 months minimum.",
@@ -341,8 +353,8 @@
         "TTWO",
         "EA",
         "MSFT",
-        "SNE",
-        "NVDA"
+        "NVDA",
+        "ATVI"
       ],
       "why": "AAA launches (GTA, COD) drive GPU demand spikes, hardware upgrades, and publisher revenue beats. Pre-order numbers are a leading indicator 90 days out.",
       "action": "3 months before: LONG publisher + NVDA. 1 month before: add platform holder (MSFT/SNE). Exit on launch weekend \u2014 sell the news.",
@@ -360,7 +372,9 @@
       "date": "2026-04-24",
       "lead_days": 30,
       "instruments": [
-        "Drug company ticker + XBI for hedge"
+        "XBI",
+        "IBB",
+        "LABU"
       ],
       "why": "PDUFA is FDA deadline for approval/rejection. Average binary move: +40\u201360% (approval) or \u221250\u201370% (rejection). IV collapses after \u2014 options decay sharply post-decision.",
       "action": "Use straddle options 30 days before (buy both calls and puts). The binary move exceeds IV pricing 60% of the time. Size max 2% portfolio. Exit day-of or next morning.",
@@ -403,7 +417,7 @@
         "ZIM",
         "MATX",
         "SBLK",
-        "XRT (short on spike)"
+        "XRT"
       ],
       "why": "Shanghai Containerized Freight Index predicts retail gross margins 2\u20133 months ahead. Spiking rates \u2192 inventory build \u2192 margin compression \u2192 retailer earnings misses.",
       "action": "When SCFI rises 50%+ over 8 weeks: SHORT broad retail (XRT). When SCFI normalizes from spike: LONG retailers. Shipping stocks trade WITH rates \u2014 opposite direction.",
@@ -444,7 +458,9 @@
       "date": "2026-04-24",
       "lead_days": 0,
       "instruments": [
-        "Targeted company ticker"
+        "SPY",
+        "XLF",
+        "XLK"
       ],
       "why": "Initial regulatory news causes 10\u201330% selloff. 73% of cases end in settlement, not prosecution. Settlement is often below fear-implied penalty \u2014 mean reversion opportunity.",
       "action": "After >15% single-day drop on regulatory news: LONG if strong balance sheet and no prior fraud. 1\u20132% max position. Hold through settlement. Avoid if CEO/CFO is the target.",
@@ -462,7 +478,11 @@
       "date": "2026-04-24",
       "lead_days": 0,
       "instruments": [
-        "Upgraded ticker"
+        "NVDA",
+        "MSFT",
+        "GOOG",
+        "META",
+        "AMZN"
       ],
       "why": "3+ upgrades in 30 days from different firms signal an institutional consensus shift. Tier-1 upgrades (GS/MS/JPM) with 15%+ PT raises generate +6% 30-day alpha vs market.",
       "action": "On 3rd upgrade in 30 days from different firms: LONG same day. Hold 30\u201345 days. Exit if stock already up 15%+ since first upgrade (alpha already captured).",
