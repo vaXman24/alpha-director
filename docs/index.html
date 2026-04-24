@@ -883,7 +883,8 @@ function buildTape() {
     const chg  = d.chg_1d || 0;
     const dotC = dotFn ? dotFn(price, chg, d) : '#64748b';
     const dot  = `<span style="width:6px;height:6px;border-radius:50%;background:${dotC};display:inline-block;flex-shrink:0"></span>`;
-    items.push(`<span class="tape-item">${dot}<span class="tape-sym">${name}</span><span class="${col(chg)}">${fmt(price,2)} ${pct(chg)}</span></span>`);
+    const chgCol = chg >= 0 ? 'var(--g)' : 'var(--r)';
+    items.push(`<span class="tape-item">${dot}<span class="tape-sym">${name}</span><span style="color:${chgCol}">${fmt(price,2)} ${pct(chg)}</span></span>`);
   }
   const html = items.join('') + items.join('');
   $('tape').innerHTML = html;
