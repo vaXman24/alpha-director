@@ -1,5 +1,5 @@
 {
-  "generated": "2026-04-24T12:06:24.231195Z",
+  "generated": "2026-04-24T13:16:11.352104Z",
   "events": [
     {
       "id": "brazil_frost_season",
@@ -9,9 +9,9 @@
       "date": "2026-06-01",
       "lead_days": 21,
       "instruments": [
-        "JO",
         "KDP",
-        "SBUX"
+        "SBUX",
+        "MNST"
       ],
       "why": "Brazil produces ~35% of world coffee. June\u2013August frost events in Minas Gerais can destroy crops. Even forecasts (not confirmed events) move futures 10\u201330% in days.",
       "action": "Watch Brazil weather daily June\u2013Aug. On first frost warning: LONG coffee ETF (JO) immediately. Hold 5\u20137 days. Exit on weather normalization. Use 4% stop.",
@@ -354,7 +354,7 @@
         "EA",
         "MSFT",
         "NVDA",
-        "ATVI"
+        "RBLX"
       ],
       "why": "AAA launches (GTA, COD) drive GPU demand spikes, hardware upgrades, and publisher revenue beats. Pre-order numbers are a leading indicator 90 days out.",
       "action": "3 months before: LONG publisher + NVDA. 1 month before: add platform holder (MSFT/SNE). Exit on launch weekend \u2014 sell the news.",
