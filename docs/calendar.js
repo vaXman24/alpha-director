@@ -207,6 +207,10 @@
         </div>
         <div style="display:flex;align-items:center;gap:8px">
           <div class="cat-strip" id="cat-strip"></div>
+          <button id="cat-view-toggle" onclick="event.stopPropagation();toggleCatView()"
+            style="font-size:9px;font-weight:700;letter-spacing:.8px;padding:3px 9px;border-radius:8px;
+                   border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);
+                   color:var(--t2);cursor:pointer">LIST</button>
           <span class="coll-chevron" id="cat-chevron">▼</span>
         </div>
       </div>
@@ -214,6 +218,7 @@
         <div id="cat-list" style="padding-top:8px">
           <div style="color:var(--t3);font-size:12px;padding:16px 0">Loading events…</div>
         </div>
+        <div id="cat-month-grid" style="display:none;padding-top:8px"></div>
       </div>
     `;
 
@@ -315,6 +320,110 @@
       </div>` : ''}
     `;
 
+    ov.classList.add('open');
+  };
+
+  // ── Monthly calendar view ─────────────────────────────────────────────────
+  let _catViewMode = 'list'; // 'list' | 'month'
+
+  window.toggleCatView = function () {
+    _catViewMode = _catViewMode === 'list' ? 'month' : 'list';
+    const btn  = document.getElementById('cat-view-toggle');
+    const list = document.getElementById('cat-list');
+    const grid = document.getElementById('cat-month-grid');
+    if (btn)  btn.textContent = _catViewMode === 'list' ? 'LIST' : 'MONTH';
+    if (list) list.style.display = _catViewMode === 'list' ? '' : 'none';
+    if (grid) grid.style.display = _catViewMode === 'month' ? '' : 'none';
+    if (_catViewMode === 'month' && window.__catEvents__) renderMonthGrid(window.__catEvents__);
+  };
+
+  function renderMonthGrid(events) {
+    const grid = document.getElementById('cat-month-grid');
+    if (!grid) return;
+
+    // Show the current month + next 2 months
+    const today = new Date();
+    let html = '';
+
+    for (let mo = 0; mo < 3; mo++) {
+      const y = today.getFullYear() + Math.floor((today.getMonth() + mo) / 12);
+      const m = (today.getMonth() + mo) % 12;
+      const label = new Date(y, m, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      const daysInMonth = new Date(y, m + 1, 0).getDate();
+      const firstDay    = new Date(y, m, 1).getDay(); // 0=Sun
+
+      // Events in this month
+      const monthEvs = events.filter(ev => {
+        if (!ev.date) return false;
+        const d = new Date(ev.date + 'T00:00:00');
+        return d.getFullYear() === y && d.getMonth() === m;
+      });
+
+      // Map day → [events]
+      const dayMap = {};
+      monthEvs.forEach(ev => {
+        const d = new Date(ev.date + 'T00:00:00').getDate();
+        (dayMap[d] = dayMap[d] || []).push(ev);
+      });
+
+      html += `<div style="margin-bottom:20px">
+        <div style="font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--t2);margin-bottom:8px">${label}</div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center">
+          ${['Su','Mo','Tu','We','Th','Fr','Sa'].map(d => `<div style="font-size:9px;color:var(--t3);padding:2px 0;font-weight:600">${d}</div>`).join('')}
+          ${Array.from({length: firstDay}, () => '<div></div>').join('')}
+          ${Array.from({length: daysInMonth}, (_, i) => {
+            const day = i + 1;
+            const isToday = (y === today.getFullYear() && m === today.getMonth() && day === today.getDate());
+            const evs = dayMap[day] || [];
+            const dots = evs.slice(0, 3).map(ev => {
+              const color = CAT_COLOR[ev.category] || '#64748b';
+              return `<span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:${color};margin:0 1px;cursor:pointer"
+                            onclick="openCatModal(window.__catEvents__.find(e=>e.id==='${ev.id}'))"></span>`;
+            }).join('');
+            const moreDot = evs.length > 3 ? `<span style="font-size:7px;color:var(--t3)">+${evs.length-3}</span>` : '';
+            const bg   = isToday ? 'rgba(0,230,118,.15)' : evs.length ? 'rgba(255,255,255,.04)' : 'transparent';
+            const bdr  = isToday ? '1px solid rgba(0,230,118,.4)' : evs.length ? '1px solid rgba(255,255,255,.08)' : '1px solid transparent';
+            const dayColor = isToday ? 'var(--g)' : evs.length ? 'var(--t)' : 'var(--t2)';
+            const clickFn = evs.length === 1
+              ? `openCatModal(window.__catEvents__.find(e=>e.id==='${evs[0].id}'))`
+              : evs.length > 1 ? `openCatDayModal(${JSON.stringify(evs.map(e=>e.id))})` : '';
+            return `<div style="background:${bg};border:${bdr};border-radius:4px;padding:2px 1px;min-height:34px;cursor:${evs.length?'pointer':'default'}"
+                         onclick="${clickFn}">
+                      <div style="font-size:10px;font-weight:${isToday?800:400};color:${dayColor};line-height:1.6">${day}</div>
+                      <div style="display:flex;justify-content:center;flex-wrap:wrap;gap:1px;min-height:7px">${dots}${moreDot}</div>
+                    </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+    }
+    grid.innerHTML = html;
+  }
+
+  // Multi-event day modal: list events for that day
+  window.openCatDayModal = function (ids) {
+    const events = (window.__catEvents__ || []).filter(e => ids.includes(e.id));
+    if (!events.length) return;
+    if (events.length === 1) { openCatModal(events[0]); return; }
+    const ov      = document.getElementById('cat-modal-overlay');
+    const content = document.getElementById('cat-modal-content');
+    if (!ov || !content) return;
+    const d = new Date(events[0].date + 'T00:00:00');
+    const dayLabel = d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+    content.innerHTML = `
+      <div class="cat-modal-title" style="font-size:16px;margin-bottom:12px">${dayLabel} — ${events.length} Events</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        ${events.map(ev => {
+          const color = CAT_COLOR[ev.category] || '#64748b';
+          return `<div onclick="openCatModal(window.__catEvents__.find(e=>e.id==='${ev.id}'))"
+                       style="padding:10px 12px;border-radius:8px;border:1px solid ${color}44;
+                              background:${color}0d;cursor:pointer;transition:background .15s"
+                       onmouseover="this.style.background='${color}1a'" onmouseout="this.style.background='${color}0d'">
+                    <div style="font-size:9px;font-weight:700;color:${color};letter-spacing:1px;text-transform:uppercase;margin-bottom:3px">${CAT_LABEL[ev.category] || ev.category}</div>
+                    <div style="font-size:13px;font-weight:700">${ev.name}</div>
+                    <div style="font-size:10px;color:var(--t2);margin-top:2px">Confidence ${ev.confidence}/10 · Click to view playbook</div>
+                  </div>`;
+        }).join('')}
+      </div>`;
     ov.classList.add('open');
   };
 

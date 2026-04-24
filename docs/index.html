@@ -1116,20 +1116,59 @@ function buildCrypto() {
       <span style="font-size:9px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-right:4px">24h Best:</span>${moverRow(topG,true)}
       <span style="font-size:9px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin:0 4px">Worst:</span>${moverRow(topL,false)}
     </div>` : '';
-  $('crypto-grid').innerHTML = moversHtml + positions.map(p => `
-    <div class="ccard">
-      <div>
-        <div class="cc-sym">${p.symbol}</div>
-        <div class="cc-theme" style="color:var(--t2)">${p.theme || ''}</div>
-        ${p.market_cap ? `<div style="font-size:9px;color:var(--t2);margin-top:3px">MCap: ${fmtB(p.market_cap)}</div>` : ''}
-        ${p.vol_24h    ? `<div style="font-size:9px;color:var(--t3)">Vol 24h: ${fmtB(p.vol_24h)}</div>` : ''}
+  // BTC regime context for action signals
+  const btxCtx  = c.btc_context || {};
+  const domSig  = btxCtx.dom_signal || (c.btc_dominance > 55 ? 'BTC_SEASON' : 'ALT_SEASON');
+  const isBtcSeason = domSig === 'BTC_SEASON';
+
+  function cryptoAction(p) {
+    const pnl = p.pnl_pct || 0;
+    const chg = p.chg_24h || 0;
+    const sym = p.symbol;
+    // BTC/ETH proxies: IBIT and ETHA follow BTC regime directly
+    if (['IBIT','ETHA'].includes(sym)) return isBtcSeason ? {label:'HOLD — BTC Season', col:'var(--a)'} : {label:'TRIM — Alt favoured', col:'var(--r)'};
+    // Deep loss: don't average down
+    if (pnl <= -60) return {label:'HOLD — avoid avg down', col:'var(--r)'};
+    // Alt season: alts can outperform, consider adding
+    if (!isBtcSeason && pnl > -30 && chg > 0) return {label:'WATCH — Alt Season', col:'var(--g)'};
+    // BTC season: reduce alt exposure unless holding core
+    if (isBtcSeason && pnl < -30) return {label:'HOLD — wait BTC peak', col:'var(--a)'};
+    if (pnl >= 20) return {label:'TRIM 25%', col:'var(--a)'};
+    return {label:'HOLD', col:'var(--t2)'};
+  }
+
+  $('crypto-grid').innerHTML = moversHtml + positions.map(p => {
+    const dec    = p.price < 0.01 ? 6 : p.price < 1 ? 4 : 2;
+    const pnlCol = (p.pnl_pct||0) >= 0 ? 'var(--g)' : 'var(--r)';
+    const chgCol = (p.chg_24h||0) >= 0 ? 'var(--g)' : 'var(--r)';
+    const act    = cryptoAction(p);
+    const qty    = p.qty != null ? (p.qty < 0.01 ? p.qty.toFixed(4) : p.qty < 1 ? p.qty.toFixed(3) : p.qty.toFixed(2)) : null;
+    const avgPx  = p.avg != null ? `$${fmt(p.avg, p.avg < 1 ? 4 : 2)}` : null;
+    const val    = p.value != null ? `$${Math.round(p.value).toLocaleString()}` : null;
+    return `
+    <div class="ccard" style="display:block;padding:12px 14px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+        <div>
+          <div class="cc-sym">${p.symbol}</div>
+          <div class="cc-theme" style="color:var(--t2);font-size:10px">${p.theme || ''}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="cc-price">$${fmt(p.price, dec)}</div>
+          <div style="font-size:10px;font-weight:700;color:${chgCol}">24h: ${pct(p.chg_24h||0)}</div>
+        </div>
       </div>
-      <div style="text-align:right">
-        <div class="cc-price">$${fmt(p.price, p.price < 1 ? 4 : 2)}</div>
-        <div class="cc-pnl ${col(p.pnl_pct)}">${p.pnl_label}</div>
-        <div style="font-size:9px;color:${(p.chg_24h||0)>=0?'var(--g)':'var(--r)'}">24h: ${pct(p.chg_24h||p.change_24h)}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;font-size:10px;margin-bottom:6px">
+        ${avgPx ? `<div style="color:var(--t3)">Avg cost</div><div style="color:var(--t);font-weight:600;text-align:right">${avgPx}</div>` : ''}
+        ${qty   ? `<div style="color:var(--t3)">Qty</div><div style="color:var(--t);font-weight:600;text-align:right">${qty}</div>` : ''}
+        ${val   ? `<div style="color:var(--t3)">Value</div><div style="color:var(--t);font-weight:600;text-align:right">${val}</div>` : ''}
+        ${p.market_cap ? `<div style="color:var(--t3)">MCap</div><div style="color:var(--t2);text-align:right">${fmtB(p.market_cap)}</div>` : ''}
       </div>
-    </div>`).join('');
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:6px;border-top:1px solid var(--border)">
+        <span style="font-size:12px;font-weight:800;color:${pnlCol}">${p.pnl_label || '—'}</span>
+        <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;background:${act.col}22;color:${act.col};border:1px solid ${act.col}44">${act.label}</span>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ── Fear & Greed ───────────────────────────────────────────────────────────
@@ -1277,13 +1316,25 @@ function buildActionCenter() {
   if (opps.length) {
     html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);padding:8px 0 4px;margin-top:8px;border-top:1px solid var(--border)">Watchlist Opportunities</div>`;
     for (const p of opps) {
-      const oc = p.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
-      const ma = [['above_200','MA200'],['above_150','MA150'],['above_50','MA50']]
+      const oc   = p.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
+      const tgt  = p.target    ? '$' + fmt(p.target)    : '—';
+      const sl   = p.stop_loss ? '$' + fmt(p.stop_loss) : '—';
+      const up   = p.upside_pct != null ? '+' + p.upside_pct + '%' : '—';
+      const zone = p.entry_zone ? `$${p.entry_zone[0]}–$${p.entry_zone[1]}` : '—';
+      const ma   = [['above_200','200D'],['above_50','50D']]
         .map(([key,label]) => `<span style="font-size:9px;padding:1px 5px;border-radius:3px;margin-right:3px;background:${p[key]?'var(--g2)':'var(--r2)'};color:${p[key]?'var(--g)':'var(--r)'}">${label} ${p[key]?'▲':'▼'}</span>`).join('');
+      const rsiNote = p.rsi != null ? `<span style="font-size:9px;color:var(--t2)">RSI ${p.rsi}</span>` : '';
       html += `<div class="acard ${p.action==='STRONG BUY'?'strong-buy':'buy'}">
         <div class="acard-action" style="color:${oc}">${p.action} <span style="font-size:9px;color:var(--t3);font-weight:400">· WATCHLIST</span></div>
         <div class="acard-ticker">${p.ticker} <span style="font-size:11px;font-weight:400;color:var(--t2)">$${fmt(p.price)}</span> <span class="${col(p.chg_1d)}" style="font-size:11px">${pct(p.chg_1d)}</span></div>
-        <div style="margin-top:5px">${ma}</div>
+        <div style="margin-top:5px;display:flex;align-items:center;gap:6px">${ma}${rsiNote}</div>
+        <div class="acard-row"><span>Target</span><b>${tgt}</b></div>
+        <div class="acard-row"><span>Stop-loss</span><b>${sl}</b></div>
+        <div class="acard-row"><span>Entry zone</span><b>${zone}</b></div>
+        ${p.upside_pct != null ? `<div style="margin-top:6px;padding:6px 10px;border-radius:6px;background:${p.upside_pct>20?'rgba(0,230,118,.15)':p.upside_pct>10?'rgba(0,180,216,.1)':'rgba(255,215,64,.1)'};display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:10px;color:var(--t2)">Upside to target</span>
+          <span style="font-size:16px;font-weight:900;color:${p.upside_pct>20?'var(--g)':p.upside_pct>10?'#00b4d8':'var(--a)'}">${up}</span>
+        </div>` : ''}
         ${p.reason ? `<div style="margin-top:6px;font-size:10px;color:var(--t2);line-height:1.45;border-top:1px solid var(--border);padding-top:5px">${p.reason}</div>` : ''}
       </div>`;
     }
