@@ -1967,6 +1967,16 @@ function _smStatusColor(s){
 function _smCatEmoji(c){
   return {seasonal:'🌿',corporate:'🏢',industry:'⚙️',macro:'🌐',bonus:'⭐'}[c]||'📌';
 }
+function _smRiskBadge(r){
+  var m={LOW:['#0a2a1a','#00e676'],MEDIUM:['#0a1a2a','#448aff'],HIGH:['#2a1a00','#ffd740'],'VERY HIGH':['#2a0010','#ff3d71']};
+  var c=m[r]||['#1a1a1a','#888'];
+  return '<span style="background:'+c[0]+';color:'+c[1]+';border:1px solid '+c[1]+'55;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:.3px">'+r+'</span>';
+}
+function _smVerdictBadge(v){
+  var m={YES:['#0a2a1a','#00e676'],WAIT:['#2a1a00','#ffd740'],NO:['#2a0010','#ff3d71']};
+  var c=m[v]||['#1a1a1a','#888'];
+  return '<span style="background:'+c[0]+';color:'+c[1]+';border:1px solid '+c[1]+'55;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:.3px">'+v+'</span>';
+}
 
 // ── Build TradingView widget chart ────────────────────────────────────────
 function _buildTVChart(ticker) {
@@ -2121,8 +2131,8 @@ window._openStockModal = function(ticker) {
       ['Cost Basis', pos.cost  != null ? '$' + Math.round(pos.cost).toLocaleString()  : null, null],
       ['Mkt Value',  pos.value != null ? '$' + Math.round(pos.value).toLocaleString() : null, null],
       ['P&L',        _pnlPct != null ? _smFmtP(_pnlPct) : null, _pnlCol],
-      ['Risk',       pos.risk || null, null],
-      ['Verdict',    pos.verdict || null, null],
+      ['Risk',       pos.risk    ? _smRiskBadge(pos.risk)       : null, null],
+      ['Verdict',    pos.verdict ? _smVerdictBadge(pos.verdict) : null, null],
     ];
     if (pos.allocation_usd) pRows.push(['DCA / month', '$' + Math.round(pos.allocation_usd).toLocaleString(), '#00e676']);
     if (d.stop_loss)  pRows.push(['Stop-loss', '$' + _smFmt(d.stop_loss), '#ff3d71']);
