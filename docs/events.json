@@ -1,0 +1,500 @@
+{
+  "generated": "2026-04-24T10:32:08.895958Z",
+  "events": [
+    {
+      "id": "brazil_frost_season",
+      "category": "seasonal",
+      "cat_label": "Seasonal / Cyclical",
+      "name": "Brazil Frost Season (Coffee)",
+      "date": "2026-06-01",
+      "lead_days": 21,
+      "instruments": [
+        "JO",
+        "KDP",
+        "SBUX"
+      ],
+      "why": "Brazil produces ~35% of world coffee. June\u2013August frost events in Minas Gerais can destroy crops. Even forecasts (not confirmed events) move futures 10\u201330% in days.",
+      "action": "Watch Brazil weather daily June\u2013Aug. On first frost warning: LONG coffee ETF (JO) immediately. Hold 5\u20137 days. Exit on weather normalization. Use 4% stop.",
+      "trade_type": "Event-driven LONG",
+      "confidence": 6,
+      "exit_trigger": "Weather normalization report OR +15% gain",
+      "days_until": 38,
+      "status": "future"
+    },
+    {
+      "id": "sp500_rebalancing",
+      "category": "corporate",
+      "cat_label": "Corporate & Technical",
+      "name": "S&P 500 Index Rebalancing",
+      "date": "2026-06-21",
+      "lead_days": 7,
+      "instruments": [
+        "Newly added ticker",
+        "VOO",
+        "SPY"
+      ],
+      "why": "S&P additions force index funds (trillions AUM) to buy the new component before the effective date. Announced ~5 trading days ahead. Average impact: +5\u20138% announcement to effective date.",
+      "action": "Buy addition immediately on S&P announcement (before 4PM). Hold through effective date. Sell on effective date open as passive funds finish buying. Short deletions 1\u20132 days after.",
+      "trade_type": "LONG on addition announcement",
+      "confidence": 8,
+      "exit_trigger": "Effective date open",
+      "days_until": 58,
+      "status": "future"
+    },
+    {
+      "id": "fed_stress_test",
+      "category": "macro",
+      "cat_label": "Geopolitical & Macro",
+      "name": "Fed Bank Stress Test Results",
+      "date": "2026-06-26",
+      "lead_days": 14,
+      "instruments": [
+        "JPM",
+        "BAC",
+        "GS",
+        "MS",
+        "C",
+        "KRE"
+      ],
+      "why": "All-clear results unlock dividend hikes and buyback authorizations. The bank with the highest capital buffer raises its dividend most aggressively \u2192 immediate re-rating.",
+      "action": "14 days before results: LONG well-capitalized bank basket. After results: rotate into specific banks announcing largest capital returns. Exit 4 weeks post-announcement.",
+      "trade_type": "LONG bank basket pre-announcement",
+      "confidence": 7,
+      "exit_trigger": "4 weeks post-results OR any major fail",
+      "days_until": 63,
+      "status": "future"
+    },
+    {
+      "id": "btc_options_expiry",
+      "category": "bonus",
+      "cat_label": "2026 High-Alpha",
+      "name": "Bitcoin Options Expiry (Max Pain)",
+      "date": "2026-06-28",
+      "lead_days": 7,
+      "instruments": [
+        "IBIT",
+        "FBTC",
+        "MSTR",
+        "COIN",
+        "CLSK"
+      ],
+      "why": "Monthly/quarterly BTC options expiry on Deribit moves $5\u201315B notional. Price gravitates toward max pain strike (where most options expire worthless) in the week before expiry.",
+      "action": "7 days before major expiry: check max pain on Deribit. If spot > max pain: expect downward pressure. If spot < max pain by 8%+: LONG IBIT. Exit ON expiry day.",
+      "trade_type": "Mean reversion to max pain",
+      "confidence": 6,
+      "exit_trigger": "Expiry day OR max pain price achieved",
+      "days_until": 65,
+      "status": "future"
+    },
+    {
+      "id": "semi_lead_times",
+      "category": "industry",
+      "cat_label": "Industry Specific",
+      "name": "Semiconductor Lead Time Cycle",
+      "date": "2026-07-15",
+      "lead_days": 30,
+      "instruments": [
+        "SOXX",
+        "SMH",
+        "NVDA",
+        "AMAT",
+        "KLAC",
+        "ASML"
+      ],
+      "why": "Semi lead times are a 6-month leading indicator. Expanding lead times \u2192 supply shortage \u2192 pricing power \u2192 margin expansion. Equipment makers lead the cycle by 6 months.",
+      "action": "When Susquehanna lead time data shows expansion YoY: LONG SOXX and equipment (AMAT/KLAC/ASML). When contracting 3+ months straight: reduce/exit. Full cycle: 12\u201318 months.",
+      "trade_type": "Cycle LONG",
+      "confidence": 7,
+      "exit_trigger": "Lead times contract 3 consecutive months",
+      "days_until": 82,
+      "status": "future"
+    },
+    {
+      "id": "hurricane_season",
+      "category": "seasonal",
+      "cat_label": "Seasonal / Cyclical",
+      "name": "Hurricane Season (Energy Volatility)",
+      "date": "2026-08-01",
+      "lead_days": 14,
+      "instruments": [
+        "USO",
+        "UNG",
+        "RIG",
+        "HAL",
+        "VLO"
+      ],
+      "why": "Gulf of Mexico produces ~17% of US oil. Category 3+ storms disrupt rigs and refineries. NOAA seasonal forecasts in June move energy stocks before storms form.",
+      "action": "LONG USO/UNG when NOAA predicts above-normal season (June). Scale up on Cat 2+ storm formations targeting Gulf. Sell within 48h of landfall.",
+      "trade_type": "Long volatility on storm formations",
+      "confidence": 5,
+      "exit_trigger": "Landfall +48h OR storm dissipates",
+      "days_until": 99,
+      "status": "future"
+    },
+    {
+      "id": "adtech_q4_peak",
+      "category": "seasonal",
+      "cat_label": "Seasonal / Cyclical",
+      "name": "Ad-Tech Q4 Revenue Peak",
+      "date": "2026-10-01",
+      "lead_days": 30,
+      "instruments": [
+        "META",
+        "GOOGL",
+        "TTD",
+        "APPS",
+        "MGNI"
+      ],
+      "why": "Retail ad budgets are 'use it or lose it.' CPM rates spike Oct\u2013Dec as brands compete for holiday eyeballs. Revenue and guidance beats cluster in this window.",
+      "action": "Accumulate META/GOOGL/TTD in late September. Hold through Q3 earnings (Oct). Exit before Q4 earnings in January. Avoid holding into post-holiday ad slowdown.",
+      "trade_type": "LONG Sep \u2192 Dec",
+      "confidence": 8,
+      "exit_trigger": "After Q3 earnings beat OR December 31",
+      "days_until": 160,
+      "status": "future"
+    },
+    {
+      "id": "sovereign_wealth_rebalancing",
+      "category": "bonus",
+      "cat_label": "2026 High-Alpha",
+      "name": "Sovereign Wealth Fund Rebalancing",
+      "date": "2026-10-01",
+      "lead_days": 21,
+      "instruments": [
+        "SPY",
+        "EEM",
+        "GLD",
+        "TLT",
+        "VNQ"
+      ],
+      "why": "Norway GPFG ($1.7T), Saudi PIF ($700B), ADIA ($850B) rebalance quarterly. Large equity drawdowns force them to buy to restore allocation. Their flows are disclosed with a 30\u201390 day lag.",
+      "action": "After market correction >15%: expect SWF buying within 30\u201360 days. LONG broad market ETFs 3 weeks into the selloff \u2014 especially if oil nations are flush (high oil = SWF inflows).",
+      "trade_type": "Contrarian LONG post-correction",
+      "confidence": 6,
+      "exit_trigger": "Market recovers 10%+ from entry OR 90 days",
+      "days_until": 160,
+      "status": "future"
+    },
+    {
+      "id": "indian_wedding_season",
+      "category": "seasonal",
+      "cat_label": "Seasonal / Cyclical",
+      "name": "Indian Wedding Season (Gold)",
+      "date": "2026-10-15",
+      "lead_days": 30,
+      "instruments": [
+        "GLD",
+        "IAU",
+        "SGOL",
+        "GDX",
+        "NEM"
+      ],
+      "why": "India consumes 25% of global gold jewelry. Dhanteras festival (Oct/Nov) is the biggest gold-buying day of the year. Consistent seasonal demand pattern for decades.",
+      "action": "LONG GLD/IAU from October 1. Scale up before Dhanteras. Hold through Diwali. Exit mid-December as wedding season peaks.",
+      "trade_type": "LONG Oct \u2192 mid-Dec",
+      "confidence": 7,
+      "exit_trigger": "Mid-December OR gold RSI > 75",
+      "days_until": 174,
+      "status": "future"
+    },
+    {
+      "id": "january_effect",
+      "category": "seasonal",
+      "cat_label": "Seasonal / Cyclical",
+      "name": "January Effect (Small-Caps)",
+      "date": "2026-12-26",
+      "lead_days": 10,
+      "instruments": [
+        "IWM",
+        "VBR",
+        "SCHA",
+        "IJR"
+      ],
+      "why": "Tax-loss selling dumps small-caps in December. January sees institutional repositioning. Small-caps historically outperform large-caps in the first two weeks of January.",
+      "action": "LONG IWM/VBR around Dec 26\u201331 (after tax-loss selling bottoms). Exit January 15. The setup is in December, not January.",
+      "trade_type": "LONG Dec 26 \u2192 Jan 15",
+      "confidence": 6,
+      "exit_trigger": "January 15 OR IWM +8% from entry",
+      "days_until": 246,
+      "status": "future"
+    },
+    {
+      "id": "chinese_new_year",
+      "category": "seasonal",
+      "cat_label": "Seasonal / Cyclical",
+      "name": "Chinese New Year",
+      "date": "2027-01-29",
+      "lead_days": 14,
+      "instruments": [
+        "USO",
+        "UCO",
+        "FXI",
+        "KWEB",
+        "BABA"
+      ],
+      "why": "Factories shut 7-10 days. Pre-holiday industrial restocking drives an oil demand surge 2 weeks before. Post-holiday inventory builds often reverse the move sharply.",
+      "action": "Go LONG crude oil ETFs (USO/UCO) 14 days before the holiday. Target +5-8%. Exit 2 days before start. SHORT side post-holiday if EIA inventory data shows builds.",
+      "trade_type": "LONG pre / SHORT post",
+      "confidence": 7,
+      "exit_trigger": "T\u22122 before holiday start OR \u22123% stop loss",
+      "days_until": 280,
+      "status": "future"
+    },
+    {
+      "id": "ma_arbitrage",
+      "category": "corporate",
+      "cat_label": "Corporate & Technical",
+      "name": "M&A Arbitrage (8-K Filings)",
+      "date": "2026-04-24",
+      "lead_days": 0,
+      "instruments": [
+        "Monitor SEC EDGAR 8-K filings daily"
+      ],
+      "why": "On acquisition announcement, target spikes to ~90% of deal price, leaving a 5\u201310% spread. The spread reflects deal-close probability. Wider spread = higher regulatory risk.",
+      "action": "On announcement: LONG target at market. Size based on spread width. Monitor antitrust news daily. Exit at deal close OR immediately on deal-break rumor. Max 3% of portfolio.",
+      "trade_type": "Merger arb LONG",
+      "confidence": 6,
+      "exit_trigger": "Deal close OR deal-break news",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "ipo_lockup_expiry",
+      "category": "corporate",
+      "cat_label": "Corporate & Technical",
+      "name": "IPO Lock-up Expirations",
+      "date": "2026-04-24",
+      "lead_days": 14,
+      "instruments": [
+        "Recent IPO tickers \u2014 track 180-day lock from IPO date"
+      ],
+      "why": "Insiders locked out 180 days from IPO. Expiry floods market with supply. Stock historically drops 5\u201315% in the two weeks surrounding expiry.",
+      "action": "SHORT target 14 days before lockup expiry. Cover on/after expiry day. Do NOT short if stock is already down 30%+ from IPO price. Avoid if earnings catalyst is nearby.",
+      "trade_type": "SHORT 14 days pre-expiry",
+      "confidence": 7,
+      "exit_trigger": "Expiry +5 days OR \u22125% stop",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "pead_drift",
+      "category": "corporate",
+      "cat_label": "Corporate & Technical",
+      "name": "Post-Earnings Drift (PEAD)",
+      "date": "2026-04-24",
+      "lead_days": 0,
+      "instruments": [
+        "Earnings beat tickers"
+      ],
+      "why": "Markets systematically under-react to earnings surprises. Stocks with large positive EPS surprises continue drifting up for 60 days. Academic literature confirms this anomaly persists.",
+      "action": "After large EPS beat (+10% above consensus): LONG next trading day. Hold 30\u201360 days. Use 20-day ATR as stop. Works best with revenue beat AND guidance raise.",
+      "trade_type": "Momentum LONG 30\u201360 days",
+      "confidence": 7,
+      "exit_trigger": "60 days post-earnings OR ATR\u00d71.5 stop",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "share_buyback",
+      "category": "corporate",
+      "cat_label": "Corporate & Technical",
+      "name": "Share Buyback Announcements",
+      "date": "2026-04-24",
+      "lead_days": 0,
+      "instruments": [
+        "Announcing company ticker"
+      ],
+      "why": "Buybacks >5% of float generate average +12% over 12 months vs market. Signals management confidence. Reduces share count = EPS accretion.",
+      "action": "LONG on large announcement (>3% float). Add on any pullback in 30 days. Confirm FCF can fund it \u2014 avoid debt-funded buybacks in high-rate environments.",
+      "trade_type": "LONG medium-term",
+      "confidence": 7,
+      "exit_trigger": "12 months OR thesis changes",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "insider_cluster_buying",
+      "category": "corporate",
+      "cat_label": "Corporate & Technical",
+      "name": "Insider Cluster Buying",
+      "date": "2026-04-24",
+      "lead_days": 0,
+      "instruments": [
+        "Monitor Form 4 via OpenInsider.com"
+      ],
+      "why": "3+ unique insiders buying in the same 30-day window signals conviction. Cluster buying outperforms market by 8\u201310% in the following year vs single insider buys.",
+      "action": "On cluster detection: LONG within 48h. Prefer CEO/CFO/Director over VP. Avoid if pending M&A (arbitrage incentive). Hold 6\u201312 months minimum.",
+      "trade_type": "LONG 6\u201312 months",
+      "confidence": 8,
+      "exit_trigger": "12 months OR insiders selling",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "gaming_blockbuster",
+      "category": "industry",
+      "cat_label": "Industry Specific",
+      "name": "Gaming Blockbuster Launch",
+      "date": "2026-04-24",
+      "lead_days": 90,
+      "instruments": [
+        "TTWO",
+        "EA",
+        "MSFT",
+        "SNE",
+        "NVDA"
+      ],
+      "why": "AAA launches (GTA, COD) drive GPU demand spikes, hardware upgrades, and publisher revenue beats. Pre-order numbers are a leading indicator 90 days out.",
+      "action": "3 months before: LONG publisher + NVDA. 1 month before: add platform holder (MSFT/SNE). Exit on launch weekend \u2014 sell the news.",
+      "trade_type": "LONG 3mo pre-launch, EXIT on launch",
+      "confidence": 7,
+      "exit_trigger": "Launch day OR pre-orders miss expectations",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "fda_pdufa",
+      "category": "industry",
+      "cat_label": "Industry Specific",
+      "name": "FDA PDUFA Drug Approval Dates",
+      "date": "2026-04-24",
+      "lead_days": 30,
+      "instruments": [
+        "Drug company ticker + XBI for hedge"
+      ],
+      "why": "PDUFA is FDA deadline for approval/rejection. Average binary move: +40\u201360% (approval) or \u221250\u201370% (rejection). IV collapses after \u2014 options decay sharply post-decision.",
+      "action": "Use straddle options 30 days before (buy both calls and puts). The binary move exceeds IV pricing 60% of the time. Size max 2% portfolio. Exit day-of or next morning.",
+      "trade_type": "Options straddle (long volatility)",
+      "confidence": 6,
+      "exit_trigger": "FDA decision day + 1",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "copper_momentum",
+      "category": "industry",
+      "cat_label": "Industry Specific",
+      "name": "Copper Price Momentum",
+      "date": "2026-04-24",
+      "lead_days": 0,
+      "instruments": [
+        "COPX",
+        "FCX",
+        "SCCO",
+        "BHP",
+        "TECK"
+      ],
+      "why": "'Dr. Copper' predicts global industrial demand 3\u20136 months ahead. Sustained 3-month uptrend correlates with EM equity outperformance and commodity rotation.",
+      "action": "When copper breaks 3-month high with rising 20-day MA: LONG miners (FCX/SCCO). Hold until copper makes 3-month low or miners hit 30% profit. Avoid when USD strengthening sharply.",
+      "trade_type": "Trend-following LONG",
+      "confidence": 6,
+      "exit_trigger": "Copper 3-month low OR USD breakout",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "shipping_container_rates",
+      "category": "industry",
+      "cat_label": "Industry Specific",
+      "name": "Shipping Container Rate Cycle (SCFI)",
+      "date": "2026-04-24",
+      "lead_days": 0,
+      "instruments": [
+        "ZIM",
+        "MATX",
+        "SBLK",
+        "XRT (short on spike)"
+      ],
+      "why": "Shanghai Containerized Freight Index predicts retail gross margins 2\u20133 months ahead. Spiking rates \u2192 inventory build \u2192 margin compression \u2192 retailer earnings misses.",
+      "action": "When SCFI rises 50%+ over 8 weeks: SHORT broad retail (XRT). When SCFI normalizes from spike: LONG retailers. Shipping stocks trade WITH rates \u2014 opposite direction.",
+      "trade_type": "SHORT retailers on spike / LONG on normalize",
+      "confidence": 6,
+      "exit_trigger": "SCFI reverses 20%+ from peak",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "war_ceasefire",
+      "category": "macro",
+      "cat_label": "Geopolitical & Macro",
+      "name": "War / Ceasefire Alerts",
+      "date": "2026-04-24",
+      "lead_days": 0,
+      "instruments": [
+        "USO",
+        "LMT",
+        "RTX",
+        "NOC",
+        "GLD",
+        "ITA"
+      ],
+      "why": "Conflict escalation \u2192 oil spike + defense surge + gold safe-haven. Ceasefire \u2192 oil dump + defense pullback. Mean reversion on ceasefires is fast (1\u20135 days).",
+      "action": "Escalation: LONG LMT/RTX/GLD within hours. Exit within 5 trading days. Ceasefire: SHORT defense within 24h. Cover in 3 days. Oil only if Middle East or Russia involved.",
+      "trade_type": "Event-driven, short holding period",
+      "confidence": 5,
+      "exit_trigger": "5 trading days OR \u22124% stop",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "regulatory_investigation",
+      "category": "macro",
+      "cat_label": "Geopolitical & Macro",
+      "name": "Regulatory Fines / Investigations",
+      "date": "2026-04-24",
+      "lead_days": 0,
+      "instruments": [
+        "Targeted company ticker"
+      ],
+      "why": "Initial regulatory news causes 10\u201330% selloff. 73% of cases end in settlement, not prosecution. Settlement is often below fear-implied penalty \u2014 mean reversion opportunity.",
+      "action": "After >15% single-day drop on regulatory news: LONG if strong balance sheet and no prior fraud. 1\u20132% max position. Hold through settlement. Avoid if CEO/CFO is the target.",
+      "trade_type": "Mean reversion LONG",
+      "confidence": 5,
+      "exit_trigger": "Settlement announced OR +20% gain",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "analyst_upgrade_cluster",
+      "category": "macro",
+      "cat_label": "Geopolitical & Macro",
+      "name": "Analyst Upgrade Cluster",
+      "date": "2026-04-24",
+      "lead_days": 0,
+      "instruments": [
+        "Upgraded ticker"
+      ],
+      "why": "3+ upgrades in 30 days from different firms signal an institutional consensus shift. Tier-1 upgrades (GS/MS/JPM) with 15%+ PT raises generate +6% 30-day alpha vs market.",
+      "action": "On 3rd upgrade in 30 days from different firms: LONG same day. Hold 30\u201345 days. Exit if stock already up 15%+ since first upgrade (alpha already captured).",
+      "trade_type": "Momentum LONG 30\u201345 days",
+      "confidence": 6,
+      "exit_trigger": "45 days OR stock +15% from first upgrade",
+      "days_until": null,
+      "status": "monitor"
+    },
+    {
+      "id": "ai_compute_milestone",
+      "category": "bonus",
+      "cat_label": "2026 High-Alpha",
+      "name": "AI Compute Capacity Milestones",
+      "date": "2026-04-24",
+      "lead_days": 30,
+      "instruments": [
+        "NVDA",
+        "AMD",
+        "SMCI",
+        "ANET",
+        "VST",
+        "CEG",
+        "NRG"
+      ],
+      "why": "Hyperscaler CAPEX guidance and new cluster deployment announcements move the entire AI supply chain. 2026 trend: power infrastructure is the bottleneck \u2014 alpha shifts from chips to utilities and networking.",
+      "action": "On large CAPEX announcement: LONG power enablers (VST/CEG) and networking (ANET) before chips (NVDA already priced). Hold 60\u201390 days. Exit if AI spending narrative reverses.",
+      "trade_type": "Thematic LONG 60\u201390 days",
+      "confidence": 8,
+      "exit_trigger": "CAPEX guidance lowered OR AI narrative reverses",
+      "days_until": null,
+      "status": "monitor"
+    }
+  ]
+}
