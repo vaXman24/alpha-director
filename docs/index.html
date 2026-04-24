@@ -127,7 +127,8 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 
 /* Action Center */
 .action-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.acard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;border-top:3px solid var(--border)}
+.acard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;border-top:3px solid var(--border);cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.acard:hover{box-shadow:0 0 0 1px rgba(255,255,255,.12);border-color:rgba(255,255,255,.18)}
 .acard.strong-buy{border-top-color:var(--g)}
 .acard.buy{border-top-color:#00b4d8}
 .acard.trim{border-top-color:var(--a)}
@@ -137,6 +138,47 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 .acard-price{font-size:13px;color:var(--txt2)}
 .acard-row{display:flex;justify-content:space-between;font-size:11px;color:var(--txt2);margin-top:4px}
 .acard-row b{color:var(--txt)}
+/* Stock modal */
+#stock-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:9000;align-items:center;justify-content:center;padding:12px}
+#stock-modal-overlay.open{display:flex}
+#stock-modal-box{background:#0d0d0d;border:1px solid #1e1e1e;border-radius:14px;width:100%;max-width:1200px;max-height:95vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.8)}
+#stock-modal-header{padding:14px 18px;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;gap:10px;flex-wrap:wrap;flex-shrink:0}
+#stock-modal-title{font-size:22px;font-weight:800;letter-spacing:1px;color:#fff;margin-right:auto}
+.sm-badge{padding:3px 10px;border-radius:6px;font-size:10px;font-weight:800;letter-spacing:.5px}
+.sm-toggle{background:#111;border:1px solid #2a2a2a;color:#777;padding:5px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;user-select:none}
+.sm-toggle.active{background:#1e1e1e;color:#e0e0e0;border-color:#3a3a3a}
+.sm-close{background:none;border:none;color:#555;font-size:22px;cursor:pointer;padding:0 4px;line-height:1;transition:color .15s}
+.sm-close:hover{color:#ccc}
+#stock-modal-metrics{padding:10px 18px;border-bottom:1px solid #1a1a1a;display:flex;flex-wrap:wrap;gap:16px;flex-shrink:0}
+.sm-metric{display:flex;flex-direction:column;gap:1px}
+.sm-metric-label{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#444}
+.sm-metric-value{font-size:12px;font-weight:700;color:#ccc}
+#stock-modal-body{display:grid;grid-template-columns:60fr 40fr;flex:1;overflow:hidden;min-height:0}
+#stock-modal-body.chart-only{grid-template-columns:1fr}
+#stock-modal-body.info-only{grid-template-columns:1fr}
+#stock-modal-body.info-only #sm-chart-panel{display:none}
+#stock-modal-body.chart-only #sm-info-panel{display:none}
+#sm-chart-panel{height:100%;overflow:hidden;border-right:1px solid #1a1a1a}
+#sm-chart-panel iframe{width:100%;height:100%;border:none;display:block}
+#sm-info-panel{overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px;background:#0a0a0a}
+.sm-section-title{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#444;border-bottom:1px solid #1a1a1a;padding-bottom:5px;margin-bottom:8px}
+.sm-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:3px 0;border-bottom:1px solid #111}
+.sm-row:last-child{border-bottom:none}
+.sm-row-label{color:#666}
+.sm-row-value{font-weight:700;text-align:right;color:#ccc}
+.sm-cat-item{background:#111;border-radius:7px;padding:9px 10px;margin-bottom:6px;font-size:11px}
+.sm-cat-item-name{font-weight:700;color:#e0e0e0;margin-bottom:3px}
+.sm-cat-item-meta{color:#666;font-size:10px}
+.sm-rule-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.sm-chip{padding:3px 9px;border-radius:12px;font-size:10px;font-weight:700}
+.sm-chip-ok{background:#0a2a1a;color:#00e676;border:1px solid #1b5e20}
+.sm-chip-warn{background:#2a1a00;color:#ffd740;border:1px solid #5e4000}
+.sm-chip-bad{background:#2a0010;color:#ff3d71;border:1px solid #5e0020}
+.sm-open-tv{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:6px;background:#1565c0;color:#90caf9;font-size:10px;font-weight:700;text-decoration:none;border:1px solid #1976d2}
+.sm-open-tv:hover{background:#1976d2;color:#fff}
+.sm-cat-btn{display:inline-block;margin-top:6px;padding:4px 10px;border-radius:5px;background:rgba(255,215,64,.12);color:var(--a);font-size:10px;font-weight:700;cursor:pointer;border:1px solid rgba(255,215,64,.3)}
+.sm-cat-btn:hover{background:rgba(255,215,64,.2)}
+@media(max-width:700px){#stock-modal-body{grid-template-columns:1fr;grid-template-rows:300px auto}#sm-chart-panel{border-right:none;border-bottom:1px solid #1a1a1a}}
 .risk-badge{display:inline-block;font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px;letter-spacing:.4px}
 .risk-badge.low{background:var(--g2);color:var(--g)}
 .risk-badge.medium{background:var(--b2);color:var(--b)}
@@ -971,6 +1013,9 @@ function buildPortSummary() {
 // ── Portfolio cards ────────────────────────────────────────────────────────
 function buildPortCards() {
   const positions = D.portfolio.positions;
+  // Populate global store for modal
+  (window.__portPositions__ = window.__portPositions__ || {});
+  positions.forEach(p => { window.__portPositions__[p.ticker.toUpperCase()] = p; });
   $('port-grid').innerHTML = positions.map(p => {
     const verdict = p.verdict || (p.above_200 === true ? 'YES' : p.above_200 === false ? 'NO' : 'WAIT');
     const vclass = verdict.toLowerCase();
@@ -1020,7 +1065,7 @@ function buildPortCards() {
         <span class="abadge ${p.alert[0]}">${p.alert[1]}</span>
       </div>` : '';
 
-    return `<div class="scard v-${vclass}">
+    return `<div class="scard v-${vclass}" style="cursor:pointer" onclick="window._openStockModal('${p.ticker}')">
       <div class="sc-top">
         <div>
           <div class="sc-ticker">${p.ticker}</div>
@@ -1395,7 +1440,7 @@ function buildActionCenter() {
     const confCol = conf >= 80 ? 'var(--g)' : conf >= 60 ? 'var(--a)' : 'var(--r)';
     const confLabel = conf >= 80 ? 'HIGH' : conf >= 60 ? 'MODERATE' : 'LOW';
     const confBadge = conf != null ? `<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;background:${confCol}22;color:${confCol};border:1px solid ${confCol}44;margin-left:6px">${conf}% ${confLabel}</span>` : '';
-    html += `<div class="acard ${actionCls(p.action)}">
+    html += `<div class="acard ${actionCls(p.action)}" onclick="window._openStockModal('${p.ticker}')">
       <div class="acard-action" style="color:${actionColor(p.action)}">${p.action}${isBuy ? holdType : ''}${confBadge}</div>
       <div class="acard-ticker">${p.ticker} ${p.risk ? `<span class="risk-badge ${riskClass(p.risk)}">${p.risk}</span>` : ''}</div>
       <div class="acard-price">$${p.price ? fmt(p.price) : '—'} · ${p.theme}</div>
@@ -1425,6 +1470,10 @@ function buildActionCenter() {
   // Outside-portfolio opportunities
   const opps = D.outside_opps || [];
   if (opps.length) {
+    // Populate global store for modal
+    window.__oppData__ = window.__oppData__ || {};
+    opps.forEach(p => { window.__oppData__[p.ticker.toUpperCase()] = p; });
+
     // Split: regular watchlist vs catalyst-driven
     const regOpps = opps.filter(p => !p.catalyst);
     const catOpps = opps.filter(p =>  p.catalyst);
@@ -1440,40 +1489,29 @@ function buildActionCenter() {
         .map(([key,label]) => `<span style="font-size:9px;padding:1px 5px;border-radius:3px;margin-right:3px;background:${p[key]?'var(--g2)':'var(--r2)'};color:${p[key]?'var(--g)':'var(--r)'}">${label} ${p[key]?'▲':'▼'}</span>`).join('');
       const rsiNote = p.rsi != null ? `<span style="font-size:9px;color:var(--t2)">RSI ${p.rsi}</span>` : '';
 
-      // Catalyst badge + metadata
+      // Catalyst badge + metadata (compact — full detail in modal)
       const catStatusColor = {'imminent':'var(--r)','upcoming':'var(--g)','monitor':'var(--b)'};
       const catCountdown   = p.catalyst_days === 0 ? 'TODAY' : p.catalyst_days === 1 ? 'Tomorrow' : `in ${p.catalyst_days}d`;
-
       let catBadge = '';
       if (isCat) {
-        // Format event date for display
         let evDateStr = '';
         if (p.event_date) {
-          try {
-            const d = new Date(p.event_date);
-            evDateStr = d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-          } catch(e) { evDateStr = p.event_date; }
+          try { const d = new Date(p.event_date); evDateStr = d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+          catch(e) { evDateStr = p.event_date; }
         }
-        // Buy window: lead_days before event_date
         let buyWindow = '';
         if (p.event_date && p.lead_days) {
           try {
-            const evD  = new Date(p.event_date);
-            const buySt = new Date(evD);
+            const evD = new Date(p.event_date); const buySt = new Date(evD);
             buySt.setDate(buySt.getDate() - p.lead_days);
             const fmtD = d => d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
             buyWindow = `${fmtD(buySt)} → ${fmtD(evD)}`;
           } catch(e) {}
         }
-        // Trade type chip
         const ttChip = p.trade_type
-          ? `<span style="font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(255,215,64,.12);color:var(--a);font-weight:700">${p.trade_type}</span>`
-          : '';
-        // Confidence dots
+          ? `<span style="font-size:9px;padding:2px 6px;border-radius:3px;background:rgba(255,215,64,.12);color:var(--a);font-weight:700">${p.trade_type}</span>` : '';
         const confDots = p.confidence
-          ? Array.from({length:10},(_,i)=>`<span style="width:5px;height:5px;border-radius:50%;background:${i<p.confidence?'var(--a)':'rgba(255,255,255,.12)'};display:inline-block;margin:0 1px"></span>`).join('')
-          : '';
-
+          ? Array.from({length:10},(_,i)=>`<span style="width:5px;height:5px;border-radius:50%;background:${i<p.confidence?'var(--a)':'rgba(255,255,255,.12)'};display:inline-block;margin:0 1px"></span>`).join('') : '';
         catBadge = `<div style="margin-top:7px;padding:7px 9px;border-radius:7px;background:rgba(255,215,64,.08);border:1px solid rgba(255,215,64,.28)">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
             <span style="font-size:9px;font-weight:800;color:var(--a);letter-spacing:1px">⚡ CATALYST</span>
@@ -1486,20 +1524,12 @@ function buildActionCenter() {
         </div>`;
       }
 
-      // Exit trigger row (catalyst cards only)
       const exitRow = (isCat && p.exit_trigger)
         ? `<div class="acard-row"><span>Exit trigger</span><b style="font-size:10px;color:var(--a);text-align:right;max-width:160px;line-height:1.4">${p.exit_trigger}</b></div>`
         : '';
 
-      // Click handler: open catalyst modal via global helper
-      const clickable = isCat && p.event_id
-        ? `style="cursor:pointer" onclick="_openCatById('${p.event_id}')"`
-        : (isCat ? 'style="cursor:default"' : '');
-      const clickHint = isCat && p.event_id
-        ? `<div style="margin-top:5px;font-size:9px;color:var(--t3);text-align:center">Tap card to open full catalyst playbook ↗</div>`
-        : '';
-
-      return `<div class="acard ${p.action==='STRONG BUY'?'strong-buy':'buy'}" ${clickable}>
+      // All cards open the stock modal (catalyst playbook accessible inside it)
+      return `<div class="acard ${p.action==='STRONG BUY'?'strong-buy':'buy'}" onclick="window._openStockModal('${p.ticker}')">
         <div class="acard-action" style="color:${oc}">${p.action} <span style="font-size:9px;color:var(--t3);font-weight:400">· ${isCat ? 'CATALYST OPP' : 'WATCHLIST'}</span></div>
         <div class="acard-ticker">${p.ticker} <span style="font-size:11px;font-weight:400;color:var(--t2)">$${fmt(p.price)}</span> <span class="${col(p.chg_1d)}" style="font-size:11px">${pct(p.chg_1d)}</span></div>
         <div style="margin-top:5px;display:flex;align-items:center;gap:6px">${ma}${rsiNote}</div>
@@ -1513,7 +1543,7 @@ function buildActionCenter() {
           <span style="font-size:16px;font-weight:900;color:${p.upside_pct>20?'var(--g)':p.upside_pct>10?'#00b4d8':'var(--a)'}">${up}</span>
         </div>` : ''}
         ${p.reason ? `<div style="margin-top:6px;font-size:10px;color:var(--t2);line-height:1.45;border-top:1px solid var(--border);padding-top:5px">${p.reason}</div>` : ''}
-        ${clickHint}
+        <div style="margin-top:5px;font-size:9px;color:var(--t3);text-align:center">Tap to open chart + intelligence ↗</div>
       </div>`;
     }
 
@@ -1876,5 +1906,200 @@ setInterval(updateMarketStatus, 30000);
 restoreCards();
 </script>
 <script src="calendar.js"></script>
+
+<!-- ── Universal Stock Modal ──────────────────────────────────────── -->
+<div id="stock-modal-overlay" onclick="if(event.target===this)window.closeStockModal()">
+  <div id="stock-modal-box">
+    <div id="stock-modal-header">
+      <div id="stock-modal-title">—</div>
+      <button class="sm-toggle active" id="sm-btn-chart" onclick="window._smToggle('chart')">📈 Chart</button>
+      <button class="sm-toggle active" id="sm-btn-info"  onclick="window._smToggle('info')">📊 Info</button>
+      <button class="sm-close" onclick="window.closeStockModal()">✕</button>
+    </div>
+    <div id="stock-modal-metrics"></div>
+    <div id="stock-modal-body">
+      <div id="sm-chart-panel"></div>
+      <div id="sm-info-panel"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Global data stores (populated by buildPortCards / buildActionCenter) ──
+window.__portPositions__ = {};
+window.__oppData__       = {};
+
+// ── Panel toggle state ────────────────────────────────────────────────────
+var _smVis = { chart: true, info: true };
+window._smToggle = function(panel) {
+  _smVis[panel] = !_smVis[panel];
+  document.getElementById('sm-btn-' + panel).classList.toggle('active', _smVis[panel]);
+  var body = document.getElementById('stock-modal-body');
+  if (_smVis.chart && _smVis.info)  { body.className = ''; }
+  else if (_smVis.chart)            { body.className = 'chart-only'; }
+  else if (_smVis.info)             { body.className = 'info-only'; }
+  else                              { body.className = 'chart-only'; } // both off → show chart
+};
+
+// ── Open stock modal ──────────────────────────────────────────────────────
+window._openStockModal = function(ticker) {
+  ticker = (ticker || '').toUpperCase();
+  var pos  = (window.__portPositions__ || {})[ticker];
+  var opp  = (window.__oppData__       || {})[ticker];
+  var d    = pos || opp || {};
+
+  // Related catalyst events
+  var cats = (window.__catEvents__ || [])
+    .filter(function(ev){ return (ev.instruments||[]).map(function(t){return t.toUpperCase();}).indexOf(ticker) !== -1; })
+    .sort(function(a,b){ return new Date(a.date) - new Date(b.date); });
+
+  var fmt2 = function(n,dec){ return n != null ? Number(n).toFixed(dec||2) : '—'; };
+  var fmtP = function(n){ return n != null ? (n>=0?'+':'') + Number(n).toFixed(1) + '%' : '—'; };
+  var fmtD = function(iso){
+    try{ var d=new Date(iso+'T00:00:00'); return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+    catch(e){ return iso; }
+  };
+  var ac   = function(a){ return a==='STRONG BUY'?'#00e676':a==='BUY'?'#69f0ae':a==='TRIM'?'#ffd740':a==='EXIT'?'#ff3d71':'#90a4ae'; };
+  var sc   = function(s){ return {live:'#ff3d71',imminent:'#ffd740',upcoming:'#69f0ae',monitor:'#448aff',future:'#90a4ae'}[s]||'#90a4ae'; };
+  var ce   = function(c){ return {seasonal:'🌿',corporate:'🏢',industry:'⚙️',macro:'🌐',bonus:'⭐'}[c]||'📌'; };
+
+  var action    = d.action || 'WATCH';
+  var acColor   = ac(action);
+  var price     = d.price;
+  var chg1d     = d.chg_1d;
+  var pnlPct    = (pos && pos.pnl_pct != null) ? pos.pnl_pct : null;
+  var chgColor  = chg1d != null ? (chg1d >= 0 ? '#00e676' : '#ff3d71') : '#90a4ae';
+  var pnlColor  = pnlPct != null ? (pnlPct >= 0 ? '#00e676' : '#ff3d71') : '#90a4ae';
+  var vix       = (window.D && window.D.market && window.D.market.vix) ? (window.D.market.vix.level || window.D.market.vix.price) : null;
+  var regime    = (window.D && window.D.regime) ? window.D.regime : '—';
+  var vixColor  = vix ? (vix >= 28 ? '#ff3d71' : vix >= 18 ? '#ffd740' : '#00e676') : '#90a4ae';
+
+  // ── Header ────────────────────────────────────────────────────────────────
+  var titleEl = document.getElementById('stock-modal-title');
+  titleEl.innerHTML = ticker +
+    (price != null ? ' <span style="font-size:16px;font-weight:500;color:#aaa">$' + fmt2(price) + '</span>' : '') +
+    (chg1d != null ? ' <span style="font-size:13px;font-weight:700;color:' + chgColor + '">' + fmtP(chg1d) + '</span>' : '') +
+    ' <span class="sm-badge" style="background:' + acColor + '22;color:' + acColor + ';border:1px solid ' + acColor + '44">' + action + '</span>' +
+    (pnlPct != null ? ' <span class="sm-badge" style="background:' + pnlColor + '22;color:' + pnlColor + ';border:1px solid ' + pnlColor + '44">P&L ' + fmtP(pnlPct) + '</span>' : '');
+
+  // ── Metrics bar ───────────────────────────────────────────────────────────
+  var metrics = [
+    ['TARGET',   d.target    ? '$' + fmt2(d.target)                : '—',  '#ccc'],
+    ['UPSIDE',   d.upside_pct != null ? fmtP(d.upside_pct)        : '—',  d.upside_pct > 0 ? '#00e676' : '#ff3d71'],
+    ['STOP',     d.stop_loss  ? '$' + fmt2(d.stop_loss)            : '—',  '#ff3d71'],
+    ['ENTRY',    d.entry_zone ? '$' + fmt2(d.entry_zone[0]) + '–$' + fmt2(d.entry_zone[1]) : '—', '#69f0ae'],
+    ['RSI',      d.rsi != null ? fmt2(d.rsi, 1)                    : '—',  d.rsi > 70 ? '#ff3d71' : d.rsi < 30 ? '#00e676' : '#ccc'],
+    ['SMA50',    d.above_50  != null ? (d.above_50  ? 'ABOVE ✓' : 'BELOW ✗') : '—', d.above_50  ? '#00e676' : '#ff3d71'],
+    ['SMA200',   d.above_200 != null ? (d.above_200 ? 'ABOVE ✓' : 'BELOW ✗') : '—', d.above_200 ? '#00e676' : '#ff3d71'],
+    ['VIX',      vix != null ? fmt2(vix, 1)                        : '—',  vixColor],
+    ['REGIME',   regime,                                                    regime==='RISK-ON'?'#00e676':regime==='RISK-OFF'?'#ff3d71':'#ffd740'],
+  ];
+  var mHtml = metrics.map(function(m){
+    return '<div class="sm-metric"><span class="sm-metric-label">' + m[0] +
+           '</span><span class="sm-metric-value" style="color:' + m[2] + '">' + m[1] + '</span></div>';
+  }).join('');
+  document.getElementById('stock-modal-metrics').innerHTML = mHtml;
+
+  // ── TradingView chart ─────────────────────────────────────────────────────
+  var studies = encodeURIComponent(JSON.stringify(['RSI@tv-basicstudies','MACD@tv-basicstudies']));
+  var tvSrc   = 'https://s.tradingview.com/widgetembed/?frameElementId=tv_sm_' + ticker +
+                '&symbol=' + encodeURIComponent(ticker) +
+                '&interval=D&hidesidetoolbar=0&saveimage=0&toolbarbg=1' +
+                '&studies=' + studies +
+                '&theme=dark&style=1&timezone=Etc%2FUTC&withdateranges=1&locale=en';
+  document.getElementById('sm-chart-panel').innerHTML =
+    '<iframe src="' + tvSrc + '" allowtransparency="true" scrolling="no" frameborder="0" style="width:100%;height:100%;display:block"></iframe>';
+
+  // ── Info panel ────────────────────────────────────────────────────────────
+  var infoEl = document.getElementById('sm-info-panel');
+  var infoHtml = '';
+
+  // Position block
+  if (pos) {
+    infoHtml += '<div class="sm-section-title">📊 Position</div>';
+    var pRows = [
+      ['Class',      (pos.class||'').toUpperCase()],
+      ['Avg Cost',   pos.avg != null ? '$' + fmt2(pos.avg) : null],
+      ['Shares',     pos.shares != null ? pos.shares : null],
+      ['Cost Basis', pos.cost  != null ? '$' + Number(pos.cost).toLocaleString('en-US',{maximumFractionDigits:0}) : null],
+      ['Mkt Value',  pos.value != null ? '$' + Number(pos.value).toLocaleString('en-US',{maximumFractionDigits:0}) : null],
+      ['P&L',        pnlPct != null ? fmtP(pnlPct) : null, pnlColor],
+      ['Risk',       pos.risk || null],
+      ['Verdict',    pos.verdict || null],
+    ];
+    if (pos.allocation_usd) pRows.push(['DCA Alloc', '$' + pos.allocation_usd.toLocaleString('en-US',{maximumFractionDigits:0}) + '/mo', '#00e676']);
+    pRows.forEach(function(r){
+      if (r[1] == null) return;
+      infoHtml += '<div class="sm-row"><span class="sm-row-label">' + r[0] + '</span><span class="sm-row-value"' + (r[2]?' style="color:' + r[2] + '"':'') + '>' + r[1] + '</span></div>';
+    });
+    if (pos.reason) infoHtml += '<div style="font-size:10px;color:#777;margin-top:6px;line-height:1.4">' + pos.reason + '</div>';
+    if (pos.alert)  infoHtml += '<div style="margin-top:6px;padding:5px 9px;border-radius:5px;background:' + (pos.alert[0]==='danger'?'rgba(255,61,113,.12)':'rgba(255,215,64,.1)') + ';color:' + (pos.alert[0]==='danger'?'#ff3d71':'#ffd740') + ';font-size:10px;font-weight:700">⚠ ' + pos.alert[1] + '</div>';
+  } else if (opp) {
+    infoHtml += '<div class="sm-section-title">💡 Opportunity</div>';
+    infoHtml += '<div style="font-size:11px;color:#aaa;line-height:1.4">' + (opp.theme || 'Watchlist / Catalyst opportunity') + '</div>';
+    if (d.entry_zone) infoHtml += '<div class="sm-row" style="margin-top:8px"><span class="sm-row-label">Entry Zone</span><span class="sm-row-value" style="color:#69f0ae">$' + fmt2(d.entry_zone[0]) + '–$' + fmt2(d.entry_zone[1]) + '</span></div>';
+    if (d.stop_loss)  infoHtml += '<div class="sm-row"><span class="sm-row-label">Stop-loss</span><span class="sm-row-value" style="color:#ff3d71">$' + fmt2(d.stop_loss) + '</span></div>';
+  }
+
+  // Open on TradingView link
+  infoHtml += '<a class="sm-open-tv" href="https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(ticker) + '" target="_blank" rel="noopener">↗ Open full chart on TradingView</a>';
+
+  // Catalyst events (from __catEvents__)
+  if (cats.length) {
+    infoHtml += '<div class="sm-section-title" style="margin-top:4px">⚡ Catalyst Events (' + cats.length + ')</div>';
+    cats.slice(0, 6).forEach(function(ev){
+      var days = Math.round((new Date(ev.date + 'T00:00:00') - new Date()) / 86400000);
+      var status = days <= 0 ? 'live' : days <= 3 ? 'imminent' : days <= 14 ? 'upcoming' : days <= 60 ? 'monitor' : 'future';
+      var statusCol = sc(status);
+      var dLabel = days <= 0 ? 'TODAY' : 'in ' + days + 'd';
+      infoHtml += '<div class="sm-cat-item">' +
+        '<div class="sm-cat-item-name">' + ce(ev.category) + ' ' + ev.name + '</div>' +
+        '<div class="sm-cat-item-meta"><span style="color:' + statusCol + ';font-weight:700">' + dLabel + '</span> · ' + fmtD(ev.date) +
+        (ev.trade_type ? ' · ' + ev.trade_type : '') +
+        (ev.confidence ? ' · ' + ev.confidence + '/10 conf' : '') + '</div>' +
+        (ev.why ? '<div style="font-size:10px;color:#777;margin-top:4px;line-height:1.4">' + ev.why.substring(0, 150) + (ev.why.length > 150 ? '…' : '') + '</div>' : '') +
+        (ev.id && window.openCatModal ? '<div class="sm-cat-btn" onclick="window._openCatById(\'' + ev.id + '\')">Open full playbook ↗</div>' : '') +
+        '</div>';
+    });
+  } else {
+    infoHtml += '<div class="sm-section-title" style="margin-top:4px">⚡ Catalyst Events</div><div style="font-size:11px;color:#444">No upcoming catalyst events for this ticker.</div>';
+  }
+
+  // Rules
+  infoHtml += '<div class="sm-section-title" style="margin-top:4px">📋 Rules</div><div class="sm-rule-chips">';
+  var vixBlock   = vix && vix >= 28;
+  var below200nB = d.above_200 === false && (action === 'BUY' || action === 'STRONG BUY');
+  var trimSig    = pnlPct != null && pnlPct >= 50;
+  infoHtml += '<span class="sm-chip ' + (vixBlock   ? 'sm-chip-bad'  : 'sm-chip-ok') + '">' + (vixBlock   ? '⛔ VIX ≥28 — No buys' : '✓ VIX OK') + '</span>';
+  infoHtml += '<span class="sm-chip ' + (below200nB ? 'sm-chip-bad'  : 'sm-chip-ok') + '">' + (below200nB ? '⛔ Below 200D' : '✓ MA check') + '</span>';
+  infoHtml += '<span class="sm-chip ' + (trimSig    ? 'sm-chip-warn' : 'sm-chip-ok') + '">' + (trimSig    ? '⚠ P&L ≥50% — Trim' : '✓ Size OK') + '</span>';
+  if (d.above_200 === false) infoHtml += '<span class="sm-chip sm-chip-bad">⛔ Below 200D — no avg down on SPEC</span>';
+  infoHtml += '</div>';
+
+  infoEl.innerHTML = infoHtml;
+
+  // ── Reset toggles to both-on ──────────────────────────────────────────────
+  _smVis = { chart: true, info: true };
+  document.getElementById('sm-btn-chart').classList.add('active');
+  document.getElementById('sm-btn-info').classList.add('active');
+  document.getElementById('stock-modal-body').className = '';
+
+  // ── Show ──────────────────────────────────────────────────────────────────
+  document.getElementById('stock-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeStockModal = function() {
+  document.getElementById('stock-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  // Clear iframe to stop loading
+  document.getElementById('sm-chart-panel').innerHTML = '';
+};
+
+// ESC key closes modal
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') window.closeStockModal();
+});
+</script>
 </body>
 </html>
