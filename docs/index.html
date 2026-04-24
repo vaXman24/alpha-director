@@ -551,6 +551,7 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 <div class="section">
   <div class="sec-label">Portfolio</div>
   <div class="port-summary" id="port-summary"></div>
+  <div id="concentration-bar" style="margin-bottom:14px"></div>
   <div class="port-grid" id="port-grid"></div>
 </div>
 
@@ -1066,6 +1067,12 @@ function buildPortCards() {
         <span class="abadge ${p.alert[0]}">${p.alert[1]}</span>
       </div>` : '';
 
+    // Earnings badge
+    const earningsHtml = p.earnings_day ? `
+      <div class="alert-badges">
+        <span class="abadge" style="background:rgba(68,138,255,.12);color:var(--b);border:1px solid rgba(68,138,255,.3)">📅 EARNINGS ${p.earnings_day.toUpperCase()}</span>
+      </div>` : '';
+
     return `<div class="scard v-${vclass}" style="cursor:pointer" onclick="window._openStockModal('${p.ticker}')">
       <div class="sc-top">
         <div>
@@ -1110,9 +1117,54 @@ function buildPortCards() {
         ${p.risk ? `<span class="risk-badge ${p.risk==='LOW'?'low':p.risk==='MEDIUM'?'medium':p.risk==='VERY HIGH'?'very-high':'high'}" style="margin-left:4px">${p.risk}</span>` : ''}
       </div>
       ${p.stop_loss ? `<div style="font-size:10px;color:var(--txt2);margin-top:5px">🛑 Stop: <b>$${fmt(p.stop_loss)}</b>${p.target ? `  🎯 Target: <b>$${fmt(p.target)}</b>` : ''}</div>` : ''}
+      ${earningsHtml}
       ${alertHtml}
     </div>`;
   }).join('');
+}
+
+// ── Portfolio Concentration ────────────────────────────────────────────────
+function buildConcentration() {
+  const positions = D.portfolio.positions || [];
+  const totalVal  = D.portfolio.total_value || 1;
+  const crypto    = (D.crypto && D.crypto.positions) ? D.crypto.positions : [];
+  const cryptoVal = crypto.reduce((s, c) => s + (c.value || 0), 0);
+
+  const buckets = { core: 0, swing: 0, spec: 0 };
+  for (const p of positions) {
+    const cls = (p.class || '').toLowerCase();
+    if (cls in buckets) buckets[cls] += p.value || 0;
+  }
+  const grandTotal = buckets.core + buckets.swing + buckets.spec + cryptoVal || 1;
+
+  const bands = [
+    { label: 'Core',   val: buckets.core,  col: 'var(--g)',  bg: 'var(--g2)'  },
+    { label: 'Swing',  val: buckets.swing, col: 'var(--a)',  bg: 'var(--a2)'  },
+    { label: 'Spec',   val: buckets.spec,  col: 'var(--r)',  bg: 'var(--r2)'  },
+    { label: 'Crypto', val: cryptoVal,     col: '#f7931a',   bg: 'rgba(247,147,26,.12)' },
+  ];
+
+  const pills = bands.map(b => {
+    const pct = grandTotal > 0 ? (b.val / grandTotal * 100).toFixed(1) : '0.0';
+    return `<span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;background:${b.bg};border:1px solid ${b.col}33;font-size:11px;font-weight:700">
+      <span style="width:7px;height:7px;border-radius:50%;background:${b.col};flex-shrink:0"></span>
+      <span style="color:${b.col}">${b.label}</span>
+      <span style="color:var(--t)">${pct}%</span>
+      <span style="color:var(--t2);font-weight:400">${fmtK(b.val)}</span>
+    </span>`;
+  }).join('');
+
+  // Stacked bar
+  const bar = bands.map(b => {
+    const w = grandTotal > 0 ? (b.val / grandTotal * 100).toFixed(2) : 0;
+    return `<div style="height:100%;width:${w}%;background:${b.col};transition:width .4s"></div>`;
+  }).join('');
+
+  const el = $('concentration-bar');
+  if (el) el.innerHTML = `
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">${pills}</div>
+    <div style="display:flex;height:6px;border-radius:4px;overflow:hidden;background:var(--t3)">${bar}</div>
+  `;
 }
 
 // ── Macro strip ────────────────────────────────────────────────────────────
@@ -1914,7 +1966,7 @@ function _buildAll() {
   const safe = fn => { try { fn(); } catch(e) { console.error('[AD]', fn.name, e.message); } };
   safe(buildTape); safe(buildRegime); safe(buildFX); safe(buildFG); safe(buildSP500Movers);
   safe(buildEarnings); safe(buildPulseStrip); safe(buildPolymarket); safe(buildActionCenter);
-  safe(buildAllocTable); safe(buildPortSummary); safe(buildPortCards); safe(buildSectors);
+  safe(buildAllocTable); safe(buildPortSummary); safe(buildConcentration); safe(buildPortCards); safe(buildSectors);
   safe(buildCrypto); safe(buildInsiders); safe(buildEvents); safe(buildDrawer); safe(buildFooter);
 }
 _buildAll();   // render immediately with empty skeleton (shows "Connecting…")
