@@ -415,6 +415,18 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
     <div class="drawer-section-title">Watchlist &amp; Catalyst Opps</div>
     <div id="drawer-watchlist"></div>
   </div>
+  <div class="drawer-section">
+    <div class="drawer-section-title">📱 Telegram Alerts</div>
+    <div id="drawer-tg-info" style="font-size:10px;color:var(--t2);margin-bottom:10px;line-height:1.6">
+      Group ID <b style="color:#fff">-5276650794</b> is pre-configured.<br>
+      Enter your bot token once to enable scheduled event alerts.
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="settings-btn" onclick="openTgConfig()" style="background:rgba(0,136,204,.1);border-color:rgba(0,136,204,.25);color:#29b6f6;font-size:11px">🔑 Set Bot Token</button>
+      <span id="tg-status-dot" style="font-size:10px;color:var(--t3)">not configured</span>
+    </div>
+    <div id="drawer-tg-queue" style="margin-top:10px;font-size:10px;color:var(--t2)"></div>
+  </div>
 </div>
 
 <!-- Ticker tape -->
@@ -436,8 +448,9 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
     <div id="fx-rates" style="font-size:11px;font-weight:700;color:var(--t2);display:flex;gap:14px"></div>
     <div id="market-status" class="regime-pill regime-off" style="font-size:10px;min-width:180px;text-align:center"></div>
     <div id="regime-pill" class="regime-pill" style="display:none"></div>
-    <button class="settings-btn" onclick="openTgConfig()" style="background:rgba(0,136,204,.1);border-color:rgba(0,136,204,.25);color:#29b6f6">📱 Telegram</button>
-    <button class="settings-btn" onclick="openDrawer()">⚙️ Inputs</button>
+    <button class="settings-btn" onclick="openDrawer()" style="position:relative">⚙️ Inputs
+      <span id="tg-queue-badge" style="display:none;position:absolute;top:-4px;right:-4px;background:var(--r);color:#fff;font-size:8px;font-weight:800;min-width:14px;height:14px;border-radius:7px;line-height:14px;text-align:center;padding:0 2px"></span>
+    </button>
   </div>
 </div>
 
@@ -1581,13 +1594,14 @@ function buildActionCenter() {
   const positions = D.portfolio.positions;
   const actionOrder = ['STRONG BUY','BUY','TRIM','EXIT'];
   const actionable  = positions.filter(p => actionOrder.includes(p.action));
-  // Sort: first by action tier, then by upside_pct DESC, then by confidence DESC
+  // Sort: action tier first, then composite score — confidence 65%, upside 35%
+  // Confidence (0–10) outweighs raw upside % so high-certainty plays rank above speculative ones
   actionable.sort((a,b) => {
     const tierDiff = actionOrder.indexOf(a.action) - actionOrder.indexOf(b.action);
     if (tierDiff !== 0) return tierDiff;
-    const upDiff = (b.upside_pct||0) - (a.upside_pct||0);
-    if (Math.abs(upDiff) > 0.5) return upDiff;
-    return (b.confidence||50) - (a.confidence||50);
+    const scoreA = (a.confidence||5)*0.65 + Math.min(a.upside_pct||0, 100)/10*0.35;
+    const scoreB = (b.confidence||5)*0.65 + Math.min(b.upside_pct||0, 100)/10*0.35;
+    return scoreB - scoreA;
   });
 
   const riskClass = r => r === 'LOW' ? 'low' : r === 'MEDIUM' ? 'medium' : r === 'VERY HIGH' ? 'very-high' : 'high';
@@ -2153,8 +2167,10 @@ function buildEvents() {
       lastDay = dayIL;
     }
 
-    const evTgMsg = `⏰ <b>${ev.title}</b> — ${timeIL} IL\n${countdown(diffMs).replace(/<[^>]+>/g,'')}\n\n<b>How to react:</b>\n${getReaction(ev).replace(/<[^>]+>/g,'')}`;
     const critBg  = isCrit ? 'rgba(255,61,113,.06)' : '';
+    const _evUtcMs = evDate.getTime();
+    const _evTitleSafe = ev.title.replace(/'/g,"\\'").replace(/`/g,"'");
+    const _alreadySched = window._isTgScheduled && window._isTgScheduled(_evUtcMs);
     html += `<div style="background:${critBg||'var(--bg2)'};border:1px solid var(--border);border-left:3px solid ${border};border-radius:8px;padding:10px 14px">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
         <div style="display:flex;align-items:center;gap:10px;min-width:0">
@@ -2169,7 +2185,9 @@ function buildEvents() {
         <div style="text-align:right;white-space:nowrap;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:4px">
           <div style="font-size:11px;color:var(--t2)">${timeIL} IL</div>
           <div style="font-size:11px;margin-top:2px">${countdown(diffMs)}</div>
-          <button class="tg-btn${isCrit?' tg-btn pulse':''}" onclick="(async function(b){const ok=await sendTgAlert(\`${evTgMsg.replace(/`/g,"'")}\`,${isCrit});if(ok){b.textContent='✅ Sent';b.classList.add('sent');}})(this)" title="Send alert to Telegram">📱 ${isCrit?'⚠ Alert Me':'Alert'}</button>
+          ${diffMs > 0 ? `<button class="tg-btn${_alreadySched?' sent':''}" id="sched-btn-${_evUtcMs}"
+            onclick="(function(b){const n=window._scheduleTgAlerts(${_evUtcMs},'${_evTitleSafe}',${isCrit});if(n>0){b.textContent='✅ '+n+' scheduled';b.classList.add('sent');}else{b.textContent='Already scheduled';}})(this)"
+            title="Schedule: morning brief + 1h before + 3min before">📅 Schedule</button>` : ''}
         </div>
       </div>
       <div style="margin-top:8px;padding:6px 10px;background:rgba(68,138,255,.07);border-radius:6px;border-left:2px solid rgba(68,138,255,.4)">
@@ -2238,14 +2256,15 @@ function updateMarketStatus() {
 }
 
 // ── Telegram ────────────────────────────────────────────────────────────────
+const TG_DEFAULT_CHAT = '-5276650794';
 function _tgGet() {
-  try { return { token: localStorage.getItem('tg_token')||'', chatId: localStorage.getItem('tg_chat_id')||'' }; }
-  catch(e) { return {token:'',chatId:''}; }
+  try { return { token: localStorage.getItem('tg_token')||'', chatId: localStorage.getItem('tg_chat_id') || TG_DEFAULT_CHAT }; }
+  catch(e) { return {token:'', chatId: TG_DEFAULT_CHAT}; }
 }
 function openTgConfig() {
   const cfg = _tgGet();
   $('tg-token-inp').value  = cfg.token;
-  $('tg-chatid-inp').value = cfg.chatId;
+  $('tg-chatid-inp').value = cfg.chatId || TG_DEFAULT_CHAT;
   $('tg-config-overlay').classList.add('open');
 }
 function closeTgConfig() { $('tg-config-overlay').classList.remove('open'); }
@@ -2269,7 +2288,7 @@ function saveTgConfig() {
 
 async function sendTgAlert(text, urgent) {
   const cfg = _tgGet();
-  if (!cfg.token || !cfg.chatId) { openTgConfig(); return false; }
+  if (!cfg.token) { openTgConfig(); return false; }
   const prefix = urgent ? '🚨🚨🚨 <b>ALPHA DIRECTOR ALERT</b> 🚨🚨🚨\n' : '📊 <b>Alpha Director</b>\n';
   const body = { chat_id: cfg.chatId, text: prefix + text, parse_mode:'HTML' };
   try {
@@ -2279,6 +2298,84 @@ async function sendTgAlert(text, urgent) {
     return (await r.json()).ok;
   } catch(e) { return false; }
 }
+
+// ── Scheduled Telegram alert queue ───────────────────────────────────────────
+window._scheduleTgAlerts = function(utcMs, title, urgent) {
+  const evD = new Date(utcMs);
+  const now  = Date.now();
+  // Morning brief: 07:30 local on event day
+  const morning = new Date(evD.getFullYear(), evD.getMonth(), evD.getDate(), 7, 30, 0);
+  const hour1   = new Date(utcMs - 3600000);
+  const min3    = new Date(utcMs - 180000);
+  const timeStr = evD.toLocaleTimeString('en-GB', {timeZone:'Asia/Jerusalem', hour:'2-digit', minute:'2-digit'});
+
+  const candidates = [
+    { id:`${utcMs}_morning`, sendAt: morning.getTime(), urgent: false,
+      text: `☀️ <b>Today's event:</b> ${title} at ${timeStr} IL\n\nCheck your playbook and prepare your position.` },
+    { id:`${utcMs}_1hr`,     sendAt: hour1.getTime(),   urgent: false,
+      text: `⏰ <b>1 hour away:</b> ${title}\n\nReview entry zone and position size before the event.` },
+    { id:`${utcMs}_3min`,    sendAt: min3.getTime(),    urgent: !!urgent,
+      text: `🚨 <b>3 minutes:</b> ${title} is happening NOW\n\nLast chance to check your setup.` },
+  ];
+
+  let added = 0;
+  try {
+    const q = JSON.parse(localStorage.getItem('tg_queue') || '[]');
+    candidates.forEach(a => {
+      if (a.sendAt > now && !q.find(x => x.id === a.id)) { q.push({...a, sent:false}); added++; }
+    });
+    localStorage.setItem('tg_queue', JSON.stringify(q));
+    _updateTgBadge();
+  } catch(e) {}
+  return added;
+};
+
+window._isTgScheduled = function(utcMs) {
+  try {
+    const q = JSON.parse(localStorage.getItem('tg_queue') || '[]');
+    return q.some(a => a.id === `${utcMs}_morning` && !a.sent);
+  } catch(e) { return false; }
+};
+
+function _updateTgBadge() {
+  try {
+    const q = JSON.parse(localStorage.getItem('tg_queue') || '[]');
+    const pending = q.filter(a => !a.sent).length;
+    const badge = document.getElementById('tg-queue-badge');
+    if (badge) { badge.textContent = pending || ''; badge.style.display = pending ? 'inline' : 'none'; }
+    const dot = document.getElementById('tg-status-dot');
+    if (dot) {
+      const hasTok = !!(_tgGet().token);
+      dot.textContent = !hasTok ? 'no token set' : pending ? `✅ ${pending} alert${pending>1?'s':''} queued` : '✅ ready';
+      dot.style.color = !hasTok ? '#ff3d71' : '#00e676';
+    }
+    const dq = document.getElementById('drawer-tg-queue');
+    if (dq && pending) {
+      const soon = q.filter(a=>!a.sent).sort((a,b)=>a.sendAt-b.sendAt).slice(0,3);
+      dq.innerHTML = soon.map(a=>`<div style="margin-top:4px;color:var(--t3)">⏰ ${new Date(a.sendAt).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})} — ${a.text.replace(/<[^>]+>/g,'').slice(0,40)}…</div>`).join('');
+    } else if (dq) { dq.innerHTML = ''; }
+  } catch(e) {}
+}
+
+function _checkTgQueue() {
+  try {
+    const q = JSON.parse(localStorage.getItem('tg_queue') || '[]');
+    const now = Date.now();
+    let changed = false;
+    q.forEach(a => {
+      if (!a.sent && a.sendAt <= now) {
+        sendTgAlert(a.text, a.urgent || false).then(ok => {
+          if (ok) { a.sent = true; changed = true; localStorage.setItem('tg_queue', JSON.stringify(q)); _updateTgBadge(); }
+        });
+      }
+    });
+    // Prune sent items older than 48h
+    const pruned = q.filter(a => !a.sent || a.sendAt > now - 172800000);
+    if (pruned.length !== q.length) localStorage.setItem('tg_queue', JSON.stringify(pruned));
+  } catch(e) {}
+}
+setInterval(_checkTgQueue, 60000);
+_updateTgBadge();
 
 // ── Swing Weeks (-4) builder ────────────────────────────────────────────────
 function buildSwingWeeks() {
@@ -2305,8 +2402,8 @@ function buildSwingWeeks() {
     ...portSwings.map(p => ({...p, _src:'portfolio'})),
     ...catSwings.map(p => ({...p, _src:'catalyst'})),
   ].sort((a,b) => {
-    const wA = (a.catalyst_days != null ? (28 - a.catalyst_days)/28 : 0.5) + (a.upside_pct||0)/100 + ((a.confidence||6)/10)*0.3;
-    const wB = (b.catalyst_days != null ? (28 - b.catalyst_days)/28 : 0.5) + (b.upside_pct||0)/100 + ((b.confidence||6)/10)*0.3;
+    const wA = ((a.confidence||6)/10)*0.45 + (Math.min(a.upside_pct||0,100)/100)*0.30 + (a.catalyst_days != null ? (28 - a.catalyst_days)/28 : 0.5)*0.25;
+    const wB = ((b.confidence||6)/10)*0.45 + (Math.min(b.upside_pct||0,100)/100)*0.30 + (b.catalyst_days != null ? (28 - b.catalyst_days)/28 : 0.5)*0.25;
     return wB - wA;
   }).slice(0, 8);
 
@@ -2679,9 +2776,10 @@ window._openStockModal = function(ticker) {
   var _a200   = d.above_200;
   var _upside = d.upside_pct != null ? Number(d.upside_pct) : null;
 
+  var _isStaleTarget = _upside != null && _upside < 0 && d.target != null;
   var metrics = [
-    ['TARGET', d.target    ? '$' + _smFmt(d.target)                            : '—', '#ccc'],
-    ['UPSIDE', _upside != null ? _smFmtP(_upside)                              : '—', _upside != null && _upside > 0 ? '#00e676' : '#ff3d71'],
+    ['TARGET', d.target ? '$' + _smFmt(d.target) + (_isStaleTarget ? ' ⚠' : '') : '—', _isStaleTarget ? '#ffd740' : '#ccc'],
+    ['UPSIDE', _isStaleTarget ? 'Stale target' : (_upside != null ? _smFmtP(_upside) : '—'), _isStaleTarget ? '#ffd740' : (_upside != null && _upside > 0 ? '#00e676' : '#ff3d71')],
     ['STOP',   d.stop_loss ? '$' + _smFmt(d.stop_loss)                         : '—', '#ff3d71'],
     ['ENTRY',  d.entry_zone ? '$' + _smFmt(d.entry_zone[0]) + '–$' + _smFmt(d.entry_zone[1]) : '—', '#69f0ae'],
     ['RSI',    _rsi != null ? _smFmt(_rsi, 1)                                   : '—', _rsiCol],
@@ -2773,6 +2871,16 @@ window._openStockModal = function(ticker) {
       });
       infoHtml += '</div>';
     }
+  }
+
+  // Stale-target explanation — shown when target is below current price
+  if (_isStaleTarget) {
+    infoHtml += '<div style="margin-bottom:8px;padding:8px 10px;border-radius:7px;background:rgba(255,215,64,.08);border:1px solid rgba(255,215,64,.3)">' +
+      '<div style="font-size:10px;font-weight:700;color:var(--a);margin-bottom:3px">⚠ Stale Price Target</div>' +
+      '<div style="font-size:10px;color:#aaa;line-height:1.5">The target $' + _smFmt(d.target) + ' was set when the stock traded lower. ' +
+      'The stock has since moved above it — <b style="color:#fff">this is NOT a short signal</b>. ' +
+      'The target needs to be refreshed by the sentinel service.</div>' +
+      '</div>';
   }
 
   // Open-on-TradingView link (strategies only visible when logged in there)
