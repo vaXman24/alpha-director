@@ -335,6 +335,23 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 .tg-btn.pulse{animation:tgpulse 2s infinite}
 @keyframes tgpulse{0%,100%{box-shadow:0 0 0 0 rgba(0,136,204,.4)}50%{box-shadow:0 0 0 6px rgba(0,136,204,0)}}
 
+/* ── Per-event note editor ── */
+.ev-note-box{margin-top:7px;padding:7px 10px;border-radius:6px;background:rgba(255,215,64,.05);border:1px solid rgba(255,215,64,.18)}
+.ev-note-display{font-size:10px;color:var(--t2);line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.ev-note-placeholder{font-size:10px;color:var(--t3);font-style:italic}
+.ev-note-ta{width:100%;background:#0d1117;border:1px solid rgba(255,215,64,.3);border-radius:5px;
+  color:#e0e0e0;font-size:10px;padding:7px 9px;line-height:1.5;resize:vertical;min-height:90px;
+  outline:none;box-sizing:border-box;font-family:inherit;margin-top:6px}
+.ev-note-ta:focus{border-color:rgba(255,215,64,.6)}
+.ev-note-actions{display:flex;gap:6px;margin-top:5px;align-items:center}
+.ev-note-save{padding:3px 10px;border-radius:5px;background:rgba(255,215,64,.15);color:var(--a);
+  border:1px solid rgba(255,215,64,.35);font-size:10px;font-weight:700;cursor:pointer}
+.ev-note-cancel{padding:3px 8px;border-radius:5px;background:transparent;color:var(--t3);
+  border:1px solid rgba(255,255,255,.1);font-size:10px;cursor:pointer}
+.ev-note-edit-btn{padding:2px 7px;border-radius:4px;background:transparent;color:rgba(255,215,64,.6);
+  border:1px solid rgba(255,215,64,.2);font-size:9px;cursor:pointer;margin-left:auto}
+.ev-note-edit-btn:hover{color:var(--a);border-color:rgba(255,215,64,.5)}
+
 /* ── Telegram config modal ── */
 #tg-config-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10000;align-items:center;justify-content:center}
 #tg-config-overlay.open{display:flex}
@@ -2171,6 +2188,36 @@ function buildEvents() {
     const _evUtcMs = evDate.getTime();
     const _evTitleSafe = ev.title.replace(/'/g,"\\'").replace(/`/g,"'");
     const _alreadySched = window._isTgScheduled && window._isTgScheduled(_evUtcMs);
+
+    // Store pre-fill text for this event (positions + reaction) — accessed by note editor
+    if (!window.__evPreFills) window.__evPreFills = {};
+    window.__evPreFills[_evUtcMs] = (function() {
+      const instruments = ev.instruments || (ev.ticker ? [ev.ticker] : []);
+      const posLines = instruments
+        .map(t => (window.__portPositions__||{})[t.toUpperCase()])
+        .filter(Boolean)
+        .map(p => {
+          let l = '• ' + p.ticker + ' — ' + (p.action||'?');
+          if (p.price) l += ' @ $' + p.price.toFixed(2);
+          if (p.target && p.upside_pct > 0) l += ' → $' + p.target.toFixed(2);
+          if (p.stop_loss) l += ' (stop $' + p.stop_loss.toFixed(2) + ')';
+          if (p.upside_pct != null && p.upside_pct > 0) l += ' | +' + p.upside_pct + '% upside';
+          return l;
+        });
+      const reactionClean = getReaction(ev)
+        .replace(/<b>/gi,'').replace(/<\/b>/gi,'')
+        .replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]+>/g,'').trim()
+        .substring(0, 600);
+      const parts = [];
+      if (posLines.length) parts.push('📊 YOUR POSITIONS:\n' + posLines.join('\n'));
+      if (reactionClean) parts.push('📋 STANDARD PLAY:\n' + reactionClean);
+      parts.push('✏️ PERSONAL NOTES:\n');
+      return parts.join('\n\n');
+    })();
+
+    // Saved note for display
+    const _savedNote = localStorage.getItem('ev_note_' + _evUtcMs) || '';
+
     html += `<div style="background:${critBg||'var(--bg2)'};border:1px solid var(--border);border-left:3px solid ${border};border-radius:8px;padding:10px 14px">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
         <div style="display:flex;align-items:center;gap:10px;min-width:0">
@@ -2186,13 +2233,35 @@ function buildEvents() {
           <div style="font-size:11px;color:var(--t2)">${timeIL} IL</div>
           <div style="font-size:11px;margin-top:2px">${countdown(diffMs)}</div>
           ${diffMs > 0 ? `<button class="tg-btn${_alreadySched?' sent':''}" id="sched-btn-${_evUtcMs}"
-            onclick="(function(b){const n=window._scheduleTgAlerts(${_evUtcMs},'${_evTitleSafe}',${isCrit});if(n>0){b.textContent='✅ '+n+' scheduled';b.classList.add('sent');}else{b.textContent='Already scheduled';}})(this)"
-            title="Schedule: morning brief + 1h before + 3min before">📅 Schedule</button>` : ''}
+            onclick="(function(b){const n=window._scheduleTgAlerts(${_evUtcMs},'${_evTitleSafe}',${isCrit});if(n>0){b.textContent='✅ '+n+' alerts set';b.classList.add('sent');}else{b.textContent='✅ Already set';}})(this)"
+            title="Schedule: evening before + morning + 2h before + 30min before">📅 Schedule</button>` : ''}
         </div>
       </div>
       <div style="margin-top:8px;padding:6px 10px;background:rgba(68,138,255,.07);border-radius:6px;border-left:2px solid rgba(68,138,255,.4)">
         <span style="font-size:9px;font-weight:700;letter-spacing:.5px;color:var(--b);text-transform:uppercase;margin-right:6px">How to react</span>
         <span style="font-size:10px;color:var(--t2);line-height:1.5">${getReaction(ev)}</span>
+      </div>
+      <!-- Per-event action note -->
+      <div class="ev-note-box">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+          <span style="font-size:9px;font-weight:700;color:rgba(255,215,64,.7);letter-spacing:.8px">✏️ YOUR PLAY</span>
+          <button class="ev-note-edit-btn" onclick="window._evNoteEdit(${_evUtcMs})">
+            ${_savedNote ? '✏️ Edit' : '+ Add plan'}
+          </button>
+        </div>
+        <div id="ev-note-display-${_evUtcMs}">
+          ${_savedNote
+            ? `<div class="ev-note-display">${_savedNote.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`
+            : `<div class="ev-note-placeholder">No plan yet — tap "+ Add plan" to write your action once (included in all alerts)</div>`}
+        </div>
+        <div id="ev-note-editor-${_evUtcMs}" style="display:none">
+          <textarea class="ev-note-ta" id="ev-note-ta-${_evUtcMs}" placeholder="Write your action plan…"></textarea>
+          <div class="ev-note-actions">
+            <button class="ev-note-save" onclick="window._evNoteSave(${_evUtcMs})">💾 Save</button>
+            <button class="ev-note-cancel" onclick="window._evNoteCancel(${_evUtcMs})">Cancel</button>
+            <span id="ev-note-status-${_evUtcMs}" style="font-size:9px;color:var(--g);margin-left:4px"></span>
+          </div>
+        </div>
       </div>
     </div>`;
   }
@@ -2299,23 +2368,78 @@ async function sendTgAlert(text, urgent) {
   } catch(e) { return false; }
 }
 
-// ── Scheduled Telegram alert queue ───────────────────────────────────────────
+// ── Per-event note functions ──────────────────────────────────────────────────
+window._evNoteEdit = function(utcMs) {
+  const editor  = document.getElementById('ev-note-editor-' + utcMs);
+  const display = document.getElementById('ev-note-display-' + utcMs);
+  const ta      = document.getElementById('ev-note-ta-' + utcMs);
+  if (!editor || !ta) return;
+  // Pre-fill: use saved note if exists, else use auto-generated pre-fill
+  const saved = localStorage.getItem('ev_note_' + utcMs) || '';
+  ta.value = saved || ((window.__evPreFills || {})[utcMs] || '');
+  editor.style.display  = 'block';
+  display.style.display = 'none';
+  ta.focus();
+  // Position cursor at end of "PERSONAL NOTES:" section
+  const pos = ta.value.lastIndexOf('✏️ PERSONAL NOTES:\n') + 19;
+  if (!saved && pos > 0) { ta.selectionStart = ta.selectionEnd = ta.value.length; }
+};
+
+window._evNoteSave = function(utcMs) {
+  const ta      = document.getElementById('ev-note-ta-' + utcMs);
+  const editor  = document.getElementById('ev-note-editor-' + utcMs);
+  const display = document.getElementById('ev-note-display-' + utcMs);
+  const status  = document.getElementById('ev-note-status-' + utcMs);
+  if (!ta) return;
+  const text = ta.value.trim();
+  try { localStorage.setItem('ev_note_' + utcMs, text); } catch(e) {}
+  // Update display
+  if (display) {
+    display.innerHTML = text
+      ? `<div class="ev-note-display">${text.replace(/</g,'&lt;').replace(/\n/g,'<br>')}</div>`
+      : `<div class="ev-note-placeholder">No plan yet — tap "+ Add plan"</div>`;
+  }
+  // Update button label
+  const btn = editor.previousElementSibling && editor.previousElementSibling.querySelector('.ev-note-edit-btn');
+  if (btn) btn.textContent = text ? '✏️ Edit' : '+ Add plan';
+  if (status) { status.textContent = '✅ Saved'; setTimeout(() => { if(status) status.textContent=''; }, 2000); }
+  editor.style.display  = 'none';
+  display.style.display = 'block';
+};
+
+window._evNoteCancel = function(utcMs) {
+  const editor  = document.getElementById('ev-note-editor-' + utcMs);
+  const display = document.getElementById('ev-note-display-' + utcMs);
+  if (editor)  editor.style.display  = 'none';
+  if (display) display.style.display = 'block';
+};
+
+// ── Scheduled Telegram alert queue (4-alert safety-margin timing) ─────────────
 window._scheduleTgAlerts = function(utcMs, title, urgent) {
-  const evD = new Date(utcMs);
-  const now  = Date.now();
-  // Morning brief: 07:30 local on event day
-  const morning = new Date(evD.getFullYear(), evD.getMonth(), evD.getDate(), 7, 30, 0);
-  const hour1   = new Date(utcMs - 3600000);
-  const min3    = new Date(utcMs - 180000);
+  const evD    = new Date(utcMs);
+  const now    = Date.now();
   const timeStr = evD.toLocaleTimeString('en-GB', {timeZone:'Asia/Jerusalem', hour:'2-digit', minute:'2-digit'});
+  const note   = (localStorage.getItem('ev_note_' + utcMs) || '').trim();
+  const notePart = note ? '\n\n📝 <b>Your plan:</b>\n' + note.substring(0, 800) : '';
+
+  // Alert 1 — Evening before (20:00 the day before the event)
+  const prevDay = new Date(evD.getFullYear(), evD.getMonth(), evD.getDate() - 1, 20, 0, 0);
+  // Alert 2 — Morning of event day at 07:30
+  const morning = new Date(evD.getFullYear(), evD.getMonth(), evD.getDate(), 7, 30, 0);
+  // Alert 3 — 2 hours before (position check + final prep)
+  const hr2     = new Date(utcMs - 7200000);
+  // Alert 4 — 30 minutes before (last check, execute)
+  const min30   = new Date(utcMs - 1800000);
 
   const candidates = [
+    { id:`${utcMs}_evening`, sendAt: prevDay.getTime(), urgent: false,
+      text: `📅 <b>Tomorrow:</b> ${title} at ${timeStr} IL\n\nReview your plan tonight and prepare your orders.${notePart}` },
     { id:`${utcMs}_morning`, sendAt: morning.getTime(), urgent: false,
-      text: `☀️ <b>Today's event:</b> ${title} at ${timeStr} IL\n\nCheck your playbook and prepare your position.` },
-    { id:`${utcMs}_1hr`,     sendAt: hour1.getTime(),   urgent: false,
-      text: `⏰ <b>1 hour away:</b> ${title}\n\nReview entry zone and position size before the event.` },
-    { id:`${utcMs}_3min`,    sendAt: min3.getTime(),    urgent: !!urgent,
-      text: `🚨 <b>3 minutes:</b> ${title} is happening NOW\n\nLast chance to check your setup.` },
+      text: `☀️ <b>Today:</b> ${title} at ${timeStr} IL\n\nMorning check — confirm position sizes and entry zones.${notePart}` },
+    { id:`${utcMs}_2hr`,     sendAt: hr2.getTime(),     urgent: false,
+      text: `⏰ <b>2 hours until:</b> ${title} (${timeStr} IL)\n\nFinal prep — check RSI, set alerts on broker.${notePart}` },
+    { id:`${utcMs}_30min`,   sendAt: min30.getTime(),   urgent: !!urgent,
+      text: `🚨 <b>30 minutes:</b> ${title} is imminent\n\nBe at your screen. Execute your plan.${notePart}` },
   ];
 
   let added = 0;
