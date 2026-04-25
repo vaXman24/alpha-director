@@ -502,6 +502,12 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
   <div id="swing-grid" class="swing-grid"></div>
 </div>
 
+<!-- Watchlist -->
+<div class="section" id="watchlist-section">
+  <div class="sec-label">👁 Watchlist <span style="font-size:10px;font-weight:400;color:var(--t3)">— top non-portfolio stocks worth tracking</span></div>
+  <div id="watchlist-grid" class="swing-grid"></div>
+</div>
+
 <!-- ═══ LAYER 2: THE WHY ═══ -->
 <div class="layer-band">
   <div class="layer-num l2">LAYER 2</div>
@@ -1981,6 +1987,7 @@ function buildAllocTable() {
   // Budget: sum of sentinel allocation_usd (= monthly DCA) or $10K default
   const totalBudget = positions.reduce((s,p) => s + (p.allocation_usd||0), 0) || 10000;
 
+  const totalScore = scored.reduce((s,p) => s + p._score, 0) || 1;
   const smartAllocs = scored.map(p => {
     const rawPct = (p._score / totalScore) * 100;
     const cappedPct = Math.min(35, Math.max(5, rawPct));
@@ -2583,6 +2590,59 @@ function buildSwingWeeks() {
   }).join('');
 }
 
+// ── Watchlist ─────────────────────────────────────────────────────────────
+function buildWatchlist() {
+  const el = $('watchlist-grid');
+  if (!el) return;
+
+  const positions = D.portfolio.positions || [];
+  const outside   = D.outside_opps || [];
+  const portSet   = new Set(positions.map(p => (p.ticker||'').toUpperCase()));
+
+  // Non-portfolio opps with any real upside, exclude pure macro entries (no ticker)
+  const cands = outside
+    .filter(p => p.ticker && !portSet.has((p.ticker||'').toUpperCase()) && (p.upside_pct||0) > 0)
+    .map(p => ({...p, _score: _allocScore(p)}))
+    .sort((a,b) => b._score - a._score)
+    .slice(0, 7);
+
+  if (!cands.length) {
+    el.innerHTML = '<div style="color:var(--t3);font-size:12px;padding:8px 0">No watchlist candidates this cycle.</div>';
+    return;
+  }
+
+  el.innerHTML = cands.map((p, i) => {
+    const oc       = p.action === 'STRONG BUY' ? 'var(--g)' : p.action === 'BUY' ? '#00b4d8' : p.action === 'WATCH' ? 'var(--a)' : 'var(--t2)';
+    const upTag    = p.upside_pct ? `<span style="font-size:11px;font-weight:800;color:var(--g)">+${p.upside_pct}%</span>` : '';
+    const confTag  = p.confidence != null ? `<span style="font-size:9px;color:var(--t3)">${p.confidence}/10 conf</span>` : '';
+    const catTag   = p.catalyst   ? `<div style="font-size:9px;color:var(--a);margin-top:2px">⚡ ${p.catalyst}${p.catalyst_days != null ? ` · ${p.catalyst_days===0?'today':p.catalyst_days+'d'}` : ''}</div>` : '';
+    const riskBadge = p.risk
+      ? `<span class="risk-badge ${p.risk==='LOW'?'low':p.risk==='MEDIUM'?'medium':p.risk==='VERY HIGH'?'very-high':'high'}" style="font-size:8px">${p.risk}</span>`
+      : '';
+    return `<div class="swing-card" onclick="window._openStockModal('${p.ticker}')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+        <div>
+          <div style="display:flex;align-items:center;gap:5px">
+            <span style="font-size:16px;font-weight:800">${p.ticker}</span>
+            <span class="swing-tag" style="background:rgba(0,180,216,.12);color:#00b4d8;border:1px solid rgba(0,180,216,.25)">WATCH</span>
+            ${riskBadge}
+          </div>
+          <div style="font-size:9px;color:var(--t2);margin-top:1px">${p.theme||''}</div>
+        </div>
+        <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:3px">
+          <span style="font-size:9px;font-weight:700;color:${oc}">${p.action||'WATCH'}</span>
+          ${upTag}
+        </div>
+      </div>
+      ${catTag}
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:5px">
+        ${p.target ? `<span style="font-size:10px;color:var(--t3)">Target <b style="color:#ccc">$${fmt(p.target)}</b></span>` : '<span></span>'}
+        <div style="display:flex;gap:6px;align-items:center">${confTag}<span style="font-size:9px;color:var(--t3)">#${i+1}</span></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 // ── Init ───────────────────────────────────────────────────────────────────
 function _buildAll() {
   const safe = fn => { try { fn(); } catch(e) { console.error('[AD]', fn.name, e.message); } };
@@ -2590,7 +2650,7 @@ function _buildAll() {
   safe(buildEarnings); safe(buildPulseStrip); safe(buildPolymarket); safe(buildActionCenter);
   safe(buildAllocTable); safe(buildPortSummary); safe(buildConcentration); safe(buildPortCards); safe(buildSectors);
   safe(buildCrypto); safe(buildInsiders); safe(buildEvents); safe(buildDrawer); safe(buildFooter);
-  safe(buildSwingWeeks);
+  safe(buildSwingWeeks); safe(buildWatchlist);
 }
 _buildAll();   // render immediately with empty skeleton (shows "Connecting…")
 
