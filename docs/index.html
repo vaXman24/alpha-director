@@ -502,19 +502,10 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
   <div id="swing-grid" class="swing-grid"></div>
 </div>
 
-<!-- Watchlist -->
+<!-- Watch Candidates -->
 <div class="section" id="watchlist-section">
-  <div class="sec-label">👁 Watchlist <span style="font-size:10px;font-weight:400;color:var(--t3)">— top non-portfolio stocks worth tracking</span></div>
+  <div class="sec-label">👁 Watch Candidates <span style="font-size:10px;font-weight:400;color:var(--t3)">— ranked non-portfolio stocks, scored for potential entry</span></div>
   <div id="watchlist-grid" class="swing-grid"></div>
-</div>
-
-<!-- Social Trends -->
-<div class="section" id="trends-section">
-  <div class="sec-label">🔥 Social Trends
-    <span style="font-size:10px;font-weight:400;color:var(--t3)" id="trends-updated-label"></span>
-    <span style="font-size:9px;font-weight:600;padding:1px 7px;border-radius:10px;background:rgba(255,215,64,.1);color:var(--a);margin-left:8px;letter-spacing:.5px">LIVE · 2h refresh</span>
-  </div>
-  <div id="trends-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;margin-top:4px"></div>
 </div>
 
 <!-- ═══ LAYER 2: THE WHY ═══ -->
@@ -636,6 +627,30 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
   </div>
   <div class="coll-body collapsed" id="insiders-body">
     <div style="padding-top:12px" id="insiders-list"></div>
+  </div>
+</div>
+
+<!-- Collapsible: Social Trends -->
+<div class="coll-card">
+  <div class="coll-header" onclick="toggleCard('trends')">
+    <div class="coll-left">
+      <span class="coll-icon">🔥</span>
+      <span class="coll-name">Social Trends</span>
+      <span class="coll-summary" id="trends-summary">—</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="coll-annotation" id="trends-annotation">—</span>
+      <span class="coll-chevron" id="trends-chevron">▼</span>
+    </div>
+  </div>
+  <div class="coll-body collapsed" id="trends-body">
+    <div style="padding-top:12px">
+      <div style="font-size:9px;color:var(--t3);margin-bottom:10px">
+        Sources: StockTwits · Yahoo Finance · Claude synthesis · <span id="trends-updated-label" style="opacity:.7"></span>
+        <span style="padding:1px 6px;border-radius:8px;background:rgba(255,215,64,.1);color:var(--a);font-weight:700;margin-left:6px">2h refresh</span>
+      </div>
+      <div id="trends-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px"></div>
+    </div>
   </div>
 </div>
 
@@ -833,7 +848,7 @@ function toggleCard(id) {
   try { localStorage.setItem(`card_${id}`, collapsed ? '0' : '1'); } catch(e) {}
 }
 function restoreCards() {
-  ['fg','pulse','poly','sectors','earnings','events'].forEach(id => {
+  ['fg','pulse','poly','sectors','earnings','insiders','trends','events'].forEach(id => {
     try {
       const state = localStorage.getItem(`card_${id}`);
       const body = $(`${id}-body`);
@@ -2628,11 +2643,23 @@ function buildTrends() {
   if (updEl && TR.updated) {
     try {
       const d = new Date(TR.updated);
-      updEl.textContent = '— ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      updEl.textContent = d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
     } catch(e) {}
   }
 
   const trends = TR.trends || [];
+
+  // Update coll-card header
+  const sumEl  = $('trends-summary');
+  const annEl  = $('trends-annotation');
+  const bullish = trends.filter(t => t.sentiment === 'bullish').length;
+  const bearish = trends.filter(t => t.sentiment === 'bearish').length;
+  if (sumEl) sumEl.textContent = trends.length ? `${trends.length} themes · ${bullish}↑ ${bearish}↓` : 'Loading…';
+  if (annEl) {
+    annEl.textContent = bullish > bearish ? 'Bullish lean' : bearish > bullish ? 'Bearish lean' : 'Mixed';
+    annEl.className   = 'coll-annotation ' + (bullish > bearish ? 'bullish' : bearish > bullish ? 'bearish' : 'neutral');
+  }
+
   if (!trends.length) {
     el.innerHTML = '<div style="color:var(--t3);font-size:12px;padding:8px 0">No trend data yet — refreshes every 2 hours.</div>';
     return;
