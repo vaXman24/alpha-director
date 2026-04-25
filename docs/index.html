@@ -800,37 +800,44 @@ function buildDrawer() {
   }
   $('drawer-holdings').innerHTML = holdHtml;
 
-  // ── Watchlist & Catalyst Opps (merged) ──
+  // ── Catalyst Opps in drawer (time-sensitive only; full ranked list is in Watch Candidates section) ──
   const opps   = D.outside_opps || [];
-  const regOps = opps.filter(o => !o.catalyst);
-  const catOps = opps.filter(o =>  o.catalyst);
+  const catOps = opps.filter(o => o.catalyst && (o.upside_pct||0) >= 8);
   let wHtml = '';
-  if (regOps.length) {
-    wHtml += `<div style="font-size:8px;font-weight:700;letter-spacing:1px;color:var(--t3);margin:4px 0 4px">WATCHLIST</div>`;
-    for (const o of regOps) {
-      const oc  = o.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
-      const up  = o.upside_pct != null ? `<span style="color:var(--g);font-size:9px">+${o.upside_pct}%</span>` : '';
-      wHtml += `<div class="drawer-row" style="padding:4px 0">
-        <span style="font-weight:600">${o.ticker}</span>
-        <span style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:9px;font-weight:700;color:${oc}">${o.action}</span>${up}
-        </span>
-      </div>`;
-    }
-  }
   if (catOps.length) {
-    wHtml += `<div style="font-size:8px;font-weight:700;letter-spacing:1px;color:var(--a);margin:10px 0 4px">⚡ CATALYST OPPS</div>`;
+    wHtml += `<div style="font-size:8px;font-weight:700;letter-spacing:1px;color:var(--a);margin:4px 0 4px">⚡ CATALYST OPPS</div>`;
     for (const o of catOps) {
       const oc    = o.action === 'STRONG BUY' ? 'var(--g)' : o.action === 'WATCH' ? 'var(--a)' : '#00b4d8';
       const cdays = o.catalyst_days === 0 ? 'today' : `in ${o.catalyst_days}d`;
       const up2   = o.upside_pct != null ? `<span style="color:var(--g);font-size:9px">+${o.upside_pct}%</span>` : '';
-      wHtml += `<div class="drawer-row" style="padding:4px 0">
+      wHtml += `<div class="drawer-row" onclick="window._openStockModal('${o.ticker}')" style="padding:4px 0;cursor:pointer">
         <span style="min-width:0;flex:1">
           <span style="font-weight:600">${o.ticker}</span>
           <span style="font-size:9px;color:var(--a);margin-left:4px">${cdays}</span>
         </span>
         <span style="display:flex;align-items:center;gap:8px;flex-shrink:0">
           <span style="font-size:9px;font-weight:700;color:${oc}">${o.action}</span>${up2}
+        </span>
+      </div>`;
+    }
+  }
+  // Non-catalyst watchlist: show top 5 from Watch Candidates (upside >= 8%, scored)
+  const positions   = (D.portfolio?.positions || []);
+  const portSet2    = new Set(positions.map(p => (p.ticker||'').toUpperCase()));
+  const watchTop    = opps
+    .filter(o => !o.catalyst && o.ticker && !portSet2.has((o.ticker||'').toUpperCase()) && (o.upside_pct||0) >= 8)
+    .map(o => ({...o, _s: _allocScore(o)}))
+    .sort((a,b) => b._s - a._s)
+    .slice(0, 5);
+  if (watchTop.length) {
+    wHtml += `<div style="font-size:8px;font-weight:700;letter-spacing:1px;color:var(--t3);margin:10px 0 4px">👁 WATCH CANDIDATES</div>`;
+    for (const o of watchTop) {
+      const oc = o.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
+      const up = o.upside_pct != null ? `<span style="color:var(--g);font-size:9px">+${o.upside_pct}%</span>` : '';
+      wHtml += `<div class="drawer-row" onclick="window._openStockModal('${o.ticker}')" style="padding:4px 0;cursor:pointer">
+        <span style="font-weight:600;min-width:0;flex:1">${o.ticker} <span style="font-size:9px;color:var(--t3);font-weight:400">${o.theme||''}</span></span>
+        <span style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <span style="font-size:9px;font-weight:700;color:${oc}">${o.action}</span>${up}
         </span>
       </div>`;
     }
@@ -1992,11 +1999,11 @@ function buildAllocTable() {
     .filter(p => ['STRONG BUY','BUY'].includes(p.action) && (p.upside_pct||0) > 0)
     .map(p => ({...p, _type:'add'}));
 
-  // Outside opps not in portfolio, with real upside > 5%
+  // Outside opps not in portfolio, with meaningful upside ≥ 8%
   const watchCands = outside
     .filter(p => !portSet.has((p.ticker||'').toUpperCase())
               && ['STRONG BUY','BUY'].includes(p.action||'')
-              && (p.upside_pct||0) > 5)
+              && (p.upside_pct||0) >= 8)
     .map(p => ({...p, _type:'new'}));
 
   const candidates = [...portCands, ...watchCands];
@@ -2737,9 +2744,9 @@ function buildWatchlist() {
   const outside   = D.outside_opps || [];
   const portSet   = new Set(positions.map(p => (p.ticker||'').toUpperCase()));
 
-  // Non-portfolio entries: dedicated watchlist stocks + any catalyst opps with a ticker
+  // Non-portfolio entries with meaningful upside (≥8%) only
   const cands = outside
-    .filter(p => p.ticker && !portSet.has((p.ticker||'').toUpperCase()))
+    .filter(p => p.ticker && !portSet.has((p.ticker||'').toUpperCase()) && (p.upside_pct||0) >= 8)
     .map(p => ({...p, _score: _allocScore(p)}))
     .sort((a,b) => b._score - a._score)
     .slice(0, 7);
