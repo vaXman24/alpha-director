@@ -703,6 +703,17 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 <div class="footer" id="footer"></div>
 
 <script>
+// Format a UTC ISO timestamp as Israel local time (IDT/IST = UTC+3/+2)
+const _IL_TZ = 'Asia/Jerusalem';
+function _fmtIL(iso) {
+  try {
+    const d = new Date(iso);
+    return d.toLocaleDateString('en-GB', {timeZone:_IL_TZ, day:'numeric', month:'short'})
+      + ' '
+      + d.toLocaleTimeString('en-GB', {timeZone:_IL_TZ, hour:'2-digit', minute:'2-digit', hour12:false});
+  } catch(e) { return iso || ''; }
+}
+
 // D is populated from live data.json — no stale baked-in snapshot
 let D = {
   generated_at: null, regime: '', macro_warn: '',
@@ -1038,7 +1049,7 @@ function buildTape() {
 function buildRegime() {
   const pill = $('regime-pill');
   const r = D.regime || '';
-  $('updated').textContent = D.generated_at ? 'Updated ' + D.generated_at : 'Connecting…';
+  $('updated').textContent = D.generated_at ? 'Updated ' + _fmtIL(D.generated_at) : 'Connecting…';
   if (r.includes('RISK-ON') || r.includes('🟢')) {
     pill.className = 'regime-pill regime-on';
   } else if (r.includes('RISK-OFF') || r.includes('🔴')) {
@@ -1643,7 +1654,7 @@ function buildEarnings() {
 
 // ── Action Center ──────────────────────────────────────────────────────────
 function buildActionCenter() {
-  $('action-date').textContent = D.generated_at;
+  $('action-date').textContent = D.generated_at ? _fmtIL(D.generated_at) : '';
   const positions = D.portfolio.positions;
   const actionOrder = ['STRONG BUY','BUY','TRIM','EXIT'];
   const actionable  = positions.filter(p => actionOrder.includes(p.action));
@@ -2121,7 +2132,7 @@ function buildInsiders() {
 
 // ── Footer ─────────────────────────────────────────────────────────────────
 function buildFooter() {
-  $('footer').innerHTML = `Alpha Director · ${D.generated_at || 'Connecting to live feed…'} · Sources: Yahoo Finance · CoinGecko · SEC EDGAR · alternative.me`;
+  $('footer').innerHTML = `Alpha Director · ${D.generated_at ? _fmtIL(D.generated_at) : 'Connecting to live feed…'} · Sources: Yahoo Finance · CoinGecko · SEC EDGAR · alternative.me`;
 }
 
 // ── Upcoming Events ────────────────────────────────────────────────────────
@@ -2653,7 +2664,7 @@ function buildTrends() {
   if (updEl && TR.updated) {
     try {
       const d = new Date(TR.updated);
-      updEl.textContent = d.toLocaleDateString('en-US',{month:'short',day:'numeric'}) + ' ' + d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+      updEl.textContent = _fmtIL(TR.updated);
     } catch(e) {}
   }
 
