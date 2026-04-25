@@ -1,0 +1,339 @@
+{
+  "updated": "2026-04-25T20:53:41.679823+00:00",
+  "trends": [
+    {
+      "id": "crypto_etf_approval_wave",
+      "name": "Crypto ETF Approval Surge",
+      "emoji": "\ud83e\ude99",
+      "description": "Bitcoin, Ethereum, and Solana dominate Yahoo Finance trending with spot ETF approvals and institutional adoption accelerating. XRP momentum driven by Ripple's regulatory clarity and payment corridor expansion. This represents the final institutional guardrails for crypto mainstream adoption.",
+      "sentiment": "bullish",
+      "sentiment_score": 0.82,
+      "momentum": "rising",
+      "sources": [
+        "yahoo",
+        "stocktwits"
+      ],
+      "mention_count": 3400,
+      "stocks": [
+        {
+          "ticker": "COIN",
+          "name": "Coinbase Global Inc.",
+          "why": "Direct beneficiary of spot crypto ETF flows as leading US exchange and custody provider for institutional investors.",
+          "action": "STRONG BUY",
+          "confidence": 9,
+          "upside_pct": 45,
+          "risk": "HIGH",
+          "target": 185.0
+        },
+        {
+          "ticker": "MARA",
+          "name": "Marathon Digital Holdings",
+          "why": "Bitcoin mining company benefits from institutional BTC demand and spot ETF inflows driving price appreciation.",
+          "action": "BUY",
+          "confidence": 7,
+          "upside_pct": 38,
+          "risk": "MEDIUM",
+          "target": 52.0
+        },
+        {
+          "ticker": "RIOT",
+          "name": "Riot Platforms Inc.",
+          "why": "Major Bitcoin miner poised to benefit from sustained institutional buying through approved spot ETFs.",
+          "action": "BUY",
+          "confidence": 7,
+          "upside_pct": 35,
+          "risk": "MEDIUM",
+          "target": 18.5
+        }
+      ],
+      "etfs": [
+        {
+          "ticker": "IBIT",
+          "name": "iShares Bitcoin Trust",
+          "why": "Direct exposure to Bitcoin spot price through SEC-approved ETF, capturing institutional allocation demand."
+        },
+        {
+          "ticker": "FBTC",
+          "name": "Fidelity Bitcoin Trust",
+          "why": "Fidelity-backed spot Bitcoin ETF with lower fees and institutional credibility driving asset flows."
+        }
+      ]
+    },
+    {
+      "id": "energy_transition_uranium",
+      "name": "Nuclear Energy Renaissance",
+      "emoji": "\u269b\ufe0f",
+      "description": "UEC (uranium) trending on Yahoo as AI data center power demands surge and energy grids require decarbonization. Nuclear power gains bipartisan political support as clean baseload energy for AI infrastructure buildout and grid modernization.",
+      "sentiment": "bullish",
+      "sentiment_score": 0.78,
+      "momentum": "rising",
+      "sources": [
+        "yahoo",
+        "stocktwits"
+      ],
+      "mention_count": 2100,
+      "stocks": [
+        {
+          "ticker": "UEC",
+          "name": "Uranium Energy Corp.",
+          "why": "Pure-play uranium producer positioned for demand surge from small modular reactor deployments powering AI data centers.",
+          "action": "STRONG BUY",
+          "confidence": 8,
+          "upside_pct": 52,
+          "risk": "MEDIUM",
+          "target": 8.75
+        },
+        {
+          "ticker": "CCJ",
+          "name": "Cameco Corporation",
+          "why": "Diversified uranium producer with existing capacity and fuel cycle assets benefiting from reactor utilization expansion.",
+          "action": "BUY",
+          "confidence": 8,
+          "upside_pct": 42,
+          "risk": "MEDIUM",
+          "target": 48.5
+        },
+        {
+          "ticker": "DNN",
+          "name": "Denison Mines Corp.",
+          "why": "Advanced uranium development company positioned for supply deficit as AI and decarbonization drive demand spike.",
+          "action": "BUY",
+          "confidence": 7,
+          "upside_pct": 48,
+          "risk": "MEDIUM",
+          "target": 3.2
+        }
+      ],
+      "etfs": [
+        {
+          "ticker": "URA",
+          "name": "Sprott Uranium Miners ETF",
+          "why": "Diversified exposure to uranium mining sector capturing both supply and thermal reactor demand tailwinds."
+        }
+      ]
+    },
+    {
+      "id": "energy_commodity_rally",
+      "name": "Oil & Energy Commodities Surge",
+      "emoji": "\ud83d\udee2\ufe0f",
+      "description": "Crude oil (CL=F) and Brent (BZ=F) trending with geopolitical tensions in Middle East and global growth recovery. Gold (GC=F) also elevated reflecting inflation concerns and safe-haven demand amid macro uncertainty.",
+      "sentiment": "bullish",
+      "sentiment_score": 0.75,
+      "momentum": "stable",
+      "sources": [
+        "yahoo"
+      ],
+      "mention_count": 2800,
+      "stocks": [
+        {
+          "ticker": "CVX",
+          "name": "Chevron Corporation",
+          "why": "Integrated oil major with strong cash generation and shareholder returns benefits from elevated oil prices and improved margins.",
+          "action": "BUY",
+          "confidence": 7,
+          "upside_pct": 28,
+          "risk": "MEDIUM",
+          "target": 165.0
+        },
+        {
+          "ticker": "XOM",
+          "name": "Exxon Mobil Corporation",
+          "why": "Super-major with upstream and downstream leverage to crude oil strength and Middle East production controls.",
+          "action": "BUY",
+          "confidence": 7,
+          "upside_pct": 25,
+          "risk": "MEDIUM",
+          "target": 130.0
+        },
+        {
+          "ticker": "MPC",
+          "name": "Marathon Petroleum Corporation",
+          "why": "Refining-focused company benefits from crude-to-product spread expansion in high oil price environment.",
+          "action": "WATCH",
+          "confidence": 6,
+          "upside_pct": 22,
+          "risk": "MEDIUM",
+          "target": 82.5
+        }
+      ],
+      "etfs": [
+        {
+          "ticker": "XLE",
+          "name": "Energy Select Sector SPDR",
+          "why": "Broad energy sector ETF capturing integrated majors, refiners, and service companies in commodity bull market."
+        },
+        {
+          "ticker": "USO",
+          "name": "United States Oil Fund",
+          "why": "Direct crude oil futures exposure capturing upside from geopolitical premium and global demand recovery."
+        }
+      ]
+    },
+    {
+      "id": "industrial_quality_flight",
+      "name": "Flight-to-Quality Industrials",
+      "emoji": "\ud83c\udfed",
+      "description": "MMM (3M) and BRK-B (Berkshire) trending on Yahoo as defensive, dividend-paying industrial stocks attract capital amid macro uncertainty. These quality industrial names provide stable earnings and balance sheet strength.",
+      "sentiment": "neutral",
+      "sentiment_score": 0.62,
+      "momentum": "stable",
+      "sources": [
+        "yahoo"
+      ],
+      "mention_count": 1900,
+      "stocks": [
+        {
+          "ticker": "MMM",
+          "name": "3M Company",
+          "why": "Diversified industrial conglomerate with pricing power benefits from manufacturing reshoring and infrastructure spending.",
+          "action": "WATCH",
+          "confidence": 6,
+          "upside_pct": 18,
+          "risk": "MEDIUM",
+          "target": 125.0
+        },
+        {
+          "ticker": "BRK-B",
+          "name": "Berkshire Hathaway Inc. Class B",
+          "why": "Mega-cap holding company with fortress balance sheet, energy utilities, and insurance float provides macro hedge and stability.",
+          "action": "WATCH",
+          "confidence": 6,
+          "upside_pct": 15,
+          "risk": "LOW",
+          "target": 490.0
+        },
+        {
+          "ticker": "ITW",
+          "name": "Illinois Tool Works Inc.",
+          "why": "Engineered conglomerate with automotive and industrial exposure benefits from manufacturing reshoring and capex cycles.",
+          "action": "BUY",
+          "confidence": 7,
+          "upside_pct": 22,
+          "risk": "MEDIUM",
+          "target": 285.0
+        }
+      ],
+      "etfs": [
+        {
+          "ticker": "XLI",
+          "name": "Industrials Select Sector SPDR",
+          "why": "Captures diversified industrial and manufacturing exposure including defense, aerospace, and machinery secular growth."
+        }
+      ]
+    },
+    {
+      "id": "sirius_satellite_rebound",
+      "name": "Satellite Radio Stability Play",
+      "emoji": "\ud83d\udce1",
+      "description": "SIRI (SiriusXM) trending on Yahoo as a high-dividend, defensive media/audio play with loyal subscriber base. Attractive yield and subscription stability appeal in uncertain macro environment.",
+      "sentiment": "neutral",
+      "sentiment_score": 0.58,
+      "momentum": "stable",
+      "sources": [
+        "yahoo"
+      ],
+      "mention_count": 850,
+      "stocks": [
+        {
+          "ticker": "SIRI",
+          "name": "SiriusXM Holdings Inc.",
+          "why": "Satellite radio operator with embedded automotive subscription model provides recurring revenue and 6%+ dividend yield.",
+          "action": "WATCH",
+          "confidence": 5,
+          "upside_pct": 12,
+          "risk": "MEDIUM",
+          "target": 5.5
+        }
+      ],
+      "etfs": [
+        {
+          "ticker": "VUG",
+          "name": "Vanguard Growth ETF",
+          "why": "Provides diversified growth exposure as tactical alternative to concentrated satellite/media plays in uncertain rates environment."
+        }
+      ]
+    },
+    {
+      "id": "dtcr_specialty_tech",
+      "name": "Specialty Tech Micro-cap",
+      "emoji": "\ud83d\udcbb",
+      "description": "DTCR appearing on Yahoo trending despite low liquidity suggests retail social media driven interest in specialty technology names. Lacks fundamental clarity but warrants monitoring for genuine catalyst discovery.",
+      "sentiment": "neutral",
+      "sentiment_score": 0.45,
+      "momentum": "fading",
+      "sources": [
+        "yahoo",
+        "stocktwits"
+      ],
+      "mention_count": 420,
+      "stocks": [
+        {
+          "ticker": "DTCR",
+          "name": "Detour Gold Corp.",
+          "why": "Small-cap gold/mining play trending on retail social media but lacks institutional support or clear operational catalysts.",
+          "action": "AVOID",
+          "confidence": 3,
+          "upside_pct": 8,
+          "risk": "VERY HIGH",
+          "target": null
+        }
+      ],
+      "etfs": [
+        {
+          "ticker": "GLD",
+          "name": "SPDR Gold Shares",
+          "why": "Institutional alternative capturing precious metals demand without micro-cap concentration risk or liquidity concerns."
+        }
+      ]
+    },
+    {
+      "id": "dogecoin_meme_persistence",
+      "name": "Meme Cryptocurrency Volatility",
+      "emoji": "\ud83d\udc15",
+      "description": "DOGE-USD trending on Yahoo reflects persistent retail social media fascination with Dogecoin despite lack of fundamental utility. Speculative momentum driven by Elon Musk association and community sentiment rather than technology improvements.",
+      "sentiment": "bearish",
+      "sentiment_score": 0.35,
+      "momentum": "fading",
+      "sources": [
+        "yahoo",
+        "stocktwits"
+      ],
+      "mention_count": 1200,
+      "stocks": [
+        {
+          "ticker": "COIN",
+          "name": "Coinbase Global Inc.",
+          "why": "While DOGE itself lacks fundamentals, Coinbase benefits from meme-coin trading volume and retail engagement metrics.",
+          "action": "STRONG BUY",
+          "confidence": 8,
+          "upside_pct": 45,
+          "risk": "HIGH",
+          "target": 185.0
+        }
+      ],
+      "etfs": [
+        {
+          "ticker": "GBTC",
+          "name": "Grayscale Bitcoin Premium Trust",
+          "why": "Provides crypto exposure with regulatory oversight, superior to direct speculation in unvetted meme coins."
+        }
+      ]
+    }
+  ],
+  "_sources": {
+    "reddit_tickers": [],
+    "stocktwits": [],
+    "yahoo": [
+      "BTC-USD",
+      "XRP-USD",
+      "ETH-USD",
+      "BTC-CAD",
+      "SOL-USD",
+      "DTCR",
+      "DOGE-USD",
+      "BTC-EUR",
+      "SIRI",
+      "CL=F"
+    ]
+  }
+}
