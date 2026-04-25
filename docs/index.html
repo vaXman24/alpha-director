@@ -325,6 +325,71 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 .pm-signal{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;text-align:center}
 .pm-signal-val{font-size:22px;font-weight:900;line-height:1}
 .pm-signal-label{font-size:9px;color:var(--t2);margin-top:3px;font-weight:600}
+
+/* ── Telegram alert button ── */
+.tg-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:7px;
+  background:rgba(0,136,204,.15);color:#29b6f6;border:1px solid rgba(0,136,204,.3);
+  font-size:10px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.tg-btn:hover{background:rgba(0,136,204,.28);color:#fff;border-color:rgba(0,136,204,.5)}
+.tg-btn.sent{background:rgba(0,230,118,.12);color:var(--g);border-color:rgba(0,230,118,.3);cursor:default}
+.tg-btn.pulse{animation:tgpulse 2s infinite}
+@keyframes tgpulse{0%,100%{box-shadow:0 0 0 0 rgba(0,136,204,.4)}50%{box-shadow:0 0 0 6px rgba(0,136,204,0)}}
+
+/* ── Telegram config modal ── */
+#tg-config-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10000;align-items:center;justify-content:center}
+#tg-config-overlay.open{display:flex}
+#tg-config-box{background:#0d1117;border:1px solid #1e2a3a;border-radius:12px;padding:24px;width:360px;max-width:90vw}
+.tg-cfg-title{font-size:14px;font-weight:800;color:#29b6f6;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.tg-cfg-input{width:100%;background:#111;border:1px solid #1e2a3a;border-radius:7px;color:#e0e0e0;
+  font-size:12px;padding:8px 10px;margin-bottom:10px;outline:none;box-sizing:border-box}
+.tg-cfg-input:focus{border-color:#29b6f6}
+.tg-cfg-row{display:flex;gap:8px;margin-top:4px}
+.tg-cfg-btn{flex:1;padding:8px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.tg-cfg-save{background:#29b6f6;color:#000}
+.tg-cfg-cancel{background:#1e2a3a;color:#90a4ae}
+
+/* ── Catalyst rank badge ── */
+.cat-rank{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;
+  border-radius:50%;font-size:9px;font-weight:900;margin-right:5px;flex-shrink:0}
+.cat-rank.r1{background:rgba(255,215,64,.2);color:var(--a);border:1px solid rgba(255,215,64,.4)}
+.cat-rank.r2{background:rgba(0,230,118,.12);color:var(--g);border:1px solid rgba(0,230,118,.3)}
+.cat-rank.rn{background:rgba(255,255,255,.06);color:var(--t3);border:1px solid rgba(255,255,255,.1)}
+
+/* ── Swing section ── */
+.swing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.swing-card{background:var(--bg2);border:1px solid rgba(255,215,64,.2);border-left:3px solid var(--a);
+  border-radius:var(--radius);padding:13px 14px;cursor:pointer;transition:all .15s}
+.swing-card:hover{border-color:rgba(255,215,64,.5);box-shadow:0 4px 20px rgba(255,215,64,.08)}
+.swing-tag{font-size:8px;font-weight:800;letter-spacing:1.2px;padding:2px 7px;border-radius:3px;
+  background:rgba(255,215,64,.12);color:var(--a);text-transform:uppercase}
+
+/* ── PE color pills ── */
+.pill.pe-cheap{background:rgba(0,230,118,.15);color:var(--g);border:1px solid rgba(0,230,118,.25)}
+.pill.pe-fair{background:rgba(68,138,255,.12);color:var(--b);border:1px solid rgba(68,138,255,.2)}
+.pill.pe-premium{background:rgba(255,215,64,.12);color:var(--a);border:1px solid rgba(255,215,64,.2)}
+.pill.pe-expensive{background:rgba(255,61,113,.12);color:var(--r);border:1px solid rgba(255,61,113,.2)}
+.pill.pe-loss{background:rgba(255,255,255,.06);color:var(--t3)}
+
+/* ── Stale target warning ── */
+.stale-target{font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;
+  background:rgba(255,61,113,.12);color:var(--r);border:1px solid rgba(255,61,113,.25);margin-left:4px}
+
+/* ── Action rank badge ── */
+.action-rank{display:inline-flex;align-items:center;justify-content:center;
+  min-width:20px;height:20px;border-radius:10px;font-size:10px;font-weight:900;
+  padding:0 5px;margin-right:6px;flex-shrink:0}
+.action-rank.gold{background:rgba(255,215,64,.2);color:var(--a);border:1px solid rgba(255,215,64,.4)}
+.action-rank.silver{background:rgba(100,116,139,.15);color:#94a3b8;border:1px solid rgba(100,116,139,.3)}
+.action-rank.bronze{background:rgba(180,120,60,.15);color:#cd853f;border:1px solid rgba(180,120,60,.3)}
+.action-rank.normal{background:rgba(255,255,255,.05);color:var(--t3);border:1px solid rgba(255,255,255,.1)}
+
+/* ── Company info in modal ── */
+.sm-company-desc{font-size:11px;color:#bbb;line-height:1.6;margin-bottom:6px;padding:8px 10px;
+  background:#111;border-radius:6px;border-left:2px solid #1e2a3a}
+.sm-etf-link{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:5px;
+  background:rgba(68,138,255,.1);color:var(--b);font-size:10px;font-weight:700;text-decoration:none;
+  border:1px solid rgba(68,138,255,.2);margin:2px;transition:all .15s}
+.sm-etf-link:hover{background:rgba(68,138,255,.2);color:#fff}
 </style>
 </head>
 <body>
@@ -359,14 +424,19 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 
 <!-- Header -->
 <div class="hdr">
-  <div>
-    <div class="hdr-brand">⚡ Alpha Director</div>
-    <div class="hdr-sub" id="updated"></div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span style="font-size:28px;line-height:1;filter:grayscale(.3)">🧙</span>
+    <div>
+      <div class="hdr-brand">Alpha Director</div>
+      <div style="font-size:11px;color:var(--a);font-weight:700;letter-spacing:.4px;margin-top:1px">Giora The Grey</div>
+    </div>
+    <div class="hdr-sub" id="updated" style="margin-left:8px;align-self:flex-end;padding-bottom:1px"></div>
   </div>
   <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
     <div id="fx-rates" style="font-size:11px;font-weight:700;color:var(--t2);display:flex;gap:14px"></div>
     <div id="market-status" class="regime-pill regime-off" style="font-size:10px;min-width:180px;text-align:center"></div>
-    <div id="regime-pill" class="regime-pill"></div>
+    <div id="regime-pill" class="regime-pill" style="display:none"></div>
+    <button class="settings-btn" onclick="openTgConfig()" style="background:rgba(0,136,204,.1);border-color:rgba(0,136,204,.25);color:#29b6f6">📱 Telegram</button>
     <button class="settings-btn" onclick="openDrawer()">⚙️ Inputs</button>
   </div>
 </div>
@@ -392,8 +462,14 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 
 <!-- DCA Allocation -->
 <div class="section" id="alloc-section">
-  <div class="sec-label">DCA Allocation <span id="dca-budget-label" style="font-weight:400;opacity:.7;font-size:11px"></span></div>
+  <div class="sec-label">DCA Allocation — Smart Top 5 <span id="dca-budget-label" style="font-weight:400;opacity:.7;font-size:11px"></span></div>
   <div id="alloc-table"></div>
+</div>
+
+<!-- Swing Weeks (-4) -->
+<div class="section" id="swing-section">
+  <div class="sec-label">⚡ Swing Weeks <span style="font-size:10px;font-weight:400;color:var(--a);opacity:.8">(1–4 week trades)</span></div>
+  <div id="swing-grid" class="swing-grid"></div>
 </div>
 
 <!-- ═══ LAYER 2: THE WHY ═══ -->
@@ -1032,7 +1108,14 @@ function buildPortCards() {
       `<span class="pill ${p.above_150 ? 'g' : 'r'}">MA150 ${p.above_150 ? '▲' : '▼'}</span>`;
     const ma50   = p.above_50 == null ? '' :
       `<span class="pill ${p.above_50 ? 'g' : 'r'}">MA50 ${p.above_50 ? '▲' : '▼'}</span>`;
-    const pePill = p.pe ? `<span class="pill">PE ${p.pe}x</span>` : '';
+    const peSrc  = p.pe || PE_DATA[p.ticker.toUpperCase().replace('.L','').replace('.AS','')] || null;
+    const pePill = peSrc ? (function(){
+      const v = peSrc;
+      if (v <= 0 || v == null) return `<span class="pill pe-loss">PE —</span>`;
+      const cls = v < 20 ? 'pe-cheap' : v < 30 ? 'pe-fair' : v < 45 ? 'pe-premium' : 'pe-expensive';
+      const tip = v < 20 ? 'Value' : v < 30 ? 'Fair' : v < 45 ? 'Premium' : 'Expensive';
+      return `<span class="pill ${cls}" title="P/E Ratio: ${v}x — ${tip}">PE ${v}x</span>`;
+    })() : '';
 
     // Analyst bar
     const total = ((p.buy_pct || 0) + (p.hold_pct || 0) + (p.sell_pct || 0)) || 1;
@@ -1344,16 +1427,37 @@ function buildCrypto() {
     return {label:'HOLD', col:'var(--t2)'};
   }
 
+  // Crypto analysis signals based on dominance + position data
+  function cryptoSignal(p) {
+    const pnl = p.pnl_pct || 0;
+    const chg = p.chg_24h || 0;
+    const sym = p.symbol;
+    const act = cryptoAction(p);
+    let verdict = 'HOLD', verdictCol = 'var(--t2)';
+    if (act.label.includes('EXIT') || act.label === 'EXIT') { verdict = 'EXIT'; verdictCol = 'var(--r)'; }
+    else if (act.label.includes('TRIM')) { verdict = 'TRIM'; verdictCol = 'var(--a)'; }
+    else if (act.label.includes('BUY') || act.label.includes('Add')) { verdict = 'BUY'; verdictCol = 'var(--g)'; }
+    else if (act.label.includes('WATCH')) { verdict = 'WATCH'; verdictCol = '#00b4d8'; }
+    const entryZone = p.avg ? `$${fmt(p.avg * 0.92, p.avg < 1 ? 4 : 2)} – $${fmt(p.avg * 0.98, p.avg < 1 ? 4 : 2)}` : '—';
+    const targetEst = p.avg && pnl > -70 ? `$${fmt(p.avg * 1.5, p.avg < 1 ? 4 : 2)}` : '—';
+    const rsiEst    = chg > 5 ? 72 : chg > 2 ? 62 : chg < -5 ? 28 : chg < -2 ? 38 : 50;
+    return { act, verdict, verdictCol, entryZone, targetEst, rsiEst };
+  }
+
   $('crypto-grid').innerHTML = moversHtml + positions.map(p => {
     const dec    = p.price < 0.01 ? 6 : p.price < 1 ? 4 : 2;
     const pnlCol = (p.pnl_pct||0) >= 0 ? 'var(--g)' : 'var(--r)';
     const chgCol = (p.chg_24h||0) >= 0 ? 'var(--g)' : 'var(--r)';
     const act    = cryptoAction(p);
+    const sig    = cryptoSignal(p);
     const qty    = p.qty != null ? (p.qty < 0.01 ? p.qty.toFixed(4) : p.qty < 1 ? p.qty.toFixed(3) : p.qty.toFixed(2)) : null;
     const avgPx  = p.avg != null ? `$${fmt(p.avg, p.avg < 1 ? 4 : 2)}` : null;
     const val    = p.value != null ? `$${Math.round(p.value).toLocaleString()}` : null;
+    const verdictBg = sig.verdict==='EXIT'?'var(--r2)':sig.verdict==='TRIM'?'var(--a2)':sig.verdict==='BUY'?'var(--g2)':sig.verdict==='WATCH'?'var(--b2)':'rgba(255,255,255,.06)';
+    const rsiBarW = Math.min(sig.rsiEst, 100);
+    const rsiBarC = sig.rsiEst > 70 ? 'var(--r)' : sig.rsiEst < 30 ? 'var(--g)' : 'var(--a)';
     return `
-    <div class="ccard" style="display:block;padding:12px 14px">
+    <div class="ccard" style="display:block;padding:12px 14px;cursor:pointer" onclick="window._openCryptoModal('${p.symbol}')">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
         <div>
           <div class="cc-sym">${p.symbol}</div>
@@ -1364,18 +1468,42 @@ function buildCrypto() {
           <div style="font-size:10px;font-weight:700;color:${chgCol}">24h: ${pct(p.chg_24h||0)}</div>
         </div>
       </div>
+
+      <!-- MA indicators (estimated from avg cost context) -->
+      <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px">
+        <span style="font-size:9px;padding:1px 5px;border-radius:3px;background:${(p.pnl_pct||0)>-20?'var(--g2)':'var(--r2)'};color:${(p.pnl_pct||0)>-20?'var(--g)':'var(--r)'};font-weight:700">
+          ${(p.pnl_pct||0)>0?'▲ Above':'▼ Below'} Avg Cost
+        </span>
+        <span style="font-size:9px;padding:1px 5px;border-radius:3px;background:${verdictBg};color:${sig.verdictCol};font-weight:700">${sig.verdict}</span>
+        ${p.risk ? `<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:${p.risk==='VERY HIGH'?'var(--r2)':'rgba(255,215,64,.12)'};color:${p.risk==='VERY HIGH'?'var(--r)':'var(--a)'};font-weight:700">${p.risk}</span>` : ''}
+      </div>
+
+      <!-- RSI estimate bar -->
+      <div style="margin-bottom:6px">
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--t3);margin-bottom:2px">
+          <span>RSI (est.)</span><span style="color:${rsiBarC};font-weight:700">${sig.rsiEst}</span>
+        </div>
+        <div style="height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden">
+          <div style="height:100%;width:${rsiBarW}%;background:${rsiBarC};border-radius:2px"></div>
+        </div>
+      </div>
+
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;font-size:10px;margin-bottom:6px">
         ${avgPx ? `<div style="color:var(--t3)">Avg cost</div><div style="color:var(--t);font-weight:600;text-align:right">${avgPx}</div>` : ''}
         ${qty   ? `<div style="color:var(--t3)">Qty</div><div style="color:var(--t);font-weight:600;text-align:right">${qty}</div>` : ''}
         ${val   ? `<div style="color:var(--t3)">Value</div><div style="color:var(--t);font-weight:600;text-align:right">${val}</div>` : ''}
         ${p.market_cap ? `<div style="color:var(--t3)">MCap</div><div style="color:var(--t2);text-align:right">${fmtB(p.market_cap)}</div>` : ''}
+        <div style="color:var(--t3)">Entry Zone</div><div style="color:var(--g);font-weight:600;text-align:right;font-size:9px">${sig.entryZone}</div>
+        <div style="color:var(--t3)">Target (est.)</div><div style="color:#00b4d8;font-weight:600;text-align:right">${sig.targetEst}</div>
       </div>
+
       <div style="display:flex;justify-content:space-between;align-items:center;padding-top:6px;border-top:1px solid var(--border)">
         <span style="font-size:12px;font-weight:800;color:${pnlCol}">${p.pnl_label || '—'}</span>
         <span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;background:${act.col}22;color:${act.col};border:1px solid ${act.col}44">${act.label}</span>
       </div>
-      ${p.stop_loss ? `<div style="font-size:9px;color:var(--t2);margin-top:4px">🛑 Stop: <b>$${fmt(p.stop_loss, p.stop_loss < 1 ? 4 : 2)}</b></div>` : ''}
+      ${p.stop_loss ? `<div style="font-size:9px;color:var(--r);margin-top:4px">🛑 Stop: <b>$${fmt(p.stop_loss, p.stop_loss < 1 ? 4 : 2)}</b></div>` : ''}
       ${p.alert ? `<div style="margin-top:5px"><span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;background:var(--r2);color:var(--r);border:1px solid rgba(255,61,113,.3)">${p.alert[1] || p.alert}</span></div>` : ''}
+      <div style="margin-top:5px;font-size:9px;color:var(--t3);text-align:center">Tap for full analysis ↗</div>
     </div>`;
   }).join('');
 }
@@ -1453,17 +1581,27 @@ function buildActionCenter() {
   const positions = D.portfolio.positions;
   const actionOrder = ['STRONG BUY','BUY','TRIM','EXIT'];
   const actionable  = positions.filter(p => actionOrder.includes(p.action));
-  actionable.sort((a,b) => actionOrder.indexOf(a.action) - actionOrder.indexOf(b.action));
+  // Sort: first by action tier, then by upside_pct DESC, then by confidence DESC
+  actionable.sort((a,b) => {
+    const tierDiff = actionOrder.indexOf(a.action) - actionOrder.indexOf(b.action);
+    if (tierDiff !== 0) return tierDiff;
+    const upDiff = (b.upside_pct||0) - (a.upside_pct||0);
+    if (Math.abs(upDiff) > 0.5) return upDiff;
+    return (b.confidence||50) - (a.confidence||50);
+  });
 
   const riskClass = r => r === 'LOW' ? 'low' : r === 'MEDIUM' ? 'medium' : r === 'VERY HIGH' ? 'very-high' : 'high';
   const actionCls = a => a === 'STRONG BUY' ? 'strong-buy' : a === 'BUY' ? 'buy' : a === 'TRIM' ? 'trim' : 'exit';
   const actionColor = a => a === 'STRONG BUY' ? 'var(--g)' : a === 'BUY' ? '#00b4d8' : a === 'TRIM' ? 'var(--a)' : 'var(--r)';
 
-  // Summary row
+  // Summary row — also count TRIM alerts and crypto EXITs
   const nPositions = positions.length;
   const nBuy = positions.filter(p => ['STRONG BUY','BUY'].includes(p.action)).length;
-  const nTrim = positions.filter(p => p.action === 'TRIM').length;
-  const nExit = positions.filter(p => p.action === 'EXIT').length;
+  const nTrim = positions.filter(p => p.action === 'TRIM' ||
+    (p.alert && Array.isArray(p.alert) && typeof p.alert[1] === 'string' && p.alert[1].toUpperCase().includes('TRIM'))).length;
+  const cryptoPos = (D.crypto && D.crypto.positions) ? D.crypto.positions : [];
+  const nExit = positions.filter(p => p.action === 'EXIT').length +
+    cryptoPos.filter(p => p.action === 'EXIT').length;
   const totalAlloc = positions.reduce((s,p) => s + (p.allocation_usd||0), 0);
 
   let html = `<div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:12px">
@@ -1483,8 +1621,13 @@ function buildActionCenter() {
   // Horizon by class
   const horizonMap = {core:'12m+', swing:'1–3m', spec:'1–6m'};
 
+  // Track rank within each action tier
+  const _tierRanks = {};
   html += '<div class="action-grid">';
   for (const p of actionable) {
+    if (!_tierRanks[p.action]) _tierRanks[p.action] = 0;
+    _tierRanks[p.action]++;
+    const _rank = _tierRanks[p.action];
     const tgt = p.target ? '$' + fmt(p.target) : '—';
     const sl  = p.stop_loss ? '$' + fmt(p.stop_loss) : '—';
     const up  = p.upside_pct != null ? '+' + p.upside_pct + '%' : '—';
@@ -1502,8 +1645,10 @@ function buildActionCenter() {
     const confCol = conf >= 80 ? 'var(--g)' : conf >= 60 ? 'var(--a)' : 'var(--r)';
     const confLabel = conf >= 80 ? 'HIGH' : conf >= 60 ? 'MODERATE' : 'LOW';
     const confBadge = conf != null ? `<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;background:${confCol}22;color:${confCol};border:1px solid ${confCol}44;margin-left:6px">${conf}% ${confLabel}</span>` : '';
+    const _rankCls = _rank === 1 ? 'gold' : _rank === 2 ? 'silver' : _rank === 3 ? 'bronze' : 'normal';
+    const _rankBadge = `<span class="action-rank ${_rankCls}">#${_rank}</span>`;
     html += `<div class="acard ${actionCls(p.action)}" onclick="window._openStockModal('${p.ticker}')">
-      <div class="acard-action" style="color:${actionColor(p.action)}">${p.action}${isBuy ? holdType : ''}${confBadge}</div>
+      <div class="acard-action" style="color:${actionColor(p.action)}">${_rankBadge}${p.action}${isBuy ? holdType : ''}${confBadge}</div>
       <div class="acard-ticker">${p.ticker} ${p.risk ? `<span class="risk-badge ${riskClass(p.risk)}">${p.risk}</span>` : ''}</div>
       <div class="acard-price">$${p.price ? fmt(p.price) : '—'} · ${p.theme}</div>
       ${isTrim ? trimDetail : ''}
@@ -1523,10 +1668,59 @@ function buildActionCenter() {
   // Global helper: open catalyst modal by event id
   window._openCatById = function(eid) {
     const evs = window.__catEvents__;
-    if (!evs) { alert('Calendar loading — try again in 2 seconds.'); return; }
+    if (!evs) {
+      // Retry once after a short delay
+      setTimeout(function(){ window._openCatById(eid); }, 1200);
+      return;
+    }
     const ev = evs.find(function(e){ return e.id === eid; });
     if (ev && window.openCatModal) { window.openCatModal(ev); }
-    else { alert('Event not found: ' + eid); }
+    else if (window.openCatModal) {
+      // Try matching by partial id or name
+      const partial = evs.find(function(e){ return e.id && e.id.includes(eid.split('_')[0]); });
+      if (partial) { window.openCatModal(partial); }
+    }
+  };
+
+  // Global helper: open playbook from opp data (when events.json may not have it)
+  window._openOppPlaybook = function(ticker) {
+    ticker = (ticker || '').toUpperCase();
+    const allOpps = D.outside_opps || [];
+    const opp = allOpps.find(function(p){ return (p.ticker||'').toUpperCase() === ticker; });
+    if (!opp) return;
+
+    // Try events.json first
+    const evs = window.__catEvents__ || [];
+    const matchEv = evs.find(function(e){
+      return (e.instruments||[]).some(function(t){ return t.toUpperCase() === ticker; }) ||
+             (opp.event_id && e.id === opp.event_id);
+    });
+    if (matchEv && window.openCatModal) { window.openCatModal(matchEv); return; }
+
+    // Synthetic playbook from opp data
+    if (window.openCatModal) {
+      const synthetic = {
+        id: opp.event_id || ('opp_' + ticker),
+        name: opp.catalyst || (ticker + ' — Catalyst Opportunity'),
+        date: opp.event_date || '',
+        category: opp.theme ? opp.theme.toLowerCase().split('/')[0].trim() : 'corporate',
+        status: opp.catalyst_status || 'upcoming',
+        days_until: opp.catalyst_days || 0,
+        why: opp.reason || 'Catalyst opportunity identified.',
+        action: [
+          opp.entry_zone ? 'Entry zone: $' + opp.entry_zone[0] + '–$' + opp.entry_zone[1] + '.' : '',
+          opp.target ? 'Target: $' + opp.target + ' (+' + opp.upside_pct + '% upside).' : '',
+          opp.stop_loss ? 'Stop-loss: $' + opp.stop_loss + '.' : '',
+          opp.exit_trigger ? 'Exit trigger: ' + opp.exit_trigger : '',
+          opp.trade_type ? 'Trade type: ' + opp.trade_type : '',
+        ].filter(Boolean).join(' '),
+        trade_type: opp.trade_type || '',
+        confidence: opp.confidence || 6,
+        instruments: [ticker],
+        exit_trigger: opp.exit_trigger || '',
+      };
+      window.openCatModal(synthetic);
+    }
   };
 
   // Outside-portfolio opportunities
@@ -1540,12 +1734,15 @@ function buildActionCenter() {
     const regOpps = opps.filter(p => !p.catalyst);
     const catOpps = opps.filter(p =>  p.catalyst);
 
-    function renderOppCard(p) {
+    function renderOppCard(p, cardRank) {
       const isCat = !!p.catalyst;
       const oc    = p.action === 'STRONG BUY' ? 'var(--g)' : p.action === 'WATCH' ? 'var(--a)' : '#00b4d8';
-      const tgt   = p.target    ? '$' + fmt(p.target)    : '—';
+      const isStale = p.upside_pct != null && p.upside_pct < 0;
+      const tgt   = p.target ? (isStale
+        ? `$${fmt(p.target)} <span class="stale-target">⚠ Stale Target</span>`
+        : '$' + fmt(p.target)) : '<span style="color:var(--t3);font-size:9px">TBD</span>';
       const sl    = p.stop_loss ? '$' + fmt(p.stop_loss) : '—';
-      const up    = p.upside_pct != null ? '+' + p.upside_pct + '%' : '—';
+      const up    = p.upside_pct != null ? (p.upside_pct >= 0 ? '+' : '') + p.upside_pct + '%' : '—';
       const zone  = p.entry_zone ? `$${p.entry_zone[0]}–$${p.entry_zone[1]}` : '—';
       const ma    = [['above_200','200D'],['above_50','50D']]
         .map(([key,label]) => `<span style="font-size:9px;padding:1px 5px;border-radius:3px;margin-right:3px;background:${p[key]?'var(--g2)':'var(--r2)'};color:${p[key]?'var(--g)':'var(--r)'}">${label} ${p[key]?'▲':'▼'}</span>`).join('');
@@ -1590,9 +1787,20 @@ function buildActionCenter() {
         ? `<div class="acard-row"><span>Exit trigger</span><b style="font-size:10px;color:var(--a);text-align:right;max-width:160px;line-height:1.4">${p.exit_trigger}</b></div>`
         : '';
 
-      // All cards open the stock modal (catalyst playbook accessible inside it)
-      return `<div class="acard ${p.action==='STRONG BUY'?'strong-buy':'buy'}" onclick="window._openStockModal('${p.ticker}')">
-        <div class="acard-action" style="color:${oc}">${p.action} <span style="font-size:9px;color:var(--t3);font-weight:400">· ${isCat ? 'CATALYST OPP' : 'WATCHLIST'}</span></div>
+      const rankBadge = cardRank
+        ? `<span class="cat-rank ${cardRank===1?'r1':cardRank===2?'r2':'rn'}">${cardRank}</span>` : '';
+      const isHighConf = (p.confidence || 0) >= 8;
+      const cardBorder = isHighConf ? 'strong-buy' : 'buy';
+      const hlStyle = isHighConf
+        ? 'border:2px solid rgba(0,230,118,.4);box-shadow:0 0 16px rgba(0,230,118,.12)'
+        : (p.upside_pct > 20 ? 'border:2px solid rgba(0,180,216,.3)' : '');
+
+      // Playbook button — opens directly from opp event_id or via stock modal catalyst tab
+      const playbookBtn = (isCat && (p.event_id || p.event_date))
+        ? `<button onclick="event.stopPropagation();window._openOppPlaybook('${p.ticker}')" style="margin-top:6px;width:100%;padding:6px 10px;border-radius:6px;background:rgba(255,215,64,.12);color:var(--a);border:1px solid rgba(255,215,64,.35);font-size:10px;font-weight:800;cursor:pointer;letter-spacing:.3px">📋 Open Full Playbook ↗</button>` : '';
+
+      return `<div class="acard ${cardBorder}" style="${hlStyle}" onclick="window._openStockModal('${p.ticker}')">
+        <div class="acard-action" style="color:${oc}">${rankBadge}${p.action} <span style="font-size:9px;color:var(--t3);font-weight:400">· ${isCat ? 'CATALYST OPP' : 'WATCHLIST'}</span></div>
         <div class="acard-ticker">${p.ticker} <span style="font-size:11px;font-weight:400;color:var(--t2)">$${fmt(p.price)}</span> <span class="${col(p.chg_1d)}" style="font-size:11px">${pct(p.chg_1d)}</span></div>
         <div style="margin-top:5px;display:flex;align-items:center;gap:6px">${ma}${rsiNote}</div>
         ${catBadge}
@@ -1600,12 +1808,13 @@ function buildActionCenter() {
         <div class="acard-row"><span>Stop-loss</span><b>${sl}</b></div>
         <div class="acard-row"><span>Entry zone</span><b>${zone}</b></div>
         ${exitRow}
-        ${p.upside_pct != null ? `<div style="margin-top:6px;padding:6px 10px;border-radius:6px;background:${p.upside_pct>20?'rgba(0,230,118,.15)':p.upside_pct>10?'rgba(0,180,216,.1)':'rgba(255,215,64,.1)'};display:flex;justify-content:space-between;align-items:center">
+        ${p.upside_pct != null && p.upside_pct > 0 ? `<div style="margin-top:6px;padding:6px 10px;border-radius:6px;background:${p.upside_pct>20?'rgba(0,230,118,.15)':p.upside_pct>10?'rgba(0,180,216,.1)':'rgba(255,215,64,.1)'};display:flex;justify-content:space-between;align-items:center">
           <span style="font-size:10px;color:var(--t2)">Upside to target</span>
           <span style="font-size:16px;font-weight:900;color:${p.upside_pct>20?'var(--g)':p.upside_pct>10?'#00b4d8':'var(--a)'}">${up}</span>
         </div>` : ''}
         ${p.reason ? `<div style="margin-top:6px;font-size:10px;color:var(--t2);line-height:1.45;border-top:1px solid var(--border);padding-top:5px">${p.reason}</div>` : ''}
-        <div style="margin-top:5px;font-size:9px;color:var(--t3);text-align:center">Tap to open chart + intelligence ↗</div>
+        ${playbookBtn}
+        <div style="margin-top:5px;font-size:9px;color:var(--t3);text-align:center">Tap for chart + intelligence ↗</div>
       </div>`;
     }
 
@@ -1639,7 +1848,18 @@ function buildActionCenter() {
         ...Object.keys(_grouped).filter(k => !_sectorOrder.includes(k))
       ];
       _keys.forEach((sector, idx) => {
-        const grp  = _grouped[sector];
+        // Sort by confidence DESC, then by upside_pct DESC, show max 5 with upside > 5%
+        const rawGrp = _grouped[sector];
+        const grp = rawGrp
+          .filter(p => p.upside_pct == null || p.upside_pct > 5)
+          .sort((a,b) => {
+            const confDiff = (b.confidence||0) - (a.confidence||0);
+            if (Math.abs(confDiff) > 0.5) return confDiff;
+            return (b.upside_pct||0) - (a.upside_pct||0);
+          })
+          .slice(0, 5);
+        if (!grp.length) return;
+
         const meta = _sectorMeta[sector] || { label: '📌 ' + sector, color: 'var(--t2)' };
         const gid  = 'cat-grp-' + idx;
 
@@ -1671,7 +1891,7 @@ function buildActionCenter() {
         // Cards panel — hidden by default, spans full grid width, inner grid for cards
         html += `<div id="${gid}" style="display:none;grid-column:1/-1">
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;padding-top:8px">`;
-        grp.forEach(p => { html += renderOppCard(p); });
+        grp.forEach((p, ri) => { html += renderOppCard(p, ri + 1); });
         html += `</div></div>`;
       });
     }
@@ -1681,44 +1901,88 @@ function buildActionCenter() {
   $('action-center').innerHTML = html;
 }
 
+// ── Smart Allocation Score ───────────────────────────────────────────────────
+function _allocScore(p) {
+  const riskW = {LOW:1.0, MEDIUM:0.8, HIGH:0.6, 'VERY HIGH':0.4};
+  const upside  = Math.max(0, p.upside_pct || 0);                    // 0–100+
+  const riskMul = riskW[p.risk] || 0.7;
+  const confW   = (p.confidence || 70) / 100;                        // 0–1
+  const rsiFav  = p.rsi && p.rsi < 70 ? 1.1 : 0.9;                  // bonus if not overbought
+  const ma200   = p.above_200 ? 1.1 : 0.85;                          // above 200D bonus
+  const actionW = p.action === 'STRONG BUY' ? 1.2 : 1.0;
+  return upside * riskMul * confW * rsiFav * ma200 * actionW;
+}
+
 // ── Allocation Table ────────────────────────────────────────────────────────
 function buildAllocTable() {
   const positions = D.portfolio.positions;
-  const buys = positions.filter(p => ['STRONG BUY','BUY'].includes(p.action) && p.allocation_pct > 0);
-  buys.sort((a,b) => b.allocation_pct - a.allocation_pct);
+  const candidates = positions.filter(p => ['STRONG BUY','BUY'].includes(p.action));
 
-  const totalDeploy = buys.reduce((s,p)=>s+(p.allocation_usd||0),0);
-  const budgetEl = $('dca-budget-label');
-  if (budgetEl) budgetEl.textContent = totalDeploy ? `— deploy $${totalDeploy.toLocaleString()} this cycle` : '';
-
-  if (!buys.length) {
+  if (!candidates.length) {
     $('alloc-table').innerHTML = '<div style="color:var(--t2);font-size:13px;padding:8px 0">No BUY signals — hold cash.</div>';
+    const budgetEl = $('dca-budget-label');
+    if (budgetEl) budgetEl.textContent = '';
     return;
   }
 
-  let html = `<table class="alloc-table"><thead><tr>
-    <th>Ticker</th><th>Action</th><th>Allocation</th><th>$ Amount</th><th>vs Yesterday</th><th>Risk</th><th>Target</th><th>Stop</th><th>R:R</th>
+  // Score and pick top 5
+  const scored = candidates.map(p => ({...p, _score: _allocScore(p)}))
+    .sort((a,b) => b._score - a._score)
+    .slice(0, 5);
+
+  // Weighted allocation — proportional to score (5%–35% cap per position)
+  const totalScore = scored.reduce((s,p) => s + p._score, 0) || 1;
+  const totalBudget = positions.reduce((s,p) => s + (p.allocation_usd||0), 0) ||
+    scored.reduce((s,p) => s + (p.allocation_usd||0), 0) || 5000;
+
+  const smartAllocs = scored.map(p => {
+    const rawPct = (p._score / totalScore) * 100;
+    const cappedPct = Math.min(35, Math.max(5, rawPct));
+    return {...p, _smartPct: cappedPct};
+  });
+  // Re-normalize after capping
+  const pctSum = smartAllocs.reduce((s,p) => s + p._smartPct, 0) || 1;
+  const final  = smartAllocs.map(p => ({
+    ...p,
+    _finalPct: +(p._smartPct / pctSum * 100).toFixed(1),
+    _finalUsd: Math.round(p._smartPct / pctSum * totalBudget),
+  }));
+
+  const totalDeploy = final.reduce((s,p) => s + p._finalUsd, 0);
+  const budgetEl = $('dca-budget-label');
+  if (budgetEl) budgetEl.textContent = totalDeploy ? `— smart deploy $${totalDeploy.toLocaleString()} this cycle · top 5 picks` : '';
+
+  const riskClass = r => r === 'LOW' ? 'low' : r === 'MEDIUM' ? 'medium' : r === 'VERY HIGH' ? 'very-high' : 'high';
+  let html = `
+  <div style="font-size:10px;color:var(--t3);margin-bottom:8px;padding:5px 10px;background:rgba(255,255,255,.03);border-radius:6px;border-left:2px solid var(--a)">
+    Smart allocation weighted by: upside potential · confidence · risk · MA position · momentum
+  </div>
+  <table class="alloc-table"><thead><tr>
+    <th>Rank</th><th>Ticker</th><th>Action</th><th>Allocation</th><th>$ Amount</th><th>vs Yesterday</th><th>Risk</th><th>Target</th><th>R:R</th>
   </tr></thead><tbody>`;
 
-  for (const p of buys) {
-    const cls = p.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
-    const rr = (p.upside_pct && p.downside_pct && p.downside_pct > 0) ? (p.upside_pct/p.downside_pct).toFixed(1) : '—';
-    const diff = dcaDiffBadge(p.ticker, p.allocation_usd || 0);
-    html += `<tr>
+  final.forEach((p, i) => {
+    const cls  = p.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
+    const rr   = (p.upside_pct && p.downside_pct && p.downside_pct > 0) ? (p.upside_pct/p.downside_pct).toFixed(1) : '—';
+    const diff = dcaDiffBadge(p.ticker, p._finalUsd);
+    const rankMedal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i+1}`;
+    const scoreBar = `<div style="width:${Math.min(p._finalPct,100)}%;height:4px;background:${cls};border-radius:2px;margin-top:2px;opacity:.7"></div>`;
+    html += `<tr style="${i===0?'background:rgba(255,215,64,.04)':''}">
+      <td style="font-size:13px;text-align:center">${rankMedal}</td>
       <td><b>${p.ticker}</b><br><span style="font-size:10px;color:var(--t2)">${p.theme}</span></td>
       <td style="color:${cls};font-weight:700">${p.action}</td>
       <td>
-        <div class="alloc-bar-wrap"><div class="alloc-bar ${p.action==='BUY'?'buy':''}" style="width:${p.allocation_pct}%"></div></div>
-        ${p.allocation_pct}%
+        <div class="alloc-bar-wrap"><div class="alloc-bar ${p.action==='BUY'?'buy':''}" style="width:${p._finalPct}%"></div></div>
+        <b>${p._finalPct}%</b>
+        ${scoreBar}
       </td>
-      <td><b>$${(p.allocation_usd||0).toLocaleString()}</b></td>
+      <td><b style="font-size:13px">$${p._finalUsd.toLocaleString()}</b></td>
       <td>${diff || '<span style="color:var(--t3);font-size:10px">first run</span>'}</td>
       <td>${p.risk ? `<span class="risk-badge ${riskClass(p.risk)}">${p.risk}</span>` : '—'}</td>
       <td>${p.target ? '$' + fmt(p.target) : '—'}</td>
-      <td>${p.stop_loss ? '$' + fmt(p.stop_loss) : '—'}</td>
       <td>${rr !== '—' ? rr + ':1' : '—'}</td>
     </tr>`;
-  }
+  });
   html += '</tbody></table>';
   $('alloc-table').innerHTML = html;
   saveDCASnapshot();
@@ -1889,7 +2153,9 @@ function buildEvents() {
       lastDay = dayIL;
     }
 
-    html += `<div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid ${border};border-radius:8px;padding:10px 14px">
+    const evTgMsg = `⏰ <b>${ev.title}</b> — ${timeIL} IL\n${countdown(diffMs).replace(/<[^>]+>/g,'')}\n\n<b>How to react:</b>\n${getReaction(ev).replace(/<[^>]+>/g,'')}`;
+    const critBg  = isCrit ? 'rgba(255,61,113,.06)' : '';
+    html += `<div style="background:${critBg||'var(--bg2)'};border:1px solid var(--border);border-left:3px solid ${border};border-radius:8px;padding:10px 14px">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
         <div style="display:flex;align-items:center;gap:10px;min-width:0">
           <span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap;background:${tc.bg};color:${tc.color};letter-spacing:.5px">${tc.label}</span>
@@ -1900,9 +2166,10 @@ function buildEvents() {
             ${ev.detail ? `<div style="font-size:10px;color:var(--t2);margin-top:1px">${ev.detail}</div>` : ''}
           </div>
         </div>
-        <div style="text-align:right;white-space:nowrap;flex-shrink:0">
+        <div style="text-align:right;white-space:nowrap;flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:4px">
           <div style="font-size:11px;color:var(--t2)">${timeIL} IL</div>
           <div style="font-size:11px;margin-top:2px">${countdown(diffMs)}</div>
+          <button class="tg-btn${isCrit?' tg-btn pulse':''}" onclick="(async function(b){const ok=await sendTgAlert(\`${evTgMsg.replace(/`/g,"'")}\`,${isCrit});if(ok){b.textContent='✅ Sent';b.classList.add('sent');}})(this)" title="Send alert to Telegram">📱 ${isCrit?'⚠ Alert Me':'Alert'}</button>
         </div>
       </div>
       <div style="margin-top:8px;padding:6px 10px;background:rgba(68,138,255,.07);border-radius:6px;border-left:2px solid rgba(68,138,255,.4)">
@@ -1970,6 +2237,115 @@ function updateMarketStatus() {
   el.className = `regime-pill ${cls}`;
 }
 
+// ── Telegram ────────────────────────────────────────────────────────────────
+function _tgGet() {
+  try { return { token: localStorage.getItem('tg_token')||'', chatId: localStorage.getItem('tg_chat_id')||'' }; }
+  catch(e) { return {token:'',chatId:''}; }
+}
+function openTgConfig() {
+  const cfg = _tgGet();
+  $('tg-token-inp').value  = cfg.token;
+  $('tg-chatid-inp').value = cfg.chatId;
+  $('tg-config-overlay').classList.add('open');
+}
+function closeTgConfig() { $('tg-config-overlay').classList.remove('open'); }
+function saveTgConfig() {
+  const token  = $('tg-token-inp').value.trim();
+  const chatId = $('tg-chatid-inp').value.trim();
+  try { localStorage.setItem('tg_token', token); localStorage.setItem('tg_chat_id', chatId); }
+  catch(e) {}
+  const res = $('tg-test-result');
+  if (!token || !chatId) { res.style.display='block'; res.style.color='#ff3d71'; res.textContent='Missing token or chat ID.'; return; }
+  // Send test message
+  fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ chat_id: chatId, text: '✅ Alpha Director — Telegram alerts connected!', parse_mode:'HTML' })
+  }).then(r=>r.json()).then(d=>{
+    res.style.display='block';
+    if (d.ok) { res.style.color='#00e676'; res.textContent='✅ Connected! Test message sent.'; setTimeout(closeTgConfig, 1500); }
+    else { res.style.color='#ff3d71'; res.textContent='Error: ' + (d.description||'Check credentials'); }
+  }).catch(()=>{ res.style.display='block'; res.style.color='#ff3d71'; res.textContent='Network error — check token.'; });
+}
+
+async function sendTgAlert(text, urgent) {
+  const cfg = _tgGet();
+  if (!cfg.token || !cfg.chatId) { openTgConfig(); return false; }
+  const prefix = urgent ? '🚨🚨🚨 <b>ALPHA DIRECTOR ALERT</b> 🚨🚨🚨\n' : '📊 <b>Alpha Director</b>\n';
+  const body = { chat_id: cfg.chatId, text: prefix + text, parse_mode:'HTML' };
+  try {
+    const r = await fetch(`https://api.telegram.org/bot${cfg.token}/sendMessage`, {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
+    });
+    return (await r.json()).ok;
+  } catch(e) { return false; }
+}
+
+// ── Swing Weeks (-4) builder ────────────────────────────────────────────────
+function buildSwingWeeks() {
+  const el = $('swing-grid');
+  if (!el) return;
+
+  const allPos   = D.portfolio.positions || [];
+  const allOpps  = D.outside_opps || [];
+
+  // Portfolio swing positions with BUY/STRONG BUY action (short-term class or catalyst within 28d)
+  const portSwings = allPos.filter(p =>
+    (p.class === 'swing' || p.class === 'spec') &&
+    ['STRONG BUY','BUY'].includes(p.action) &&
+    (p.upside_pct||0) > 8
+  );
+
+  // Catalyst opps with event within 28 days
+  const catSwings = allOpps.filter(p =>
+    p.catalyst && p.catalyst_days != null && p.catalyst_days <= 28 &&
+    (p.upside_pct||0) > 8
+  );
+
+  const combined = [
+    ...portSwings.map(p => ({...p, _src:'portfolio'})),
+    ...catSwings.map(p => ({...p, _src:'catalyst'})),
+  ].sort((a,b) => {
+    const wA = (a.catalyst_days != null ? (28 - a.catalyst_days)/28 : 0.5) + (a.upside_pct||0)/100 + ((a.confidence||6)/10)*0.3;
+    const wB = (b.catalyst_days != null ? (28 - b.catalyst_days)/28 : 0.5) + (b.upside_pct||0)/100 + ((b.confidence||6)/10)*0.3;
+    return wB - wA;
+  }).slice(0, 8);
+
+  if (!combined.length) {
+    el.innerHTML = '<div style="color:var(--t3);font-size:12px;padding:8px 0">No short-term swing setups identified this cycle.</div>';
+    return;
+  }
+
+  el.innerHTML = combined.map((p, i) => {
+    const isPort = p._src === 'portfolio';
+    const isCat  = !!p.catalyst;
+    const oc     = p.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
+    const daysTag = p.catalyst_days != null
+      ? `<span style="font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:${p.catalyst_days<=7?'rgba(255,61,113,.15)':'rgba(255,215,64,.12)'};color:${p.catalyst_days<=7?'var(--r)':'var(--a)'}">${p.catalyst_days===0?'TODAY':p.catalyst_days+'d'}</span>` : '';
+    const upTag  = p.upside_pct ? `<span style="font-size:11px;font-weight:800;color:var(--g)">+${p.upside_pct}%</span>` : '';
+    return `<div class="swing-card" onclick="window._openStockModal('${p.ticker}')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px">
+        <div>
+          <div style="display:flex;align-items:center;gap:5px">
+            <span style="font-size:16px;font-weight:800">${p.ticker}</span>
+            ${isPort ? '<span class="swing-tag">HELD</span>' : '<span class="swing-tag" style="background:rgba(0,180,216,.12);color:#00b4d8;border:1px solid rgba(0,180,216,.25)">WATCHLIST</span>'}
+          </div>
+          <div style="font-size:9px;color:var(--t2);margin-top:1px">${p.theme||''}</div>
+        </div>
+        <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:3px">
+          <span style="font-size:9px;font-weight:700;color:${oc}">${p.action}</span>
+          ${upTag}
+        </div>
+      </div>
+      ${isCat ? `<div style="font-size:9px;color:var(--a);margin-bottom:4px">⚡ ${p.catalyst}</div>` : ''}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;font-size:10px">
+        ${p.target ? `<span style="color:var(--t3)">Target</span><span style="font-weight:700">$${fmt(p.target)}</span>` : ''}
+        ${p.stop_loss ? `<span style="color:var(--t3)">Stop</span><span style="font-weight:700;color:var(--r)">$${fmt(p.stop_loss)}</span>` : ''}
+      </div>
+      <div style="margin-top:5px;font-size:9px;color:var(--t3)">#${i+1} ranked swing setup</div>
+    </div>`;
+  }).join('');
+}
+
 // ── Init ───────────────────────────────────────────────────────────────────
 function _buildAll() {
   const safe = fn => { try { fn(); } catch(e) { console.error('[AD]', fn.name, e.message); } };
@@ -1977,6 +2353,7 @@ function _buildAll() {
   safe(buildEarnings); safe(buildPulseStrip); safe(buildPolymarket); safe(buildActionCenter);
   safe(buildAllocTable); safe(buildPortSummary); safe(buildConcentration); safe(buildPortCards); safe(buildSectors);
   safe(buildCrypto); safe(buildInsiders); safe(buildEvents); safe(buildDrawer); safe(buildFooter);
+  safe(buildSwingWeeks);
 }
 _buildAll();   // render immediately with empty skeleton (shows "Connecting…")
 
@@ -1996,6 +2373,27 @@ restoreCards();
 </script>
 <script src="calendar.js"></script>
 
+<!-- ── Telegram Config Modal ─────────────────────────────────────── -->
+<div id="tg-config-overlay" onclick="if(event.target===this)closeTgConfig()">
+  <div id="tg-config-box">
+    <div class="tg-cfg-title">📱 Telegram Alerts Setup</div>
+    <div style="font-size:10px;color:#64748b;margin-bottom:12px;line-height:1.5">
+      Receive action-item alerts directly to Telegram.<br>
+      Create a bot via @BotFather, then get your chat ID from @userinfobot.
+    </div>
+    <input class="tg-cfg-input" id="tg-token-inp" type="text" placeholder="Bot Token: 123456:ABC-DEF..." />
+    <input class="tg-cfg-input" id="tg-chatid-inp" type="text" placeholder="Chat ID: 123456789" />
+    <div style="font-size:9px;color:#444;margin-bottom:10px">
+      Credentials stored locally in browser only.
+    </div>
+    <div class="tg-cfg-row">
+      <button class="tg-cfg-btn tg-cfg-save" onclick="saveTgConfig()">💾 Save &amp; Enable</button>
+      <button class="tg-cfg-btn tg-cfg-cancel" onclick="closeTgConfig()">Cancel</button>
+    </div>
+    <div id="tg-test-result" style="font-size:10px;margin-top:8px;display:none"></div>
+  </div>
+</div>
+
 <!-- ── Universal Stock Modal ──────────────────────────────────────── -->
 <div id="stock-modal-overlay" onclick="if(event.target===this)window.closeStockModal()">
   <div id="stock-modal-box">
@@ -2003,6 +2401,7 @@ restoreCards();
       <div id="stock-modal-title">—</div>
       <button class="sm-toggle active" id="sm-btn-chart" onclick="window._smToggle('chart')">📈 Chart</button>
       <button class="sm-toggle active" id="sm-btn-info"  onclick="window._smToggle('info')">📊 Info</button>
+      <button class="sm-toggle" onclick="window.closeStockModal()" style="background:rgba(255,61,113,.1);color:#ff3d71;border-color:rgba(255,61,113,.25)">← Back</button>
       <button class="sm-close" onclick="window.closeStockModal()">✕</button>
     </div>
     <div id="stock-modal-metrics"></div>
@@ -2017,6 +2416,99 @@ restoreCards();
 // ── Global data stores — use ||= pattern so repopulation never resets ─────
 if (!window.__portPositions__) window.__portPositions__ = {};
 if (!window.__oppData__)       window.__oppData__       = {};
+
+// ── Static company intelligence ───────────────────────────────────────────
+const COMPANY_INFO = {
+  VOO:  { desc:'Vanguard S&P 500 ETF tracking 500 largest US companies. The benchmark for broad US market exposure with ultra-low 0.03% expense ratio. Ideal long-term core holding.',
+          prof:'Distributes dividends quarterly; S&P 500 earnings yield ~4.5%. Top holdings: AAPL, MSFT, NVDA, AMZN, META.',
+          etfs:[] },
+  QQQ:  { desc:'Invesco NASDAQ-100 ETF tracking the 100 largest non-financial NASDAQ companies. Heavy concentration in mega-cap tech and AI leaders. Outperforms SPY in bull cycles.',
+          prof:'Growth-focused; minimal dividend yield (~0.5%). Holdings skew toward high-margin tech businesses.',
+          etfs:[{name:'QQQ (itself)', url:'https://www.invesco.com/us/financial-products/etfs/product-detail?audienceType=Investor&ticker=QQQ'}] },
+  GOOG: { desc:'Alphabet Inc. operates Google Search, YouTube, Google Cloud, and Waymo. AI integration across all products and dominant 91%+ search market share create durable competitive moats.',
+          prof:'Highly profitable: $88B+ net income (2024), 27% net margin. Google Cloud growing 28% YoY, advertising revenue recovering strongly.',
+          etfs:[{name:'QQQ',url:'https://www.invesco.com/us/financial-products/etfs/product-detail?ticker=QQQ'},{name:'XLK',url:'https://www.ssga.com/us/en/intermediary/etfs/funds/technology-select-sector-spdr-fund-xlk'},{name:'VGT',url:'https://investor.vanguard.com/investment-products/etfs/profile/vgt'}] },
+  MSFT: { desc:'Microsoft Corporation leads in cloud (Azure #2 globally), enterprise software (Office 365), AI (Copilot/OpenAI partnership), and gaming (Xbox/Activision). Exceptional recurring revenue model.',
+          prof:'Outstanding profitability: $90B+ net income (FY2024), ~36% net margin. Azure growing 31% YoY. Dividend grower since 2003.',
+          etfs:[{name:'QQQ',url:'https://www.invesco.com/us/financial-products/etfs/product-detail?ticker=QQQ'},{name:'XLK',url:'https://www.ssga.com/us/en/intermediary/etfs/funds/technology-select-sector-spdr-fund-xlk'},{name:'VGT',url:'https://investor.vanguard.com/investment-products/etfs/profile/vgt'}] },
+  META: { desc:'Meta Platforms operates Facebook, Instagram, WhatsApp, and Threads with 3.2B daily active users. Leading AI ad-targeting drives industry-best ROI. Reality Labs developing the metaverse platform.',
+          prof:'Highly profitable: $62B net income (2024), 38% net margin. Ad revenue per user consistently growing. Operating leverage improving each quarter.',
+          etfs:[{name:'QQQ',url:'https://www.invesco.com/us/financial-products/etfs/product-detail?ticker=QQQ'},{name:'XLC',url:'https://www.ssga.com/us/en/intermediary/etfs/funds/communication-services-select-sector-spdr-fund-xlc'}] },
+  AMZN: { desc:'Amazon dominates e-commerce (~40% US share) and cloud computing (AWS #1 globally at 31% market share). Prime ecosystem with 200M+ subscribers creates massive recurring revenue.',
+          prof:'Very profitable: AWS generates ~70% of operating income on 17% of revenue. Net income $59B (2024). Advertising segment growing 20%+ YoY.',
+          etfs:[{name:'QQQ',url:'https://www.invesco.com/us/financial-products/etfs/product-detail?ticker=QQQ'},{name:'XLY',url:'https://www.ssga.com/us/en/intermediary/etfs/funds/consumer-discretionary-select-sector-spdr-fund-xly'}] },
+  AVGO: { desc:'Broadcom Inc. leads in custom AI ASICs (Google TPUs, Meta XPU), networking semiconductors, and VMware enterprise software. The #1 beneficiary of custom AI chip demand from hyperscalers.',
+          prof:'Profitable with strong margins: $18B+ net income (FY2024), 47% net margin. AI revenue growing 220% YoY. Raised dividend 14 consecutive years.',
+          etfs:[{name:'SOXX',url:'https://www.ishares.com/us/products/239705/ISHARES-PHLX-SEMICONDUCTOR-ETF'},{name:'SMH',url:'https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/'},{name:'XLK',url:'https://www.ssga.com/us/en/intermediary/etfs/funds/technology-select-sector-spdr-fund-xlk'}] },
+  TSM:  { desc:'Taiwan Semiconductor Manufacturing is the world\'s largest contract chipmaker, producing 92% of leading-edge chips (<7nm). Essential infrastructure for NVDA, AAPL, AVGO, AMD, and all AI hardware.',
+          prof:'Highly profitable: $34B+ net income (2024), 40% net margin. Advanced nodes (3nm, 2nm) command 30%+ price premiums. Geopolitical risk is primary concern.',
+          etfs:[{name:'SOXX',url:'https://www.ishares.com/us/products/239705/ISHARES-PHLX-SEMICONDUCTOR-ETF'},{name:'SMH',url:'https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/'}] },
+  ORCL: { desc:'Oracle Corporation provides enterprise database software, cloud infrastructure (OCI), and AI healthcare applications. Strategic partnership with Microsoft Azure and NVIDIA positions it as an AI infrastructure play.',
+          prof:'Profitable and growing: $10B+ net income (FY2024). Cloud revenue growing 23% YoY. Remaining performance obligations (RPO) at $130B+ signals strong future revenue.',
+          etfs:[{name:'IGV',url:'https://www.ishares.com/us/products/239693/ISHARES-NORTH-AMERICAN-TECH-SOFTWARE-ETF'},{name:'QQQ',url:'https://www.invesco.com/us/financial-products/etfs/product-detail?ticker=QQQ'}] },
+  APP:  { desc:'AppLovin Corporation is a mobile advertising technology platform using AI to optimize ad placement. MAX mediation platform and AXON 2.0 AI engine drive exceptional revenue per install metrics.',
+          prof:'Rapidly becoming profitable: $2.4B+ net income (2024), significant margin expansion. Revenue grew 75% YoY. Strong FCF conversion.',
+          etfs:[{name:'IGV',url:'https://www.ishares.com/us/products/239693/ISHARES-NORTH-AMERICAN-TECH-SOFTWARE-ETF'}] },
+  PANW: { desc:'Palo Alto Networks is the global leader in cybersecurity, offering the Cortex AI-powered security platform. Platformization strategy drives customer consolidation from point solutions to full PANW suite.',
+          prof:'Approaching GAAP profitability; strong cash generation. Net income turning positive (FY2024). FCF margin 37%+. Rule of 40 metric above 50.',
+          etfs:[{name:'HACK',url:'https://etfmg.com/funds/hack/'},{name:'CIBR',url:'https://www.firsttrust.com/etfs/CIBR'},{name:'XLK',url:'https://www.ssga.com/us/en/intermediary/etfs/funds/technology-select-sector-spdr-fund-xlk'}] },
+  CEG:  { desc:'Constellation Energy is America\'s largest nuclear power producer and clean energy provider. Data center AI boom is driving unprecedented demand for 24/7 carbon-free power — CEG\'s core product.',
+          prof:'Very profitable: $3.8B net income (2024). Three Mile Island restart deal with Microsoft. Pricing power increasing as clean energy demand outpaces supply.',
+          etfs:[{name:'XLU',url:'https://www.ssga.com/us/en/intermediary/etfs/funds/utilities-select-sector-spdr-fund-xlu'},{name:'ICLN',url:'https://www.ishares.com/us/products/239734/ISHARES-GLOBAL-CLEAN-ENERGY-ETF'}] },
+  TSLA: { desc:'Tesla Inc. leads electric vehicles with 50%+ US EV market share, plus energy storage (Megapack), solar, Full Self-Driving (FSD), and Optimus humanoid robot development.',
+          prof:'Profitable but margin-challenged: $7B net income (2024), ~13% net margin under pressure from price cuts. Energy business growing 113% YoY. FSD monetization potential is key upside.',
+          etfs:[{name:'QQQ',url:'https://www.invesco.com/us/financial-products/etfs/product-detail?ticker=QQQ'},{name:'XLY',url:'https://www.ssga.com/us/en/intermediary/etfs/funds/consumer-discretionary-select-sector-spdr-fund-xly'},{name:'ARKK',url:'https://ark-funds.com/funds/arkk/'}] },
+  HIMS: { desc:'Hims & Hers Health is a telehealth platform offering personalized prescription medications including semaglutide (GLP-1), hair loss treatments, and mental health services via subscription model.',
+          prof:'Recently turned profitable. Revenue growing 60%+ YoY. GLP-1 compounding business is the key revenue driver. Path to sustained profitability strengthening.',
+          etfs:[] },
+  URA:  { desc:'Global X Uranium ETF providing exposure to uranium miners and nuclear fuel companies. AI data centers are driving nuclear renaissance as the only reliable 24/7 zero-carbon baseload power.',
+          prof:'ETF with diversified uranium exposure. Top holdings: Cameco (CCJ), Sprott Physical Uranium Trust, NexGen Energy.',
+          etfs:[{name:'URA (itself)',url:'https://www.globalxetfs.com/funds/ura/'}] },
+  IONQ: { desc:'IonQ is a leading quantum computing company using trapped-ion technology. Government and enterprise contracts with Microsoft, Google, and US DoD position it at the frontier of the quantum computing era.',
+          prof:'Pre-revenue stage with significant losses; burning ~$150M annually. Pure-play quantum bet. Revenue growing 100%+ YoY from near-zero base.',
+          etfs:[{name:'QTUM',url:'https://defiance.us/funds/qtum/'},{name:'ARKG',url:'https://ark-funds.com/funds/arkg/'}] },
+  COIN: { desc:'Coinbase is the leading US cryptocurrency exchange and institutional crypto infrastructure provider. Benefits from crypto bull cycles, regulatory clarity, and expansion into Base L2 network.',
+          prof:'Cyclically profitable: $2.6B net income (2024). Revenue highly correlated with crypto market prices. Strong cost discipline improved margins significantly.',
+          etfs:[{name:'BITQ',url:'https://www.bitwise-funds.com/products/bitq'},{name:'ARKF',url:'https://ark-funds.com/funds/arkf/'}] },
+  IBIT: { desc:'iShares Bitcoin Trust ETF by BlackRock provides SEC-regulated spot Bitcoin exposure without custody complexity. Largest Bitcoin ETF by AUM with over $45B+. Direct proxy for Bitcoin price.',
+          prof:'ETF tracking Bitcoin. No dividends; all returns from Bitcoin price appreciation. Premium to NAV typically minimal (<0.1%).',
+          etfs:[] },
+  ETHA: { desc:'iShares Ethereum Trust ETF by BlackRock offers spot Ethereum exposure. ETH serves as the monetary layer for DeFi, NFTs, L2 networks, and smart contracts. Second largest crypto by market cap.',
+          prof:'ETF tracking Ethereum price directly. Higher volatility than Bitcoin. The ETH/BTC ratio indicates relative performance vs Bitcoin season.',
+          etfs:[] },
+  HOOD: { desc:'Robinhood Markets is a fintech brokerage disrupting retail investing with commission-free trading. Expanding into crypto, retirement accounts, and wealth management. Strong Gen-Z customer base.',
+          prof:'Turning profitable: net income positive (2024). Revenue growing 40%+ YoY. Crypto trading volumes surged in bull market. Gold subscription growing steadily.',
+          etfs:[{name:'ARKF',url:'https://ark-funds.com/funds/arkf/'}] },
+  SOUN: { desc:'SoundHound AI provides voice AI technology for automotive, restaurant, and enterprise applications. Partnership with NVIDIA and auto OEMs (Stellantis, Kia, Honda) driving adoption.',
+          prof:'Pre-profitability; burning ~$80M annually. Revenue growing 80%+ YoY but from small base. Path to profitability expected 2025-2026.',
+          etfs:[{name:'ARKQ',url:'https://ark-funds.com/funds/arkq/'}] },
+  BMNR: { desc:'BitMiner (BMNR) is a Bitcoin mining company with high-performance ASIC mining operations. Profitability highly leveraged to Bitcoin price and energy costs.',
+          prof:'Highly volatile earnings tied to BTC price. Profitable when BTC > mining cost ($30-40K). Small-cap with high speculative risk.',
+          etfs:[] },
+  OSCR: { desc:'Oscar Health is a technology-driven health insurance company using data and AI to reduce medical costs. Operating in ACA marketplace with differentiated member experience.',
+          prof:'Recently profitable: first full-year GAAP profit (2024). Medical loss ratio improving significantly. Membership growing 30%+ YoY.',
+          etfs:[{name:'XLV',url:'https://www.ssga.com/us/en/intermediary/etfs/funds/health-care-select-sector-spdr-fund-xlv'}] },
+  SOFI: { desc:'SoFi Technologies is a digital financial services company offering student loan refinancing, personal loans, mortgages, investing, and banking. Full bank charter enables lower funding costs.',
+          prof:'Approaching sustained profitability. First GAAP profitable quarter (Q4 2023). Revenue growing 25%+ YoY. Loan origination improving.',
+          etfs:[{name:'ARKF',url:'https://ark-funds.com/funds/arkf/'}] },
+  NVDA: { desc:'NVIDIA Corporation dominates AI computing with H100/H200/B200 GPUs used in every major AI training and inference workload. Monopolistic position in data center AI with 80%+ market share.',
+          prof:'Exceptional profitability: $73B net income (FY2025), 55% net margin. Revenue grew 122% YoY. Data center revenue now 87% of total. Consensus #1 stock for AI exposure.',
+          etfs:[{name:'SOXX',url:'https://www.ishares.com/us/products/239705/ISHARES-PHLX-SEMICONDUCTOR-ETF'},{name:'SMH',url:'https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/'},{name:'QQQ',url:'https://www.invesco.com/us/financial-products/etfs/product-detail?ticker=QQQ'}] },
+  AAPL: { desc:'Apple Inc. is the world\'s most valuable company with iPhone, Mac, iPad, Wearables, and a massive Services business (App Store, Apple Pay, iCloud, Apple TV+). Services growing ~14% annually.',
+          prof:'Extremely profitable: $100B+ net income annually, 24% net margin. $170B+ cash returned to shareholders per year via buybacks and dividends. Services is a high-margin recurring revenue engine.',
+          etfs:[{name:'QQQ',url:'https://www.invesco.com/us/financial-products/etfs/product-detail?ticker=QQQ'},{name:'XLK',url:'https://www.ssga.com/us/en/intermediary/etfs/funds/technology-select-sector-spdr-fund-xlk'}] },
+  ARM:  { desc:'Arm Holdings designs chip architectures (ISA) and IP licensed to virtually every mobile chip maker and increasingly to data center and AI chip designers. The "toll road" model of the semiconductor industry.',
+          prof:'Profitable with high margins: $1.4B net income (FY2024), 28% net margin. Royalty revenue growing as AI chips adopt ARM v9 architecture with 2x royalty rates vs v8.',
+          etfs:[{name:'SOXX',url:'https://www.ishares.com/us/products/239705/ISHARES-PHLX-SEMICONDUCTOR-ETF'},{name:'SMH',url:'https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/'}] },
+};
+
+// ── Static PE ratios (forward estimates) ──────────────────────────────────
+const PE_DATA = {
+  VOO:33, QQQ:35, CSPX:33, CNDX:35, IWDA:22, GOOG:22, MSFT:34, META:28, AMZN:38,
+  AVGO:30, TSM:20, ORCL:35, APP:60, PANW:58, CEG:25, TSLA:90, HIMS:50, URA:40,
+  IONQ:null, COIN:30, IBIT:null, ETHA:null, HOOD:45, SOUN:null, BMNR:null, OSCR:35, SOFI:40,
+  NVDA:42, AAPL:32, ARM:120, KDP:22, SBUX:28, MNST:35,
+};
 
 // ── Load TradingView widget library (once) ────────────────────────────────
 (function(){
@@ -2267,6 +2759,22 @@ window._openStockModal = function(ticker) {
     infoHtml += '<div style="font-size:11px;color:#666">Not in portfolio or watchlist.</div>';
   }
 
+  // ── Company description + ETFs ───────────────────────────────────────────
+  var _ci = COMPANY_INFO[ticker] || null;
+  if (_ci) {
+    infoHtml += '<div class="sm-section-title" style="margin-top:8px">🏢 About</div>';
+    infoHtml += '<div class="sm-company-desc">' + _ci.desc + '</div>';
+    infoHtml += '<div style="font-size:10px;padding:5px 8px;background:rgba(0,230,118,.06);border-radius:5px;border-left:2px solid rgba(0,230,118,.3);color:#aaa;margin-bottom:6px;line-height:1.5">💰 <b style="color:#00e676">Profitability:</b> ' + _ci.prof + '</div>';
+    if (_ci.etfs && _ci.etfs.length) {
+      infoHtml += '<div style="font-size:9px;font-weight:700;letter-spacing:.8px;color:#444;text-transform:uppercase;margin-bottom:5px">Included in ETFs</div>';
+      infoHtml += '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">';
+      _ci.etfs.forEach(function(e){
+        infoHtml += '<a class="sm-etf-link" href="' + e.url + '" target="_blank" rel="noopener">↗ ' + e.name + '</a>';
+      });
+      infoHtml += '</div>';
+    }
+  }
+
   // Open-on-TradingView link (strategies only visible when logged in there)
   infoHtml += '<a class="sm-open-tv" href="https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(ticker) + '" target="_blank" rel="noopener">↗ Open on TradingView (full chart + your Pine strategies)</a>';
 
@@ -2328,6 +2836,31 @@ window.closeStockModal = function() {
 document.addEventListener('keydown', function(e){
   if (e.key === 'Escape') window.closeStockModal();
 });
+
+window._openCryptoModal = function(symbol) {
+  symbol = (symbol || '').toUpperCase();
+  try {
+    var cpos = ((D.crypto && D.crypto.positions) ? D.crypto.positions : [])
+      .find(function(p){ return (p.symbol||'').toUpperCase() === symbol; });
+    if (cpos) {
+      // Normalize: stock modal expects `ticker` field + stock-compatible fields
+      var normalized = Object.assign({}, cpos, {
+        ticker:    cpos.symbol,
+        rsi:       cpos.rsi != null ? cpos.rsi : null,
+        above_50:  cpos.above_50 != null ? cpos.above_50 : null,
+        above_200: cpos.above_200 != null ? cpos.above_200 : null,
+        upside_pct: cpos.upside_pct != null ? cpos.upside_pct : null,
+        target:    cpos.target != null ? cpos.target : null,
+        stop_loss: cpos.stop_loss != null ? cpos.stop_loss : null,
+        entry_zone: cpos.entry_zone != null ? cpos.entry_zone : null,
+        chg_1d:    cpos.chg_24h != null ? cpos.chg_24h : null,
+      });
+      if (!window.__portPositions__) window.__portPositions__ = {};
+      window.__portPositions__[symbol] = normalized;
+    }
+  } catch(e) { /* D not ready */ }
+  window._openStockModal(symbol);
+};
 </script>
 </body>
 </html>

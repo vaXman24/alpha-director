@@ -318,6 +318,25 @@
         <div class="cat-modal-section-label">Exit trigger</div>
         <div class="cat-modal-section-body" style="color:var(--t2)">${ev.exit_trigger}</div>
       </div>` : ''}
+
+      <div class="cat-modal-divider"></div>
+      <div style="background:rgba(0,136,204,.1);border:1px solid rgba(0,136,204,.25);border-radius:8px;padding:10px 14px">
+        <div style="font-size:9px;font-weight:800;letter-spacing:1px;color:#29b6f6;text-transform:uppercase;margin-bottom:5px">📱 Telegram Action Alert</div>
+        <div style="font-size:10px;color:#64748b;margin-bottom:8px;line-height:1.5">
+          Get a Telegram reminder with the action plan for this event.
+          ${ev.action ? 'Action: ' + ev.action.substring(0, 80) + (ev.action.length > 80 ? '…' : '') : ''}
+        </div>
+        <button onclick="(async function(b){
+          const msg='🎯 <b>' + '${ev.name.replace(/'/g,"\\'")}' + '</b>\\n📅 ${fmtDate(ev.date)} · ${countdownLabel(days)}\\n\\n<b>Action Plan:</b>\\n' + '${(ev.action||'').substring(0,300).replace(/'/g,"\\'").replace(/\n/g,' ')}' + (${ev.exit_trigger ? `'\\n\\n<b>Exit:</b> ' + '${(ev.exit_trigger||'').replace(/'/g,"\\'")}` : "''"}) + '\\n\\n<b>Instruments:</b> ${(ev.instruments||[]).join(', ')}';
+          const ok=await sendTgAlert(msg, true);
+          if(ok){b.textContent='✅ Alert Sent to Telegram';b.style.background='rgba(0,230,118,.15)';b.style.color='#00e676';}
+          else{b.textContent='❌ Configure Telegram first — click 📱 in header';}
+        })(this)"
+        style="width:100%;padding:8px 12px;border-radius:7px;background:rgba(0,136,204,.15);color:#29b6f6;border:1px solid rgba(0,136,204,.3);font-size:11px;font-weight:800;cursor:pointer;letter-spacing:.3px;transition:all .2s">
+          📱 Send Action Alert to Telegram
+        </button>
+      </div>
+      <button onclick="closeCatModal()" style="margin-top:12px;width:100%;padding:7px;border-radius:7px;background:rgba(255,255,255,.05);color:var(--t2);border:1px solid rgba(255,255,255,.1);font-size:11px;cursor:pointer">← Back / Close</button>
     `;
 
     ov.classList.add('open');
