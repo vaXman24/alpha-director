@@ -1302,11 +1302,10 @@ function buildMacro() {
   const tiles = [
     {label:'VIX', val: vix.level, chg: vix.chg_1d, sub: vix.signal || ''},
     {label:'DXY', val: m.dxy?.level, chg: m.dxy?.chg_1d, sub: ''},
-    {label:'10Y Yield', val: m.t10y?.t10y, suffix:'%', chg: null, sub: m.t10y?.curve?.split('—')[0] || ''},
+    {label:'10Y Yield', val: m.t10y?.price, suffix:'%', chg: m.t10y?.chg_1d||null,
+     sub: (m.t10y?.price||0) > 5 ? 'Restrictive' : (m.t10y?.price||0) > 4 ? 'Elevated' : (m.t10y?.price||0) > 3 ? 'Neutral' : 'Loose'},
     {label:'Gold', val: m.gold?.price, prefix:'$', chg: m.gold?.chg, sub: m.gold?.signal || ''},
     {label:'Oil WTI', val: m.oil?.price, prefix:'$', chg: m.oil?.chg, sub: ''},
-    {label:'2Y Yield', val: m.t10y?.t2y, suffix:'%', chg: null, sub: ''},
-    {label:'Curve', val: m.t10y?.spread, suffix:'%', chg: null, sub: m.t10y?.spread >= 0 ? 'Normal' : 'Inverted'},
   ];
   $('macro-grid').innerHTML = tiles.map(({label, val, chg, sub, prefix='', suffix=''}) => `
     <div class="macro-card">
@@ -1954,11 +1953,17 @@ function _allocScore(p) {
   const riskW   = {LOW:1.0, MEDIUM:0.72, HIGH:0.45, 'VERY HIGH':0.25};
   const upside  = Math.max(2, p.upside_pct || 0);
   const riskMul = riskW[p.risk] || 0.55;
-  const confW   = p.confidence != null ? (p.confidence / 10) : 0.65;   // 0–10 scale → 0–1; null→0.65
+  const confW   = p.confidence != null ? (p.confidence / 10) : 0.65;
   const rsiPen  = !p.rsi ? 1.0 : p.rsi > 85 ? 0.55 : p.rsi > 75 ? 0.80 : p.rsi > 65 ? 0.95 : 1.1;
   const ma200   = p.above_200 ? 1.20 : 0.75;
   const actionW = p.action === 'STRONG BUY' ? 1.3 : 1.0;
-  return Math.pow(upside, 1.5) * riskMul * confW * rsiPen * ma200 * actionW;
+  // 10Y yield factor: high rates penalize growth/spec names, reward low-risk positions
+  const yld = D.market?.t10y?.price || 0;
+  const yieldFactor = yld > 5.0 ? (p.risk === 'LOW' ? 1.05 : p.risk === 'MEDIUM' ? 0.90 : 0.78)
+                    : yld > 4.5 ? (p.risk === 'LOW' ? 1.02 : p.risk === 'MEDIUM' ? 0.95 : 0.87)
+                    : yld > 3.5 ? 1.0
+                    : (p.risk === 'HIGH' || p.risk === 'VERY HIGH') ? 1.10 : 1.0;
+  return Math.pow(upside, 1.5) * riskMul * confW * rsiPen * ma200 * actionW * yieldFactor;
 }
 
 // ── Allocation Table ────────────────────────────────────────────────────────
@@ -2062,12 +2067,15 @@ function buildInsiders() {
     annEl.textContent = buys.length ? `${buys.length} BUY` : items.length ? 'Activity' : 'Clear';
     annEl.className   = 'coll-annotation ' + (buys.length ? 'bullish' : items.length ? 'warning' : 'neutral');
   }
+  // Build scope label from live portfolio tickers
+  const _portTickers = (D.portfolio?.positions||[]).map(p=>p.ticker).filter(Boolean).join(' · ');
+  const _scopeLabel  = _portTickers ? `Monitoring: ${_portTickers} + Watchlist — yfinance insider transactions (last 14 days)` : 'Monitoring full portfolio — yfinance insider transactions (last 14 days)';
   if (!items.length) {
-    $('insiders-list').innerHTML = '<div style="color:var(--t2);font-size:12px">No significant insider filings in the last 14 days for tracked Gaming / Ad-Tech companies.</div>';
+    $('insiders-list').innerHTML = `<div style="color:var(--t3);font-size:9px;margin-bottom:6px">${_scopeLabel}</div><div style="color:var(--t2);font-size:12px">No significant insider transactions in the last 14 days.</div>`;
     return;
   }
   $('insiders-list').innerHTML = `
-    <div style="font-size:9px;color:var(--t3);margin-bottom:10px;letter-spacing:.5px">Monitoring: EA · TTWO · RBLX · Unity · TTD · PUBM · MGNI · DV · IAS · CRTO — SEC Form 4 filings</div>
+    <div style="font-size:9px;color:var(--t3);margin-bottom:10px;letter-spacing:.5px">${_scopeLabel}</div>
     ${items.map(i => {
       const isBuy = i.type === 'BUY';
       const ic = isBuy ? 'var(--g)' : 'var(--r)';
@@ -2702,9 +2710,9 @@ function buildWatchlist() {
   const outside   = D.outside_opps || [];
   const portSet   = new Set(positions.map(p => (p.ticker||'').toUpperCase()));
 
-  // Non-portfolio opps with any real upside, exclude pure macro entries (no ticker)
+  // Non-portfolio entries: dedicated watchlist stocks + any catalyst opps with a ticker
   const cands = outside
-    .filter(p => p.ticker && !portSet.has((p.ticker||'').toUpperCase()) && (p.upside_pct||0) > 0)
+    .filter(p => p.ticker && !portSet.has((p.ticker||'').toUpperCase()))
     .map(p => ({...p, _score: _allocScore(p)}))
     .sort((a,b) => b._score - a._score)
     .slice(0, 7);
