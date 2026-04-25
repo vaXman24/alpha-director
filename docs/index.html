@@ -2059,7 +2059,10 @@ function buildAllocTable() {
       : `<span style="font-size:8px;padding:1px 4px;border-radius:3px;background:rgba(0,230,118,.1);color:var(--g);margin-left:4px">ADD</span>`;
     html += `<tr style="${i===0?'background:rgba(255,215,64,.04)':''}">
       <td style="font-size:13px;text-align:center">${rankMedal}</td>
-      <td><b>${p.ticker}</b>${typeBadge}<br><span style="font-size:10px;color:var(--t2)">${p.theme||'—'}</span></td>
+      <td onclick="window._openStockModal('${p.ticker}')" style="cursor:pointer">
+        <b style="text-decoration:underline dotted;text-underline-offset:3px">${p.ticker}</b>${typeBadge}<br>
+        <span style="font-size:10px;color:var(--t2)">${p.theme||'—'}</span>
+      </td>
       <td style="color:${cls};font-weight:700;font-size:11px">${p.action}</td>
       <td>
         <div class="alloc-bar-wrap"><div class="alloc-bar ${p.action==='BUY'?'buy':''}" style="width:${p._finalPct}%"></div></div>
