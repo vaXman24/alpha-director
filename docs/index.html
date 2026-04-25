@@ -1933,21 +1933,38 @@ function buildActionCenter() {
 }
 
 // ── Smart Allocation Score ───────────────────────────────────────────────────
+// upside^1.5 creates natural spread (e.g. 50% upside scores 3.5× a 10% upside stock)
+// vs linear where the ratio is only 5×0.7 factors = too compressed after normalization
 function _allocScore(p) {
-  const riskW = {LOW:1.0, MEDIUM:0.8, HIGH:0.6, 'VERY HIGH':0.4};
-  const upside  = Math.max(0, p.upside_pct || 0);                    // 0–100+
-  const riskMul = riskW[p.risk] || 0.7;
-  const confW   = (p.confidence || 70) / 100;                        // 0–1
-  const rsiFav  = p.rsi && p.rsi < 70 ? 1.1 : 0.9;                  // bonus if not overbought
-  const ma200   = p.above_200 ? 1.1 : 0.85;                          // above 200D bonus
-  const actionW = p.action === 'STRONG BUY' ? 1.2 : 1.0;
-  return upside * riskMul * confW * rsiFav * ma200 * actionW;
+  const riskW   = {LOW:1.0, MEDIUM:0.72, HIGH:0.45, 'VERY HIGH':0.25};
+  const upside  = Math.max(2, p.upside_pct || 0);
+  const riskMul = riskW[p.risk] || 0.55;
+  const confW   = p.confidence != null ? (p.confidence / 10) : 0.65;   // 0–10 scale → 0–1; null→0.65
+  const rsiPen  = !p.rsi ? 1.0 : p.rsi > 85 ? 0.55 : p.rsi > 75 ? 0.80 : p.rsi > 65 ? 0.95 : 1.1;
+  const ma200   = p.above_200 ? 1.20 : 0.75;
+  const actionW = p.action === 'STRONG BUY' ? 1.3 : 1.0;
+  return Math.pow(upside, 1.5) * riskMul * confW * rsiPen * ma200 * actionW;
 }
 
 // ── Allocation Table ────────────────────────────────────────────────────────
 function buildAllocTable() {
-  const positions = D.portfolio.positions;
-  const candidates = positions.filter(p => ['STRONG BUY','BUY'].includes(p.action));
+  const positions  = D.portfolio.positions || [];
+  const outside    = D.outside_opps || [];
+  const portSet    = new Set(positions.map(p => (p.ticker||'').toUpperCase()));
+
+  // Portfolio BUY/STRONG BUY with real upside
+  const portCands = positions
+    .filter(p => ['STRONG BUY','BUY'].includes(p.action) && (p.upside_pct||0) > 0)
+    .map(p => ({...p, _type:'add'}));
+
+  // Outside opps not in portfolio, with real upside > 5%
+  const watchCands = outside
+    .filter(p => !portSet.has((p.ticker||'').toUpperCase())
+              && ['STRONG BUY','BUY'].includes(p.action||'')
+              && (p.upside_pct||0) > 5)
+    .map(p => ({...p, _type:'new'}));
+
+  const candidates = [...portCands, ...watchCands];
 
   if (!candidates.length) {
     $('alloc-table').innerHTML = '<div style="color:var(--t2);font-size:13px;padding:8px 0">No BUY signals — hold cash.</div>';
@@ -1956,15 +1973,13 @@ function buildAllocTable() {
     return;
   }
 
-  // Score and pick top 5
+  // Score all candidates and pick top 5
   const scored = candidates.map(p => ({...p, _score: _allocScore(p)}))
     .sort((a,b) => b._score - a._score)
     .slice(0, 5);
 
-  // Weighted allocation — proportional to score (5%–35% cap per position)
-  const totalScore = scored.reduce((s,p) => s + p._score, 0) || 1;
-  const totalBudget = positions.reduce((s,p) => s + (p.allocation_usd||0), 0) ||
-    scored.reduce((s,p) => s + (p.allocation_usd||0), 0) || 5000;
+  // Budget: sum of sentinel allocation_usd (= monthly DCA) or $10K default
+  const totalBudget = positions.reduce((s,p) => s + (p.allocation_usd||0), 0) || 10000;
 
   const smartAllocs = scored.map(p => {
     const rawPct = (p._score / totalScore) * 100;
@@ -1989,29 +2004,30 @@ function buildAllocTable() {
     Smart allocation weighted by: upside potential · confidence · risk · MA position · momentum
   </div>
   <table class="alloc-table"><thead><tr>
-    <th>Rank</th><th>Ticker</th><th>Action</th><th>Allocation</th><th>$ Amount</th><th>vs Yesterday</th><th>Risk</th><th>Target</th><th>R:R</th>
+    <th>Rank</th><th>Ticker</th><th>Action</th><th>Allocation</th><th>$ Amount</th><th>Risk</th><th>Target</th>
   </tr></thead><tbody>`;
 
   final.forEach((p, i) => {
-    const cls  = p.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
-    const rr   = (p.upside_pct && p.downside_pct && p.downside_pct > 0) ? (p.upside_pct/p.downside_pct).toFixed(1) : '—';
-    const diff = dcaDiffBadge(p.ticker, p._finalUsd);
+    const cls       = p.action === 'STRONG BUY' ? 'var(--g)' : '#00b4d8';
     const rankMedal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `#${i+1}`;
-    const scoreBar = `<div style="width:${Math.min(p._finalPct,100)}%;height:4px;background:${cls};border-radius:2px;margin-top:2px;opacity:.7"></div>`;
+    const scoreBar  = `<div style="width:${Math.min(p._finalPct,100)}%;height:3px;background:${cls};border-radius:2px;margin-top:3px;opacity:.7"></div>`;
+    const typeBadge = p._type === 'new'
+      ? `<span style="font-size:8px;font-weight:800;padding:1px 4px;border-radius:3px;background:rgba(255,215,64,.15);color:var(--a);margin-left:4px;letter-spacing:.5px">NEW</span>`
+      : `<span style="font-size:8px;padding:1px 4px;border-radius:3px;background:rgba(0,230,118,.1);color:var(--g);margin-left:4px">ADD</span>`;
     html += `<tr style="${i===0?'background:rgba(255,215,64,.04)':''}">
       <td style="font-size:13px;text-align:center">${rankMedal}</td>
-      <td><b>${p.ticker}</b><br><span style="font-size:10px;color:var(--t2)">${p.theme}</span></td>
-      <td style="color:${cls};font-weight:700">${p.action}</td>
+      <td><b>${p.ticker}</b>${typeBadge}<br><span style="font-size:10px;color:var(--t2)">${p.theme||'—'}</span></td>
+      <td style="color:${cls};font-weight:700;font-size:11px">${p.action}</td>
       <td>
         <div class="alloc-bar-wrap"><div class="alloc-bar ${p.action==='BUY'?'buy':''}" style="width:${p._finalPct}%"></div></div>
-        <b>${p._finalPct}%</b>
-        ${scoreBar}
+        <b>${p._finalPct}%</b>${scoreBar}
       </td>
-      <td><b style="font-size:13px">$${p._finalUsd.toLocaleString()}</b></td>
-      <td>${diff || '<span style="color:var(--t3);font-size:10px">first run</span>'}</td>
+      <td><b style="font-size:14px;color:${cls}">$${p._finalUsd.toLocaleString()}</b></td>
       <td>${p.risk ? `<span class="risk-badge ${riskClass(p.risk)}">${p.risk}</span>` : '—'}</td>
-      <td>${p.target ? '$' + fmt(p.target) : '—'}</td>
-      <td>${rr !== '—' ? rr + ':1' : '—'}</td>
+      <td style="color:${p.upside_pct>0?'var(--g)':'var(--r)'}">
+        ${p.target ? '$'+fmt(p.target) : '—'}
+        ${p.upside_pct ? `<div style="font-size:9px;color:var(--g)">+${p.upside_pct}%</div>` : ''}
+      </td>
     </tr>`;
   });
   html += '</tbody></table>';
