@@ -3383,20 +3383,12 @@ window._openStockModal = function(ticker) {
   document.getElementById('stock-modal-body').className = '';
   document.getElementById('stock-modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-  // Push hash so the URL is shareable (e.g. #/AAPL)
-  if (!location.hash.startsWith('#/' + ticker)) {
-    history.pushState({ticker: ticker}, '', '#/' + ticker);
-  }
 };
 
 window.closeStockModal = function() {
   document.getElementById('stock-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
   document.getElementById('sm-chart-panel').innerHTML = '';
-  // Restore hash to root
-  if (location.hash && location.hash !== '#/') {
-    history.pushState({}, '', '#/');
-  }
 };
 
 document.addEventListener('keydown', function(e){
@@ -3404,48 +3396,44 @@ document.addEventListener('keydown', function(e){
 });
 
 // ── Hash-based page navigation ────────────────────────────────────────────
-// Usage: #/TICKER — opens full stock modal; shareable URL
+// Usage: _openPage('AAPL') → URL becomes #/AAPL, modal opens; shareable link
 window._openPage = function(ticker) {
   ticker = (ticker || '').toUpperCase();
-  window._openStockModal(ticker);  // modal updates hash internally
+  // Push hash first (before any DOM changes so no viewport interference)
+  try { history.pushState({ticker: ticker}, '', '#/' + ticker); } catch(e) {}
+  window._openStockModal(ticker);
 };
 
-// Handle browser back/forward
+// Handle browser back button — re-open or close modal based on new hash
 window.addEventListener('popstate', function(e) {
-  const hash = location.hash;
-  if (hash && hash.startsWith('#/') && hash.length > 2) {
-    const ticker = hash.slice(2).split('/')[0].toUpperCase();
-    if (ticker) {
-      window._openStockModal(ticker);
-    }
-  } else {
-    // Closed via back button
-    document.getElementById('stock-modal-overlay').classList.remove('open');
-    document.body.style.overflow = '';
-    document.getElementById('sm-chart-panel').innerHTML = '';
-  }
-});
-
-// Auto-open from hash on page load
-(function() {
   var hash = location.hash;
   if (hash && hash.startsWith('#/') && hash.length > 2) {
     var ticker = hash.slice(2).split('/')[0].toUpperCase();
-    if (ticker) {
-      // Wait for data.json to load, then open
-      var _hashAttempts = 0;
-      var _hashPoll = setInterval(function() {
-        _hashAttempts++;
-        try {
-          var hasData = D && D.portfolio && D.portfolio.positions && D.portfolio.positions.length > 0;
-          if (hasData || _hashAttempts > 20) {
-            clearInterval(_hashPoll);
-            window._openStockModal(ticker);
-          }
-        } catch(e) { if (_hashAttempts > 20) clearInterval(_hashPoll); }
-      }, 300);
-    }
+    if (ticker) window._openStockModal(ticker);
+  } else {
+    var ov = document.getElementById('stock-modal-overlay');
+    if (ov) { ov.classList.remove('open'); document.body.style.overflow = ''; }
+    var cp = document.getElementById('sm-chart-panel');
+    if (cp) cp.innerHTML = '';
   }
+});
+
+// Auto-open from hash on page load (e.g. bookmarked link)
+(function() {
+  var hash = location.hash;
+  if (!hash || !hash.startsWith('#/') || hash.length <= 2) return;
+  var ticker = hash.slice(2).split('/')[0].toUpperCase();
+  if (!ticker) return;
+  var attempts = 0;
+  var poll = setInterval(function() {
+    attempts++;
+    try {
+      if ((D.portfolio.positions.length > 0) || attempts > 25) {
+        clearInterval(poll);
+        window._openStockModal(ticker);
+      }
+    } catch(e) { if (attempts > 25) clearInterval(poll); }
+  }, 300);
 })();
 
 window._openCryptoModal = function(symbol) {
