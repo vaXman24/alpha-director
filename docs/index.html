@@ -1711,7 +1711,7 @@ function buildActionCenter() {
     const up  = p.upside_pct != null ? '+' + p.upside_pct + '%' : '—';
     const dn  = p.downside_pct != null ? '-' + p.downside_pct + '%' : '—';
     const rr  = (p.upside_pct && p.downside_pct && p.downside_pct > 0) ? (p.upside_pct/p.downside_pct).toFixed(1) + ':1' : '—';
-    const alloc = p.allocation_usd ? `$${p.allocation_usd.toLocaleString()} (${p.allocation_pct}%)` : '—';
+    const alloc = p.allocation_usd ? `$${p.allocation_usd.toLocaleString()}` : '—';
     const zone = p.entry_zone ? `$${p.entry_zone[0]}–$${p.entry_zone[1]}` : '—';
     const isBuy = ['STRONG BUY','BUY'].includes(p.action);
     const isTrim = p.action === 'TRIM';
