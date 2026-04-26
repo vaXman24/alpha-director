@@ -174,10 +174,12 @@
   }
 
   function countdownLabel(days) {
-    if (days === 0)  return 'TODAY';
-    if (days < 0)    return `${Math.abs(days)}d ago`;
-    if (days === 1)  return 'Tomorrow';
-    return `in ${days}d`;
+    const d = (days == null || days === 'null' || days === '') ? null : Number(days);
+    if (d == null || isNaN(d)) return '';
+    if (d === 0)  return 'TODAY';
+    if (d < 0)    return `${Math.abs(d)}d ago`;
+    if (d === 1)  return 'Tomorrow';
+    return `in ${d}d`;
   }
 
   function confColor(score) {
@@ -483,7 +485,7 @@
           return `<span class="cat-strip-pill"
                     style="background:${color}1a;color:${color};border-color:${color}33;"
                     onclick="event.stopPropagation();openCatModal(window.__catEvents__.find(e=>e.id==='${ev.id}'))"
-                  >${ev.name.split(' ')[0]} · ${countdownLabel(ev.days_until)}</span>`;
+                  >${ev.name.split(' ')[0]}${countdownLabel(ev.days_until) ? ' · ' + countdownLabel(ev.days_until) : ''}</span>`;
         }).join('');
       }
     }
@@ -511,7 +513,7 @@
         html += `<div class="cat-event-row" onclick="openCatModal(window.__catEvents__.find(e=>e.id==='${ev.id}'))">
           <div class="cat-date-col">
             <div>${fmtDate(ev.date)}</div>
-            <div class="cat-countdown">${countdownLabel(ev.days_until)}</div>
+            ${countdownLabel(ev.days_until) ? `<div class="cat-countdown">${countdownLabel(ev.days_until)}</div>` : ''}
           </div>
           <div class="cat-name-col">
             <div>${ev.name}</div>
