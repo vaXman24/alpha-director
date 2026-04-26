@@ -502,10 +502,22 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
   <div id="swing-grid" class="swing-grid"></div>
 </div>
 
-<!-- Watch Candidates -->
-<div class="section" id="watchlist-section">
-  <div class="sec-label">👁 Watch Candidates <span style="font-size:10px;font-weight:400;color:var(--t3)">— ranked non-portfolio stocks, scored for potential entry</span></div>
-  <div id="watchlist-grid" class="swing-grid"></div>
+<!-- Watch Candidates (collapsible, collapsed by default) -->
+<div class="coll-card" id="watchlist-section">
+  <div class="coll-header" onclick="toggleCard('watchlist')">
+    <div class="coll-left">
+      <span class="coll-icon">👁</span>
+      <span class="coll-name">Watch Candidates</span>
+      <span class="coll-summary" id="watchlist-summary">ranked non-portfolio stocks</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <span class="coll-annotation" id="watchlist-annotation">—</span>
+      <span class="coll-chevron" id="watchlist-chevron">▼</span>
+    </div>
+  </div>
+  <div class="coll-body collapsed" id="watchlist-body">
+    <div class="swing-grid" id="watchlist-grid" style="padding-top:12px"></div>
+  </div>
 </div>
 
 <!-- ═══ LAYER 2: THE WHY ═══ -->
@@ -866,7 +878,7 @@ function toggleCard(id) {
   try { localStorage.setItem(`card_${id}`, collapsed ? '0' : '1'); } catch(e) {}
 }
 function restoreCards() {
-  ['fg','pulse','poly','sectors','earnings','insiders','trends','events'].forEach(id => {
+  ['fg','pulse','poly','sectors','earnings','insiders','trends','events','watchlist'].forEach(id => {
     try {
       const state = localStorage.getItem(`card_${id}`);
       const body = $(`${id}-body`);
@@ -1068,13 +1080,23 @@ function buildRegime() {
   }
 }
 
-// ── Market Pulse (VIX + DXY visual strip) ─────────────────────────────────
+// ── Market Pulse (VIX + DXY + F&G + SPY + Regime visual strip) ────────────
 function buildPulseStrip() {
   const mkt = D.market;
   const vix  = mkt.vix?.level ?? mkt.vix?.price ?? 0;
   const dxy  = mkt.dxy?.level ?? mkt.dxy?.price ?? 0;
   const gold = mkt.gold?.price ?? 0;
   const rvol = mkt.rvol ?? mkt.spy?.vol_ratio ?? null;
+
+  // Additional data sources
+  const fgScore    = D.fear_greed?.score ?? 50;
+  const fgLabel    = D.fear_greed?.label ?? '';
+  const spyChg     = mkt.spy?.chg_1d ?? mkt.spy?.change_pct ?? null;
+  const btcChg     = D.crypto?.btc_chg ?? null;
+  const btcPrice   = D.crypto?.btc_price ?? 0;
+  const regimeInfo = D.regime_info || {};
+  const regime     = regimeInfo.regime ?? D.regime ?? '—';
+  const sizingMult = regimeInfo.sizing_mult;
 
   function vixConfig(v) {
     if (v < 15) return {col:'var(--g)',  bg:'var(--g2)',  label:'LOW — calm market', detail:'< 15: Complacency / uptrend likely'};
@@ -1089,15 +1111,52 @@ function buildPulseStrip() {
     if (v < 107) return {col:'var(--a)', bg:'var(--a2)', label:'STRONG — headwind', detail:'103–107: Headwind for equities'};
     return        {col:'var(--r)', bg:'var(--r2)', label:'VERY STRONG — risk-off', detail:'> 107: Pressure on risk assets'};
   }
+  function fgConfig(s) {
+    if (s > 75) return {col:'#ff1744', bg:'rgba(255,23,68,.15)', label:'Extreme Greed — be cautious'};
+    if (s > 55) return {col:'var(--r)', bg:'var(--r2)',          label:'Greed — watch for reversal'};
+    if (s > 45) return {col:'var(--a)', bg:'var(--a2)',          label:'Neutral'};
+    if (s > 25) return {col:'var(--b)', bg:'rgba(68,138,255,.15)', label:'Fear — possible buy zone'};
+    return              {col:'var(--g)', bg:'var(--g2)',           label:'Extreme Fear — strong buy zone'};
+  }
+  function regimeConfig(r) {
+    if (r === 'RISK_ON')  return {col:'var(--g)', bg:'var(--g2)',            label:`Full size · ${sizingMult != null ? Math.round(sizingMult*100)+'%' : '100%'}`};
+    if (r === 'NEUTRAL')  return {col:'var(--a)', bg:'var(--a2)',            label:`Reduced · ${sizingMult != null ? Math.round(sizingMult*100)+'%' : '75%'} size`};
+    if (r === 'RISK_OFF') return {col:'var(--r)', bg:'var(--r2)',            label:`Defensive · ${sizingMult != null ? Math.round(sizingMult*100)+'%' : '50%'} size`};
+    if (r === 'CRISIS')   return {col:'#ff1744',  bg:'rgba(255,23,68,.15)', label:`Preserve capital · ${sizingMult != null ? Math.round(sizingMult*100)+'%' : '25%'} size`};
+    return {col:'var(--t2)', bg:'rgba(255,255,255,.04)', label:'Loading…'};
+  }
 
-  const vc = vixConfig(vix);
-  const dc = dxyConfig(dxy);
+  const vc  = vixConfig(vix);
+  const dc  = dxyConfig(dxy);
+  const fgc = fgConfig(fgScore);
+  const rc  = regimeConfig(regime);
+
+  const spyChgStr = spyChg != null ? (spyChg >= 0 ? '+' : '') + Number(spyChg).toFixed(2) + '%' : '—';
+  const btcChgStr = btcChg != null ? (btcChg >= 0 ? '+' : '') + Number(btcChg).toFixed(1) + '%' : '—';
 
   const tiles = [
-    { name:'VIX (Fear)', val: fmt(vix,1), chg: mkt.vix?.chg_1d, cfg: vc,
+    { name:'Regime', val: regime.replace('_','-'), chg: null, cfg: rc,
+      scale:'RISK_ON: 100% size  |  NEUTRAL: 75%  |  RISK_OFF: 50%  |  CRISIS: 25%' },
+    { name:'Fear & Greed', val: fgScore.toString(), chg: null, cfg: fgc,
+      scale:'0–25 Extreme Fear  |  25–45 Fear  |  45–55 Neutral  |  55–75 Greed  |  75–100 Extreme Greed' },
+    { name:'VIX (Volatility)', val: fmt(vix,1), chg: mkt.vix?.chg_1d, cfg: vc,
       scale:'< 15 Low  |  15–20 Normal  |  20–28 Caution  |  28–35 High  |  35+ Extreme' },
     { name:'DXY (USD Index)', val: fmt(dxy,2), chg: mkt.dxy?.chg_1d, cfg: dc,
       scale:'< 97 Weak  |  97–103 Neutral  |  103–107 Strong  |  107+ Very Strong' },
+    { name:'SPY Today', val: spyChgStr, chg: null,
+      cfg: spyChg == null ? {col:'var(--t2)', bg:'rgba(255,255,255,.04)', label:'—'} :
+           spyChg > 1   ? {col:'var(--g)', bg:'var(--g2)', label:'Bullish day'} :
+           spyChg >= 0  ? {col:'var(--g)', bg:'var(--g2)', label:'Flat / slightly up'} :
+           spyChg > -1  ? {col:'var(--r)', bg:'var(--r2)', label:'Slightly down'} :
+                          {col:'var(--r)', bg:'var(--r2)', label:'Bearish day'},
+      scale:'> +1% Bullish  |  0% Flat  |  -1% Slightly down  |  < -1% Bearish' },
+    { name:'BTC 24h', val: btcPrice ? '$' + Number(btcPrice).toLocaleString('en',{maximumFractionDigits:0}) : '—', chg: btcChg,
+      cfg: btcChg == null ? {col:'var(--t2)', bg:'rgba(255,255,255,.04)', label:'—'} :
+           btcChg > 3  ? {col:'var(--g)', bg:'var(--g2)', label:'BTC rally — crypto tailwind'} :
+           btcChg >= 0 ? {col:'var(--g)', bg:'var(--g2)', label:'BTC up — constructive'} :
+           btcChg > -3 ? {col:'var(--r)', bg:'var(--r2)', label:'BTC dip — watch IBIT/ETHA'} :
+                         {col:'var(--r)', bg:'var(--r2)', label:'BTC dropping — risk-off crypto'},
+      scale:'> +3% Rally  |  0–3% Up  |  0 to -3% Dip  |  < -3% Drop — check IBIT/ETHA' },
     { name:'RVOL (SPY)', val: rvol ? rvol.toFixed(2)+'x' : '—', chg: null,
       cfg: rvol > 2.0  ? {col:'#ff1744',   bg:'rgba(255,23,68,.15)',   label:'EXTREME — panic/squeeze'} :
            rvol > 1.5  ? {col:'var(--r)',   bg:'var(--r2)',             label:'HIGH ACTIVITY — strong move'} :
@@ -1111,10 +1170,15 @@ function buildPulseStrip() {
 
   // Collapsible summary
   const pSumEl = $('pulse-summary'); const pAnnEl = $('pulse-annotation');
-  if (pSumEl) pSumEl.textContent = `VIX ${fmt(vix,1)} · DXY ${fmt(dxy,2)} · RVOL ${rvol ? rvol.toFixed(2)+'x' : '—'} · ${vc.label}`;
+  const regimeLabel = regime !== '—' ? regime.replace('_','-') : '';
+  if (pSumEl) pSumEl.textContent = `VIX ${fmt(vix,1)} · F&G ${fgScore} · SPY ${spyChgStr} · BTC ${btcChgStr}${regimeLabel ? ' · ' + regimeLabel : ''}`;
   if (pAnnEl) {
-    pAnnEl.textContent = vc.label;
-    pAnnEl.className = 'coll-annotation ' + (vix < 20 ? 'bullish' : vix < 28 ? 'warning' : 'bearish');
+    pAnnEl.textContent = regime !== '—' ? regime.replace('_','-') : vc.label;
+    pAnnEl.className = 'coll-annotation ' + (
+      regime === 'CRISIS' || regime === 'RISK_OFF' ? 'bearish' :
+      regime === 'RISK_ON' ? 'bullish' :
+      vix < 20 ? 'bullish' : vix < 28 ? 'warning' : 'bearish'
+    );
   }
   $('pulse-strip').innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">` +
     tiles.map(({name, val, chg, cfg, scale}) => `
@@ -1636,7 +1700,7 @@ function buildEarnings() {
   const total = Object.values(earn).flat().length;
   const mine  = Object.values(earn).flat().filter(t => portTickers.has(t)).length;
   const eSumEl = $('earnings-summary'); const eAnnEl = $('earnings-annotation');
-  if (eSumEl) eSumEl.textContent = total ? `${total} companies${mine?' · '+mine+' in your portfolio':''}` : 'No earnings this week';
+  if (eSumEl) eSumEl.textContent = total ? `${total} companies${mine?' · '+mine+' yours':''}` : 'No earnings this week (ETFs excluded)';
   if (eAnnEl) { eAnnEl.textContent = mine ? `${mine} mine` : total ? `${total} total`:'Clear'; eAnnEl.className='coll-annotation '+(mine?'warning':total?'neutral':'neutral'); }
   const html = days.map(d => {
     const tickers = earn[d] || [];
@@ -1702,13 +1766,12 @@ function buildActionCenter() {
   // Horizon by class
   const horizonMap = {core:'12m+', swing:'1–3m', spec:'1–6m'};
 
-  // Track rank within each action tier
-  const _tierRanks = {};
+  // Global sequential rank across all actionable items (no per-tier reset)
+  let _globalRank = 0;
   html += '<div class="action-grid">';
   for (const p of actionable) {
-    if (!_tierRanks[p.action]) _tierRanks[p.action] = 0;
-    _tierRanks[p.action]++;
-    const _rank = _tierRanks[p.action];
+    _globalRank++;
+    const _rank = _globalRank;
     const tgt = p.target ? '$' + fmt(p.target) : '—';
     const sl  = p.stop_loss ? '$' + fmt(p.stop_loss) : '—';
     const up  = p.upside_pct != null ? '+' + p.upside_pct + '%' : '—';
@@ -1833,7 +1896,7 @@ function buildActionCenter() {
 
       // Catalyst badge + metadata (compact — full detail in modal)
       const catStatusColor = {'imminent':'var(--r)','upcoming':'var(--g)','monitor':'var(--b)'};
-      const catCountdown   = p.catalyst_days === 0 ? 'TODAY' : p.catalyst_days === 1 ? 'Tomorrow' : `in ${p.catalyst_days}d`;
+      const catCountdown   = p.catalyst_days == null ? '' : p.catalyst_days === 0 ? 'TODAY' : p.catalyst_days === 1 ? 'Tomorrow' : `in ${p.catalyst_days}d`;
       let catBadge = '';
       if (isCat) {
         let evDateStr = '';
@@ -1878,9 +1941,9 @@ function buildActionCenter() {
         ? 'border:2px solid rgba(0,230,118,.4);box-shadow:0 0 16px rgba(0,230,118,.12)'
         : (p.upside_pct > 20 ? 'border:2px solid rgba(0,180,216,.3)' : '');
 
-      // Playbook button — opens directly from opp event_id or via stock modal catalyst tab
+      // Playbook button — navigates to #/TICKER (hash page) for full stock view
       const playbookBtn = (isCat && (p.event_id || p.event_date))
-        ? `<button onclick="event.stopPropagation();window._openOppPlaybook('${p.ticker}')" style="margin-top:6px;width:100%;padding:6px 10px;border-radius:6px;background:rgba(255,215,64,.12);color:var(--a);border:1px solid rgba(255,215,64,.35);font-size:10px;font-weight:800;cursor:pointer;letter-spacing:.3px">📋 Open Full Playbook ↗</button>` : '';
+        ? `<button onclick="event.stopPropagation();window._openPage('${p.ticker}')" style="margin-top:6px;width:100%;padding:6px 10px;border-radius:6px;background:rgba(255,215,64,.12);color:var(--a);border:1px solid rgba(255,215,64,.35);font-size:10px;font-weight:800;cursor:pointer;letter-spacing:.3px">📋 Open Full Playbook ↗</button>` : '';
 
       return `<div class="acard ${cardBorder}" style="${hlStyle}" onclick="window._openStockModal('${p.ticker}')">
         <div class="acard-action" style="color:${oc}">${rankBadge}${p.action} <span style="font-size:9px;color:var(--t3);font-weight:400">· ${isCat ? 'CATALYST OPP' : 'WATCHLIST'}</span></div>
@@ -1909,7 +1972,7 @@ function buildActionCenter() {
       }
     }
     if (catOpps.length) {
-      html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--a);padding:8px 0 4px;margin-top:8px;border-top:1px solid rgba(255,215,64,.2)">⚡ Catalyst Opportunities — Upcoming Events <span style="font-size:9px;font-weight:400;color:var(--t3)">(${catOpps.length})</span></div>`;
+      html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--a);padding:8px 0 4px;margin-top:8px;border-top:1px solid rgba(255,215,64,.2);overflow:hidden;word-break:break-word">⚡ Catalyst Opportunities — Upcoming Events <span style="font-size:9px;font-weight:400;color:var(--t3)">(${catOpps.length})</span></div>`;
 
       // Group by sector category (stored in p.theme from live_collector)
       const _sectorOrder = ['Macro','Corporate','Industry','Seasonal','Bonus'];
@@ -1958,17 +2021,17 @@ function buildActionCenter() {
         const _nextCat    = _nextOpp?.catalyst || _nextOpp?.theme || '';
 
         // Clickable header — spans full grid width, two-row layout with preview
-        html += `<div style="grid-column:1/-1;margin-top:10px;padding:8px 12px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid var(--border);cursor:pointer;user-select:none;transition:background .15s"
+        html += `<div style="grid-column:1/-1;margin-top:10px;padding:8px 12px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid var(--border);cursor:pointer;user-select:none;transition:background .15s;overflow:hidden;min-width:0"
           onmouseover="this.style.background='rgba(255,255,255,.07)'" onmouseout="this.style.background='rgba(255,255,255,.04)'"
           onclick="(function(h){var g=document.getElementById('${gid}');var isHidden=g.style.display==='none';g.style.display=isHidden?'block':'none';h.querySelector('.cat-chev').textContent=isHidden?'▼':'▶'})(this)">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${meta.color}">${meta.label}</span>
-            <span style="font-size:9px;color:var(--t3)">${grp.length} opp${grp.length > 1 ? 's' : ''}</span>
-            <span class="cat-chev" style="margin-left:auto;font-size:10px;color:var(--t3)">▶</span>
+          <div style="display:flex;align-items:center;gap:8px;min-width:0">
+            <span style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:${meta.color};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1">${meta.label}</span>
+            <span style="font-size:9px;color:var(--t3);flex-shrink:0">${grp.length} opp${grp.length > 1 ? 's' : ''}</span>
+            <span class="cat-chev" style="font-size:10px;color:var(--t3);flex-shrink:0">▶</span>
           </div>
-          ${_nextOpp ? `<div style="display:flex;align-items:center;gap:10px;margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,.06)">
-            <span style="font-size:12px;font-weight:800;color:#e0e0e0">${_nextTicker}</span>
-            ${_nextCat ? `<span style="font-size:10px;color:var(--t2);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${_nextCat}</span>` : ''}
+          ${_nextOpp ? `<div style="display:flex;align-items:center;gap:8px;margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,.06);min-width:0;overflow:hidden">
+            <span style="font-size:12px;font-weight:800;color:#e0e0e0;flex-shrink:0">${_nextTicker}</span>
+            ${_nextCat ? `<span style="font-size:10px;color:var(--t2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${_nextCat}</span>` : ''}
             ${_nextLabel ? `<span style="font-size:10px;font-weight:700;color:${_nextDays === 0 ? 'var(--r)' : _nextDays <= 3 ? 'var(--a)' : 'var(--g)'};flex-shrink:0">${_nextLabel}</span>` : ''}
             ${_nextUpside ? `<span style="font-size:11px;font-weight:800;color:var(--g);flex-shrink:0">${_nextUpside}</span>` : ''}
           </div>` : ''}
@@ -1977,7 +2040,7 @@ function buildActionCenter() {
         // Cards panel — hidden by default, spans full grid width, inner grid for cards
         html += `<div id="${gid}" style="display:none;grid-column:1/-1">
           <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;padding-top:8px">`;
-        grp.forEach((p, ri) => { html += renderOppCard(p, ri + 1); });
+        grp.forEach((p, ri) => { _globalRank++; html += renderOppCard(p, _globalRank); });
         html += `</div></div>`;
       });
     }
@@ -2781,6 +2844,16 @@ function buildWatchlist() {
     .sort((a,b) => b._score - a._score)
     .slice(0, 7);
 
+  // Update collapsible header
+  const sumEl = $('watchlist-summary');
+  const annEl = $('watchlist-annotation');
+  if (sumEl) sumEl.textContent = cands.length ? `${cands.length} candidates · best entry setups` : 'No candidates this cycle';
+  if (annEl) {
+    const topAction = cands[0]?.action || '';
+    annEl.textContent = cands.length ? `${cands.length} tracked` : 'Clear';
+    annEl.className = 'coll-annotation ' + (['STRONG BUY','BUY'].includes(topAction) ? 'bullish' : 'neutral');
+  }
+
   if (!cands.length) {
     el.innerHTML = '<div style="color:var(--t3);font-size:12px;padding:8px 0">No watchlist candidates this cycle.</div>';
     return;
@@ -3309,17 +3382,70 @@ window._openStockModal = function(ticker) {
   document.getElementById('stock-modal-body').className = '';
   document.getElementById('stock-modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+  // Push hash so the URL is shareable (e.g. #/AAPL)
+  if (!location.hash.startsWith('#/' + ticker)) {
+    history.pushState({ticker: ticker}, '', '#/' + ticker);
+  }
 };
 
 window.closeStockModal = function() {
   document.getElementById('stock-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
   document.getElementById('sm-chart-panel').innerHTML = '';
+  // Restore hash to root
+  if (location.hash && location.hash !== '#/') {
+    history.pushState({}, '', '#/');
+  }
 };
 
 document.addEventListener('keydown', function(e){
   if (e.key === 'Escape') window.closeStockModal();
 });
+
+// ── Hash-based page navigation ────────────────────────────────────────────
+// Usage: #/TICKER — opens full stock modal; shareable URL
+window._openPage = function(ticker) {
+  ticker = (ticker || '').toUpperCase();
+  window._openStockModal(ticker);  // modal updates hash internally
+};
+
+// Handle browser back/forward
+window.addEventListener('popstate', function(e) {
+  const hash = location.hash;
+  if (hash && hash.startsWith('#/') && hash.length > 2) {
+    const ticker = hash.slice(2).split('/')[0].toUpperCase();
+    if (ticker) {
+      window._openStockModal(ticker);
+    }
+  } else {
+    // Closed via back button
+    document.getElementById('stock-modal-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+    document.getElementById('sm-chart-panel').innerHTML = '';
+  }
+});
+
+// Auto-open from hash on page load
+(function() {
+  var hash = location.hash;
+  if (hash && hash.startsWith('#/') && hash.length > 2) {
+    var ticker = hash.slice(2).split('/')[0].toUpperCase();
+    if (ticker) {
+      // Wait for data.json to load, then open
+      var _hashAttempts = 0;
+      var _hashPoll = setInterval(function() {
+        _hashAttempts++;
+        try {
+          var hasData = D && D.portfolio && D.portfolio.positions && D.portfolio.positions.length > 0;
+          if (hasData || _hashAttempts > 20) {
+            clearInterval(_hashPoll);
+            window._openStockModal(ticker);
+          }
+        } catch(e) { if (_hashAttempts > 20) clearInterval(_hashPoll); }
+      }, 300);
+    }
+  }
+})();
 
 window._openCryptoModal = function(symbol) {
   symbol = (symbol || '').toUpperCase();
