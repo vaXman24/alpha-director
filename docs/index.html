@@ -154,14 +154,20 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 .sm-metric{display:flex;flex-direction:column;gap:1px}
 .sm-metric-label{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#444}
 .sm-metric-value{font-size:12px;font-weight:700;color:#ccc}
-#stock-modal-body{display:grid;grid-template-columns:60fr 40fr;flex:1;overflow:hidden;min-height:0}
-#stock-modal-body.chart-only{grid-template-columns:1fr}
-#stock-modal-body.info-only{grid-template-columns:1fr}
-#stock-modal-body.info-only #sm-chart-panel{display:none}
-#stock-modal-body.chart-only #sm-info-panel{display:none}
-#sm-chart-panel{height:100%;overflow:hidden;border-right:1px solid #1a1a1a}
-#sm-chart-panel iframe{width:100%;height:100%;border:none;display:block}
-#sm-info-panel{overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px;background:#0a0a0a}
+#stock-modal-body{display:flex;flex:1;overflow:hidden;min-height:0}
+#sm-chart-panel{display:none}
+#sm-info-panel{overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px;background:#0a0a0a;width:100%}
+.tv-chart-link{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-radius:13px;background:linear-gradient(135deg,rgba(21,101,192,.22),rgba(8,18,36,.95));border:1.5px solid rgba(21,101,192,.55);cursor:pointer;text-decoration:none;color:#fff;transition:border-color .2s,background .2s;gap:14px;flex-shrink:0}
+.tv-chart-link:hover{border-color:#1976d2;background:linear-gradient(135deg,rgba(25,118,210,.32),rgba(10,28,58,.95))}
+.tv-chart-link-main{display:flex;flex-direction:column;gap:4px;min-width:0}
+.tv-chart-link-title{font-size:16px;font-weight:800;letter-spacing:.3px;color:#fff}
+.tv-chart-link-strats{font-size:10px;font-weight:700;color:#90caf9;letter-spacing:.3px;text-transform:uppercase;margin-top:1px}
+.tv-chart-link-hint{font-size:10px;color:#546e7a;margin-top:3px}
+.tv-chart-link-arrow{font-size:28px;color:#1976d2;flex-shrink:0;font-weight:300}
+.sm-tech-snap{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;padding:12px 14px;background:#0e0e0e;border-radius:10px;border:1px solid #1a1a1a}
+.sm-tech-item{display:flex;flex-direction:column;gap:2px}
+.sm-tech-label{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:#444;font-weight:700}
+.sm-tech-val{font-size:12px;font-weight:800}
 .sm-section-title{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#444;border-bottom:1px solid #1a1a1a;padding-bottom:5px;margin-bottom:8px}
 .sm-row{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:3px 0;border-bottom:1px solid #111}
 .sm-row:last-child{border-bottom:none}
@@ -179,7 +185,7 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 .sm-open-tv:hover{background:#1976d2;color:#fff}
 .sm-cat-btn{display:inline-block;margin-top:6px;padding:4px 10px;border-radius:5px;background:rgba(255,215,64,.12);color:var(--a);font-size:10px;font-weight:700;cursor:pointer;border:1px solid rgba(255,215,64,.3)}
 .sm-cat-btn:hover{background:rgba(255,215,64,.2)}
-@media(max-width:700px){#stock-modal-body{grid-template-columns:1fr;grid-template-rows:300px auto}#sm-chart-panel{border-right:none;border-bottom:1px solid #1a1a1a}}
+@media(max-width:700px){#stock-modal-box{max-height:100vh;border-radius:0}#sm-info-panel{padding:12px 14px}}
 .risk-badge{display:inline-block;font-size:9px;font-weight:800;padding:2px 7px;border-radius:4px;letter-spacing:.4px}
 .risk-badge.low{background:var(--g2);color:var(--g)}
 .risk-badge.medium{background:var(--b2);color:var(--b)}
@@ -2976,14 +2982,11 @@ restoreCards();
   <div id="stock-modal-box">
     <div id="stock-modal-header">
       <div id="stock-modal-title">—</div>
-      <button class="sm-toggle active" id="sm-btn-chart" onclick="window._smToggle('chart')">📈 Chart</button>
-      <button class="sm-toggle active" id="sm-btn-info"  onclick="window._smToggle('info')">📊 Info</button>
       <button class="sm-toggle" onclick="window.closeStockModal()" style="background:rgba(255,61,113,.1);color:#ff3d71;border-color:rgba(255,61,113,.25)">← Back</button>
       <button class="sm-close" onclick="window.closeStockModal()">✕</button>
     </div>
     <div id="stock-modal-metrics"></div>
     <div id="stock-modal-body">
-      <div id="sm-chart-panel"></div>
       <div id="sm-info-panel"></div>
     </div>
   </div>
@@ -3472,26 +3475,12 @@ const PE_DATA = {
   NVDA:42, AAPL:32, ARM:120, KDP:22, SBUX:28, MNST:35,
 };
 
-// ── Load TradingView widget library (once) ────────────────────────────────
-(function(){
-  var s = document.createElement('script');
-  s.src = 'https://s3.tradingview.com/tv.js';
-  s.async = true;
-  s.onload = function(){ window._tvReady = true; };
-  document.head.appendChild(s);
-})();
-
-// ── Panel toggle state ────────────────────────────────────────────────────
-var _smVis = { chart: true, info: true };
-window._smToggle = function(panel) {
-  _smVis[panel] = !_smVis[panel];
-  document.getElementById('sm-btn-' + panel).classList.toggle('active', _smVis[panel]);
-  var body = document.getElementById('stock-modal-body');
-  if      (_smVis.chart && _smVis.info) body.className = '';
-  else if (_smVis.chart)                body.className = 'chart-only';
-  else if (_smVis.info)                 body.className = 'info-only';
-  else                                  body.className = 'chart-only';
-};
+// ── TradingView chart link config ─────────────────────────────────────────
+// Set TV_LAYOUT_ID to your saved TradingView chart layout ID to auto-apply
+// your Alpha Director Pine indicators on every chart link that opens.
+// How to get it: TradingView → open chart with indicators → Share → Copy Link
+// The ID is the alphanumeric string in the URL, e.g. 'xXxXxXxX'
+var TV_LAYOUT_ID = '';
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 function _smFmt(n, dec) { return n != null && !isNaN(n) ? Number(n).toFixed(dec || 2) : '—'; }
@@ -3521,62 +3510,6 @@ function _smVerdictBadge(v){
   return '<span style="background:'+c[0]+';color:'+c[1]+';border:1px solid '+c[1]+'55;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:800;letter-spacing:.3px">'+v+'</span>';
 }
 
-// ── Build TradingView widget chart ────────────────────────────────────────
-function _buildTVChart(ticker) {
-  var panel = document.getElementById('sm-chart-panel');
-  panel.innerHTML = '';
-
-  var containerId = 'tv_sm_' + ticker + '_' + Date.now();
-  var div = document.createElement('div');
-  div.id = containerId;
-  div.style.cssText = 'width:100%;height:100%';
-  panel.appendChild(div);
-
-  function _init() {
-    new TradingView.widget({
-      container_id:      containerId,
-      symbol:            ticker,
-      interval:          'D',
-      timezone:          'Etc/UTC',
-      theme:             'dark',
-      style:             '1',
-      locale:            'en',
-      toolbar_bg:        '#0d0d0d',
-      enable_publishing: false,
-      allow_symbol_change: false,
-      save_image:        false,
-      withdateranges:    true,
-      hide_side_toolbar: false,
-      // SMA 50, SMA 200, RSI 14, MACD — matches Alpha Director signals
-      studies: [
-        { id: 'MASimple@tv-basicstudies', inputs: { length: 50  }, override: { 'Plot.color': '#ffd740', 'Plot.linewidth': 1 } },
-        { id: 'MASimple@tv-basicstudies', inputs: { length: 200 }, override: { 'Plot.color': '#ff3d71', 'Plot.linewidth': 1 } },
-        { id: 'RSI@tv-basicstudies',      inputs: { length: 14  } },
-        { id: 'MACD@tv-basicstudies' },
-      ],
-      overrides: {
-        'mainSeriesProperties.candleStyle.upColor':          '#00e676',
-        'mainSeriesProperties.candleStyle.downColor':        '#ff3d71',
-        'mainSeriesProperties.candleStyle.borderUpColor':    '#00e676',
-        'mainSeriesProperties.candleStyle.borderDownColor':  '#ff3d71',
-        'mainSeriesProperties.candleStyle.wickUpColor':      '#00e676',
-        'mainSeriesProperties.candleStyle.wickDownColor':    '#ff3d71',
-      },
-      loading_screen: { backgroundColor: '#0d0d0d', foregroundColor: '#1e1e1e' },
-    });
-  }
-
-  // If tv.js is ready, init immediately; otherwise poll
-  if (window._tvReady && typeof TradingView !== 'undefined') {
-    _init();
-  } else {
-    var attempts = 0;
-    var poll = setInterval(function(){
-      if (typeof TradingView !== 'undefined') { clearInterval(poll); _init(); }
-      else if (++attempts > 30)               { clearInterval(poll); }
-    }, 200);
-  }
-}
 
 // ── Open stock modal ──────────────────────────────────────────────────────
 window._openStockModal = function(ticker) {
@@ -3665,12 +3598,44 @@ window._openStockModal = function(ticker) {
            '</span><span class="sm-metric-value" style="color:' + m[2] + '">' + m[1] + '</span></div>';
   }).join('');
 
-  // ── TradingView chart (JS widget: SMA50 amber, SMA200 red, RSI, MACD) ─────
-  _buildTVChart(ticker);
-
   // ── Info panel ────────────────────────────────────────────────────────────
   var infoEl  = document.getElementById('sm-info-panel');
   var infoHtml = '';
+
+  // ── TradingView chart button ──────────────────────────────────────────────
+  var _tvUrl = TV_LAYOUT_ID
+    ? 'https://www.tradingview.com/chart/' + TV_LAYOUT_ID + '/?symbol=' + encodeURIComponent(ticker)
+    : 'https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(ticker);
+  var _tvStratLabel = 'Alpha Director Multi-Setup · SMA 50/200 · RSI · MACD';
+  var _tvHint = TV_LAYOUT_ID
+    ? 'Opens with your saved Pine strategy layout applied'
+    : 'Log in to TradingView first — your saved layout will auto-apply';
+  infoHtml += '<a class="tv-chart-link" href="' + _tvUrl + '" target="_blank" rel="noopener">' +
+    '<div class="tv-chart-link-main">' +
+      '<div class="tv-chart-link-title">📈 Open Chart &nbsp;·&nbsp; ' + ticker + '</div>' +
+      '<div class="tv-chart-link-strats">' + _tvStratLabel + '</div>' +
+      '<div class="tv-chart-link-hint">' + _tvHint + '</div>' +
+    '</div>' +
+    '<div class="tv-chart-link-arrow">↗</div>' +
+    '</a>';
+
+  // ── Mini technical snapshot ───────────────────────────────────────────────
+  var _ma150v  = d.above_150;
+  var _techSnap = [
+    ['MA 50',  _a50   != null ? (_a50   ? '▲ ABOVE' : '▼ BELOW') : '—', _a50   != null ? (_a50   ? '#00e676' : '#ff3d71') : '#555'],
+    ['MA 150', _ma150v != null ? (_ma150v ? '▲ ABOVE' : '▼ BELOW') : '—', _ma150v != null ? (_ma150v ? '#00e676' : '#ff3d71') : '#555'],
+    ['MA 200', _a200  != null ? (_a200  ? '▲ ABOVE' : '▼ BELOW') : '—', _a200  != null ? (_a200  ? '#00e676' : '#ff3d71') : '#555'],
+    ['RSI 14', _rsi   != null ? _smFmt(_rsi, 1) : '—', _rsiCol],
+  ];
+  if (d.entry_zone) _techSnap.push(['Entry Zone', '$' + _smFmt(d.entry_zone[0]) + ' – $' + _smFmt(d.entry_zone[1]), '#ffd740']);
+  if (d.stop_loss)  _techSnap.push(['Stop Loss',  '$' + _smFmt(d.stop_loss), '#ff3d71']);
+  if (d.target)     _techSnap.push(['Target',     '$' + _smFmt(d.target), '#69f0ae']);
+  infoHtml += '<div class="sm-tech-snap">' +
+    _techSnap.map(function(t){
+      return '<div class="sm-tech-item"><span class="sm-tech-label">' + t[0] + '</span>' +
+             '<span class="sm-tech-val" style="color:' + t[2] + '">' + t[1] + '</span></div>';
+    }).join('') +
+    '</div>';
 
   if (pos) {
     // Held position block
@@ -3760,6 +3725,28 @@ window._openStockModal = function(ticker) {
     }
   }
 
+  // ── Analyst consensus ────────────────────────────────────────────────────
+  var _anSrc = pos || opp || {};
+  if (_anSrc.n_analysts > 0) {
+    var _anTotal = ((_anSrc.buy_pct || 0) + (_anSrc.hold_pct || 0) + (_anSrc.sell_pct || 0)) || 1;
+    var _anBp = Math.round(_anSrc.buy_pct  / _anTotal * 100);
+    var _anHp = Math.round(_anSrc.hold_pct / _anTotal * 100);
+    var _anSp = 100 - _anBp - _anHp;
+    infoHtml += '<div class="sm-section-title" style="margin-top:4px">👥 Analyst Consensus (' + _anSrc.n_analysts + ' analysts)</div>';
+    infoHtml += '<div style="background:#0e0e0e;border-radius:8px;padding:10px 12px;border:1px solid #1a1a1a">' +
+      '<div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:8px">' +
+        '<div style="width:' + _anBp + '%;background:#00e676"></div>' +
+        '<div style="width:' + _anHp + '%;background:#448aff"></div>' +
+        '<div style="width:' + _anSp + '%;background:#ff3d71"></div>' +
+      '</div>' +
+      '<div style="display:flex;gap:16px;font-size:11px;font-weight:700">' +
+        '<span style="color:#00e676">' + (_anSrc.buy_n  || 0) + ' Buy</span>' +
+        '<span style="color:#448aff">' + (_anSrc.hold_n || 0) + ' Hold</span>' +
+        '<span style="color:#ff3d71">' + (_anSrc.sell_n || 0) + ' Sell</span>' +
+      '</div>' +
+    '</div>';
+  }
+
   // Stale-target explanation — shown when target is below current price
   if (_isStaleTarget) {
     infoHtml += '<div style="margin-bottom:8px;padding:8px 10px;border-radius:7px;background:rgba(255,215,64,.08);border:1px solid rgba(255,215,64,.3)">' +
@@ -3770,8 +3757,6 @@ window._openStockModal = function(ticker) {
       '</div>';
   }
 
-  // Open-on-TradingView link (strategies only visible when logged in there)
-  infoHtml += '<a class="sm-open-tv" href="https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(ticker) + '" target="_blank" rel="noopener">↗ Open on TradingView (full chart + your Pine strategies)</a>';
 
   // Catalyst events
   if (cats.length) {
@@ -3813,11 +3798,7 @@ window._openStockModal = function(ticker) {
 
   infoEl.innerHTML = infoHtml;
 
-  // ── Reset toggles & show ──────────────────────────────────────────────────
-  _smVis = { chart: true, info: true };
-  document.getElementById('sm-btn-chart').classList.add('active');
-  document.getElementById('sm-btn-info').classList.add('active');
-  document.getElementById('stock-modal-body').className = '';
+  // ── Show modal ────────────────────────────────────────────────────────────
   document.getElementById('stock-modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 };
@@ -3825,7 +3806,6 @@ window._openStockModal = function(ticker) {
 window.closeStockModal = function() {
   document.getElementById('stock-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
-  document.getElementById('sm-chart-panel').innerHTML = '';
 };
 
 document.addEventListener('keydown', function(e){
