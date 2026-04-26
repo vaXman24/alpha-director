@@ -98,7 +98,7 @@
   /* ── Modal overlay ── */
   #cat-modal-overlay {
     display:none; position:fixed; inset:0;
-    background:rgba(0,0,0,.72); z-index:1000;
+    background:rgba(0,0,0,.72); z-index:9500;
     align-items:center; justify-content:center; padding:20px;
   }
   #cat-modal-overlay.open { display:flex; }
