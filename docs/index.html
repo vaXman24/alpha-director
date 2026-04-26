@@ -2804,7 +2804,7 @@ function buildTrends() {
     const sentCol = sentimentColor(tr.sentiment);
     const momIcon = momentumIcon(tr.momentum);
     const sources = (tr.sources || []).map(s => {
-      const icons = {reddit:'🟠',stocktwits:'🐦',yahoo:'💜',google:'🔵',x:'⬛',tiktok:'🎵',discord:'💬'};
+      const icons = {reddit:'👽',stocktwits:'🐦',yahoo:'💜',google:'🔵',x:'𝕏',tiktok:'🎵',discord:'💬'};
       return `<span style="font-size:9px;opacity:.7">${icons[s]||'●'} ${s}</span>`;
     }).join('');
 
