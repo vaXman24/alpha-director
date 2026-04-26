@@ -1711,7 +1711,7 @@ function buildActionCenter() {
     const up  = p.upside_pct != null ? '+' + p.upside_pct + '%' : '—';
     const dn  = p.downside_pct != null ? '-' + p.downside_pct + '%' : '—';
     const rr  = (p.upside_pct && p.downside_pct && p.downside_pct > 0) ? (p.upside_pct/p.downside_pct).toFixed(1) + ':1' : '—';
-    const alloc = p.allocation_usd ? `$${p.allocation_usd.toLocaleString()}` : '—';
+    const smartA = window._smartAllocMap && window._smartAllocMap[p.ticker];
     const zone = p.entry_zone ? `$${p.entry_zone[0]}–$${p.entry_zone[1]}` : '—';
     const isBuy = ['STRONG BUY','BUY'].includes(p.action);
     const isTrim = p.action === 'TRIM';
@@ -1739,7 +1739,7 @@ function buildActionCenter() {
         <span style="font-size:10px;color:var(--t2)">Upside to target</span>
         <span style="font-size:16px;font-weight:900;color:${p.upside_pct>20?'var(--g)':p.upside_pct>10?'#00b4d8':'var(--a)'}">+${p.upside_pct}%</span>
       </div>` : ''}
-      ${isBuy && p.allocation_usd ? `<div class="acard-row"><span>Allocate this cycle</span><b style="color:var(--g);font-size:14px">${alloc}</b></div>` : ''}
+      ${isBuy && smartA ? `<div class="acard-row"><span>Allocate this cycle</span><b style="color:var(--g);font-size:14px">$${smartA.usd.toLocaleString()} <span style="font-size:11px;opacity:.7">(${smartA.pct}%)</span></b></div>` : ''}
     </div>`;
   }
 
@@ -2023,6 +2023,7 @@ function buildAllocTable() {
     $('alloc-table').innerHTML = '<div style="color:var(--t2);font-size:13px;padding:8px 0">No BUY signals — hold cash.</div>';
     const budgetEl = $('dca-budget-label');
     if (budgetEl) budgetEl.textContent = '';
+    window._smartAllocMap = {};
     return;
   }
 
@@ -2090,6 +2091,9 @@ function buildAllocTable() {
   });
   html += '</tbody></table>';
   $('alloc-table').innerHTML = html;
+  // Publish smart allocations so buildActionCenter can read them
+  window._smartAllocMap = {};
+  final.forEach(p => { window._smartAllocMap[p.ticker] = {pct: p._finalPct, usd: p._finalUsd}; });
   saveDCASnapshot();
 }
 
@@ -2806,8 +2810,9 @@ function buildWatchlist() {
 function _buildAll() {
   const safe = fn => { try { fn(); } catch(e) { console.error('[AD]', fn.name, e.message); } };
   safe(buildTape); safe(buildRegime); safe(buildFX); safe(buildFG); safe(buildSP500Movers);
-  safe(buildEarnings); safe(buildPulseStrip); safe(buildPolymarket); safe(buildActionCenter);
-  safe(buildAllocTable); safe(buildPortSummary); safe(buildConcentration); safe(buildPortCards); safe(buildSectors);
+  safe(buildEarnings); safe(buildPulseStrip); safe(buildPolymarket);
+  safe(buildAllocTable); safe(buildActionCenter);
+  safe(buildPortSummary); safe(buildConcentration); safe(buildPortCards); safe(buildSectors);
   safe(buildCrypto); safe(buildInsiders); safe(buildEvents); safe(buildDrawer); safe(buildFooter);
   safe(buildSwingWeeks); safe(buildWatchlist); safe(buildTrends);
 }
