@@ -1976,6 +1976,29 @@ function buildActionCenter() {
   }
 
   html += '</div>';
+
+  // Callout for new-position DCA picks (outside_opps in top 5 — not in portfolio)
+  const _newPicks = window._dcaNewPicks || [];
+  if (_newPicks.length) {
+    const _newTotal = _newPicks.reduce((s,p) => s + p.usd, 0);
+    const _pills = _newPicks.map(p =>
+      `<span onclick="window._openStockModal('${p.ticker}')" style="cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;background:rgba(255,215,64,.12);border:1px solid rgba(255,215,64,.3);font-size:11px;font-weight:700">
+        ${p.ticker}
+        <span style="color:var(--g)">$${p.usd.toLocaleString()}</span>
+        <span style="opacity:.6;font-weight:400">${p.pct}%</span>
+        <span style="font-size:9px;padding:1px 4px;background:rgba(255,215,64,.2);border-radius:3px;color:var(--a)">NEW</span>
+      </span>`
+    ).join('');
+    html += `
+    <div style="margin-top:12px;padding:10px 14px;border-radius:8px;background:rgba(255,215,64,.06);border:1px solid rgba(255,215,64,.18)">
+      <div style="font-size:10px;color:var(--t2);margin-bottom:7px;display:flex;justify-content:space-between">
+        <span>💡 <b style="color:var(--a)">$${_newTotal.toLocaleString()}</b> of this cycle's budget allocated to <b>${_newPicks.length} new position${_newPicks.length>1?'s':''}</b> — not yet in portfolio</span>
+        <span style="opacity:.6">▼ DCA Allocation</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">${_pills}</div>
+    </div>`;
+  }
+
   $('action-center').innerHTML = html;
 }
 
@@ -2091,9 +2114,13 @@ function buildAllocTable() {
   });
   html += '</tbody></table>';
   $('alloc-table').innerHTML = html;
-  // Publish smart allocations so buildActionCenter can read them
+  // Share allocations with buildActionCenter
   window._smartAllocMap = {};
-  final.forEach(p => { window._smartAllocMap[p.ticker] = {pct: p._finalPct, usd: p._finalUsd}; });
+  window._dcaNewPicks = [];
+  final.forEach(p => {
+    window._smartAllocMap[p.ticker] = {pct: p._finalPct, usd: p._finalUsd};
+    if (p._type === 'new') window._dcaNewPicks.push({ticker: p.ticker, usd: p._finalUsd, pct: p._finalPct, upside: p.upside_pct, action: p.action});
+  });
   saveDCASnapshot();
 }
 
