@@ -838,8 +838,8 @@ function buildDrawer() {
       const actC   = ACTION_COLOR[pos.action] || 'var(--t2)';
       const alertBadge = pos.alert
         ? `<span style="font-size:8px;color:${pos.alert[0]==='danger'?'var(--r)':'var(--a)'};margin-left:3px">⚠</span>` : '';
-      holdHtml += `<div class="drawer-row" style="padding:4px 0">
-        <span style="font-weight:600;min-width:0;flex:1">${pos.ticker}${alertBadge} <span style="font-size:9px;color:var(--t3);font-weight:400">${pos.theme}</span></span>
+      holdHtml += `<div class="drawer-row" onclick="window._openStockModal('${pos.ticker}')" style="padding:4px 0;cursor:pointer">
+        <span style="font-weight:600;min-width:0;flex:1"><span style="text-decoration:underline dotted;text-underline-offset:3px">${pos.ticker}</span>${alertBadge} <span style="font-size:9px;color:var(--t3);font-weight:400">${pos.theme}</span></span>
         <span style="display:flex;align-items:center;gap:8px;flex-shrink:0">
           <span style="font-size:9px;font-weight:700;color:${actC}">${pos.action}</span>
           <span style="font-weight:700;color:${pnlC2};min-width:44px;text-align:right">${pnlStr}</span>
