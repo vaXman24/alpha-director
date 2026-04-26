@@ -2148,6 +2148,12 @@ function buildAllocTable() {
   if (budgetEl) budgetEl.textContent = totalDeploy ? `— smart deploy $${totalDeploy.toLocaleString()} this cycle · top 5 picks` : '';
 
   const riskClass = r => r === 'LOW' ? 'low' : r === 'MEDIUM' ? 'medium' : r === 'VERY HIGH' ? 'very-high' : 'high';
+  const deriveRisk = p => {
+    if (p.risk) return [p.risk, false];
+    if (p.class === 'core' && p.above_200) return ['LOW', true];
+    if (p.class === 'spec' || !p.above_200) return ['HIGH', true];
+    return ['MEDIUM', true];
+  };
   let html = `
   <div style="font-size:10px;color:var(--t3);margin-bottom:8px;padding:5px 10px;background:rgba(255,255,255,.03);border-radius:6px;border-left:2px solid var(--a)">
     Smart allocation weighted by: upside potential · confidence · risk · MA position · momentum
@@ -2176,7 +2182,7 @@ function buildAllocTable() {
       </td>
       <td><b style="font-size:14px;color:${cls}">$${p._finalUsd.toLocaleString()}</b></td>
       <td style="font-size:12px;font-weight:700">${p.price ? '$'+fmt(p.price) : '<span style="color:var(--t3)">—</span>'}</td>
-      <td>${p.risk ? `<span class="risk-badge ${riskClass(p.risk)}">${p.risk}</span>` : '—'}</td>
+      <td>${(function(){ var [r,est]=deriveRisk(p); return `<span class="risk-badge ${riskClass(r)}" style="${est?'opacity:.65':''}">` + (est?'~':'') + r + '</span>'; })()}</td>
       <td style="color:${p.upside_pct>0?'var(--g)':'var(--r)'}">
         ${p.target ? '$'+fmt(p.target) : '—'}
         ${p.upside_pct ? `<div style="font-size:9px;color:var(--g)">+${p.upside_pct}%</div>` : ''}
@@ -3617,17 +3623,20 @@ window._openStockModal = function(ticker) {
     '<div class="tv-chart-link-arrow">↗</div>' +
     '</a>';
 
-  // ── 2. Technical signals — 4-column grid ─────────────────────────────────
+  // ── 2. Technical signals — dynamic grid (skip nulls) ─────────────────────
   var _ma150v = d.above_150;
   function _maCell(lbl, flag) {
-    var val = flag != null ? (flag ? '▲ ABOVE' : '▼ BELOW') : '—';
-    var col = flag != null ? (flag ? '#00e676' : '#ff3d71') : '#333';
+    var val = flag ? '▲ ABOVE' : '▼ BELOW';
+    var col = flag ? '#00e676' : '#ff3d71';
     return '<div class="sm-tech-item"><span class="sm-tech-label">' + lbl + '</span><span class="sm-tech-val" style="color:' + col + '">' + val + '</span></div>';
   }
-  infoHtml += '<div class="sm-tech-snap">' +
-    _maCell('MA 50', _a50) + _maCell('MA 150', _ma150v) + _maCell('MA 200', _a200) +
-    '<div class="sm-tech-item"><span class="sm-tech-label">RSI 14</span><span class="sm-tech-val" style="color:' + _rsiCol + '">' + (_rsi != null ? _smFmt(_rsi,1) : '—') + '</span></div>' +
-    '</div>';
+  var _sigCells = '';
+  _sigCells += _maCell('MA 50', _a50);
+  if (_ma150v != null) _sigCells += _maCell('MA 150', _ma150v);
+  _sigCells += _maCell('MA 200', _a200);
+  _sigCells += '<div class="sm-tech-item"><span class="sm-tech-label">RSI 14</span><span class="sm-tech-val" style="color:' + _rsiCol + '">' + (_rsi != null ? _smFmt(_rsi,1) : '—') + '</span></div>';
+  var _sigCols = _ma150v != null ? 4 : 3;
+  infoHtml += '<div class="sm-tech-snap" style="grid-template-columns:repeat(' + _sigCols + ',1fr)">' + _sigCells + '</div>';
 
   // Price levels row (Entry / Stop / Target / Upside) — only if any are present
   var _lvlItems = [];
