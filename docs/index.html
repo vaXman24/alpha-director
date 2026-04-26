@@ -1657,9 +1657,12 @@ function buildActionCenter() {
   $('action-date').textContent = D.generated_at ? _fmtIL(D.generated_at) : '';
   const positions = D.portfolio.positions;
   const actionOrder = ['STRONG BUY','BUY','TRIM','EXIT'];
-  const actionable  = positions.filter(p => actionOrder.includes(p.action));
+  const portActionable = positions.filter(p => actionOrder.includes(p.action));
+  // Merge top-5 DCA new picks (outside_opps) into BUY tier cards
+  const _newPickTickers = new Set((window._dcaNewPicks||[]).map(p => p.ticker));
+  const newPickCards = (window._dcaNewPicks||[]).filter(p => ['STRONG BUY','BUY'].includes(p.action||''));
+  const actionable = [...portActionable, ...newPickCards];
   // Sort: action tier first, then composite score — confidence 65%, upside 35%
-  // Confidence (0–10) outweighs raw upside % so high-certainty plays rank above speculative ones
   actionable.sort((a,b) => {
     const tierDiff = actionOrder.indexOf(a.action) - actionOrder.indexOf(b.action);
     if (tierDiff !== 0) return tierDiff;
@@ -1674,7 +1677,7 @@ function buildActionCenter() {
 
   // Summary row — also count TRIM alerts and crypto EXITs
   const nPositions = positions.length;
-  const nBuy = positions.filter(p => ['STRONG BUY','BUY'].includes(p.action)).length;
+  const nBuy = positions.filter(p => ['STRONG BUY','BUY'].includes(p.action)).length + (window._dcaNewPicks||[]).length;
   const nTrim = positions.filter(p => p.action === 'TRIM' ||
     (p.alert && Array.isArray(p.alert) && typeof p.alert[1] === 'string' && p.alert[1].toUpperCase().includes('TRIM'))).length;
   const cryptoPos = (D.crypto && D.crypto.positions) ? D.crypto.positions : [];
@@ -1717,7 +1720,9 @@ function buildActionCenter() {
     const isTrim = p.action === 'TRIM';
     const isExit = p.action === 'EXIT';
     const exitDetail = isExit ? `<div style="margin-top:6px;font-size:10px;padding:6px 8px;border-radius:6px;background:var(--r2);color:var(--r);line-height:1.5">🚪 ${p.reason || 'Below 200D MA — exit to protect capital'}${p.pnl_pct != null ? ` &nbsp;·&nbsp; P&L: <b>${p.pnl_pct > 0 ? '+' : ''}${p.pnl_pct}%</b>` : ''}</div>` : '';
-    const holdType = p.class ? `<span style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(255,255,255,.07);margin-left:6px">${p.class.toUpperCase()} · ${horizonMap[p.class]||''}</span>` : '';
+    const holdType = p._isNew
+      ? `<span style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(255,215,64,.18);color:var(--a);margin-left:6px;font-weight:800">NEW POSITION</span>`
+      : p.class ? `<span style="font-size:9px;padding:1px 6px;border-radius:3px;background:rgba(255,255,255,.07);margin-left:6px">${p.class.toUpperCase()} · ${horizonMap[p.class]||''}</span>` : '';
     const trimDetail = isTrim && p.trim_pct ? `<div style="margin-top:6px;font-size:10px;padding:6px 8px;border-radius:6px;background:var(--a2);color:var(--a)">✂️ Trim <b>${p.trim_pct}%</b> — ${p.trim_reason||''}</div>` : '';
     const conf = p.confidence;
     const confCol = conf >= 80 ? 'var(--g)' : conf >= 60 ? 'var(--a)' : 'var(--r)';
@@ -1897,8 +1902,11 @@ function buildActionCenter() {
     }
 
     if (regOpps.length) {
-      html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);padding:8px 0 4px;margin-top:8px;border-top:1px solid var(--border)">Watchlist Opportunities</div>`;
-      regOpps.forEach(p => { html += renderOppCard(p); });
+      const regOppsFiltered = regOpps.filter(p => (p.upside_pct||0) >= 8);
+      if (regOppsFiltered.length) {
+        html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);padding:8px 0 4px;margin-top:8px;border-top:1px solid var(--border)">Watchlist Opportunities</div>`;
+        regOppsFiltered.forEach(p => { html += renderOppCard(p); });
+      }
     }
     if (catOpps.length) {
       html += `<div style="grid-column:1/-1;font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--a);padding:8px 0 4px;margin-top:8px;border-top:1px solid rgba(255,215,64,.2)">⚡ Catalyst Opportunities — Upcoming Events <span style="font-size:9px;font-weight:400;color:var(--t3)">(${catOpps.length})</span></div>`;
@@ -1929,7 +1937,7 @@ function buildActionCenter() {
         // Sort by confidence DESC, then by upside_pct DESC, show max 5 with upside > 5%
         const rawGrp = _grouped[sector];
         const grp = rawGrp
-          .filter(p => p.upside_pct == null || p.upside_pct > 5)
+          .filter(p => p.upside_pct != null && p.upside_pct >= 8)
           .sort((a,b) => {
             const confDiff = (b.confidence||0) - (a.confidence||0);
             if (Math.abs(confDiff) > 0.5) return confDiff;
@@ -1976,29 +1984,6 @@ function buildActionCenter() {
   }
 
   html += '</div>';
-
-  // Callout for new-position DCA picks (outside_opps in top 5 — not in portfolio)
-  const _newPicks = window._dcaNewPicks || [];
-  if (_newPicks.length) {
-    const _newTotal = _newPicks.reduce((s,p) => s + p.usd, 0);
-    const _pills = _newPicks.map(p =>
-      `<span onclick="window._openStockModal('${p.ticker}')" style="cursor:pointer;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;background:rgba(255,215,64,.12);border:1px solid rgba(255,215,64,.3);font-size:11px;font-weight:700">
-        ${p.ticker}
-        <span style="color:var(--g)">$${p.usd.toLocaleString()}</span>
-        <span style="opacity:.6;font-weight:400">${p.pct}%</span>
-        <span style="font-size:9px;padding:1px 4px;background:rgba(255,215,64,.2);border-radius:3px;color:var(--a)">NEW</span>
-      </span>`
-    ).join('');
-    html += `
-    <div style="margin-top:12px;padding:10px 14px;border-radius:8px;background:rgba(255,215,64,.06);border:1px solid rgba(255,215,64,.18)">
-      <div style="font-size:10px;color:var(--t2);margin-bottom:7px;display:flex;justify-content:space-between">
-        <span>💡 <b style="color:var(--a)">$${_newTotal.toLocaleString()}</b> of this cycle's budget allocated to <b>${_newPicks.length} new position${_newPicks.length>1?'s':''}</b> — not yet in portfolio</span>
-        <span style="opacity:.6">▼ DCA Allocation</span>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px">${_pills}</div>
-    </div>`;
-  }
-
   $('action-center').innerHTML = html;
 }
 
@@ -2119,7 +2104,7 @@ function buildAllocTable() {
   window._dcaNewPicks = [];
   final.forEach(p => {
     window._smartAllocMap[p.ticker] = {pct: p._finalPct, usd: p._finalUsd};
-    if (p._type === 'new') window._dcaNewPicks.push({ticker: p.ticker, usd: p._finalUsd, pct: p._finalPct, upside: p.upside_pct, action: p.action});
+    if (p._type === 'new') window._dcaNewPicks.push({...p, _isNew: true});
   });
   saveDCASnapshot();
 }
