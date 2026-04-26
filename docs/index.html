@@ -1279,6 +1279,31 @@ function buildPortCards() {
     const ma20   = (_shortHorizon && p.above_20 != null)
       ? `<span class="pill ${p.above_20 ? 'g' : 'r'}" title="20D moving average — fast momentum signal for swing/spec">MA20 ${p.above_20 ? '▲' : '▼'}</span>`
       : '';
+
+    // Context row: current RSI / MA50-distance vs the position's own 30-day distribution.
+    // "in" = within typical range (P25–P75), "lo" = below typical, "hi" = above.
+    function _ctxBucket(v, lo, hi) {
+      if (v == null || lo == null || hi == null) return null;
+      if (v < lo) return 'lo';
+      if (v > hi) return 'hi';
+      return 'in';
+    }
+    function _ctxColor(b) {
+      return b === 'in' ? 'var(--g)' : b === 'hi' ? 'var(--a)' : 'var(--r)';
+    }
+    const _rsiBucket  = _ctxBucket(p.rsi, p.rsi_30d_p25, p.rsi_30d_p75);
+    const _distBucket = _ctxBucket(p.ma50_dist, p.ma50_dist_p25, p.ma50_dist_p75);
+    const ctxRow = (_rsiBucket || _distBucket) ? `
+      <div style="display:flex;gap:10px;font-size:10px;color:var(--t3);margin-top:4px;letter-spacing:.2px">
+        ${_rsiBucket ? `<span title="Current RSI vs this ticker's last 30-day P25–P75">
+          RSI <b style="color:${_ctxColor(_rsiBucket)}">${p.rsi}</b>
+          <span style="opacity:.6">(${p.rsi_30d_p25}–${p.rsi_30d_p75})</span>
+        </span>` : ''}
+        ${_distBucket ? `<span title="Distance from 50D MA vs this ticker's last 30-day P25–P75">
+          50D <b style="color:${_ctxColor(_distBucket)}">${p.ma50_dist >= 0 ? '+' : ''}${p.ma50_dist}%</b>
+          <span style="opacity:.6">(${p.ma50_dist_p25 >= 0 ? '+' : ''}${p.ma50_dist_p25}%–${p.ma50_dist_p75 >= 0 ? '+' : ''}${p.ma50_dist_p75}%)</span>
+        </span>` : ''}
+      </div>` : '';
     const peSrc  = p.pe || PE_DATA[p.ticker.toUpperCase().replace('.L','').replace('.AS','')] || null;
     const pePill = peSrc ? (function(){
       const v = peSrc;
@@ -1347,6 +1372,7 @@ function buildPortCards() {
         ${ma200}${ma150}${ma50}${ma20}${pePill}
         <span class="pill">Avg $${fmt(p.avg,2)}</span>
       </div>
+      ${ctxRow}
 
       <div class="pnl-bar">
         <div class="pnl-bar-top">
