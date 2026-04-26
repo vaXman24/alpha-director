@@ -1274,6 +1274,11 @@ function buildPortCards() {
       `<span class="pill ${p.above_150 ? 'g' : 'r'}">MA150 ${p.above_150 ? '▲' : '▼'}</span>`;
     const ma50   = p.above_50 == null ? '' :
       `<span class="pill ${p.above_50 ? 'g' : 'r'}">MA50 ${p.above_50 ? '▲' : '▼'}</span>`;
+    // 20D pill — only for swing/spec (short-horizon momentum signal)
+    const _shortHorizon = p.class === 'swing' || p.class === 'spec';
+    const ma20   = (_shortHorizon && p.above_20 != null)
+      ? `<span class="pill ${p.above_20 ? 'g' : 'r'}" title="20D moving average — fast momentum signal for swing/spec">MA20 ${p.above_20 ? '▲' : '▼'}</span>`
+      : '';
     const peSrc  = p.pe || PE_DATA[p.ticker.toUpperCase().replace('.L','').replace('.AS','')] || null;
     const pePill = peSrc ? (function(){
       const v = peSrc;
@@ -1339,7 +1344,7 @@ function buildPortCards() {
       </div>
 
       <div class="sc-pills">
-        ${ma200}${ma150}${ma50}${pePill}
+        ${ma200}${ma150}${ma50}${ma20}${pePill}
         <span class="pill">Avg $${fmt(p.avg,2)}</span>
       </div>
 
