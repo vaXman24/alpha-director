@@ -1,0 +1,71 @@
+// Macro Regime Overlay v1.0
+// Shows macro risk regime based on VIX proxy and DXY signals from Alpha Director logic.
+// Use on SPY/QQQ charts to visualize market-wide regime context.
+//@version=5
+indicator("Macro Regime Overlay", overlay=true)
+
+// ─── Inputs ───────────────────────────────────────────────────────────────────
+i_vix_ticker    = input.symbol("VIX",   "VIX Symbol")
+i_spy_ticker    = input.symbol("SPY",   "SPY Symbol (for 200D check)")
+i_show_regime   = input.bool(true, "Show Regime Label")
+i_show_bg       = input.bool(true, "Show Background Color")
+i_vix_neutral   = input.float(20.0, "VIX Neutral Threshold")
+i_vix_fear      = input.float(30.0, "VIX Fear Threshold")
+
+// ─── Fetch VIX and SPY data ───────────────────────────────────────────────────
+vix_close   = request.security(i_vix_ticker, timeframe.period, close)
+spy_close   = request.security(i_spy_ticker, timeframe.period, close)
+spy_sma200  = request.security(i_spy_ticker, timeframe.period, ta.sma(close, 200))
+spy_above   = spy_close > spy_sma200
+
+// ─── VIX SMA for regime smoothing ────────────────────────────────────────────
+vix_sma50   = ta.sma(vix_close, 50)
+vix_rising  = vix_close > vix_sma50
+
+// ─── Regime Classification (mirrors Alpha Director logic) ─────────────────────
+//   RISK-ON:    VIX < 20 AND SPY above 200D
+//   CAUTION:    VIX 20-30 OR SPY below 200D (one condition)
+//   RISK-OFF:   VIX > 30 OR both conditions fail
+regime_on      = vix_close < i_vix_neutral and spy_above
+regime_off     = vix_close > i_vix_fear or (not spy_above and vix_rising)
+regime_caution = not regime_on and not regime_off
+
+regime_label  = regime_on      ? "RISK-ON"      :
+                regime_off     ? "RISK-OFF"      :
+                "CAUTION"
+
+regime_color  = regime_on      ? color.new(color.green, 0)  :
+                regime_off     ? color.new(color.red, 0)    :
+                color.new(color.orange, 0)
+
+regime_bg     = regime_on      ? color.new(color.green, 96) :
+                regime_off     ? color.new(color.red, 92)   :
+                color.new(color.orange, 94)
+
+// ─── Background ───────────────────────────────────────────────────────────────
+bgcolor(i_show_bg ? regime_bg : na, title="Macro Regime")
+
+// ─── Regime label on last bar ─────────────────────────────────────────────────
+if i_show_regime and barstate.islast
+    var tbl = table.new(position.top_left, 2, 3,
+                         bgcolor=color.new(color.black, 70),
+                         frame_color=color.new(color.white, 60),
+                         frame_width=1,
+                         border_color=color.new(color.gray, 80),
+                         border_width=1)
+
+    table.cell(tbl, 0, 0, "MACRO REGIME", text_color=color.white,
+               bgcolor=color.new(color.navy, 20), text_size=size.small)
+    table.cell(tbl, 1, 0, regime_label, text_color=regime_color,
+               bgcolor=color.new(color.navy, 20), text_size=size.small)
+
+    table.cell(tbl, 0, 1, "VIX", text_color=color.silver, text_size=size.small)
+    table.cell(tbl, 1, 1, str.tostring(math.round(vix_close, 1)),
+               text_color=vix_close < i_vix_neutral ? color.green :
+                           vix_close > i_vix_fear   ? color.red   : color.orange,
+               text_size=size.small)
+
+    table.cell(tbl, 0, 2, "SPY vs 200D", text_color=color.silver, text_size=size.small)
+    table.cell(tbl, 1, 2, spy_above ? "ABOVE" : "BELOW",
+               text_color=spy_above ? color.green : color.red,
+               text_size=size.small)

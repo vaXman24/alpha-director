@@ -1,0 +1,93 @@
+// Multi-Timeframe Trend Panel v1.0
+// Separate panel showing trend strength across swing, medium, and long-term horizons.
+// Designed to complement Alpha Director Signals (overlay indicator).
+//@version=5
+indicator("Multi-Timeframe Trend Panel", overlay=false)
+
+// ─── Inputs ───────────────────────────────────────────────────────────────────
+i_show_bars  = input.bool(true, "Show Trend Strength Bars")
+i_show_table = input.bool(true, "Show Summary Table")
+
+// ─── Helper: score from -1 to +1 for a given MA set ──────────────────────────
+score(src, fast, mid, slow) =>
+    f = ta.sma(src, fast)
+    m = ta.sma(src, mid)
+    s = ta.sma(src, slow)
+    pts = 0
+    pts := src > f ? pts + 1 : pts - 1
+    pts := src > m ? pts + 1 : pts - 1
+    pts := src > s ? pts + 1 : pts - 1
+    pts := f > m   ? pts + 1 : pts - 1
+    pts := m > s   ? pts + 1 : pts - 1
+    pts  // range: -5 to +5
+
+// ─── Swing Term (Daily 5/21/50 EMAs) ─────────────────────────────────────────
+swing_score = score(close, 5, 21, 50)
+swing_norm  = (swing_score + 5) / 10  // normalize 0..1
+
+// ─── Medium Term (Daily 50/150 SMAs) ─────────────────────────────────────────
+med_score   = score(close, 50, 150, 200)
+med_norm    = (med_score + 5) / 10
+
+// ─── Long Term (Weekly via request.security) ──────────────────────────────────
+weekly_close  = request.security(syminfo.tickerid, "W", close)
+w50  = request.security(syminfo.tickerid, "W", ta.sma(close, 50))
+w200 = request.security(syminfo.tickerid, "W", ta.sma(close, 200))
+long_pts  = 0
+long_pts  := weekly_close > w50  ? long_pts + 2 : long_pts - 2
+long_pts  := weekly_close > w200 ? long_pts + 2 : long_pts - 2
+long_pts  := w50 > w200          ? long_pts + 1 : long_pts - 1
+long_norm = (long_pts + 5) / 10
+
+// ─── Color helpers ────────────────────────────────────────────────────────────
+trend_color(n) =>
+    n >= 0.7 ? color.new(color.green, 0) :
+    n >= 0.4 ? color.new(color.orange, 0) :
+    color.new(color.red, 0)
+
+// ─── Histogram bars (3 series stacked visually) ───────────────────────────────
+plot(i_show_bars ? swing_norm * 100 : na, "Swing %",  color=trend_color(swing_norm),
+     style=plot.style_columns, histbase=0)
+plot(i_show_bars ? -(med_norm * 100) : na, "Medium %", color=color.new(trend_color(med_norm), 30),
+     style=plot.style_columns, histbase=0)
+
+// ─── Reference lines ──────────────────────────────────────────────────────────
+hline(70,  "Strong Trend",  color=color.new(color.green, 60),  linestyle=hline.style_dashed)
+hline(40,  "Mixed",         color=color.new(color.orange, 60), linestyle=hline.style_dashed)
+hline(0,   "Neutral",       color=color.new(color.gray, 40))
+hline(-40, "Mixed Down",    color=color.new(color.orange, 60), linestyle=hline.style_dashed)
+hline(-70, "Downtrend",     color=color.new(color.red, 60),    linestyle=hline.style_dashed)
+
+// ─── Summary Table ────────────────────────────────────────────────────────────
+label_text(n) =>
+    n >= 0.7 ? "BULLISH" : n >= 0.4 ? "NEUTRAL" : "BEARISH"
+
+if i_show_table and barstate.islast
+    var tbl = table.new(position.top_right, 3, 4,
+                         bgcolor=color.new(color.black, 75),
+                         frame_color=color.new(color.white, 60),
+                         frame_width=1,
+                         border_color=color.new(color.gray, 80),
+                         border_width=1)
+
+    table.cell(tbl, 0, 0, "Timeframe",  text_color=color.silver,  text_size=size.small)
+    table.cell(tbl, 1, 0, "Score",      text_color=color.silver,  text_size=size.small)
+    table.cell(tbl, 2, 0, "Signal",     text_color=color.silver,  text_size=size.small)
+
+    table.cell(tbl, 0, 1, "SWING",      text_color=color.white,   text_size=size.small)
+    table.cell(tbl, 1, 1, str.tostring(swing_score) + "/5",
+               text_color=trend_color(swing_norm), text_size=size.small)
+    table.cell(tbl, 2, 1, label_text(swing_norm),
+               text_color=trend_color(swing_norm), text_size=size.small)
+
+    table.cell(tbl, 0, 2, "MEDIUM",     text_color=color.white,   text_size=size.small)
+    table.cell(tbl, 1, 2, str.tostring(med_score) + "/5",
+               text_color=trend_color(med_norm), text_size=size.small)
+    table.cell(tbl, 2, 2, label_text(med_norm),
+               text_color=trend_color(med_norm), text_size=size.small)
+
+    table.cell(tbl, 0, 3, "LONG (W)",   text_color=color.white,   text_size=size.small)
+    table.cell(tbl, 1, 3, str.tostring(long_pts) + "/5",
+               text_color=trend_color(long_norm), text_size=size.small)
+    table.cell(tbl, 2, 3, label_text(long_norm),
+               text_color=trend_color(long_norm), text_size=size.small)

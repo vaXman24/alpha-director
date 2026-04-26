@@ -1,0 +1,122 @@
+// Alpha Director Signals v1.0
+// Replicates the MA-based verdict logic from the Alpha Director dashboard.
+// Shows SMA 50/150/200, entry zone, stop-loss, target, and verdict label.
+// Works on any timeframe but most accurate on Daily.
+//@version=5
+indicator("Alpha Director Signals", overlay=true, max_labels_count=50)
+
+// ─── Inputs ───────────────────────────────────────────────────────────────────
+i_class       = input.string("core", "Position Class", options=["core", "swing", "spec"])
+i_show_table  = input.bool(true, "Show Signal Table")
+i_show_zone   = input.bool(true, "Show Entry Zone")
+i_show_target = input.bool(true, "Show Target Line")
+i_show_sl     = input.bool(true, "Show Stop-Loss Line")
+i_upside_pct  = input.float(10.0, "Target Upside %", minval=1, maxval=50)
+
+// ─── Moving Averages ──────────────────────────────────────────────────────────
+sma50  = ta.sma(close, 50)
+sma150 = ta.sma(close, 150)
+sma200 = ta.sma(close, 200)
+
+above50  = close > sma50
+above150 = close > sma150
+above200 = close > sma200
+
+// ─── Verdict Logic (mirrors Alpha Director Python) ────────────────────────────
+all_above   = above50 and above150 and above200
+none_above  = not above50 and not above150 and not above200
+mixed       = not all_above and not none_above
+above_200_only = above200 and not above150 and not above50
+
+// For core class: needs all 3 MAs. Swing/spec: SMA50 + trend confirmation.
+verdict_yes  = i_class == "core" ? all_above :
+               i_class == "swing" ? (above50 and (above150 or above200)) :
+               above50  // spec: just needs to be above SMA50
+
+verdict_wait = not verdict_yes and not (none_above and i_class == "core")
+verdict_trim = i_class == "core" and all_above  // trim logic driven externally by P&L
+
+// Simplified: YES = green zone, WAIT = yellow, STRONG SELL signal if below all MAs
+signal_color = all_above ? color.new(color.green, 0) :
+               none_above ? color.new(color.red, 0) :
+               color.new(color.orange, 0)
+
+signal_label = all_above ? "YES" : none_above ? "WAIT" : "MIXED"
+action_label = all_above ? (i_class == "core" ? "STRONG BUY" : "BUY") :
+               none_above ? "WAIT" :
+               above50 ? "BUY" : "WAIT"
+
+// ─── Plot MAs ─────────────────────────────────────────────────────────────────
+p50  = plot(sma50,  "SMA 50",  color=color.new(#2196F3, 0), linewidth=2)
+p150 = plot(sma150, "SMA 150", color=color.new(#FF9800, 0), linewidth=2)
+p200 = plot(sma200, "SMA 200", color=color.new(#F44336, 0), linewidth=2)
+
+// ─── Background Regime Coloring ───────────────────────────────────────────────
+bg_color = all_above  ? color.new(color.green, 93) :
+           none_above ? color.new(color.red, 93) :
+           color.new(color.orange, 95)
+bgcolor(bg_color, title="Regime Background")
+
+// ─── Entry Zone (shaded band between SMA50 and SMA50 + 5%) ───────────────────
+entry_low  = sma50
+entry_high = sma50 * 1.05
+p_entry_low  = plot(i_show_zone ? entry_low  : na, "Entry Low",  color=color.new(color.green, 100))
+p_entry_high = plot(i_show_zone ? entry_high : na, "Entry High", color=color.new(color.green, 100))
+fill(p_entry_low, p_entry_high, color=color.new(color.green, 80), title="Entry Zone")
+
+// ─── Stop-Loss (SMA 50) ───────────────────────────────────────────────────────
+sl_line = sma50
+plot(i_show_sl ? sl_line : na, "Stop-Loss", color=color.new(color.red, 20),
+     linewidth=1, style=plot.style_linebr)
+
+// ─── Target Line (+upside_pct from last close on new bar) ─────────────────────
+target = close * (1 + i_upside_pct / 100)
+plot(i_show_target ? target : na, "Target", color=color.new(color.blue, 20),
+     linewidth=1, style=plot.style_linebr)
+
+// ─── Signal Table (top-right corner) ─────────────────────────────────────────
+if i_show_table and barstate.islast
+    var tbl = table.new(position.top_right, 2, 7,
+                         bgcolor=color.new(color.black, 70),
+                         frame_color=color.new(color.white, 60),
+                         frame_width=1,
+                         border_color=color.new(color.gray, 80),
+                         border_width=1)
+
+    table.cell(tbl, 0, 0, "Alpha Director", text_color=color.white,
+               bgcolor=color.new(color.navy, 30), text_size=size.small)
+    table.cell(tbl, 1, 0, syminfo.ticker, text_color=color.yellow,
+               bgcolor=color.new(color.navy, 30), text_size=size.small)
+
+    table.cell(tbl, 0, 1, "Verdict",  text_color=color.silver, text_size=size.small)
+    table.cell(tbl, 1, 1, signal_label, text_color=signal_color, text_size=size.small)
+
+    table.cell(tbl, 0, 2, "Action",   text_color=color.silver, text_size=size.small)
+    table.cell(tbl, 1, 2, action_label, text_color=signal_color, text_size=size.small)
+
+    table.cell(tbl, 0, 3, "Class",    text_color=color.silver, text_size=size.small)
+    table.cell(tbl, 1, 3, i_class,    text_color=color.white,  text_size=size.small)
+
+    table.cell(tbl, 0, 4, "SMA50",    text_color=color.silver, text_size=size.small)
+    table.cell(tbl, 1, 4, str.tostring(math.round(sma50, 2)),
+               text_color=color.new(#2196F3, 0), text_size=size.small)
+
+    table.cell(tbl, 0, 5, "Entry Zone", text_color=color.silver, text_size=size.small)
+    table.cell(tbl, 1, 5,
+               str.tostring(math.round(entry_low, 2)) + " – " +
+               str.tostring(math.round(entry_high, 2)),
+               text_color=color.new(color.green, 20), text_size=size.small)
+
+    table.cell(tbl, 0, 6, "Target (+"+str.tostring(i_upside_pct)+"%)",
+               text_color=color.silver, text_size=size.small)
+    table.cell(tbl, 1, 6, str.tostring(math.round(target, 2)),
+               text_color=color.new(color.blue, 0), text_size=size.small)
+
+// ─── Buy/Wait label on last bar ───────────────────────────────────────────────
+if barstate.islast
+    label.new(bar_index, high * 1.005,
+              action_label,
+              style=label.style_label_down,
+              color=signal_color,
+              textcolor=color.white,
+              size=size.normal)
