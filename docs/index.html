@@ -2744,7 +2744,22 @@ let TR = { updated: null, trends: [] };
 function _loadTrends() {
   fetch('trends.json?' + Date.now())
     .then(r => { if (!r.ok) throw 0; return r.json(); })
-    .then(fresh => { TR = fresh; buildTrends(); })
+    .then(fresh => {
+      TR = fresh;
+      // Build ticker → stock-data lookup so the modal can pull action/target/upside/risk
+      window.__trendStocks__ = {};
+      (TR.trends || []).forEach(function(theme) {
+        (theme.stocks || []).forEach(function(s) {
+          var t = (s.ticker || '').toUpperCase();
+          if (t && !window.__trendStocks__[t]) window.__trendStocks__[t] = s;
+        });
+        (theme.etfs || []).forEach(function(e) {
+          var t = (e.ticker || '').toUpperCase();
+          if (t && !window.__trendStocks__[t]) window.__trendStocks__[t] = e;
+        });
+      });
+      buildTrends();
+    })
     .catch(() => {});
 }
 _loadTrends();
@@ -3585,7 +3600,14 @@ window._openStockModal = function(ticker) {
     }
   } catch(e) { /* D not ready */ }
 
-  var d = pos || opp || {};
+  // Social-trends lookup: action/target/upside/risk/confidence from trends.json
+  var trd = (window.__trendStocks__ || {})[ticker] || null;
+  // Live price/RSI/SMA data collected by VPS for trend tickers (trend_ticker_data in data.json)
+  var trdLive = null;
+  try { trdLive = (D.trend_ticker_data || {})[ticker] || null; } catch(e) {}
+
+  // Merge: trends meta (lowest priority) → live trend prices → opp → pos (highest priority)
+  var d = Object.assign({}, trd || {}, trdLive || {}, opp || {}, pos || {});
 
   // Related catalyst events from calendar.js store
   var cats = (window.__catEvents__ || [])
