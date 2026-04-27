@@ -2867,11 +2867,15 @@ function buildSwingWeeks() {
     (p.upside_pct||0) > 8
   );
 
-  // Catalyst opps with event within 28 days
-  const catSwings = allOpps.filter(p =>
-    p.catalyst && p.catalyst_days != null && p.catalyst_days <= 28 &&
-    (p.upside_pct||0) > 8
-  );
+  // Watchlist opps: either (a) dated catalyst within 28d, or (b) STRONG BUY/BUY with upside>8%.
+  // Treat upside_pct == null as "unknown" (don't filter out) when a dated catalyst is present.
+  const catSwings = allOpps.filter(p => {
+    const up = p.upside_pct;
+    const hasNearCatalyst = p.catalyst && p.catalyst_days != null && p.catalyst_days <= 28;
+    if (hasNearCatalyst && (up == null || up > 8)) return true;
+    if (['STRONG BUY','BUY'].includes(p.action) && up != null && up > 8) return true;
+    return false;
+  });
 
   const combined = [
     ...portSwings.map(p => ({...p, _src:'portfolio'})),
