@@ -2159,8 +2159,11 @@ function buildAllocTable() {
     .sort((a,b) => b._score - a._score)
     .slice(0, 5);
 
-  // Budget: sum of sentinel allocation_usd (= monthly DCA) or $10K default
-  const totalBudget = positions.reduce((s,p) => s + (p.allocation_usd||0), 0) || 10000;
+  // Budget: prefer top-level monthly_dca (set by sentinel since smart-allocation rollout);
+  // fall back to summed portfolio allocation_usd, then $10K default.
+  const totalBudget = D.monthly_dca
+    || positions.reduce((s,p) => s + (p.allocation_usd||0), 0)
+    || 10000;
 
   const totalScore = scored.reduce((s,p) => s + p._score, 0) || 1;
   const smartAllocs = scored.map(p => {
