@@ -3142,7 +3142,16 @@ _buildAll();   // render immediately with empty skeleton (shows "Connecting…")
 function _loadLive() {
   fetch('data.json?' + Date.now())
     .then(r => { if (!r.ok) throw 0; return r.json(); })
-    .then(fresh => { D = fresh; _buildAll(); })
+    .then(fresh => {
+      D = fresh;
+      // Expose owned-ticker set for calendar.js (catalyst calendar marks owned instruments)
+      window._ownedTickers = new Set(
+        ((D.portfolio && D.portfolio.positions) || [])
+          .map(p => (p.ticker || '').toUpperCase())
+          .filter(Boolean)
+      );
+      _buildAll();
+    })
     .catch(() => {});
 }
 _loadLive();                    // fetch immediately on page load (~1s round-trip)

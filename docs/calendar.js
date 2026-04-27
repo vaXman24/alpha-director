@@ -65,6 +65,13 @@
     font-size:9px;
     letter-spacing:.4px;
   }
+  .cat-instruments .cat-tick.owned,
+  .cat-modal-chip.owned {
+    background:rgba(0,230,118,.12);
+    border-color:rgba(0,230,118,.45);
+    color:#9ef0c0;
+    font-weight:600;
+  }
 
   .cat-right-col { display:flex; flex-direction:column; align-items:flex-end; gap:4px; }
   .cat-status-badge {
@@ -322,7 +329,10 @@
       <div class="cat-modal-section">
         <div class="cat-modal-section-label">Watch</div>
         <div class="cat-modal-chips">
-          ${ev.instruments.map(t => `<span class="cat-modal-chip">${t}</span>`).join('')}
+          ${ev.instruments.map(t => {
+            const owned = (window._ownedTickers && window._ownedTickers.has((t||'').toUpperCase()));
+            return `<span class="cat-modal-chip${owned?' owned':''}">${t}${owned?' ✓':''}</span>`;
+          }).join('')}
         </div>
       </div>` : ''}
 
@@ -518,7 +528,10 @@
           <div class="cat-name-col">
             <div>${ev.name}</div>
             ${tickers.length ? `<div class="cat-instruments">
-              ${tickers.map(t => `<span class="cat-tick">${t}</span>`).join('')}
+              ${tickers.map(t => {
+                const owned = (window._ownedTickers && window._ownedTickers.has((t||'').toUpperCase()));
+                return `<span class="cat-tick${owned?' owned':''}">${t}${owned?' ✓':''}</span>`;
+              }).join('')}
               ${(ev.instruments || []).length > 4 ? `<span class="cat-tick">+${ev.instruments.length - 4}</span>` : ''}
             </div>` : ''}
           </div>
