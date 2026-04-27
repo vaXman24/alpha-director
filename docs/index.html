@@ -1920,13 +1920,20 @@ function buildActionCenter() {
   const nExit = positions.filter(p => p.action === 'EXIT').length +
     cryptoPos.filter(p => p.action === 'EXIT').length;
   const totalAlloc = positions.reduce((s,p) => s + (p.allocation_usd||0), 0);
+  const _monthDca  = D.monthly_dca || 10000;
+  const _monthUsed = D.monthly_used != null ? D.monthly_used : 0;
+  const _monthLeft = D.monthly_remaining != null ? D.monthly_remaining : _monthDca;
+  const _deployFigure = totalAlloc || _monthLeft;
+  const _usedTag = _monthUsed > 0
+    ? ` <span style="color:var(--t3);font-weight:400">· used $${Math.round(_monthUsed).toLocaleString()}/$${_monthDca.toLocaleString()}</span>`
+    : '';
 
   let html = `<div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:12px">
     <span>📦 <b>${nPositions}</b> positions</span>
     <span style="color:var(--g)">🟢 <b>${nBuy}</b> buy signals</span>
     <span style="color:var(--a)">✂️ <b>${nTrim}</b> trim</span>
     <span style="color:var(--r)">🚪 <b>${nExit}</b> exit</span>
-    <span style="color:#00b4d8">💰 Deploy <b>$${totalAlloc.toLocaleString()}</b> this week</span>
+    <span style="color:#00b4d8">💰 Deploy <b>$${_deployFigure.toLocaleString()}</b> remaining${_usedTag}</span>
   </div>`;
 
   if (!actionable.length) {
@@ -2274,9 +2281,12 @@ function buildAllocTable() {
     .sort((a,b) => b._score - a._score)
     .slice(0, 5);
 
-  // Budget: prefer top-level monthly_dca (set by sentinel since smart-allocation rollout);
-  // fall back to summed portfolio allocation_usd, then $10K default.
-  const totalBudget = D.monthly_dca
+  // Budget: prefer this month's *remaining* DCA pool (sentinel deducts buys, refunds trims);
+  // fall back to gross monthly_dca, then summed portfolio allocation_usd, then $10K.
+  const monthlyDca   = D.monthly_dca || 10000;
+  const monthlyUsed  = D.monthly_used      != null ? D.monthly_used      : 0;
+  const monthlyLeft  = D.monthly_remaining != null ? D.monthly_remaining : monthlyDca;
+  const totalBudget  = monthlyLeft
     || positions.reduce((s,p) => s + (p.allocation_usd||0), 0)
     || 10000;
 
@@ -2296,7 +2306,16 @@ function buildAllocTable() {
 
   const totalDeploy = final.reduce((s,p) => s + p._finalUsd, 0);
   const budgetEl = $('dca-budget-label');
-  if (budgetEl) budgetEl.textContent = totalDeploy ? `— smart deploy $${totalDeploy.toLocaleString()} this cycle · top 5 picks` : '';
+  if (budgetEl) {
+    const usedLabel = monthlyUsed > 0
+      ? ` · used $${Math.round(monthlyUsed).toLocaleString()} of $${monthlyDca.toLocaleString()}`
+      : '';
+    budgetEl.textContent = totalDeploy
+      ? `— deploy $${totalDeploy.toLocaleString()} remaining${usedLabel} · top 5 picks`
+      : (monthlyUsed >= monthlyDca
+          ? `— monthly DCA fully deployed ($${Math.round(monthlyUsed).toLocaleString()} of $${monthlyDca.toLocaleString()})`
+          : '');
+  }
 
   const riskClass = r => r === 'LOW' ? 'low' : r === 'MEDIUM' ? 'medium' : r === 'VERY HIGH' ? 'very-high' : 'high';
   const deriveRisk = p => {
