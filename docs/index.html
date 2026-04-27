@@ -2,6 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+// SPA path restoration — paired with 404.html. Rewrites /?/avgo back to /avgo
+// synchronously, before any other script or relative-URL fetch runs.
+(function(l){
+  if (l.search[1] === '/') {
+    var decoded = l.search.slice(1).split('&').map(function(s){
+      return s.replace(/~and~/g, '&');
+    }).join('?');
+    window.history.replaceState(null, null,
+      l.pathname.slice(0, -1) + decoded + l.hash
+    );
+  }
+})(window.location);
+</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="apple-touch-icon" href="favicon.svg">
@@ -3846,7 +3860,7 @@ document.addEventListener('keydown', function(e){
   if (e.key === 'Escape') window.closeStockModal();
 });
 
-// ── Playbook shortcut — opens full stock modal, no URL side-effects ─────────
+// ── Playbook shortcut — opens full stock modal (URL updates via the router below)
 window._openPage = function(ticker) {
   window._openStockModal((ticker || '').toUpperCase());
 };
@@ -3875,6 +3889,57 @@ window._openCryptoModal = function(symbol) {
   } catch(e) { /* D not ready */ }
   window._openStockModal(symbol);
 };
+
+// ── Per-ticker URL routing ──────────────────────────────────────────────────
+// Each ticker gets its own URL: /alpha-director/avgo etc. Click → pushState,
+// close → pop back to /alpha-director/. 404.html + the path-restoration script
+// in <head> make refresh and direct-link work on GitHub Pages.
+(function(){
+  var BASE = '/alpha-director/';
+  var _origOpen  = window._openStockModal;
+  var _origClose = window.closeStockModal;
+
+  window._openStockModal = function(ticker, _fromRouter){
+    _origOpen(ticker);
+    var slug = (ticker || '').toLowerCase();
+    if (!slug) return;
+    var url = BASE + slug;
+    if (!_fromRouter && window.location.pathname !== url) {
+      try { history.pushState({ticker: ticker}, '', url); } catch(e){}
+    }
+  };
+
+  window.closeStockModal = function(_fromRouter){
+    _origClose();
+    if (!_fromRouter && window.location.pathname !== BASE) {
+      try { history.pushState(null, '', BASE); } catch(e){}
+    }
+  };
+
+  function _routeFromURL(){
+    var p = window.location.pathname;
+    if (p.indexOf(BASE) !== 0) return;
+    var slug = p.slice(BASE.length).replace(/\/$/, '').toUpperCase();
+    var ovOpen = document.getElementById('stock-modal-overlay').classList.contains('open');
+    if (slug) {
+      window._openStockModal(slug, /*fromRouter*/ true);
+    } else if (ovOpen) {
+      window.closeStockModal(/*fromRouter*/ true);
+    }
+  }
+
+  // Open the right modal once D has positions; cap at 6s and route anyway.
+  function _waitAndRoute(tries){
+    tries = tries || 0;
+    var ready = false;
+    try { ready = !!(D && D.portfolio && (D.portfolio.positions || []).length); } catch(e){}
+    if (ready || tries > 30) { _routeFromURL(); return; }
+    setTimeout(function(){ _waitAndRoute(tries + 1); }, 200);
+  }
+  _waitAndRoute();
+
+  window.addEventListener('popstate', _routeFromURL);
+})();
 </script>
 </body>
 </html>

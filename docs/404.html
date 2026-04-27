@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Alpha Director — Loading…</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="/alpha-director/favicon.svg">
+<style>
+  body{background:#07090f;color:#e2e8f0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;
+       display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
+  .spin{font-size:13px;color:#64748b;letter-spacing:.5px}
+</style>
+<script>
+// SPA fallback for GitHub Pages: rewrite /alpha-director/<path> → /alpha-director/?/<path>
+// Paired with the path-restoration script in index.html <head>.
+(function(){
+  var pathSegmentsToKeep = 1;  // keep "/alpha-director" as the project base
+  var l = window.location;
+  l.replace(
+    l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+    l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') +
+    '/?/' +
+    l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+    (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+    l.hash
+  );
+})();
+</script>
+</head>
+<body><div class="spin">Loading Alpha Director…</div></body>
+</html>
