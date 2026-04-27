@@ -61,6 +61,11 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 
 /* ── Layout ── */
 .main{max-width:1680px;margin:0 auto;padding:20px 24px}
+/* Lock the page itself to viewport width so nothing leaks horizontally
+   on narrow phones (Honor Magic V5 closed, etc). overflow-x:clip is
+   used instead of :hidden so position:sticky on .hdr keeps working. */
+html,body{overflow-x:clip;max-width:100vw}
+@supports not (overflow:clip){html,body{overflow-x:hidden}}
 .section{margin-bottom:28px}
 .sec-label{font-size:10px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--t3);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
@@ -293,8 +298,18 @@ body.ticker-page .sm-cat-btn,body.ticker-page .sm-open-tv{
 .risk-badge.medium{background:var(--b2);color:var(--b)}
 .risk-badge.high{background:var(--a2);color:var(--a)}
 .risk-badge.very-high{background:var(--r2);color:var(--r)}
-/* Allocation table */
+/* Allocation table — wrapped in .alloc-scroll on narrow viewports so the
+   table is the only thing that scrolls horizontally; the rest of the page
+   stays inside viewport width. */
+.alloc-scroll{
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  margin:0 -8px;padding:0 8px 4px;        /* visual breathing room around scroll edges */
+  scrollbar-width:thin;
+}
+.alloc-scroll::-webkit-scrollbar{height:6px}
+.alloc-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:3px}
 .alloc-table{width:100%;border-collapse:collapse;font-size:12px}
+.alloc-scroll .alloc-table{min-width:680px}   /* preserve readability while scrolling */
 .alloc-table th{text-align:left;padding:6px 10px;font-size:10px;font-weight:700;letter-spacing:.6px;color:var(--txt2);border-bottom:1px solid var(--border)}
 .alloc-table td{padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.04)}
 .alloc-bar-wrap{background:rgba(255,255,255,.06);border-radius:3px;height:6px;width:80px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:6px}
@@ -2304,6 +2319,7 @@ function buildAllocTable() {
   <div style="font-size:10px;color:var(--t3);margin-bottom:8px;padding:5px 10px;background:rgba(255,255,255,.03);border-radius:6px;border-left:2px solid var(--a)">
     Smart allocation weighted by: upside potential · confidence · risk · MA position · momentum
   </div>
+  <div class="alloc-scroll">
   <table class="alloc-table"><thead><tr>
     <th>Rank</th><th>Ticker</th><th>Class</th><th>Action</th><th>Allocation</th><th>$ Amount</th><th>Price</th><th>Risk</th><th>Target</th>
   </tr></thead><tbody>`;
@@ -2336,7 +2352,7 @@ function buildAllocTable() {
       </td>
     </tr>`;
   });
-  html += '</tbody></table>';
+  html += '</tbody></table></div>';
   $('alloc-table').innerHTML = html;
   // Share allocations with buildActionCenter
   window._smartAllocMap = {};
