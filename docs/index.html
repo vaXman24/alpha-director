@@ -59,6 +59,24 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 .regime-caution{background:var(--a2);color:var(--a);border:1px solid rgba(255,215,64,.3)}
 .regime-off{background:var(--r2);color:var(--r);border:1px solid rgba(255,61,113,.3)}
 
+/* ── Auth gate ── */
+.auth-gate{position:fixed;inset:0;z-index:99999;background:radial-gradient(ellipse at top,rgba(17,24,40,.98),rgba(7,9,15,.98));backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;padding:20px}
+.auth-card{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius);padding:32px 28px;width:100%;max-width:340px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.auth-brand{font-size:18px;font-weight:800;letter-spacing:-0.3px;background:linear-gradient(135deg,#448aff,#00e676);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;margin-bottom:4px}
+.auth-sub{font-size:10px;color:var(--t2);text-align:center;margin-bottom:22px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700}
+.auth-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;color:var(--t);font-size:18px;font-family:inherit;letter-spacing:6px;text-align:center;outline:none;transition:border-color .15s}
+.auth-input:focus{border-color:var(--b)}
+.auth-input.err{border-color:var(--r);animation:auth-shake .3s}
+@keyframes auth-shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.auth-btn{width:100%;margin-top:10px;background:linear-gradient(135deg,#448aff,#00e676);color:#07090f;border:none;border-radius:8px;padding:11px;font-size:13px;font-weight:800;letter-spacing:.5px;cursor:pointer;font-family:inherit}
+.auth-btn:hover{filter:brightness(1.1)}
+.auth-remember{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:14px;font-size:11px;color:var(--t2);cursor:pointer;user-select:none}
+.auth-remember input{accent-color:var(--g)}
+.lock-btn{background:transparent;border:1px solid var(--border2);color:var(--t2);border-radius:20px;padding:5px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;line-height:1}
+.lock-btn:hover{color:var(--r);border-color:var(--r);background:var(--r2)}
+body.gated{overflow:hidden}
+body.gated > *:not(#auth-gate){visibility:hidden}
+
 /* ── Layout ── */
 .main{max-width:1680px;margin:0 auto;padding:20px 24px}
 /* Lock the page itself to viewport width so nothing leaks horizontally
@@ -537,7 +555,18 @@ body.ticker-page .sm-cat-btn,body.ticker-page .sm-open-tv{
 .sm-etf-link:hover{background:rgba(68,138,255,.2);color:#fff}
 </style>
 </head>
-<body>
+<body class="gated">
+
+<!-- Auth gate -->
+<div class="auth-gate" id="auth-gate">
+  <form class="auth-card" id="auth-form" onsubmit="return _authSubmit(event)">
+    <div class="auth-brand">Alpha Director</div>
+    <div class="auth-sub">Enter passcode</div>
+    <input class="auth-input" id="auth-input" type="password" inputmode="numeric" autocomplete="current-password" autofocus>
+    <button class="auth-btn" type="submit">Unlock</button>
+    <label class="auth-remember"><input type="checkbox" id="auth-remember" checked>Remember on this device for 30 days</label>
+  </form>
+</div>
 
 <!-- Inputs Drawer Overlay -->
 <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
@@ -596,6 +625,7 @@ body.ticker-page .sm-cat-btn,body.ticker-page .sm-open-tv{
     <button class="settings-btn" onclick="openDrawer()" style="position:relative">⚙️ Inputs
       <span id="tg-queue-badge" style="display:none;position:absolute;top:-4px;right:-4px;background:var(--r);color:#fff;font-size:8px;font-weight:800;min-width:14px;height:14px;border-radius:7px;line-height:14px;text-align:center;padding:0 2px"></span>
     </button>
+    <button class="lock-btn" onclick="_authLogout()" title="Lock dashboard">🔒</button>
   </div>
 </div>
 
@@ -843,6 +873,52 @@ body.ticker-page .sm-cat-btn,body.ticker-page .sm-open-tv{
 <div class="footer" id="footer"></div>
 
 <script>
+// ── Soft auth gate (client-side passcode, SHA-256) ──
+const _AUTH_HASH='25ebe3918b0bfaf16e3e8c356a2cf5f8d6c113cf2c3721cbcf47a401bd5412d9';
+const _AUTH_KEY='ad_auth_v1';
+const _AUTH_TTL_MS=30*24*60*60*1000;
+async function _sha256Hex(s){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function _authValid(){
+  try{
+    const r=JSON.parse(localStorage.getItem(_AUTH_KEY)||'null');
+    if(r && r.h===_AUTH_HASH && r.exp>Date.now()) return true;
+  }catch(e){}
+  return sessionStorage.getItem(_AUTH_KEY)==='1';
+}
+function _authUnlock(){
+  document.body.classList.remove('gated');
+  const g=document.getElementById('auth-gate');
+  if(g) g.remove();
+}
+async function _authSubmit(e){
+  e.preventDefault();
+  const inp=document.getElementById('auth-input');
+  const remember=document.getElementById('auth-remember').checked;
+  const h=await _sha256Hex(inp.value);
+  if(h===_AUTH_HASH){
+    if(remember){
+      localStorage.setItem(_AUTH_KEY,JSON.stringify({h,exp:Date.now()+_AUTH_TTL_MS}));
+    }else{
+      sessionStorage.setItem(_AUTH_KEY,'1');
+    }
+    _authUnlock();
+  }else{
+    inp.classList.add('err');
+    inp.value='';
+    setTimeout(()=>{inp.classList.remove('err');inp.focus();},400);
+  }
+  return false;
+}
+function _authLogout(){
+  localStorage.removeItem(_AUTH_KEY);
+  sessionStorage.removeItem(_AUTH_KEY);
+  location.reload();
+}
+if(_authValid()) _authUnlock();
+
 // Format a UTC ISO timestamp as Israel local time (IDT/IST = UTC+3/+2)
 const _IL_TZ = 'Asia/Jerusalem';
 function _fmtIL(iso) {
