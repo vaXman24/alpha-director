@@ -643,6 +643,73 @@ function closeTickerModal() {
   document.body.style.overflow = '';
 }
 
+// Crypto modal — BTC/ETH (top-level data) + altcoin positions (DOT/SOL/etc.)
+function openCryptoModal(symbol) {
+  const sym = (symbol || '').toUpperCase();
+  const c = D.crypto || {};
+  let info;
+  if (sym === 'BTC') {
+    info = {
+      label: 'Bitcoin (BTC)', theme: c.regime || '',
+      price: c.btc_price, chg: c.btc_chg,
+      mcap: c.btc_mcap, vol: c.btc_vol,
+      extra: [
+        ['BTC Dominance', (c.btc_dominance != null ? c.btc_dominance + '%' : '—')],
+        ['Crypto Regime', c.regime || '—'],
+        ['Crypto F&G',    c.fear_greed?.label ? `${c.fear_greed.score}/100 · ${c.fear_greed.label}` : '—'],
+      ],
+    };
+  } else if (sym === 'ETH') {
+    info = {
+      label: 'Ethereum (ETH)', theme: c.regime || '',
+      price: c.eth_price, chg: c.eth_chg,
+      mcap: c.eth_mcap, vol: c.eth_vol,
+      extra: [
+        ['BTC Dominance', (c.btc_dominance != null ? c.btc_dominance + '%' : '—')],
+        ['Crypto Regime', c.regime || '—'],
+        ['Crypto F&G',    c.fear_greed?.label ? `${c.fear_greed.score}/100 · ${c.fear_greed.label}` : '—'],
+      ],
+    };
+  } else {
+    const p = (c.positions || []).find(x => (x.symbol || '').toUpperCase() === sym);
+    if (!p) return;
+    info = {
+      label: `${p.symbol} · ${p.theme || ''}`, theme: p.verdict || '',
+      price: p.price, chg: p.chg_24h, mcap: p.market_cap, vol: p.vol_24h,
+      extra: [
+        ['Holdings', p.qty != null ? `${fmt(p.qty, p.qty < 1 ? 4 : 2)} ${p.symbol}` : '—'],
+        ['Value',    p.value_usd != null ? fmtK(p.value_usd) : '—'],
+        ['Avg cost', p.avg != null ? `$${fmt(p.avg, p.avg < 1 ? 4 : 2)}` : '—'],
+        ['P&L',      p.pnl_label || '—'],
+      ],
+    };
+  }
+  const chgClass = info.chg == null ? '' : (info.chg >= 0 ? 'positive' : 'negative');
+  const extraRows = info.extra.map(([k, v]) =>
+    `<div class="tm-key">${k}</div><div class="tm-val">${v}</div>`).join('');
+  document.getElementById('tmodal-content').innerHTML = `
+    <div class="tm-head">
+      <div class="tm-head-left">
+        <span class="tm-tk" id="tm-tk">${info.label}</span>
+        <span class="tm-px">$${fmt(info.price, info.price && info.price < 1 ? 4 : 2)}</span>
+        <span class="tm-chg ${chgClass}">${pct(info.chg)}</span>
+        <div class="tm-theme">${info.theme}</div>
+      </div>
+      <span class="tm-close" onclick="closeTickerModal()" aria-label="Close">✕</span>
+    </div>
+    <div class="tm-body">
+      <div class="tm-analysis">
+        ${info.mcap ? `<div class="tm-key">Market Cap</div><div class="tm-val">${fmtB(info.mcap)}</div>` : ''}
+        ${info.vol  ? `<div class="tm-key">24h Volume</div><div class="tm-val">${fmtB(info.vol)}</div>`  : ''}
+        ${extraRows}
+      </div>
+    </div>
+  `;
+  document.getElementById('tmodal-overlay').classList.add('open');
+  document.getElementById('tmodal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeTickerModal();
 });
@@ -883,6 +950,7 @@ function buildPulseStrip() {
   const vix  = mkt.vix?.level ?? mkt.vix?.price ?? 0;
   const dxy  = mkt.dxy?.level ?? mkt.dxy?.price ?? 0;
   const gold = mkt.gold?.price ?? 0;
+  const oil  = mkt.oil?.price ?? 0;
   const rvol = mkt.rvol ?? mkt.spy?.vol_ratio ?? null;
 
   function vixConfig(v) {
@@ -916,6 +984,12 @@ function buildPulseStrip() {
       scale:'< 0.8 Thin  |  0.8–1.2 Normal  |  1.2–1.5 Active  |  1.5–2.0 High  |  2.0+ Extreme' },
     { name:'Gold', val: '$'+fmt(gold,0), chg: mkt.gold?.chg, cfg:{col: gold > 2500 ? 'var(--a)':'var(--g)', bg: gold > 2500 ? 'var(--a2)':'var(--g2)', label: gold > 2500 ? 'Elevated — risk-off bid':'Normal'},
       scale:'> $2500: Risk-off demand  |  rising = hedge signal' },
+    { name:'Oil (WTI)', val: '$'+fmt(oil,2), chg: mkt.oil?.chg,
+      cfg: oil > 100 ? {col:'var(--r)', bg:'var(--r2)', label:'HIGH — inflation risk'} :
+           oil > 85  ? {col:'var(--a)', bg:'var(--a2)', label:'ELEVATED — watch CPI'} :
+           oil > 60  ? {col:'var(--g)', bg:'var(--g2)', label:'NORMAL'} :
+                       {col:'var(--b)', bg:'var(--b2)', label:'LOW — demand soft'},
+      scale:'< $60 Low  |  60–85 Normal  |  85–100 Elevated  |  100+ High' },
   ];
 
   // Collapsible summary
@@ -992,6 +1066,9 @@ function buildPortCards() {
     const ma50   = p.above_50 == null ? '' :
       `<span class="pill ${p.above_50 ? 'g' : 'r'}">MA50 ${p.above_50 ? '▲' : '▼'}</span>`;
     const pePill = p.pe ? `<span class="pill">PE ${p.pe}x</span>` : '';
+    const rsiPill = p.rsi != null
+      ? `<span class="pill ${p.rsi >= 70 ? 'a' : p.rsi <= 30 ? 'g' : ''}">RSI ${Math.round(p.rsi)}</span>`
+      : '';
 
     // Analyst bar
     const total = (p.buy_pct + p.hold_pct + p.sell_pct) || 1;
@@ -1043,7 +1120,7 @@ function buildPortCards() {
       </div>
 
       <div class="sc-pills">
-        ${ma200}${ma150}${ma50}${pePill}
+        ${ma200}${ma150}${ma50}${rsiPill}${pePill}
         <span class="pill">Avg $${fmt(p.avg,2)}</span>
       </div>
 
@@ -1197,14 +1274,14 @@ function buildCrypto() {
       <div class="btc-chg" style="color:${fgZone.col};font-weight:700">${fgZone.label}</div>
       <div style="font-size:9px;color:var(--t3);margin-top:4px">0–25 EF · 25–45 F · 45–55 N · 55–75 G · 75–100 EG</div>
     </div>
-    <div class="btc-card">
+    <div class="btc-card" onclick="openCryptoModal('BTC')" role="button" tabindex="0" style="cursor:pointer" onkeydown="if(event.key==='Enter')openCryptoModal('BTC')">
       <div class="btc-label">Bitcoin (BTC)</div>
       <div class="btc-price">$${fmt(c.btc_price||0, 0)}</div>
       <div class="btc-chg" style="color:${btcChgCol};font-weight:700">${pct(c.btc_chg||0)}</div>
       ${c.btc_mcap ? `<div style="font-size:9px;color:var(--t2);margin-top:3px">MCap: ${fmtB(c.btc_mcap)}</div>` : ''}
       ${c.btc_vol  ? `<div style="font-size:9px;color:var(--t3)">Vol: ${fmtB(c.btc_vol)}</div>` : ''}
     </div>
-    <div class="btc-card">
+    <div class="btc-card" onclick="openCryptoModal('ETH')" role="button" tabindex="0" style="cursor:pointer" onkeydown="if(event.key==='Enter')openCryptoModal('ETH')">
       <div class="btc-label">Ethereum (ETH)</div>
       <div class="btc-price">$${fmt(c.eth_price||0, 0)}</div>
       <div class="btc-chg" style="color:${ethChgCol};font-weight:700">${pct(c.eth_chg||0)}</div>
@@ -1222,20 +1299,27 @@ function buildCrypto() {
       <span style="font-size:9px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-right:4px">24h Best:</span>${moverRow(topG,true)}
       <span style="font-size:9px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin:0 4px">Worst:</span>${moverRow(topL,false)}
     </div>` : '';
-  $('crypto-grid').innerHTML = moversHtml + positions.map(p => `
-    <div class="ccard">
-      <div>
+  $('crypto-grid').innerHTML = moversHtml + positions.map(p => {
+    const qtyDecimals = p.qty != null && p.qty < 1 ? 4 : 2;
+    const avgDecimals = p.avg != null && p.avg < 1 ? 4 : 2;
+    return `
+    <div class="ccard" onclick="openCryptoModal('${p.symbol}')" role="button" tabindex="0" style="cursor:pointer" onkeydown="if(event.key==='Enter')openCryptoModal('${p.symbol}')">
+      <div style="flex:1">
         <div class="cc-sym">${p.symbol}</div>
         <div class="cc-theme" style="color:var(--t2)">${p.theme || ''}</div>
+        ${p.qty != null ? `<div style="font-size:10px;color:var(--t);margin-top:6px"><b>${fmt(p.qty, qtyDecimals)}</b> ${p.symbol}${p.value_usd ? ' · ' + fmtK(p.value_usd) : ''}</div>` : ''}
+        ${p.avg != null ? `<div style="font-size:9px;color:var(--t2)">Avg $${fmt(p.avg, avgDecimals)}</div>` : ''}
         ${p.market_cap ? `<div style="font-size:9px;color:var(--t2);margin-top:3px">MCap: ${fmtB(p.market_cap)}</div>` : ''}
         ${p.vol_24h    ? `<div style="font-size:9px;color:var(--t3)">Vol 24h: ${fmtB(p.vol_24h)}</div>` : ''}
       </div>
-      <div style="text-align:right">
+      <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:2px">
         <div class="cc-price">$${fmt(p.price, p.price < 1 ? 4 : 2)}</div>
-        <div class="cc-pnl ${col(p.pnl_pct)}">${p.pnl_label}</div>
+        <div class="cc-pnl ${col(p.pnl_pct)}">${p.pnl_label || ''}</div>
         <div style="font-size:9px;color:${(p.chg_24h||0)>=0?'var(--g)':'var(--r)'}">24h: ${pct(p.chg_24h||p.change_24h)}</div>
+        ${p.action && p.action !== 'WAIT' ? `<span style="font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;margin-top:2px;background:${p.action==='BUY'?'rgba(0,180,216,.15)':p.action==='STRONG BUY'?'rgba(0,230,118,.15)':'rgba(255,215,64,.15)'};color:${p.action==='BUY'?'#00b4d8':p.action==='STRONG BUY'?'var(--g)':'var(--a)'}">${p.action}</span>` : ''}
+        ${p.risk ? `<span class="risk-badge ${p.risk==='LOW'?'low':p.risk==='MEDIUM'?'medium':p.risk==='VERY HIGH'?'very-high':'high'}" style="font-size:8px">${p.risk}</span>` : ''}
       </div>
-    </div>`).join('');
+    </div>`}).join('');
 }
 
 // ── Fear & Greed ───────────────────────────────────────────────────────────
@@ -1365,7 +1449,6 @@ function buildActionCenter() {
       ${isTrim ? trimDetail : ''}
       <div class="acard-row"><span>Target</span><b>${tgt}</b></div>
       <div class="acard-row"><span>Stop-loss</span><b>${sl}</b></div>
-      <div class="acard-row"><span>Upside / R:R</span><b>${up} / ${rr}</b></div>
       ${isBuy ? `<div class="acard-row"><span>Entry zone</span><b>${zone}</b></div>` : ''}
       ${isBuy && p.upside_pct != null ? `<div style="margin-top:6px;padding:6px 10px;border-radius:6px;background:${p.upside_pct>20?'rgba(0,230,118,.15)':p.upside_pct>10?'rgba(0,180,216,.1)':'rgba(255,215,64,.1)'};display:flex;justify-content:space-between;align-items:center">
         <span style="font-size:10px;color:var(--t2)">Upside to target</span>
