@@ -20,18 +20,18 @@
   "CSPX.L": {
     "bucket": "core",
     "analysis": {
-      "status": "Tier 3 entry (nan% below MA150) \u2014 max DCA",
+      "status": "Above MA150 (+4.8%) \u2014 hold, no DCA",
       "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
-      "why": "Position nan% from avg $567.09 \u2014 adding here lowers cost basis.",
+      "why": "Position +34.9% from avg $567.09 \u2014 adding here lifts cost basis.",
       "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
     }
   },
   "CNDX.L": {
     "bucket": "core",
     "analysis": {
-      "status": "Tier 3 entry (nan% below MA150) \u2014 max DCA",
+      "status": "Above MA150 (+7.1%) \u2014 hold, no DCA",
       "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
-      "why": "Position nan% from avg $1235.20 \u2014 adding here lowers cost basis.",
+      "why": "Position +24.9% from avg $1235.20 \u2014 adding here lifts cost basis.",
       "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
     }
   },
