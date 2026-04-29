@@ -152,15 +152,6 @@
       "watch_for": "MA20 > MA50 cross + price holding above = trend reset."
     }
   },
-  "HIMS": {
-    "bucket": "swing",
-    "analysis": {
-      "status": "Mid-range pullback \u2014 wait",
-      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
-      "why": "Position -47.7% from avg $50.35 \u2014 adding here lowers cost basis.",
-      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
-    }
-  },
   "URA": {
     "bucket": "swing",
     "analysis": {
@@ -193,7 +184,7 @@
     "analysis": {
       "status": "-1.4\u03c3 from MA20 \u2014 normal range, vol expanding",
       "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
-      "why": "Position -43.1% from avg $125.10 \u2014 adding here lowers cost basis. Volume 2.2\u00d7 20D avg.",
+      "why": "Position -43.1% from avg $125.10 \u2014 adding here lowers cost basis. Volume 2.3\u00d7 20D avg.",
       "watch_for": "Move outside \u00b11.5\u03c3 for actionable signal."
     }
   },
