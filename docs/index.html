@@ -2,6 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+// SPA path restoration — paired with 404.html. Rewrites /?/avgo back to /avgo
+// synchronously, before any other script or relative-URL fetch runs.
+(function(l){
+  if (l.search[1] === '/') {
+    var decoded = l.search.slice(1).split('&').map(function(s){
+      return s.replace(/~and~/g, '&');
+    }).join('?');
+    window.history.replaceState(null, null,
+      l.pathname.slice(0, -1) + decoded + l.hash
+    );
+  }
+})(window.location);
+</script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Alpha Director</title>
 <style>
@@ -272,12 +286,19 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 .settings-btn{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;color:var(--t2);font-size:11px;font-weight:700;padding:6px 12px;cursor:pointer;transition:all .2s}
 .settings-btn:hover{background:rgba(255,255,255,.1);color:var(--t);border-color:var(--border2)}
 
+/* ── Generic value colors (used by col() helper across the dashboard) ── */
+.positive{color:var(--g)}
+.negative{color:var(--r)}
+.target-up{color:var(--g);font-weight:700}
+.target-dn{color:var(--r);font-weight:700}
+
 /* ── Per-ticker modal (chart + 4-line analysis) ── */
 .tmodal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:299;opacity:0;pointer-events:none;transition:opacity .2s;backdrop-filter:blur(4px)}
 .tmodal-overlay.open{opacity:1;pointer-events:all}
 .tmodal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.96);width:min(1180px,94vw);max-height:92vh;background:rgba(10,14,26,.98);backdrop-filter:blur(20px);border:1px solid var(--border2);border-radius:14px;z-index:300;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;overflow:hidden;display:flex;flex-direction:column}
 .tmodal.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1)}
-.tm-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap}
+#tmodal-content{display:flex;flex-direction:column;min-height:0;flex:1;width:100%;overflow:hidden}
+.tm-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap;flex-shrink:0}
 .tm-head-left{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
 .tm-tk{font-size:24px;font-weight:900;letter-spacing:-.5px}
 .tm-px{font-size:18px;font-weight:800;color:var(--t)}
@@ -1720,6 +1741,76 @@ buildEvents();
 buildDrawer();
 buildFooter();
 restoreCards();
+
+// ── Per-ticker URL routing ──────────────────────────────────────────────────
+// Each ticker / crypto symbol gets its own URL (e.g. /alpha-director/avgo,
+// /alpha-director/btc). Card click → pushState; modal close → pop back to
+// /alpha-director/. 404.html + the path-restoration script in <head> make
+// refresh and direct deep-links work on GitHub Pages.
+(function(){
+  var BASE = '/alpha-director/';
+  var _origOpenT = window.openTickerModal;
+  var _origOpenC = window.openCryptoModal;
+  var _origClose = window.closeTickerModal;
+
+  window.openTickerModal = function(ticker, _fromRouter){
+    _origOpenT(ticker);
+    var slug = (ticker || '').toLowerCase();
+    if (!slug) return;
+    var url = BASE + slug;
+    if (!_fromRouter && window.location.pathname !== url) {
+      try { history.pushState({ticker: ticker}, '', url); } catch(e){}
+    }
+  };
+
+  window.openCryptoModal = function(symbol, _fromRouter){
+    _origOpenC(symbol);
+    var slug = (symbol || '').toLowerCase();
+    if (!slug) return;
+    var url = BASE + slug;
+    if (!_fromRouter && window.location.pathname !== url) {
+      try { history.pushState({symbol: symbol}, '', url); } catch(e){}
+    }
+  };
+
+  window.closeTickerModal = function(_fromRouter){
+    _origClose();
+    if (!_fromRouter && window.location.pathname !== BASE) {
+      try { history.pushState(null, '', BASE); } catch(e){}
+    }
+  };
+
+  function _routeFromURL(){
+    var p = window.location.pathname;
+    if (p.indexOf(BASE) !== 0) return;
+    var slug = p.slice(BASE.length).replace(/\/$/, '').toUpperCase();
+    var ovOpen = document.getElementById('tmodal-overlay').classList.contains('open');
+    if (slug) {
+      var stockHit = (D.portfolio.positions || []).some(function(x){
+        return (x.ticker || '').toUpperCase() === slug;
+      });
+      if (stockHit) {
+        window.openTickerModal(slug, true);
+      } else {
+        // BTC, ETH, or any altcoin in D.crypto.positions
+        window.openCryptoModal(slug, true);
+      }
+    } else if (ovOpen) {
+      window.closeTickerModal(true);
+    }
+  }
+
+  // Wait for D.portfolio.positions to be populated, then route from URL.
+  function _waitAndRoute(tries){
+    tries = tries || 0;
+    var ready = false;
+    try { ready = !!(D && D.portfolio && (D.portfolio.positions || []).length); } catch(e){}
+    if (ready || tries > 30) { _routeFromURL(); return; }
+    setTimeout(function(){ _waitAndRoute(tries + 1); }, 200);
+  }
+  _waitAndRoute();
+  window.addEventListener('popstate', _routeFromURL);
+})();
 </script>
 </body>
 </html>
