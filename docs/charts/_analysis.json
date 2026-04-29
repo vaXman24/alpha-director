@@ -259,5 +259,464 @@
       "why": "Position -8.6% from avg $12.44 \u2014 adding here lowers cost basis.",
       "watch_for": "Move outside \u00b11.5\u03c3 for actionable signal."
     }
+  },
+  "NVDA": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Stretched in uptrend \u2014 don't chase",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Pullback to 20-50 zone is the next clean entry."
+    }
+  },
+  "AAPL": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "ARM": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Stretched in uptrend \u2014 don't chase",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Pullback to 20-50 zone is the next clean entry."
+    }
+  },
+  "KDP": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "MA20 > MA50 cross + price holding above = trend reset."
+    }
+  },
+  "SBUX": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Stretched in uptrend \u2014 don't chase",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Pullback to 20-50 zone is the next clean entry."
+    }
+  },
+  "MNST": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "MA20 > MA50 cross + price holding above = trend reset."
+    }
+  },
+  "SPY": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "IVV": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "JPM": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "GS": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "MS": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "C": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "KRE": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "FBTC": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "MSTR": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "SOXX": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Stretched in uptrend \u2014 don't chase",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Pullback to 20-50 zone is the next clean entry."
+    }
+  },
+  "SMH": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Stretched in uptrend \u2014 don't chase",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Pullback to 20-50 zone is the next clean entry."
+    }
+  },
+  "AMAT": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "KLAC": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "ASML": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "IPO": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "IPOS": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "FPX": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "TTWO": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "EA": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "RBLX": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "MA20 > MA50 cross + price holding above = trend reset."
+    }
+  },
+  "XBI": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Pullback in uptrend \u2014 buy zone",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Reclaim of MA20 + holding above MA50 = entry trigger."
+    }
+  },
+  "IBB": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Pullback in uptrend \u2014 buy zone",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Reclaim of MA20 + holding above MA50 = entry trigger."
+    }
+  },
+  "LABU": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Pullback in uptrend \u2014 buy zone",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Reclaim of MA20 + holding above MA50 = entry trigger."
+    }
+  },
+  "COPX": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Pullback in uptrend \u2014 buy zone",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Reclaim of MA20 + holding above MA50 = entry trigger."
+    }
+  },
+  "FCX": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Pullback in uptrend \u2014 buy zone",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Reclaim of MA20 + holding above MA50 = entry trigger."
+    }
+  },
+  "SCCO": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Falling knife in downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Need MA20 reclaiming MA50 before averaging down."
+    }
+  },
+  "BHP": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "TECK": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "ZIM": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Falling knife in downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Need MA20 reclaiming MA50 before averaging down."
+    }
+  },
+  "MATX": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "SBLK": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Stretched in uptrend \u2014 don't chase",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Pullback to 20-50 zone is the next clean entry."
+    }
+  },
+  "XRT": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "USO": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Stretched in uptrend \u2014 don't chase",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Pullback to 20-50 zone is the next clean entry."
+    }
+  },
+  "LMT": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Falling knife in downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Need MA20 reclaiming MA50 before averaging down."
+    }
+  },
+  "RTX": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Falling knife in downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Need MA20 reclaiming MA50 before averaging down."
+    }
+  },
+  "NOC": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Falling knife in downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Need MA20 reclaiming MA50 before averaging down."
+    }
+  },
+  "GLD": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Falling knife in downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Need MA20 reclaiming MA50 before averaging down."
+    }
+  },
+  "ITA": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Falling knife in downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Need MA20 reclaiming MA50 before averaging down."
+    }
+  },
+  "XLF": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "XLK": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Stretched in uptrend \u2014 don't chase",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Pullback to 20-50 zone is the next clean entry."
+    }
+  },
+  "AMD": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Stretched in uptrend \u2014 don't chase",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Pullback to 20-50 zone is the next clean entry."
+    }
+  },
+  "SMCI": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "MA20 > MA50 cross + price holding above = trend reset."
+    }
+  },
+  "ANET": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "VST": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "MA20 > MA50 cross + price holding above = trend reset."
+    }
+  },
+  "NRG": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Falling knife in downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "No cost basis recorded.",
+      "watch_for": "Need MA20 reclaiming MA50 before averaging down."
+    }
   }
 }
