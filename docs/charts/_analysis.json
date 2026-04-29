@@ -1,1 +1,272 @@
-{}
+{
+  "VOO": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Above MA150 (+4.6%) \u2014 hold, no DCA",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +29.7% from avg $503.91 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "QQQ": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Above MA150 (+7.8%) \u2014 hold, no DCA",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +23.0% from avg $537.12 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "CSPX.L": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Above MA150 (+5.0%) \u2014 hold, no DCA",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +35.2% from avg $567.09 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "CNDX.L": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Above MA150 (+8.1%) \u2014 hold, no DCA",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +26.2% from avg $1235.20 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "IWDA.AS": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Above MA150 (+4.3%) \u2014 hold, no DCA",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +23.5% from avg $94.17 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "GOOG": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Stretched +15.0% above MA150 \u2014 no-add zone",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +61.9% from avg $214.34 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "MSFT": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Tier 1 entry (-6.7% below MA150) \u2014 small DCA",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +3.7% from avg $409.23 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "META": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Above MA150 (+1.8%) \u2014 hold, no DCA",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +5.6% from avg $632.86 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "AMZN": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Stretched +15.8% above MA150 \u2014 no-add zone",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +32.7% from avg $197.91 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "AVGO": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Stretched +16.1% above MA150 \u2014 no-add zone",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +14.6% from avg $352.61 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "TSM": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Stretched +21.3% above MA150 \u2014 no-add zone",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +26.3% from avg $311.12 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "ORCL": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Tier 3 entry (-17.8% below MA150) \u2014 max DCA",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position -27.5% from avg $225.68 \u2014 adding here lowers cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "BAC": {
+    "bucket": "core",
+    "analysis": {
+      "status": "Above MA150 (+1.2%) \u2014 hold, no DCA",
+      "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
+      "why": "Position +0.3% from avg $52.74 \u2014 adding here lifts cost basis.",
+      "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
+    }
+  },
+  "APP": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "Position -9.4% from avg $488.43 \u2014 adding here lowers cost basis.",
+      "watch_for": "MA20 > MA50 cross + price holding above = trend reset."
+    }
+  },
+  "PANW": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Stretched in uptrend \u2014 don't chase",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "Position -1.7% from avg $184.65 \u2014 adding here lowers cost basis.",
+      "watch_for": "Pullback to 20-50 zone is the next clean entry."
+    }
+  },
+  "CEG": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "Position +3.8% from avg $286.07 \u2014 adding here lifts cost basis.",
+      "watch_for": "MA20 > MA50 cross + price holding above = trend reset."
+    }
+  },
+  "TSLA": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Downtrend \u2014 skip",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "Position +13.5% from avg $328.60 \u2014 adding here lifts cost basis.",
+      "watch_for": "MA20 > MA50 cross + price holding above = trend reset."
+    }
+  },
+  "HIMS": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "Position -47.7% from avg $50.35 \u2014 adding here lowers cost basis.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "URA": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "Position -3.6% from avg $54.81 \u2014 adding here lowers cost basis.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "DEFT": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "Position -36.7% from avg $1.18 \u2014 adding here lowers cost basis.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
+    }
+  },
+  "SOUN": {
+    "bucket": "spec",
+    "analysis": {
+      "status": "+0.5\u03c3 from MA20 \u2014 normal range, vol stable",
+      "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
+      "why": "Position -33.5% from avg $11.61 \u2014 adding here lowers cost basis.",
+      "watch_for": "Move outside \u00b11.5\u03c3 for actionable signal."
+    }
+  },
+  "HOOD": {
+    "bucket": "spec",
+    "analysis": {
+      "status": "-1.5\u03c3 from MA20 \u2014 normal range, vol expanding",
+      "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
+      "why": "Position -43.1% from avg $125.10 \u2014 adding here lowers cost basis. Volume 2.2\u00d7 20D avg.",
+      "watch_for": "Move outside \u00b11.5\u03c3 for actionable signal."
+    }
+  },
+  "COIN": {
+    "bucket": "spec",
+    "analysis": {
+      "status": "At MA20 (-0.5\u03c3) \u2014 equilibrium, vol stable",
+      "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
+      "why": "Position +2.3% from avg $177.36 \u2014 adding here lifts cost basis.",
+      "watch_for": "Next ATR expansion picks the direction. Watch volume."
+    }
+  },
+  "IONQ": {
+    "bucket": "spec",
+    "analysis": {
+      "status": "+1.1\u03c3 from MA20 \u2014 normal range, vol expanding",
+      "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
+      "why": "Position +1.8% from avg $41.34 \u2014 adding here lifts cost basis.",
+      "watch_for": "Move outside \u00b11.5\u03c3 for actionable signal."
+    }
+  },
+  "BMNR": {
+    "bucket": "spec",
+    "analysis": {
+      "status": "-0.6\u03c3 from MA20 \u2014 normal range, vol compressing",
+      "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
+      "why": "Position -32.9% from avg $30.91 \u2014 adding here lowers cost basis.",
+      "watch_for": "Move outside \u00b11.5\u03c3 for actionable signal."
+    }
+  },
+  "OSCR": {
+    "bucket": "spec",
+    "analysis": {
+      "status": "+3.5\u03c3 above MA20 \u2014 overextended",
+      "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
+      "why": "Position +19.2% from avg $15.01 \u2014 adding here lifts cost basis.",
+      "watch_for": "Mean-reversion to MA20 likely. Don't chase."
+    }
+  },
+  "SOFI": {
+    "bucket": "spec",
+    "analysis": {
+      "status": "-2.1\u03c3 below MA20 \u2014 capitulation zone",
+      "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
+      "why": "Position -41.0% from avg $26.31 \u2014 adding here lowers cost basis. Volume 3.1\u00d7 20D avg.",
+      "watch_for": "Volume spike + bounce off lower band = potential entry."
+    }
+  },
+  "IBIT": {
+    "bucket": "spec",
+    "analysis": {
+      "status": "+0.6\u03c3 from MA20 \u2014 normal range, vol compressing",
+      "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
+      "why": "Position -20.0% from avg $53.43 \u2014 adding here lowers cost basis.",
+      "watch_for": "Move outside \u00b11.5\u03c3 for actionable signal."
+    }
+  },
+  "ETHA": {
+    "bucket": "spec",
+    "analysis": {
+      "status": "At MA20 (-0.4\u03c3) \u2014 equilibrium, vol compressing",
+      "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
+      "why": "Position -28.0% from avg $23.41 \u2014 adding here lowers cost basis.",
+      "watch_for": "Next ATR expansion picks the direction. Watch volume."
+    }
+  },
+  "CLSK": {
+    "bucket": "spec",
+    "analysis": {
+      "status": "+0.5\u03c3 from MA20 \u2014 normal range, vol stable",
+      "meaning": "High-beta needs volatility-aware bands (ATR\u00d72). \u03c3 measures distance from short-term mean in vol units, not percent \u2014 comparable across regimes.",
+      "why": "Position -8.7% from avg $12.44 \u2014 adding here lowers cost basis.",
+      "watch_for": "Move outside \u00b11.5\u03c3 for actionable signal."
+    }
+  }
+}
