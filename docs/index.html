@@ -272,6 +272,41 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 .settings-btn{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:8px;color:var(--t2);font-size:11px;font-weight:700;padding:6px 12px;cursor:pointer;transition:all .2s}
 .settings-btn:hover{background:rgba(255,255,255,.1);color:var(--t);border-color:var(--border2)}
 
+/* ── Per-ticker modal (chart + 4-line analysis) ── */
+.tmodal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:299;opacity:0;pointer-events:none;transition:opacity .2s;backdrop-filter:blur(4px)}
+.tmodal-overlay.open{opacity:1;pointer-events:all}
+.tmodal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.96);width:min(1180px,94vw);max-height:92vh;background:rgba(10,14,26,.98);backdrop-filter:blur(20px);border:1px solid var(--border2);border-radius:14px;z-index:300;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;overflow:hidden;display:flex;flex-direction:column}
+.tmodal.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1)}
+.tm-head{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border);gap:12px;flex-wrap:wrap}
+.tm-head-left{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.tm-tk{font-size:24px;font-weight:900;letter-spacing:-.5px}
+.tm-px{font-size:18px;font-weight:800;color:var(--t)}
+.tm-chg{font-size:12px;font-weight:700}
+.tm-chg.positive{color:var(--g)}
+.tm-chg.negative{color:var(--r)}
+.tm-pills{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tm-status-pill{padding:4px 10px;border-radius:14px;font-size:11px;font-weight:700;background:var(--bg3);color:var(--t);border:1px solid var(--border)}
+.tm-close{cursor:pointer;color:var(--t2);font-size:22px;line-height:1;padding:6px 11px;border-radius:6px;transition:background .15s,color .15s;user-select:none}
+.tm-close:hover{background:rgba(255,255,255,.06);color:var(--t)}
+.tm-theme{font-size:11px;color:var(--t2);margin-top:2px;width:100%}
+.tm-body{padding:18px 22px;overflow-y:auto}
+.tm-chart-wrap{position:relative;background:#0e1a2e;border-radius:10px;margin-bottom:18px;min-height:120px}
+.tm-chart{width:100%;display:block;border-radius:10px}
+.tm-chart-fallback{display:none;color:var(--t2);font-size:12px;padding:40px 20px;text-align:center}
+.tm-analysis{display:grid;grid-template-columns:auto 1fr;gap:10px 18px;font-size:13px;line-height:1.55}
+.tm-key{font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--t3);padding-top:3px;white-space:nowrap}
+.tm-val{color:var(--t)}
+.tm-val.status{font-weight:700;color:var(--a)}
+.scard{cursor:pointer}
+@media(max-width:600px){
+  .tm-tk{font-size:20px}
+  .tm-px{font-size:16px}
+  .tm-analysis{grid-template-columns:1fr;gap:2px 0}
+  .tm-key{padding-top:10px}
+  .tm-body{padding:14px 16px}
+  .tm-head{padding:12px 16px}
+}
+
 /* ── Polymarket ── */
 .pm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
 .pm-card{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:12px 14px}
@@ -312,6 +347,12 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
     <div class="drawer-section-title">Watchlist</div>
     <div id="drawer-watchlist"></div>
   </div>
+</div>
+
+<!-- Per-ticker modal: 150D chart + 4-line analysis -->
+<div class="tmodal-overlay" id="tmodal-overlay" onclick="closeTickerModal()"></div>
+<div class="tmodal" id="tmodal" role="dialog" aria-modal="true" aria-labelledby="tm-tk">
+  <div id="tmodal-content"></div>
 </div>
 
 <!-- Ticker tape -->
@@ -537,6 +578,74 @@ const fmtK = v => v >= 1e6 ? '$'+(v/1e6).toFixed(1)+'M' : v >= 1e3 ? '$'+(v/1e3)
 const fmtB = v => { if (!v) return '—'; if (v >= 1e12) return '$'+(v/1e12).toFixed(2)+'T'; if (v >= 1e9) return '$'+(v/1e9).toFixed(1)+'B'; if (v >= 1e6) return '$'+(v/1e6).toFixed(0)+'M'; return '$'+Math.round(v); };
 const pct = v => v == null ? '—' : (v >= 0 ? '+' : '') + v.toFixed(2) + '%';
 const col = v => v == null ? '' : (v >= 0 ? 'positive' : 'negative');
+
+// ── Per-ticker analysis sidecar (charts/_analysis.json) ───────────────────
+// Loaded once at startup; the modal reads from this map by ticker. Until
+// publisher.py injects analysis directly into data.json on the VPS, this
+// sidecar is the source of truth for the 4-line analysis text.
+window._tickerAnalysis = {};
+fetch('charts/_analysis.json?v=' + Date.now())
+  .then(r => r.ok ? r.json() : {})
+  .then(j => { window._tickerAnalysis = j || {}; })
+  .catch(() => {});
+
+// ── Per-ticker modal ───────────────────────────────────────────────────────
+function openTickerModal(ticker) {
+  const t = (ticker || '').toUpperCase();
+  if (!t) return;
+  const p = (D.portfolio.positions || []).find(x => (x.ticker || '').toUpperCase() === t);
+  if (!p) return;
+  const a = (window._tickerAnalysis[t] && window._tickerAnalysis[t].analysis) || (p.analysis || {});
+  const chartUrl = p.chart_url || ('charts/' + t + '.png');
+  const chgClass = p.chg_1d == null ? '' : (p.chg_1d >= 0 ? 'positive' : 'negative');
+  const status   = a.status || '';
+  const verdict  = (p.verdict || '').toLowerCase();
+
+  document.getElementById('tmodal-content').innerHTML = `
+    <div class="tm-head">
+      <div class="tm-head-left">
+        <span class="tm-tk" id="tm-tk">${t}</span>
+        <span class="tm-px">$${fmt(p.price, 2)}</span>
+        <span class="tm-chg ${chgClass}">${pct(p.chg_1d)}</span>
+        <div class="tm-pills">
+          <span class="sc-class ${p.class || ''}">${(p.class || '').toUpperCase()}</span>
+          ${verdict ? `<span class="verdict-badge ${verdict}">${p.verdict}</span>` : ''}
+          ${p.action && p.action !== 'WAIT' && p.action !== 'AVOID' ?
+            `<span class="tm-status-pill" style="color:${p.action==='STRONG BUY'?'var(--g)':p.action==='BUY'?'#00b4d8':p.action==='TRIM'?'var(--a)':'var(--r)'}">${p.action}</span>` : ''}
+          ${status ? `<span class="tm-status-pill">${status}</span>` : ''}
+        </div>
+        <div class="tm-theme">${p.theme || ''} · Avg $${fmt(p.avg, 2)} · ${p.shares} sh · ${(p.pnl_pct >= 0 ? '+' : '') + p.pnl_pct}%</div>
+      </div>
+      <span class="tm-close" onclick="closeTickerModal()" aria-label="Close">✕</span>
+    </div>
+    <div class="tm-body">
+      <div class="tm-chart-wrap">
+        <img class="tm-chart" src="${chartUrl}?v=${Date.now()}" alt="${t} 150-day chart"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div class="tm-chart-fallback">Chart not yet rendered for ${t}.</div>
+      </div>
+      <div class="tm-analysis">
+        <div class="tm-key">Status</div>     <div class="tm-val status">${a.status     || '—'}</div>
+        <div class="tm-key">Meaning</div>    <div class="tm-val">${       a.meaning    || '—'}</div>
+        <div class="tm-key">Why</div>        <div class="tm-val">${       a.why        || '—'}</div>
+        <div class="tm-key">Watch for</div>  <div class="tm-val">${       a.watch_for  || '—'}</div>
+      </div>
+    </div>
+  `;
+  document.getElementById('tmodal-overlay').classList.add('open');
+  document.getElementById('tmodal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeTickerModal() {
+  document.getElementById('tmodal-overlay').classList.remove('open');
+  document.getElementById('tmodal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeTickerModal();
+});
 
 // ── Drawer ─────────────────────────────────────────────────────────────────
 function openDrawer() {
@@ -917,7 +1026,7 @@ function buildPortCards() {
         <span class="abadge ${p.alert[0]}">${p.alert[1]}</span>
       </div>` : '';
 
-    return `<div class="scard v-${vclass}">
+    return `<div class="scard v-${vclass}" onclick="openTickerModal('${p.ticker}')" role="button" tabindex="0" onkeydown="if(event.key==='Enter')openTickerModal('${p.ticker}')">
       <div class="sc-top">
         <div>
           <div class="sc-ticker">${p.ticker}</div>
