@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-29T06:32:38.948018+00:00",
+  "generated_at": "2026-04-29T06:47:07.958381+00:00",
   "regime": "RISK-ON",
   "macro_warn": "",
   "monthly_dca": 10000,
@@ -256,11 +256,11 @@
       "t10y": null
     },
     "btc_regime": {
-      "btc_price": 77092,
-      "btc_chg_24h": 0.27,
+      "btc_price": 77022,
+      "btc_chg_24h": 0.49,
       "btc_dominance": 58.0,
-      "eth_price": 2329.0,
-      "eth_chg_24h": 1.92,
+      "eth_price": 2327.0,
+      "eth_chg_24h": 2.35,
       "eth_dominance": 10.6,
       "eth_btc_ratio": 0.03021,
       "dom_signal": "BALANCED"
@@ -2207,18 +2207,18 @@
       {
         "symbol": "SOL",
         "theme": "L1 / DeFi",
-        "price": 84.81,
-        "chg_24h": 0.78,
-        "market_cap": 48842465574,
-        "vol_24h": 2494328004,
+        "price": 84.75,
+        "chg_24h": 0.97,
+        "market_cap": 48843256683,
+        "vol_24h": 2486872869,
         "avg": 186.48,
         "qty": 69.71379,
-        "value": 5912.0,
-        "pnl_pct": -54.5,
-        "pnl_label": "-54.5%",
+        "value": 5908.0,
+        "pnl_pct": -54.6,
+        "pnl_label": "-54.6%",
         "action": "EXIT",
         "risk": "VERY HIGH",
-        "stop_loss": 67.848,
+        "stop_loss": 67.8,
         "alert": [
           "danger",
           "DEEP LOSS"
@@ -2227,44 +2227,44 @@
       {
         "symbol": "XRP",
         "theme": "Payments / Ripple",
-        "price": 1.4,
-        "chg_24h": 0.19,
-        "market_cap": 86019109238,
-        "vol_24h": 1698606511,
+        "price": 1.39,
+        "chg_24h": 0.34,
+        "market_cap": 85908167787,
+        "vol_24h": 1765096019,
         "avg": 1.28,
         "qty": 3099.24882,
-        "value": 4339.0,
-        "pnl_pct": 9.4,
-        "pnl_label": "+9.4%",
+        "value": 4308.0,
+        "pnl_pct": 8.6,
+        "pnl_label": "+8.6%",
         "action": "WAIT",
         "risk": "VERY HIGH",
-        "stop_loss": 1.12,
+        "stop_loss": 1.112,
         "alert": null
       },
       {
         "symbol": "LINK",
         "theme": "Oracles",
-        "price": 9.35,
-        "chg_24h": 0.85,
-        "market_cap": 6799802049,
-        "vol_24h": 182400398,
+        "price": 9.33,
+        "chg_24h": 1.02,
+        "market_cap": 6787207713,
+        "vol_24h": 180896514,
         "avg": 14.95,
         "qty": 312.1347,
-        "value": 2918.0,
-        "pnl_pct": -37.5,
-        "pnl_label": "-37.5%",
+        "value": 2912.0,
+        "pnl_pct": -37.6,
+        "pnl_label": "-37.6%",
         "action": "WAIT",
         "risk": "VERY HIGH",
-        "stop_loss": 7.48,
+        "stop_loss": 7.464,
         "alert": null
       },
       {
         "symbol": "DOT",
         "theme": "Interoperability",
         "price": 1.24,
-        "chg_24h": 0.94,
-        "market_cap": 2089126826,
-        "vol_24h": 117917995,
+        "chg_24h": 1.37,
+        "market_cap": 2088513085,
+        "vol_24h": 117163111,
         "avg": 5.38,
         "qty": 917.1933,
         "value": 1137.0,
@@ -2281,18 +2281,18 @@
       {
         "symbol": "ALGO",
         "theme": "L1 / Payments",
-        "price": 0.114,
-        "chg_24h": -0.76,
-        "market_cap": 1015417311,
-        "vol_24h": 36198313,
+        "price": 0.1139,
+        "chg_24h": -0.61,
+        "market_cap": 1014844671,
+        "vol_24h": 35964553,
         "avg": 0.2439,
         "qty": 8889,
-        "value": 1014.0,
-        "pnl_pct": -53.2,
-        "pnl_label": "-53.2%",
+        "value": 1012.0,
+        "pnl_pct": -53.3,
+        "pnl_label": "-53.3%",
         "action": "EXIT",
         "risk": "VERY HIGH",
-        "stop_loss": 0.091237,
+        "stop_loss": 0.091084,
         "alert": [
           "danger",
           "DEEP LOSS"
@@ -2301,18 +2301,18 @@
       {
         "symbol": "AAVE",
         "theme": "DeFi Lending",
-        "price": 97.31,
-        "chg_24h": -0.25,
-        "market_cap": 1475960837,
-        "vol_24h": 249028377,
+        "price": 97.12,
+        "chg_24h": -0.22,
+        "market_cap": 1473964254,
+        "vol_24h": 247802729,
         "avg": 279.92,
         "qty": 6.9444,
-        "value": 676.0,
-        "pnl_pct": -65.2,
-        "pnl_label": "-65.2%",
+        "value": 674.0,
+        "pnl_pct": -65.3,
+        "pnl_label": "-65.3%",
         "action": "EXIT",
         "risk": "VERY HIGH",
-        "stop_loss": 77.848,
+        "stop_loss": 77.696,
         "alert": [
           "danger",
           "DEEP LOSS"
@@ -2321,18 +2321,18 @@
       {
         "symbol": "ONDO",
         "theme": "RWA Tokenization",
-        "price": 0.267,
-        "chg_24h": 1.39,
-        "market_cap": 1299503146,
-        "vol_24h": 49599676,
+        "price": 0.2665,
+        "chg_24h": 1.92,
+        "market_cap": 1297730382,
+        "vol_24h": 49268349,
         "avg": 1.11,
         "qty": 2364,
-        "value": 631.0,
-        "pnl_pct": -75.9,
-        "pnl_label": "-75.9%",
+        "value": 630.0,
+        "pnl_pct": -76.0,
+        "pnl_label": "-76.0%",
         "action": "EXIT",
         "risk": "VERY HIGH",
-        "stop_loss": 0.21358,
+        "stop_loss": 0.213202,
         "alert": [
           "danger",
           "DEEP LOSS"
@@ -2341,18 +2341,18 @@
       {
         "symbol": "NEAR",
         "theme": "L1 / AI",
-        "price": 1.37,
-        "chg_24h": 0.68,
-        "market_cap": 1769856714,
-        "vol_24h": 121545688,
+        "price": 1.36,
+        "chg_24h": 0.86,
+        "market_cap": 1766229924,
+        "vol_24h": 119724611,
         "avg": 3.15,
         "qty": 376.699,
-        "value": 516.0,
-        "pnl_pct": -56.5,
-        "pnl_label": "-56.5%",
+        "value": 512.0,
+        "pnl_pct": -56.8,
+        "pnl_label": "-56.8%",
         "action": "EXIT",
         "risk": "VERY HIGH",
-        "stop_loss": 1.096,
+        "stop_loss": 1.088,
         "alert": [
           "danger",
           "DEEP LOSS"
@@ -2361,18 +2361,18 @@
       {
         "symbol": "AVAX",
         "theme": "L1 / DeFi",
-        "price": 9.33,
-        "chg_24h": 1.21,
-        "market_cap": 4027152670,
-        "vol_24h": 167943495,
+        "price": 9.31,
+        "chg_24h": 1.43,
+        "market_cap": 4023440581,
+        "vol_24h": 167460161,
         "avg": 38.02,
         "qty": 25.9136,
-        "value": 242.0,
+        "value": 241.0,
         "pnl_pct": -75.5,
         "pnl_label": "-75.5%",
         "action": "EXIT",
         "risk": "VERY HIGH",
-        "stop_loss": 7.464,
+        "stop_loss": 7.448,
         "alert": [
           "danger",
           "DEEP LOSS"
@@ -2382,9 +2382,9 @@
         "symbol": "KAS",
         "theme": "PoW / Fast",
         "price": 0.033,
-        "chg_24h": -0.24,
-        "market_cap": 904284526,
-        "vol_24h": 13002030,
+        "chg_24h": 0.11,
+        "market_cap": 903163888,
+        "vol_24h": 12940271,
         "avg": 0.13,
         "qty": 3076.923,
         "value": 102.0,
@@ -2392,7 +2392,7 @@
         "pnl_label": "-74.6%",
         "action": "EXIT",
         "risk": "VERY HIGH",
-        "stop_loss": 0.026421,
+        "stop_loss": 0.026391,
         "alert": [
           "danger",
           "DEEP LOSS"
@@ -2401,18 +2401,18 @@
       {
         "symbol": "HBAR",
         "theme": "Enterprise DLT",
-        "price": 0.0902,
-        "chg_24h": 1.16,
-        "market_cap": 3913313909,
-        "vol_24h": 46253384,
+        "price": 0.09,
+        "chg_24h": 1.11,
+        "market_cap": 3903894667,
+        "vol_24h": 46898514,
         "avg": 0.235,
         "qty": 1150,
-        "value": 104.0,
-        "pnl_pct": -61.6,
-        "pnl_label": "-61.6%",
+        "value": 103.0,
+        "pnl_pct": -61.7,
+        "pnl_label": "-61.7%",
         "action": "EXIT",
         "risk": "VERY HIGH",
-        "stop_loss": 0.072179,
+        "stop_loss": 0.071974,
         "alert": [
           "danger",
           "DEEP LOSS"
@@ -2421,10 +2421,10 @@
       {
         "symbol": "DOGE",
         "theme": "Meme / Payments",
-        "price": 0.1022,
-        "chg_24h": 2.34,
-        "market_cap": 15753788066,
-        "vol_24h": 1686239258,
+        "price": 0.1021,
+        "chg_24h": 2.75,
+        "market_cap": 15727166600,
+        "vol_24h": 1643424765,
         "avg": 0.384,
         "qty": 611,
         "value": 62.0,
@@ -2432,7 +2432,7 @@
         "pnl_label": "-73.4%",
         "action": "EXIT",
         "risk": "VERY HIGH",
-        "stop_loss": 0.08177,
+        "stop_loss": 0.08169,
         "alert": [
           "danger",
           "DEEP LOSS"
@@ -2445,19 +2445,19 @@
       "label": "Fear"
     },
     "btc_context": {
-      "btc_price": 77092,
-      "btc_chg_24h": 0.27,
+      "btc_price": 77022,
+      "btc_chg_24h": 0.49,
       "btc_dominance": 58.0,
-      "eth_price": 2329.0,
-      "eth_chg_24h": 1.92,
+      "eth_price": 2327.0,
+      "eth_chg_24h": 2.35,
       "eth_dominance": 10.6,
       "eth_btc_ratio": 0.03021,
       "dom_signal": "BALANCED"
     },
-    "btc_price": 77092,
-    "btc_chg": 0.27,
-    "eth_price": 2329.0,
-    "eth_chg": 1.92
+    "btc_price": 77022,
+    "btc_chg": 0.49,
+    "eth_price": 2327.0,
+    "eth_chg": 2.35
   },
   "fear_greed": {
     "score": 64,
@@ -2567,12 +2567,403 @@
   },
   "insiders": [],
   "polymarket": {
-    "markets": [],
+    "markets": [
+      {
+        "id": "1823780",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin dip to $60,000 in April?",
+        "yes_prob": 0.1,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.1,
+          99.9
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823781",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin dip to $55,000 in April?",
+        "yes_prob": 0.1,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.1,
+          99.9
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823782",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin dip to $50,000 in April?",
+        "yes_prob": 0.1,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.1,
+          100.0
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823785",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin dip to $35,000 in April?",
+        "yes_prob": 0.1,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.1,
+          100.0
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823769",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin reach $150,000 in April?",
+        "yes_prob": 0.1,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.1,
+          100.0
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823772",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin reach $100,000 in April?",
+        "yes_prob": 0.1,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.1,
+          100.0
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823773",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin reach $95,000 in April?",
+        "yes_prob": 0.1,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.1,
+          99.9
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823774",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin reach $90,000 in April?",
+        "yes_prob": 0.1,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.1,
+          99.9
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823775",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin reach $85,000 in April?",
+        "yes_prob": 0.4,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.4,
+          99.6
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823777",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin reach $75,000 in April?",
+        "yes_prob": 100.0,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          100.0,
+          0.0
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823779",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin dip to $65,000 in April?",
+        "yes_prob": 0.4,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.4,
+          99.6
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      },
+      {
+        "id": "1823783",
+        "event_id": "334550",
+        "event_title": "What price will Bitcoin hit in April?",
+        "question": "Will Bitcoin dip to $45,000 in April?",
+        "yes_prob": 0.1,
+        "outcomes": [
+          "Yes",
+          "No"
+        ],
+        "prices": [
+          0.1,
+          100.0
+        ],
+        "volume": 53164277,
+        "liquidity": 2582092,
+        "end_date": "2026-05-01",
+        "days_out": 1,
+        "relevance": 7,
+        "confidence_tier": "full",
+        "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-april-2026"
+      }
+    ],
     "bull_signal": null,
     "fed_cut_prob": null,
     "recession_prob": null,
     "btc_up_prob": null,
-    "fetched_at": "06:32"
+    "fetched_at": "06:47Z"
   },
-  "trend_ticker_data": {}
+  "trend_ticker_data": {},
+  "regime_info": {
+    "regime": "NEUTRAL",
+    "stress_score": 0,
+    "sizing_mult": 0.75,
+    "blocked_buckets": [],
+    "vix": 20.0,
+    "fg": 50,
+    "reasons": [
+      "Cache unavailable \u2014 defaulting to NEUTRAL"
+    ],
+    "generated_at": null
+  },
+  "calibration_status": {
+    "schema_version": 1,
+    "phase": "G-B-shadow",
+    "phase_label": "Live shadow scrapers",
+    "phase_progress_pct": 60,
+    "started_at": "2026-04-28",
+    "weeks_to_first_weights": 8,
+    "next_milestone": "G-D-1 single-batch deploy + week-3 shadow phase begins",
+    "next_milestone_target": "2026-04-30",
+    "n_healthy": 0,
+    "n_red": 0,
+    "n_total": 6,
+    "sources": [
+      {
+        "id": "openinsider_cluster",
+        "label": "OpenInsider cluster",
+        "type": "discrete-event",
+        "weight_prior": 0.6,
+        "weight_empirical": null,
+        "status": "YELLOW",
+        "status_icon": "\ud83d\udfe1",
+        "volume_7d": 0,
+        "baseline_volume_per_week": 10,
+        "last_successful_poll": "2026-04-29T06:41:25.528852+00:00",
+        "consecutive_red_days": 0,
+        "phase_method": "retro+shadow"
+      },
+      {
+        "id": "finra_short_zscore",
+        "label": "FINRA short-volume z",
+        "type": "trend-feature",
+        "weight_prior": 0.4,
+        "weight_empirical": null,
+        "status": "YELLOW",
+        "status_icon": "\ud83d\udfe1",
+        "volume_7d": 0,
+        "baseline_volume_per_week": 30,
+        "last_successful_poll": "2026-04-29T06:41:36.322356+00:00",
+        "consecutive_red_days": 0,
+        "phase_method": "retro+shadow"
+      },
+      {
+        "id": "capitol_trades_house",
+        "label": "CapitolTrades House",
+        "type": "discrete-event",
+        "weight_prior": 0.35,
+        "weight_empirical": null,
+        "status": "YELLOW",
+        "status_icon": "\ud83d\udfe1",
+        "volume_7d": 0,
+        "baseline_volume_per_week": 8,
+        "last_successful_poll": "2026-04-29T06:41:50.719056+00:00",
+        "consecutive_red_days": 0,
+        "phase_method": "retro+shadow"
+      },
+      {
+        "id": "options_flow_unusual",
+        "label": "Options unusual flow",
+        "type": "discrete-event",
+        "weight_prior": 0.5,
+        "weight_empirical": null,
+        "status": "YELLOW",
+        "status_icon": "\ud83d\udfe1",
+        "volume_7d": 56,
+        "baseline_volume_per_week": 15,
+        "last_successful_poll": "2026-04-29T06:42:04.372051+00:00",
+        "consecutive_red_days": 0,
+        "phase_method": "shadow only"
+      },
+      {
+        "id": "reddit_rss",
+        "label": "Reddit RSS sentiment",
+        "type": "trend-feature",
+        "weight_prior": 0.35,
+        "weight_empirical": null,
+        "status": "PAUSED",
+        "status_icon": "\u23f8",
+        "volume_7d": 0,
+        "baseline_volume_per_week": 120,
+        "last_successful_poll": null,
+        "consecutive_red_days": 0,
+        "phase_method": "shadow forward"
+      },
+      {
+        "id": "polymarket",
+        "label": "Polymarket /events",
+        "type": "discrete-event",
+        "weight_prior": 0.4,
+        "weight_empirical": null,
+        "status": "YELLOW",
+        "status_icon": "\ud83d\udfe1",
+        "volume_7d": 0,
+        "baseline_volume_per_week": 4,
+        "last_successful_poll": "2026-04-29T06:42:04.631575+00:00",
+        "consecutive_red_days": 0,
+        "phase_method": "shadow forward"
+      }
+    ],
+    "theses": {
+      "open_theses": 0,
+      "outcomes_total": 0,
+      "outcomes_with_brier": 0
+    },
+    "costs": {
+      "month_spent_usd": 0,
+      "month_budget_usd": 130,
+      "phase_spent_usd": 0,
+      "phase_budget_usd": 350,
+      "ytd_total_usd": 0,
+      "last_updated": "2026-04-29T06:47:26.275196+00:00"
+    },
+    "warming_up": true,
+    "generated_at": "2026-04-29T06:47:26.275207+00:00"
+  }
 }
