@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="0">
 <script>
 // SPA path restoration — paired with 404.html. Rewrites /?/avgo back to /avgo
 // synchronously, before any other script or relative-URL fetch runs.
@@ -310,7 +313,7 @@ body{background:var(--bg);color:var(--t);font-family:-apple-system,'SF Pro Displ
 .tm-close{cursor:pointer;color:var(--t2);font-size:22px;line-height:1;padding:6px 11px;border-radius:6px;transition:background .15s,color .15s;user-select:none}
 .tm-close:hover{background:rgba(255,255,255,.06);color:var(--t)}
 .tm-theme{font-size:11px;color:var(--t2);margin-top:2px;width:100%}
-.tm-body{padding:18px 22px;overflow-y:auto}
+.tm-body{padding:18px 22px;overflow-y:auto;flex:1;min-height:0}
 .tm-chart-wrap{position:relative;background:#0e1a2e;border-radius:10px;margin-bottom:18px;min-height:120px}
 .tm-chart{width:100%;display:block;border-radius:10px}
 .tm-chart-fallback{display:none;color:var(--t2);font-size:12px;padding:40px 20px;text-align:center}
