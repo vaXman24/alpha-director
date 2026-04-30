@@ -4744,6 +4744,11 @@ window._openCryptoModal = function(symbol) {
   .ad-promote-panel input:focus{border-color:#a78bfa}
   .ad-promote-cmd{display:block;width:100%;box-sizing:border-box;background:#020202;color:#a78bfa;border:1px solid #1a1a1a;border-radius:6px;padding:9px 10px;font-family:Consolas,Monaco,monospace;font-size:10px;line-height:1.45;word-break:break-all;margin-top:8px;user-select:all}
 
+  /* Research sub-section (shares=0 portfolio entries moved here) */
+  .ad-research-section{margin-top:18px;margin-bottom:16px}
+  .ad-research-section .sec-label{display:flex;align-items:baseline;gap:8px}
+  .ad-research-hint{font-size:10px;color:var(--t3);font-weight:400;letter-spacing:0;margin-left:auto}
+
   /* Mobile */
   @media (max-width:720px){
     .ad-search-input{width:130px}
@@ -5119,7 +5124,7 @@ window._openCryptoModal = function(symbol) {
 
   // ── Decorate existing cards with ⭐ stars ────────────────────────────────
   function decorateCardsWithStars(){
-    var sels = '#port-grid .scard, #watchlist-grid .swing-card, #swing-grid .swing-card, #action-center .acard, #crypto-grid .scard, #crypto-grid .crypto-card';
+    var sels = '#port-grid .scard, #ad-research-grid .scard, #watchlist-grid .swing-card, #swing-grid .swing-card, #action-center .acard, #crypto-grid .scard, #crypto-grid .crypto-card';
     document.querySelectorAll(sels).forEach(function(card){
       if (card.classList.contains('ad-fav-card')) return; // favorites already have star
       var existing = card.querySelector(':scope > .ad-fav-star');
@@ -5408,6 +5413,69 @@ window._openCryptoModal = function(symbol) {
     window._openStockModal.__adWrapped = true;
   }
 
+  // ── Split Portfolio: move shares=0 entries into a "Research Tickers" section.
+  // Runs after every buildPortCards. The original section keeps held positions;
+  // we create a sibling section right below for research entries (full card UI,
+  // same data, full evaluation pipeline — they're already in D.portfolio.positions
+  // so DCA, Action Center, effective_action all include them automatically).
+  var _splitInProgress = false;
+  function splitPortfolioByShares(){
+    if (_splitInProgress) return;
+    var portGrid = document.getElementById('port-grid');
+    if (!portGrid) return;
+    if (typeof D === 'undefined' || !D || !D.portfolio) return;
+
+    // Ensure a research section exists right after the Portfolio section.
+    var researchSec = document.getElementById('ad-research-section');
+    if (!researchSec){
+      var portSection = portGrid.closest('.section');
+      if (!portSection || !portSection.parentNode) return;
+      researchSec = document.createElement('div');
+      researchSec.className = 'section ad-research-section';
+      researchSec.id = 'ad-research-section';
+      researchSec.innerHTML =
+        '<div class="sec-label">🔬 Research Tickers ' +
+          '<span id="ad-research-count" style="font-weight:400;opacity:.6;font-size:11px"></span>' +
+          '<span class="ad-research-hint">watch-only · full evaluation, 0 shares</span>' +
+        '</div>' +
+        '<div class="port-grid" id="ad-research-grid"></div>';
+      portSection.parentNode.insertBefore(researchSec, portSection.nextSibling);
+    }
+    var researchGrid = document.getElementById('ad-research-grid');
+    if (!researchGrid) return;
+
+    _splitInProgress = true;
+    try {
+      var moved = 0;
+      // Walk a snapshot — we mutate the live children list.
+      var cards = Array.prototype.slice.call(portGrid.children);
+      for (var i = 0; i < cards.length; i++){
+        var card = cards[i];
+        var onclick = card.getAttribute('onclick') || '';
+        var m = onclick.match(/_openStockModal\(['"]([^'"]+)['"]\)/);
+        if (!m) continue;
+        var ticker = (m[1] || '').toUpperCase();
+        var pos = (window.__portPositions__ || {})[ticker];
+        if (!pos) {
+          // Fallback: lookup directly from D
+          pos = (D.portfolio.positions || []).find(function(p){
+            return (p.ticker||'').toUpperCase() === ticker;
+          });
+        }
+        if (!pos) continue;
+        if ((Number(pos.shares) || 0) <= 0){
+          researchGrid.appendChild(card); // moves it (DOM nodes are unique parents)
+          moved++;
+        }
+      }
+      var countEl = document.getElementById('ad-research-count');
+      if (countEl) countEl.textContent = moved ? '· ' + moved + ' tracked' : '';
+      researchSec.style.display = moved ? '' : 'none';
+    } finally {
+      _splitInProgress = false;
+    }
+  }
+
   // ── MutationObserver — keep stars/favorites in sync as port-grid rebuilds.
   // Also re-applies trade log to D after every fresh data fetch.
   var _lastAppliedSig = null;
@@ -5416,6 +5484,7 @@ window._openCryptoModal = function(symbol) {
     return (D.updated || '') + '|' + ((D.portfolio && D.portfolio.positions || []).length);
   }
   function onPortGridChanged(){
+    try { splitPortfolioByShares(); } catch(e){ console.warn('[AD-FAV] split err', e); }
     try { decorateCardsWithStars(); } catch(e){}
     try { rerenderFavorites(); } catch(e){}
     // Apply trades exactly once per dataset signature
