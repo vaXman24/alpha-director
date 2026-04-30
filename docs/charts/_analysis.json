@@ -29,18 +29,18 @@
   "CNDX.L": {
     "bucket": "core",
     "analysis": {
-      "status": "Above MA150 (+8.2%) \u2014 hold, no DCA",
+      "status": "Above MA150 (+8.3%) \u2014 hold, no DCA",
       "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
-      "why": "Position +26.4% from avg $1235.20 \u2014 adding here lifts cost basis.",
+      "why": "Position +26.5% from avg $1235.20 \u2014 adding here lifts cost basis.",
       "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
     }
   },
   "IWDA.AS": {
     "bucket": "core",
     "analysis": {
-      "status": "Above MA150 (+4.3%) \u2014 hold, no DCA",
+      "status": "Above MA150 (+4.4%) \u2014 hold, no DCA",
       "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
-      "why": "Position +23.6% from avg $94.17 \u2014 adding here lifts cost basis.",
+      "why": "Position +23.7% from avg $94.17 \u2014 adding here lifts cost basis.",
       "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
     }
   },
