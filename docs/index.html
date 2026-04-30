@@ -4262,63 +4262,67 @@ window._openStockModal = function(ticker) {
     'onclick="openChartLightbox(\'' + _chartUrl + '\')">↗ Expand chart</button>' +
     _chartLegendHtml(ticker);
 
-  // ── 3. Graph summary + next steps (4 lines from analysis sidecar) ─────────
-  // Comes from charts/analysis.json fetched at page load. Status =
-  // current setup, Meaning = framework, Why = position context,
-  // Watch for = trigger conditions for next move.
-  var _ana = (window._tickerAnalysis && window._tickerAnalysis[ticker] && window._tickerAnalysis[ticker].analysis) || null;
-  // v4 Status block — ALWAYS renders so the user sees feedback even when
-  // the sidecar hasn't loaded yet. Falls back to brain.action / placeholders
-  // when _ana is missing; will be re-rendered with full data once the
-  // sidecar resolves (see _loadSidecar race-fix in main script).
-  (function() {
-    var _ana = (window._tickerAnalysis && window._tickerAnalysis[ticker] && window._tickerAnalysis[ticker].analysis) || {};
-    var ea = (_ana.effective_action || _action || '').toUpperCase();
-    var pct = _ana.confidence_pct;
-    var actionColors = {
+  // ── 3. v4 Integrated Analysis (ALWAYS RENDERS) ───────────────────────────
+  // Single integrated decision (effective_action + confidence%) plus 5
+  // sections under the chart legend. Falls back to brain.action when sidecar
+  // isn't loaded yet; race-fix re-render on _loadSidecar resolution.
+  try {
+    var _v4ana = (window._tickerAnalysis || {})[ticker];
+    _v4ana = (_v4ana && _v4ana.analysis) || {};
+    var _v4ea = (_v4ana.effective_action || _action || 'WAIT').toUpperCase();
+    var _v4pct = _v4ana.confidence_pct;
+    var _v4colors = {
       'STRONG BUY': '#10b981', 'BUY': '#00b4d8', 'WATCH': '#a78bfa',
       'TRIM': '#fbbf24', 'EXIT': '#ef4444', 'WAIT': '#94a3b8'
     };
-    var aColor = actionColors[ea] || '#94a3b8';
-    var pctColor = pct == null ? '#94a3b8'
-                  : pct >= 80 ? '#10b981'
-                  : pct >= 60 ? '#a78bfa'
-                  : pct >= 40 ? '#fbbf24' : '#ef4444';
-    var section = function(icon, label, body) {
+    var _v4aColor = _v4colors[_v4ea] || '#94a3b8';
+    var _v4pctColor = _v4pct == null ? '#94a3b8'
+                    : _v4pct >= 80 ? '#10b981'
+                    : _v4pct >= 60 ? '#a78bfa'
+                    : _v4pct >= 40 ? '#fbbf24' : '#ef4444';
+    function _v4md(s) { return (s || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); }
+    function _v4sect(icon, label, body) {
       if (!body) return '';
-      return '<div class="sm-section"><span class="sm-section-key">' +
-             icon + ' ' + label + '</span><span class="sm-section-val">' + body + '</span></div>';
-    };
-    // Markdown bold (**X**) → <strong>X</strong> in the text fields
-    var md = function(s) { return (s || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); };
-
-    var hasFullData = !!(_ana.chart_read || _ana.add_zones || _ana.best_play);
-    var loadingMsg = '';
-    if (!hasFullData) {
-      loadingMsg = '<div class="sm-section"><span class="sm-section-val" style="color:var(--t2);font-style:italic">Loading detailed analysis from charts/analysis.json…</span></div>';
+      return '<div class="sm-section"><span class="sm-section-key">' + icon + ' ' + label +
+             '</span><span class="sm-section-val">' + body + '</span></div>';
     }
 
-    var headerHtml = '<div class="sm-analysis-header">';
-    if (ea) headerHtml += '<span class="sm-action-badge" style="color:' + aColor + ';border-color:' + aColor + '">' + ea + '</span>';
-    if (pct != null) headerHtml += '<span class="sm-confidence" style="color:' + pctColor + ';border-color:' + pctColor + '">' + pct + '% confidence</span>';
-    if (!ea && !pct) headerHtml += '<span style="color:var(--t2);font-size:12px">Loading…</span>';
-    headerHtml += '</div>';
+    var _v4hasFull = !!(_v4ana.chart_read || _v4ana.add_zones || _v4ana.best_play);
+    var _v4loading = _v4hasFull ? '' :
+      '<div class="sm-section"><span class="sm-section-val" style="color:var(--t2);font-style:italic">Detailed analysis loading from charts/analysis.json…</span></div>';
 
-    infoHtml += '<div class="sm-analysis sm-analysis-v2">' +
-      headerHtml +
-      loadingMsg +
-      section('📊', 'Chart read',   md(_ana.chart_read)) +
-      section('🎯', 'Add zones',    md(_ana.add_zones)) +
-      section('🎯', 'Trim zones',   md(_ana.trim_zones)) +
-      section('⚡', 'Catalyst',     md(_ana.catalyst)) +
-      section('🏢', 'Fundamentals', md(_ana.fundamentals)) +
-      (_ana.best_play
-        ? '<div class="sm-section sm-section-play"><span class="sm-section-key">▶️ Best play</span><span class="sm-section-val">' + md(_ana.best_play) + '</span></div>'
-        : '') +
-    '</div>';
+    var _v4header =
+      '<div class="sm-analysis-header">' +
+        '<span class="sm-action-badge" style="color:' + _v4aColor + ';border-color:' + _v4aColor + '">' + (_v4ea || '—') + '</span>' +
+        (_v4pct != null
+          ? '<span class="sm-confidence" style="color:' + _v4pctColor + ';border-color:' + _v4pctColor + '">' + _v4pct + '% confidence</span>'
+          : '<span class="sm-confidence" style="color:#94a3b8;border-color:#94a3b8">Loading…</span>') +
+      '</div>';
 
-    console.log('[AD] Status v4 rendered for', ticker, '— effective:', ea, 'confidence:', pct, 'fullData:', hasFullData);
-  })();
+    var _v4block =
+      '<div class="sm-analysis sm-analysis-v2">' +
+        _v4header +
+        _v4loading +
+        _v4sect('📊', 'Chart read',   _v4md(_v4ana.chart_read)) +
+        _v4sect('🎯', 'Add zones',    _v4md(_v4ana.add_zones)) +
+        _v4sect('🎯', 'Trim zones',   _v4md(_v4ana.trim_zones)) +
+        _v4sect('⚡', 'Catalyst',     _v4md(_v4ana.catalyst)) +
+        _v4sect('🏢', 'Fundamentals', _v4md(_v4ana.fundamentals)) +
+        (_v4ana.best_play
+          ? '<div class="sm-section sm-section-play"><span class="sm-section-key">▶️ Best play</span><span class="sm-section-val">' + _v4md(_v4ana.best_play) + '</span></div>'
+          : '') +
+      '</div>';
+
+    infoHtml += _v4block;
+    console.log('[AD] Status v4 OK for', ticker, '·', _v4ea, _v4pct, '%', '· hasFullData:', _v4hasFull);
+  } catch (_v4e) {
+    console.error('[AD] Status v4 render error for', ticker, ':', _v4e);
+    // Always emit at least a placeholder so the user sees something
+    infoHtml += '<div class="sm-analysis sm-analysis-v2"><div class="sm-analysis-header">' +
+      '<span class="sm-action-badge" style="color:#ef4444;border-color:#ef4444">RENDER ERROR</span>' +
+      '<span class="sm-confidence" style="color:#94a3b8">' + (_v4e.message || _v4e) + '</span>' +
+      '</div></div>';
+  }
 
   // ── 2. Technical signals — dynamic grid (skip nulls) ─────────────────────
   var _ma150v = d.above_150;
