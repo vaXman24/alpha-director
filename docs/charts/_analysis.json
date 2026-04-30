@@ -29,7 +29,7 @@
   "CNDX.L": {
     "bucket": "core",
     "analysis": {
-      "status": "Above MA150 (+8.4%) \u2014 hold, no DCA",
+      "status": "Above MA150 (+8.3%) \u2014 hold, no DCA",
       "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
       "why": "Position +26.6% from avg $1235.20 \u2014 adding here lifts cost basis.",
       "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
@@ -150,6 +150,15 @@
       "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
       "why": "Position +13.5% from avg $328.60 \u2014 adding here lifts cost basis.",
       "watch_for": "MA20 > MA50 cross + price holding above = trend reset."
+    }
+  },
+  "HIMS": {
+    "bucket": "swing",
+    "analysis": {
+      "status": "Mid-range pullback \u2014 wait",
+      "meaning": "MA20 vs MA50 filters trend; Bollinger(20,2) flags volatility extremes. Pullback in uptrend at lower BB = highest-confluence swing entry.",
+      "why": "Position -47.7% from avg $50.35 \u2014 adding here lowers cost basis.",
+      "watch_for": "Tag of lower BB inside 20-50 zone = high-confluence add."
     }
   },
   "URA": {

@@ -218,6 +218,12 @@ html,body{overflow-x:clip;max-width:100vw}
 .sm-chart-fallback{color:var(--t2);font-size:12px;padding:24px 18px;text-align:center}
 .sm-chart-fullbtn{display:block;text-align:right;font-size:10px;color:var(--t3);text-decoration:none;padding:6px 4px 0 0;letter-spacing:.5px}
 .sm-chart-fullbtn:hover{color:var(--b)}
+/* Compact color/line key under the chart so the user can decode it
+   instantly without parsing the in-image legend. */
+.sm-chart-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;color:var(--t2);padding:6px 4px 4px;line-height:1.5;border-top:1px solid var(--border);margin-top:4px;padding-top:10px}
+.sm-chart-legend > span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.leg-dot{display:inline-block;width:11px;height:11px;border-radius:3px;flex-shrink:0;border:1px solid rgba(255,255,255,.06)}
+.leg-dash{display:inline-block;width:14px;height:0;border-top:2px dashed currentColor;flex-shrink:0}
 @media(max-width:600px){
   .sm-chart-embed{max-height:62vh;min-height:240px;padding:4px}
 }
@@ -3856,6 +3862,47 @@ function _smVerdictBadge(v){
 
 
 // ── Open stock modal ──────────────────────────────────────────────────────
+// Short legend explaining each color/line in the embedded 150D chart.
+// Class-aware so Core / Swing / Spec each describe their own overlays.
+function _chartLegendHtml(ticker) {
+  var bucket = (window._tickerAnalysis &&
+                window._tickerAnalysis[ticker] &&
+                window._tickerAnalysis[ticker].bucket) || 'swing';
+  var items;
+  if (bucket === 'core') {
+    items = [
+      ['#3b82f6', 'Price'],
+      ['#fbbf24', 'MA150 — 30-week trend (the line we DCA toward)'],
+      ['#10b981', 'Buy zones — price 5/10/15% below MA150 (deeper green = stronger add)'],
+      ['#f97316', 'Stretched — price 10% above MA150 (no-add zone)'],
+      ['#ec4899', 'Your cost basis'],
+    ];
+  } else if (bucket === 'swing') {
+    items = [
+      ['#3b82f6', 'Price'],
+      ['#fbbf24', 'MA20 — short-term trend'],
+      ['#f97316', 'MA50 — medium-term trend (filter: only buy when 20 > 50)'],
+      ['#60a5fa', 'Bollinger 2σ — volatility envelope (price tagging lower edge = stretched)'],
+      ['#10b981', 'Buy zone — pullback inside 20-50 MA channel during uptrend'],
+      ['#ec4899', 'Your cost basis'],
+    ];
+  } else { // spec
+    items = [
+      ['#3b82f6', 'Price'],
+      ['#fbbf24', 'MA20 — short-term trend'],
+      ['#60a5fa', 'ATR ±2σ — volatility band (high-beta names)'],
+      ['#10b981', 'Buy zone — capitulation (1-2× ATR below MA20)'],
+      ['#ec4899', 'Your cost basis'],
+      ['#94a3b8', 'Volume bars — green = up close, red = down close'],
+    ];
+  }
+  return '<div class="sm-chart-legend">' +
+    items.map(function(it){
+      return '<span><span class="leg-dot" style="background:' + it[0] + '"></span>' + it[1] + '</span>';
+    }).join('') +
+  '</div>';
+}
+
 window._openStockModal = function(ticker) {
   ticker = (ticker || '').toUpperCase();
 
@@ -3974,7 +4021,8 @@ window._openStockModal = function(ticker) {
     '</a>' +
     '<div id="' + _fbId + '" class="sm-chart-fallback">Loading 150D chart for ' + ticker + '…</div>' +
     '</div>' +
-    '<a class="sm-chart-fullbtn" href="' + _chartUrl + '" target="_blank" rel="noopener">↗ Open full chart</a>';
+    '<a class="sm-chart-fullbtn" href="' + _chartUrl + '" target="_blank" rel="noopener">↗ Open full chart</a>' +
+    _chartLegendHtml(ticker);
 
   // ── 3. Graph summary + next steps (4 lines from analysis sidecar) ─────────
   // Comes from charts/_analysis.json fetched at page load. Status =
