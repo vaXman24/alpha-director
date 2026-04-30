@@ -187,9 +187,9 @@ html,body{overflow-x:clip;max-width:100vw}
 #stock-modal-box{background:var(--bg);border:none;border-radius:0;width:100%;height:100%;max-width:none;max-height:none;display:flex;flex-direction:column;overflow:hidden}
 
 /* Chart embed inside the per-ticker page */
-.sm-chart-embed{background:#0e1a2e;border:1px solid var(--border);border-radius:12px;padding:0;overflow:hidden}
+.sm-chart-embed{background:#0e1a2e;border:1px solid var(--border);border-radius:12px;padding:0;overflow:hidden;min-height:80px}
 .sm-chart-embed img{width:100%;height:auto;display:block}
-.sm-chart-fallback{display:none;color:var(--t2);font-size:12px;padding:30px 18px;text-align:center;background:#0e1a2e;border-radius:12px}
+.sm-chart-fallback{color:var(--t2);font-size:12px;padding:24px 18px;text-align:center}
 .sm-analysis{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:13px;line-height:1.55;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
 .sm-analysis-key{font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--t3);padding-top:3px;white-space:nowrap}
 .sm-analysis-val{color:var(--t)}
@@ -3915,29 +3915,7 @@ window._openStockModal = function(ticker) {
   var infoEl  = document.getElementById('sm-info-panel');
   var infoHtml = '';
 
-  // ── 1a. Alpha Director 150D chart (PNG with class-specific overlays) ──────
-  // Class-aware buy zones: Core = MA150 + tiered DCA bands, Swing = 20/50 +
-  // Bollinger + uptrend pullback zone, Spec = MA20 + ATR bands + capitulation.
-  var _chartUrl = 'charts/' + ticker + '.png?v=' + Date.now();
-  infoHtml += '<div class="sm-chart-embed">' +
-    '<img src="' + _chartUrl + '" alt="' + ticker + ' 150-day chart" ' +
-    'onerror="this.parentElement.style.display=\'none\';var f=document.getElementById(\'sm-chart-fallback-' + ticker + '\');if(f)f.style.display=\'block\'">' +
-    '</div>' +
-    '<div id="sm-chart-fallback-' + ticker + '" class="sm-chart-fallback">150D chart not yet rendered for ' + ticker + '. Will appear on next sentinel cycle.</div>';
-
-  // ── 1b. 4-line analysis (Status / Meaning / Why / Watch for) ──────────────
-  // Analysis comes from charts/_analysis.json sidecar fetched at page load.
-  var _ana = (window._tickerAnalysis && window._tickerAnalysis[ticker] && window._tickerAnalysis[ticker].analysis) || null;
-  if (_ana) {
-    infoHtml += '<div class="sm-analysis">' +
-      '<div class="sm-analysis-key">Status</div>'    + '<div class="sm-analysis-val status">' + (_ana.status || '—')    + '</div>' +
-      '<div class="sm-analysis-key">Meaning</div>'   + '<div class="sm-analysis-val">'        + (_ana.meaning || '—')   + '</div>' +
-      '<div class="sm-analysis-key">Why</div>'       + '<div class="sm-analysis-val">'        + (_ana.why || '—')       + '</div>' +
-      '<div class="sm-analysis-key">Watch for</div>' + '<div class="sm-analysis-val">'        + (_ana.watch_for || '—') + '</div>' +
-    '</div>';
-  }
-
-  // ── 2. TradingView chart link (interactive — separate from our static one) ─
+  // ── 1. TradingView chart link (interactive, opens in new tab) ─────────────
   var _tvUrl = TV_LAYOUT_ID
     ? 'https://www.tradingview.com/chart/' + TV_LAYOUT_ID + '/?symbol=' + encodeURIComponent(ticker)
     : 'https://www.tradingview.com/chart/?symbol=' + encodeURIComponent(ticker);
@@ -3948,6 +3926,35 @@ window._openStockModal = function(ticker) {
     '</div>' +
     '<div class="tv-chart-link-arrow">↗</div>' +
     '</a>';
+
+  // ── 2. Alpha Director generated 150D chart (PNG with strategy overlays) ───
+  // Class-aware buy zones: Core = MA150 + tiered DCA bands, Swing = 20/50 +
+  // Bollinger + uptrend pullback zone, Spec = MA20 + ATR bands + capitulation.
+  // Wrapped so image and fallback share the same container — avoids race
+  // conditions where the broken-img alt text shows alongside the fallback.
+  var _chartUrl = 'charts/' + ticker + '.png?v=' + Date.now();
+  var _chartId  = 'sm-chart-' + ticker;
+  var _fbId     = 'sm-chart-fallback-' + ticker;
+  infoHtml += '<div class="sm-chart-embed" id="' + _chartId + '">' +
+    '<img src="' + _chartUrl + '" alt="" loading="eager" ' +
+    'onload="document.getElementById(\'' + _fbId + '\').style.display=\'none\'" ' +
+    'onerror="this.style.display=\'none\';var f=document.getElementById(\'' + _fbId + '\');f.textContent=\'150D chart not yet rendered for ' + ticker + ' — will appear on the next sentinel cycle.\'">' +
+    '<div id="' + _fbId + '" class="sm-chart-fallback">Loading 150D chart for ' + ticker + '…</div>' +
+    '</div>';
+
+  // ── 3. Graph summary + next steps (4 lines from analysis sidecar) ─────────
+  // Comes from charts/_analysis.json fetched at page load. Status =
+  // current setup, Meaning = framework, Why = position context,
+  // Watch for = trigger conditions for next move.
+  var _ana = (window._tickerAnalysis && window._tickerAnalysis[ticker] && window._tickerAnalysis[ticker].analysis) || null;
+  if (_ana) {
+    infoHtml += '<div class="sm-analysis">' +
+      '<div class="sm-analysis-key">Status</div>'    + '<div class="sm-analysis-val status">' + (_ana.status || '—')    + '</div>' +
+      '<div class="sm-analysis-key">Meaning</div>'   + '<div class="sm-analysis-val">'        + (_ana.meaning || '—')   + '</div>' +
+      '<div class="sm-analysis-key">Why</div>'       + '<div class="sm-analysis-val">'        + (_ana.why || '—')       + '</div>' +
+      '<div class="sm-analysis-key">Watch for</div>' + '<div class="sm-analysis-val">'        + (_ana.watch_for || '—') + '</div>' +
+    '</div>';
+  }
 
   // ── 2. Technical signals — dynamic grid (skip nulls) ─────────────────────
   var _ma150v = d.above_150;
