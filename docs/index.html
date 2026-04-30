@@ -220,7 +220,9 @@ html,body{overflow-x:clip;max-width:100vw}
 .sm-chart-fullbtn:hover{color:var(--b)}
 /* Compact color/line key under the chart so the user can decode it
    instantly without parsing the in-image legend. */
-.sm-chart-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;color:var(--t2);padding:6px 4px 4px;line-height:1.5;border-top:1px solid var(--border);margin-top:4px;padding-top:10px}
+.sm-chart-legend-block{margin-top:8px}
+.sm-chart-legend-title{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);padding:8px 4px 2px;border-top:1px solid var(--border);margin-top:4px}
+.sm-chart-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:11px;color:var(--t2);padding:6px 4px 4px;line-height:1.5}
 .sm-chart-legend > span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .leg-dot{display:inline-block;width:11px;height:11px;border-radius:3px;flex-shrink:0;border:1px solid rgba(255,255,255,.06)}
 .leg-dash{display:inline-block;width:14px;height:0;border-top:2px dashed currentColor;flex-shrink:0}
@@ -3864,13 +3866,16 @@ function _smVerdictBadge(v){
 // ── Open stock modal ──────────────────────────────────────────────────────
 // Short legend explaining each color/line in the embedded 150D chart.
 // Class-aware so Core / Swing / Spec each describe their own overlays.
+// The RSI sub-panel below the price chart hosts the brain's current
+// decision (action + target/stop/entry-zone) — we surface that as a
+// dedicated legend group so users know where to look.
 function _chartLegendHtml(ticker) {
   var bucket = (window._tickerAnalysis &&
                 window._tickerAnalysis[ticker] &&
                 window._tickerAnalysis[ticker].bucket) || 'swing';
-  var items;
+  var priceItems;
   if (bucket === 'core') {
-    items = [
+    priceItems = [
       ['#3b82f6', 'Price'],
       ['#fbbf24', 'MA150 — 30-week trend (the line we DCA toward)'],
       ['#10b981', 'Buy zones — price 5/10/15% below MA150 (deeper green = stronger add)'],
@@ -3878,7 +3883,7 @@ function _chartLegendHtml(ticker) {
       ['#ec4899', 'Your cost basis'],
     ];
   } else if (bucket === 'swing') {
-    items = [
+    priceItems = [
       ['#3b82f6', 'Price'],
       ['#fbbf24', 'MA20 — short-term trend'],
       ['#f97316', 'MA50 — medium-term trend (filter: only buy when 20 > 50)'],
@@ -3887,20 +3892,36 @@ function _chartLegendHtml(ticker) {
       ['#ec4899', 'Your cost basis'],
     ];
   } else { // spec
-    items = [
+    priceItems = [
       ['#3b82f6', 'Price'],
       ['#fbbf24', 'MA20 — short-term trend'],
       ['#60a5fa', 'ATR ±2σ — volatility band (high-beta names)'],
       ['#10b981', 'Buy zone — capitulation (1-2× ATR below MA20)'],
       ['#ec4899', 'Your cost basis'],
-      ['#94a3b8', 'Volume bars — green = up close, red = down close'],
+      ['#94a3b8', 'Volume bars (bottom panel) — green = up close, red = down close'],
     ];
   }
-  return '<div class="sm-chart-legend">' +
-    items.map(function(it){
-      return '<span><span class="leg-dot" style="background:' + it[0] + '"></span>' + it[1] + '</span>';
-    }).join('') +
-  '</div>';
+
+  // RSI panel + brain signal legend — common to all three classes
+  var rsiItems = [
+    ['#cbd5e1', 'RSI(14) — momentum oscillator (history of overbought/oversold)'],
+    ['#ef4444', 'RSI ≥ 70 = overbought zone'],
+    ['#10b981', 'RSI ≤ 30 = oversold zone'],
+    ['#fbbf24', 'BRAIN box (top-left of RSI panel) — current action + Target / Stop / Entry zone'],
+  ];
+
+  function fmtBlock(title, items) {
+    return '<div class="sm-chart-legend-block">' +
+      '<div class="sm-chart-legend-title">' + title + '</div>' +
+      '<div class="sm-chart-legend">' +
+        items.map(function(it){
+          return '<span><span class="leg-dot" style="background:' + it[0] + '"></span>' + it[1] + '</span>';
+        }).join('') +
+      '</div></div>';
+  }
+
+  return fmtBlock('Main chart', priceItems) +
+         fmtBlock('RSI panel (decisions)', rsiItems);
 }
 
 window._openStockModal = function(ticker) {
