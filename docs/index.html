@@ -171,6 +171,7 @@ html,body{overflow-x:clip;max-width:100vw}
 .acard:hover{box-shadow:0 0 0 1px rgba(255,255,255,.12);border-color:rgba(255,255,255,.18)}
 .acard.strong-buy{border-top-color:var(--g)}
 .acard.buy{border-top-color:#00b4d8}
+.acard.watch{border-top-color:#a78bfa}
 .acard.trim{border-top-color:var(--a)}
 .acard.exit{border-top-color:var(--r)}
 .acard-action{font-size:10px;font-weight:800;letter-spacing:.8px;margin-bottom:4px}
@@ -1147,8 +1148,8 @@ function buildDrawer() {
     spec:  {label:'SPEC',  horizon:'1–6m', color:'#ff3d71'},
   };
   const ACTION_COLOR = {
-    'STRONG BUY':'#00e676', 'BUY':'#00b4d8', 'WAIT':'#64748b',
-    'TRIM':'#ffd740', 'EXIT':'#ff3d71',
+    'STRONG BUY':'#00e676', 'BUY':'#00b4d8', 'WATCH':'#a78bfa',
+    'WAIT':'#64748b', 'TRIM':'#ffd740', 'EXIT':'#ff3d71',
   };
   let holdHtml = '';
   for (const [cls, {label, horizon, color}] of Object.entries(CLASS_META)) {
@@ -2124,24 +2125,31 @@ function buildEarnings() {
 function buildActionCenter() {
   $('action-date').textContent = D.generated_at ? _fmtIL(D.generated_at) : '';
   const positions = D.portfolio.positions;
-  const actionOrder = ['STRONG BUY','BUY','TRIM','EXIT'];
+  // Action tiers — WATCH inserted between BUY and TRIM (chart-disagreement
+  // names still surface as actionable but at lower priority than full BUY).
+  const actionOrder = ['STRONG BUY','BUY','WATCH','TRIM','EXIT'];
   const portActionable = positions.filter(p => actionOrder.includes(p.action));
   // Merge top-5 DCA new picks (outside_opps) into BUY tier cards
   const _newPickTickers = new Set((window._dcaNewPicks||[]).map(p => p.ticker));
-  const newPickCards = (window._dcaNewPicks||[]).filter(p => ['STRONG BUY','BUY'].includes(p.action||''));
+  const newPickCards = (window._dcaNewPicks||[]).filter(p => ['STRONG BUY','BUY','WATCH'].includes(p.action||''));
   const actionable = [...portActionable, ...newPickCards];
-  // Sort: action tier first, then composite score — confidence 65%, upside 35%
+  // Sort: action tier first, then composite score — chart-integrated
+  // confidence (60%), brain confidence (15%), upside (25%).
   actionable.sort((a,b) => {
     const tierDiff = actionOrder.indexOf(a.action) - actionOrder.indexOf(b.action);
     if (tierDiff !== 0) return tierDiff;
-    const scoreA = (a.confidence||5)*0.65 + Math.min(a.upside_pct||0, 100)/10*0.35;
-    const scoreB = (b.confidence||5)*0.65 + Math.min(b.upside_pct||0, 100)/10*0.35;
-    return scoreB - scoreA;
+    const cA = (a._confidence != null ? a._confidence/100 : 0.7) * 0.60
+             + (a.confidence||5)/10 * 0.15
+             + Math.min(a.upside_pct||0, 100)/100 * 0.25;
+    const cB = (b._confidence != null ? b._confidence/100 : 0.7) * 0.60
+             + (b.confidence||5)/10 * 0.15
+             + Math.min(b.upside_pct||0, 100)/100 * 0.25;
+    return cB - cA;
   });
 
   const riskClass = r => r === 'LOW' ? 'low' : r === 'MEDIUM' ? 'medium' : r === 'VERY HIGH' ? 'very-high' : 'high';
-  const actionCls = a => a === 'STRONG BUY' ? 'strong-buy' : a === 'BUY' ? 'buy' : a === 'TRIM' ? 'trim' : 'exit';
-  const actionColor = a => a === 'STRONG BUY' ? 'var(--g)' : a === 'BUY' ? '#00b4d8' : a === 'TRIM' ? 'var(--a)' : 'var(--r)';
+  const actionCls = a => a === 'STRONG BUY' ? 'strong-buy' : a === 'BUY' ? 'buy' : a === 'WATCH' ? 'watch' : a === 'TRIM' ? 'trim' : 'exit';
+  const actionColor = a => a === 'STRONG BUY' ? 'var(--g)' : a === 'BUY' ? '#00b4d8' : a === 'WATCH' ? '#a78bfa' : a === 'TRIM' ? 'var(--a)' : 'var(--r)';
 
   // Summary row — also count TRIM alerts and crypto EXITs
   const nPositions = positions.length;
@@ -2469,14 +2477,24 @@ function _allocScore(p) {
   const confW   = p.confidence != null ? (p.confidence / 10) : 0.65;
   const rsiPen  = !p.rsi ? 1.0 : p.rsi > 85 ? 0.55 : p.rsi > 75 ? 0.80 : p.rsi > 65 ? 0.95 : 1.1;
   const ma200   = p.above_200 ? 1.20 : 0.75;
-  const actionW = p.action === 'STRONG BUY' ? 1.3 : 1.0;
+  // Action weight uses the integrated effective_action (already on p.action
+  // after _applyEffectiveActions). STRONG BUY = full weight, BUY = standard,
+  // WATCH = down-weighted because chart and brain don't agree.
+  const actionW = p.action === 'STRONG BUY' ? 1.3
+                : p.action === 'BUY'        ? 1.0
+                : p.action === 'WATCH'      ? 0.55
+                : 0.0;  // WAIT/EXIT/TRIM never get DCA allocation
   // 10Y yield factor: high rates penalize growth/spec names, reward low-risk positions
   const yld = D.market?.t10y?.price || 0;
   const yieldFactor = yld > 5.0 ? (p.risk === 'LOW' ? 1.05 : p.risk === 'MEDIUM' ? 0.90 : 0.78)
                     : yld > 4.5 ? (p.risk === 'LOW' ? 1.02 : p.risk === 'MEDIUM' ? 0.95 : 0.87)
                     : yld > 3.5 ? 1.0
                     : (p.risk === 'HIGH' || p.risk === 'VERY HIGH') ? 1.10 : 1.0;
-  return Math.pow(upside, 1.5) * riskMul * confW * rsiPen * ma200 * actionW * yieldFactor;
+  // Chart-integrated confidence (0-1). When sidecar data isn't loaded yet,
+  // _confidence is null → defaults to 0.7 so we don't accidentally zero out
+  // every position before the first sidecar fetch resolves.
+  const chartConfFactor = (p._confidence != null) ? (p._confidence / 100) : 0.7;
+  return Math.pow(upside, 1.5) * riskMul * confW * rsiPen * ma200 * actionW * yieldFactor * chartConfFactor;
 }
 
 // ── Allocation Table ────────────────────────────────────────────────────────
@@ -3375,6 +3393,11 @@ function _loadSidecar(retry) {
       window._tickerAnalysis = j || {};
       window._sidecarLoaded = true;
       console.log('[AD] sidecar loaded:', Object.keys(window._tickerAnalysis).length, 'tickers');
+      // Apply integrated effective_action + confidence to all position
+      // records, then trigger a full dashboard re-render so cards / action
+      // cards / smart top 5 / allocation all reflect the integrated decision.
+      try { _applyEffectiveActions(); } catch(e) { console.warn('[AD] applyEffective err:', e); }
+      try { if (typeof _buildAll === 'function') _buildAll(); } catch(e) {}
       // Re-render any open modal so it picks up the new fields
       if (window._currentModalTicker && window._openStockModal) {
         window._openStockModal(window._currentModalTicker);
@@ -3413,6 +3436,11 @@ function _loadLive() {
           .map(p => (p.ticker || '').toUpperCase())
           .filter(Boolean)
       );
+      // Apply chart-integrated effective_action + confidence to all position
+      // records BEFORE rendering — every downstream consumer (cards, action
+      // center, smart top 5, allocation, drawer) reads p.action which now
+      // resolves to the integrated decision instead of raw brain.action.
+      try { _applyEffectiveActions(); } catch(e) { console.warn('[AD] applyEffective err:', e); }
       _buildAll();
     })
     .catch(() => {});
@@ -4007,6 +4035,33 @@ function _effective(ticker, brainAction) {
     };
   }
   return { action: brainAction || '', confidence: null, from_chart: false };
+}
+
+// Mutate every position record in D so .action holds the EFFECTIVE
+// action (chart-integrated) instead of raw brain.action. Original is
+// preserved as ._orig_action; integrated confidence as ._confidence.
+// Idempotent — safe to call after data load and after sidecar load.
+// Effect: every downstream consumer (cards, action center, allocation,
+// smart top 5, drawer) gets the integrated decision automatically.
+function _applyEffectiveActions() {
+  function patch(arr, idKey) {
+    if (!Array.isArray(arr)) return;
+    arr.forEach(function(p) {
+      if (!p || typeof p !== 'object') return;
+      var t = (p[idKey] || '').toUpperCase();
+      if (!t) return;
+      var origAction = p._orig_action != null ? p._orig_action : p.action;
+      var eff = _effective(t, origAction);
+      if (eff.from_chart) {
+        if (p._orig_action == null) p._orig_action = p.action;
+        p.action = eff.action;
+        p._confidence = eff.confidence;
+      }
+    });
+  }
+  try { patch(D && D.portfolio && D.portfolio.positions, 'ticker'); } catch(e){}
+  try { patch(D && D.outside_opps,                       'ticker'); } catch(e){}
+  try { patch(D && D.crypto && D.crypto.positions,       'symbol'); } catch(e){}
 }
 
 // In-page chart lightbox — opens when user clicks the embedded chart.
