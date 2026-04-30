@@ -813,8 +813,8 @@
     "bucket": "spec",
     "analysis": {
       "status": "\u23f8\ufe0f WAIT \u2014 don't add right now.",
-      "meaning": "What the chart pattern says: Within normal range (-0.8 sigma from average); volatility is settling down. But the brain is checking other signals (long-term trend, market regime, smart-money flow) and they're not aligned with the chart's add zone. When in doubt, wait \u2014 there's always another setup.",
-      "why": "You own this at an average price of $1.28 \u2014 currently up 7.3% from your cost. Buying more here would slightly raise your average cost (you'd be paying a higher price than your existing shares).",
+      "meaning": "What the chart pattern says: Within normal range (-0.9 sigma from average); volatility is settling down. But the brain is checking other signals (long-term trend, market regime, smart-money flow) and they're not aligned with the chart's add zone. When in doubt, wait \u2014 there's always another setup.",
+      "why": "You own this at an average price of $1.28 \u2014 currently up 7.1% from your cost. Buying more here would slightly raise your average cost (you'd be paying a higher price than your existing shares).",
       "watch_for": "Wait for a move to the edge of the band (about \u00b11.5 sigma) for a clearer setup.",
       "how_to_play": "Don't add into the macro window \u2014 Fed/CPI shocks override charts. Wait until after the announcement and let price settle for 1-2 days."
     }
@@ -833,8 +833,8 @@
     "bucket": "spec",
     "analysis": {
       "status": "\ud83d\udeaa EXIT \u2014 get out of this position. The brain is seeing risk signals that override what the chart pattern alone would suggest.",
-      "meaning": "What the chart pattern says: Within normal range (-0.6 sigma from average); volatility is settling down. But the brain weighs more than the chart \u2014 it also looks at whether price is below its long-term trend, what market regime we're in (calm vs. risk-off), and any smart-money signals. When the chart and the brain disagree, the brain wins on the call to take action.",
-      "why": "You own this at an average price of $5.38 \u2014 currently down 77.3% from your cost. Buying more here would lower your average cost (good if you still believe in the long-term story).",
+      "meaning": "What the chart pattern says: Within normal range (-0.7 sigma from average); volatility is settling down. But the brain weighs more than the chart \u2014 it also looks at whether price is below its long-term trend, what market regime we're in (calm vs. risk-off), and any smart-money signals. When the chart and the brain disagree, the brain wins on the call to take action.",
+      "why": "You own this at an average price of $5.38 \u2014 currently down 77.4% from your cost. Buying more here would lower your average cost (good if you still believe in the long-term story).",
       "watch_for": "Wait for a move to the edge of the band (about \u00b11.5 sigma) for a clearer setup.",
       "how_to_play": "Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back?"
     }
@@ -844,7 +844,7 @@
     "analysis": {
       "status": "\ud83d\udeaa EXIT \u2014 get out of this position. The brain is seeing risk signals that override what the chart pattern alone would suggest.",
       "meaning": "What the chart pattern says: Balanced. Price is sitting near its short-term average; volatility is rising. But the brain weighs more than the chart \u2014 it also looks at whether price is below its long-term trend, what market regime we're in (calm vs. risk-off), and any smart-money signals. When the chart and the brain disagree, the brain wins on the call to take action.",
-      "why": "You own this at an average price of $0.24 \u2014 currently down 54.2% from your cost. Buying more here would lower your average cost (good if you still believe in the long-term story).",
+      "why": "You own this at an average price of $0.24 \u2014 currently down 54.3% from your cost. Buying more here would lower your average cost (good if you still believe in the long-term story).",
       "watch_for": "The next move depends on which way volatility expands. Watch the volume bars at the bottom \u2014 a spike usually precedes the next big move.",
       "how_to_play": "Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back?"
     }
@@ -874,7 +874,7 @@
     "analysis": {
       "status": "\ud83d\udeaa EXIT \u2014 get out of this position. The brain is seeing risk signals that override what the chart pattern alone would suggest.",
       "meaning": "What the chart pattern says: Within normal range (-1.1 sigma from average); volatility is steady. But the brain weighs more than the chart \u2014 it also looks at whether price is below its long-term trend, what market regime we're in (calm vs. risk-off), and any smart-money signals. When the chart and the brain disagree, the brain wins on the call to take action.",
-      "why": "You own this at an average price of $3.15 \u2014 currently down 57.9% from your cost. Buying more here would lower your average cost (good if you still believe in the long-term story).",
+      "why": "You own this at an average price of $3.15 \u2014 currently down 58.0% from your cost. Buying more here would lower your average cost (good if you still believe in the long-term story).",
       "watch_for": "Wait for a move to the edge of the band (about \u00b11.5 sigma) for a clearer setup.",
       "how_to_play": "Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back?"
     }
