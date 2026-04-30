@@ -4725,6 +4725,25 @@ window._openCryptoModal = function(symbol) {
   .ad-trade-del:hover{opacity:1}
   .ad-edited-badge{display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:3px;background:rgba(167,139,250,.18);color:#a78bfa;letter-spacing:.4px;margin-left:6px}
 
+  /* Promote-to-VPS panel (missing tickers only) */
+  .ad-promote-panel{margin:14px 0;padding:14px;border:1px dashed rgba(167,139,250,.45);border-radius:8px;background:rgba(167,139,250,.05)}
+  .ad-promote-title{font-size:11px;font-weight:800;color:#a78bfa;letter-spacing:.4px;margin-bottom:6px}
+  .ad-promote-sub{font-size:10px;color:var(--t2);line-height:1.5;margin-bottom:10px}
+  .ad-promote-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;align-items:center}
+  .ad-promote-row:last-child{margin-bottom:0}
+  .ad-promote-cls{cursor:pointer;flex:0 0 auto}
+  .ad-promote-cls input{display:none}
+  .ad-promote-cls .pill{padding:5px 11px;border:1px solid #2a2a2a;border-radius:6px;font-size:10px;font-weight:800;color:var(--t2);letter-spacing:.3px;background:#070707}
+  .ad-promote-cls input:checked + .pill.cls-core{background:rgba(0,230,118,.15);border-color:var(--g);color:var(--g)}
+  .ad-promote-cls input:checked + .pill.cls-swing{background:rgba(255,215,64,.15);border-color:var(--a);color:var(--a)}
+  .ad-promote-cls input:checked + .pill.cls-spec{background:rgba(206,147,216,.15);border-color:#ce93d8;color:#ce93d8}
+  .ad-promote-cls input:checked + .pill.cls-crypto{background:rgba(247,147,26,.15);border-color:#f7931a;color:#f7931a}
+  .ad-promote-panel input[type="text"],.ad-promote-panel input[type="number"]{background:#050505;border:1px solid #222;color:var(--t);padding:7px 10px;border-radius:6px;font-size:12px;outline:none;font-family:inherit}
+  .ad-promote-panel input[type="text"]{width:240px}
+  .ad-promote-panel input[type="number"]{width:110px}
+  .ad-promote-panel input:focus{border-color:#a78bfa}
+  .ad-promote-cmd{display:block;width:100%;box-sizing:border-box;background:#020202;color:#a78bfa;border:1px solid #1a1a1a;border-radius:6px;padding:9px 10px;font-family:Consolas,Monaco,monospace;font-size:10px;line-height:1.45;word-break:break-all;margin-top:8px;user-select:all}
+
   /* Mobile */
   @media (max-width:720px){
     .ad-search-input{width:130px}
@@ -5277,6 +5296,86 @@ window._openCryptoModal = function(symbol) {
     }
   };
 
+  // ── Promote-to-VPS panel (for tickers not yet in portfolio.json) ────────
+  // Returns true if `ticker` has no record anywhere — i.e. dashboard has no
+  // stats for it, so the user can't analyse it until sentinel starts tracking it.
+  function isMissingTicker(ticker){
+    var T = (ticker || '').toUpperCase();
+    if (!T || typeof D === 'undefined' || !D) return false;
+    var hasPort  = (D.portfolio && D.portfolio.positions || []).some(function(p){ return (p.ticker||'').toUpperCase() === T; });
+    if (hasPort) return false;
+    var hasOpp   = (D.outside_opps || []).some(function(p){ return (p.ticker||'').toUpperCase() === T; });
+    if (hasOpp) return false;
+    var hasCry   = (D.crypto && D.crypto.positions || []).some(function(p){ return (p.symbol||'').toUpperCase() === T; });
+    if (hasCry) return false;
+    var hasTrend = !!(D.trend_ticker_data && D.trend_ticker_data[T]);
+    if (hasTrend) return false;
+    return true;
+  }
+
+  function _shellQ(s){
+    s = String(s == null ? '' : s);
+    // Use double quotes; escape backslash, backtick, dollar, and embedded double quotes
+    return '"' + s.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\$/g, '\\$').replace(/`/g, '\\`') + '"';
+  }
+
+  window.adBuildPromoteCmd = function(ticker){
+    var T = (ticker || '').toUpperCase();
+    var cls    = (document.querySelector('input[name="ad-promote-cls"]:checked') || {}).value || 'spec';
+    var theme  = (document.getElementById('ad-promote-theme') || {}).value || '';
+    var shares = parseFloat((document.getElementById('ad-promote-shares') || {}).value) || 0;
+    var avg    = parseFloat((document.getElementById('ad-promote-avg')    || {}).value) || 0;
+    var parts = [
+      'python', '_promote_to_portfolio.py', T,
+      '--class', cls,
+      '--theme', _shellQ(theme || (cls === 'crypto' ? 'Crypto' : 'New ticker')),
+    ];
+    if (shares > 0) { parts.push('--shares', String(shares)); }
+    if (avg > 0)    { parts.push('--avg',    String(avg)); }
+    var cmd = parts.join(' ');
+    var box = document.getElementById('ad-promote-cmd-' + T);
+    if (box) box.textContent = cmd;
+    return cmd;
+  };
+
+  window.adCopyPromoteCmd = function(ticker){
+    var T = (ticker || '').toUpperCase();
+    var cmd = window.adBuildPromoteCmd(T);
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(cmd).then(function(){
+        alert('✓ Copied promote command for ' + T + '.\n\nPaste it into a terminal at\n  c:\\Users\\kaiha\\Desktop\\Repos\\\nand run.\n\nSentinel will pick the new ticker up on the next 60s collect cycle.');
+      }, function(){
+        window.prompt('Copy this command and run it in c:\\Users\\kaiha\\Desktop\\Repos\\:', cmd);
+      });
+    } else {
+      window.prompt('Copy this command and run it in c:\\Users\\kaiha\\Desktop\\Repos\\:', cmd);
+    }
+  };
+
+  function renderPromotePanel(ticker){
+    var T = (ticker || '').toUpperCase();
+    var defaultCmd = 'python _promote_to_portfolio.py ' + T + ' --class spec --theme "New ticker"';
+    return '<div class="ad-promote-panel">' +
+      '<div class="ad-promote-title">🚀 Promote ' + T + ' to VPS portfolio</div>' +
+      '<div class="ad-promote-sub">' + T + ' isn\'t tracked by sentinel yet, so the dashboard has no stats for it. Pick a class + theme below; copy the generated command and run it from <code>c:\\Users\\kaiha\\Desktop\\Repos\\</code>. Sentinel will start collecting prices, MAs, RSI etc. on the next 60s cycle.</div>' +
+      '<div class="ad-promote-row">' +
+        '<label class="ad-promote-cls"><input type="radio" name="ad-promote-cls" value="core"  onchange="window.adBuildPromoteCmd(\'' + T + '\')"><span class="pill cls-core">CORE</span></label>' +
+        '<label class="ad-promote-cls"><input type="radio" name="ad-promote-cls" value="swing" onchange="window.adBuildPromoteCmd(\'' + T + '\')"><span class="pill cls-swing">SWING</span></label>' +
+        '<label class="ad-promote-cls"><input type="radio" name="ad-promote-cls" value="spec"  checked onchange="window.adBuildPromoteCmd(\'' + T + '\')"><span class="pill cls-spec">SPEC</span></label>' +
+        '<label class="ad-promote-cls"><input type="radio" name="ad-promote-cls" value="crypto" onchange="window.adBuildPromoteCmd(\'' + T + '\')"><span class="pill cls-crypto">CRYPTO</span></label>' +
+      '</div>' +
+      '<div class="ad-promote-row">' +
+        '<input type="text"   id="ad-promote-theme"  placeholder="Theme (e.g. AI infra, EVs, …)" oninput="window.adBuildPromoteCmd(\'' + T + '\')">' +
+        '<input type="number" id="ad-promote-shares" placeholder="Shares (optional)" step="0.0001" min="0" inputmode="decimal" oninput="window.adBuildPromoteCmd(\'' + T + '\')">' +
+        '<input type="number" id="ad-promote-avg"    placeholder="Avg cost (optional)" step="0.01" min="0" inputmode="decimal" oninput="window.adBuildPromoteCmd(\'' + T + '\')">' +
+      '</div>' +
+      '<div class="ad-promote-row">' +
+        '<button class="ad-action-btn ad-action-export" onclick="window.adCopyPromoteCmd(\'' + T + '\')">📋 Copy promote command</button>' +
+      '</div>' +
+      '<code class="ad-promote-cmd" id="ad-promote-cmd-' + T + '">' + defaultCmd + '</code>' +
+    '</div>';
+  }
+
   // ── Wrap _openStockModal to inject our panel ─────────────────────────────
   function hookModal(){
     if (window._openStockModal && window._openStockModal.__adWrapped) return;
@@ -5290,6 +5389,17 @@ window._openCryptoModal = function(symbol) {
         if (!infoEl) return;
         var existing = infoEl.querySelector('.ad-action-panel');
         if (existing) existing.remove();
+        var existingPromote = infoEl.querySelector('.ad-promote-panel');
+        if (existingPromote) existingPromote.remove();
+
+        // Promote panel first (only if ticker has no data anywhere)
+        if (isMissingTicker(T)){
+          var pwrap = document.createElement('div');
+          pwrap.innerHTML = renderPromotePanel(T);
+          infoEl.appendChild(pwrap.firstElementChild || pwrap);
+        }
+
+        // Then the action / trade journal panel
         var wrap = document.createElement('div');
         wrap.innerHTML = renderActionPanel(T);
         infoEl.appendChild(wrap.firstElementChild || wrap);
