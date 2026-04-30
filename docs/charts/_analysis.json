@@ -20,7 +20,7 @@
   "CSPX.L": {
     "bucket": "core",
     "analysis": {
-      "status": "Above MA150 (+5.0%) \u2014 hold, no DCA",
+      "status": "Above MA150 (+5.1%) \u2014 hold, no DCA",
       "meaning": "MA150 is the 30-week trend. Distance below it indexes how stretched the discount is and which DCA tier to size against.",
       "why": "Position +35.3% from avg $567.09 \u2014 adding here lifts cost basis.",
       "watch_for": "Reclaim of MA150 with volume \u2192 exit entry zone. Breach of -15% \u2192 re-evaluate thesis (not just DCA harder)."
