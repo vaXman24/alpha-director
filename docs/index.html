@@ -2976,7 +2976,7 @@ function saveTgConfig() {
 
 async function sendTgAlert(text, urgent) {
   const cfg = _tgGet();
-  if (!cfg.token) { openTgConfig(); return false; }
+  if (!cfg.token) { return false; }
   const prefix = urgent ? '🚨🚨🚨 <b>ALPHA DIRECTOR ALERT</b> 🚨🚨🚨\n' : '📊 <b>Alpha Director</b>\n';
   const body = { chat_id: cfg.chatId, text: prefix + text, parse_mode:'HTML' };
   try {
