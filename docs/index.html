@@ -4267,18 +4267,23 @@ window._openStockModal = function(ticker) {
   // current setup, Meaning = framework, Why = position context,
   // Watch for = trigger conditions for next move.
   var _ana = (window._tickerAnalysis && window._tickerAnalysis[ticker] && window._tickerAnalysis[ticker].analysis) || null;
-  if (_ana) {
-    // v4 status block — single integrated decision (effective_action +
-    // confidence%) plus 5 sections: Chart read / Add zones / Trim zones /
-    // Catalyst / Fundamentals / Best play. Sections auto-hide when empty.
-    var ea  = (_ana.effective_action || '').toUpperCase();
+  // v4 Status block — ALWAYS renders so the user sees feedback even when
+  // the sidecar hasn't loaded yet. Falls back to brain.action / placeholders
+  // when _ana is missing; will be re-rendered with full data once the
+  // sidecar resolves (see _loadSidecar race-fix in main script).
+  (function() {
+    var _ana = (window._tickerAnalysis && window._tickerAnalysis[ticker] && window._tickerAnalysis[ticker].analysis) || {};
+    var ea = (_ana.effective_action || _action || '').toUpperCase();
     var pct = _ana.confidence_pct;
     var actionColors = {
       'STRONG BUY': '#10b981', 'BUY': '#00b4d8', 'WATCH': '#a78bfa',
       'TRIM': '#fbbf24', 'EXIT': '#ef4444', 'WAIT': '#94a3b8'
     };
     var aColor = actionColors[ea] || '#94a3b8';
-    var pctColor = pct >= 80 ? '#10b981' : pct >= 60 ? '#a78bfa' : pct >= 40 ? '#fbbf24' : '#ef4444';
+    var pctColor = pct == null ? '#94a3b8'
+                  : pct >= 80 ? '#10b981'
+                  : pct >= 60 ? '#a78bfa'
+                  : pct >= 40 ? '#fbbf24' : '#ef4444';
     var section = function(icon, label, body) {
       if (!body) return '';
       return '<div class="sm-section"><span class="sm-section-key">' +
@@ -4287,19 +4292,33 @@ window._openStockModal = function(ticker) {
     // Markdown bold (**X**) → <strong>X</strong> in the text fields
     var md = function(s) { return (s || '').replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); };
 
+    var hasFullData = !!(_ana.chart_read || _ana.add_zones || _ana.best_play);
+    var loadingMsg = '';
+    if (!hasFullData) {
+      loadingMsg = '<div class="sm-section"><span class="sm-section-val" style="color:var(--t2);font-style:italic">Loading detailed analysis from charts/_analysis.json…</span></div>';
+    }
+
+    var headerHtml = '<div class="sm-analysis-header">';
+    if (ea) headerHtml += '<span class="sm-action-badge" style="color:' + aColor + ';border-color:' + aColor + '">' + ea + '</span>';
+    if (pct != null) headerHtml += '<span class="sm-confidence" style="color:' + pctColor + ';border-color:' + pctColor + '">' + pct + '% confidence</span>';
+    if (!ea && !pct) headerHtml += '<span style="color:var(--t2);font-size:12px">Loading…</span>';
+    headerHtml += '</div>';
+
     infoHtml += '<div class="sm-analysis sm-analysis-v2">' +
-      '<div class="sm-analysis-header">' +
-        (ea ? '<span class="sm-action-badge" style="color:' + aColor + ';border-color:' + aColor + '">' + ea + '</span>' : '') +
-        (pct != null ? '<span class="sm-confidence" style="color:' + pctColor + ';border-color:' + pctColor + '">' + pct + '% confidence</span>' : '') +
-      '</div>' +
+      headerHtml +
+      loadingMsg +
       section('📊', 'Chart read',   md(_ana.chart_read)) +
       section('🎯', 'Add zones',    md(_ana.add_zones)) +
       section('🎯', 'Trim zones',   md(_ana.trim_zones)) +
       section('⚡', 'Catalyst',     md(_ana.catalyst)) +
       section('🏢', 'Fundamentals', md(_ana.fundamentals)) +
-      '<div class="sm-section sm-section-play"><span class="sm-section-key">▶️ Best play</span><span class="sm-section-val">' + md(_ana.best_play || '—') + '</span></div>' +
+      (_ana.best_play
+        ? '<div class="sm-section sm-section-play"><span class="sm-section-key">▶️ Best play</span><span class="sm-section-val">' + md(_ana.best_play) + '</span></div>'
+        : '') +
     '</div>';
-  }
+
+    console.log('[AD] Status v4 rendered for', ticker, '— effective:', ea, 'confidence:', pct, 'fullData:', hasFullData);
+  })();
 
   // ── 2. Technical signals — dynamic grid (skip nulls) ─────────────────────
   var _ma150v = d.above_150;
