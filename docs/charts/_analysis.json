@@ -5,12 +5,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 60,
       "chart_rec": "hold",
-      "chart_read": "Price at $655 is +4.8% from the 30-week MA ($625) \u2014 Above fair value (hold). RSI 78 (overbought); volume 0.2\u00d7 avg (light); above 200D / above 50D.",
+      "chart_read": "Price at $654 is +4.6% from the 30-week MA ($625) \u2014 Above fair value (hold). RSI 78 (overbought); volume 0.2\u00d7 avg (light); above 200D / above 50D.",
       "add_zones": "Tier 1 ($594\u2013$625, ~25-35% of monthly DCA) \u00b7 Tier 2 ($562\u2013$594, ~50-65%) \u00b7 Tier 3 (below $562, max DCA).",
       "trim_zones": "Stretched / no-add: above $687 (10% above MA150). Trim if you're up >50% from your avg ($504) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "S&P 500 \u00b7 above 200D \u00b7 above 50D \u00b7 risk: LOW",
-      "best_play": "Wait (60%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $638."
+      "best_play": "Wait (60%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $635."
     }
   },
   "QQQ": {
@@ -19,12 +19,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 60,
       "chart_rec": "hold",
-      "chart_read": "Price at $661 is +7.9% from the 30-week MA ($613) \u2014 Above fair value (hold). RSI 81 (extreme overbought); volume 0.1\u00d7 avg (light); above 200D / above 50D.",
+      "chart_read": "Price at $659 is +7.5% from the 30-week MA ($613) \u2014 Above fair value (hold). RSI 79 (overbought); volume 0.2\u00d7 avg (light); above 200D / above 50D.",
       "add_zones": "Tier 1 ($582\u2013$613, ~25-35% of monthly DCA) \u00b7 Tier 2 ($552\u2013$582, ~50-65%) \u00b7 Tier 3 (below $552, max DCA).",
       "trim_zones": "Stretched / no-add: above $674 (10% above MA150). Trim if you're up >50% from your avg ($537) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "NASDAQ 100 \u00b7 above 200D \u00b7 above 50D \u00b7 risk: LOW",
-      "best_play": "Wait (60%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $636."
+      "best_play": "Wait (60%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $631."
     }
   },
   "CSPX.L": {
@@ -33,12 +33,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 60,
       "chart_rec": "hold",
-      "chart_read": "Price at $771 is +5.5% from the 30-week MA ($731) \u2014 Above fair value (hold). RSI 82 (extreme overbought); volume 0.3\u00d7 avg (light); above 200D / above 50D.",
+      "chart_read": "Price at $768 is +5.1% from the 30-week MA ($731) \u2014 Above fair value (hold). RSI 81 (extreme overbought); volume 0.3\u00d7 avg (light); above 200D / above 50D.",
       "add_zones": "Tier 1 ($694\u2013$731, ~25-35% of monthly DCA) \u00b7 Tier 2 ($657\u2013$694, ~50-65%) \u00b7 Tier 3 (below $657, max DCA).",
       "trim_zones": "Stretched / no-add: above $804 (10% above MA150). Trim if you're up >50% from your avg ($567) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "S&P 500 (LSE/USD) \u00b7 above 200D \u00b7 above 50D \u00b7 risk: LOW",
-      "best_play": "Wait (60%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $750."
+      "best_play": "Wait (60%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $747."
     }
   },
   "CNDX.L": {
@@ -47,12 +47,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 60,
       "chart_rec": "hold",
-      "chart_read": "Price at $1,571 is +8.9% from the 30-week MA ($1,443) \u2014 Above fair value (hold). RSI 83 (extreme overbought); volume 0.4\u00d7 avg (light); above 200D / above 50D.",
+      "chart_read": "Price at $1,561 is +8.2% from the 30-week MA ($1,443) \u2014 Above fair value (hold). RSI 82 (extreme overbought); volume 0.5\u00d7 avg (light); above 200D / above 50D.",
       "add_zones": "Tier 1 ($1,371\u2013$1,443, ~25-35% of monthly DCA) \u00b7 Tier 2 ($1,299\u2013$1,371, ~50-65%) \u00b7 Tier 3 (below $1,299, max DCA).",
       "trim_zones": "Stretched / no-add: above $1,588 (10% above MA150). Trim if you're up >50% from your avg ($1,235) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "NASDAQ 100 (USD) \u00b7 above 200D \u00b7 above 50D \u00b7 risk: LOW",
-      "best_play": "Wait (60%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $1,437."
+      "best_play": "Wait (60%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $1,426."
     }
   },
   "IWDA.AS": {
@@ -61,12 +61,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 60,
       "chart_rec": "hold",
-      "chart_read": "Price at $117 is +5.0% from the 30-week MA ($112) \u2014 Above fair value (hold). RSI 81 (extreme overbought); volume 0.5\u00d7 avg (light); above 200D / above 50D.",
+      "chart_read": "Price at $117 is +4.7% from the 30-week MA ($112) \u2014 Above fair value (hold). RSI 80 (overbought); volume 0.5\u00d7 avg (light); above 200D / above 50D.",
       "add_zones": "Tier 1 ($106\u2013$112, ~25-35% of monthly DCA) \u00b7 Tier 2 ($100\u2013$106, ~50-65%) \u00b7 Tier 3 (below $100, max DCA).",
       "trim_zones": "Stretched / no-add: above $123 (10% above MA150). Trim if you're up >50% from your avg ($94.17) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "MSCI World (EUR) \u00b7 above 200D \u00b7 above 50D \u00b7 risk: LOW",
-      "best_play": "Wait (60%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $115."
+      "best_play": "Wait (60%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $114."
     }
   },
   "GOOG": {
@@ -75,12 +75,12 @@
       "effective_action": "TRIM",
       "confidence_pct": 80,
       "chart_rec": "skip",
-      "chart_read": "Price at $364 is +20.3% from the 30-week MA ($302) \u2014 Stretched (no-add zone). RSI 84 (extreme overbought); volume 0.5\u00d7 avg (light); above 200D / above 50D.",
+      "chart_read": "Price at $367 is +21.5% from the 30-week MA ($302) \u2014 Stretched (no-add zone). RSI 84 (extreme overbought); volume 0.6\u00d7 avg (light); above 200D / above 50D.",
       "add_zones": "Tier 1 ($287\u2013$302, ~25-35% of monthly DCA) \u00b7 Tier 2 ($272\u2013$287, ~50-65%) \u00b7 Tier 3 (below $272, max DCA).",
       "trim_zones": "Stretched / no-add: above $333 (10% above MA150). Trim if you're up >50% from your avg ($214) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "AI / Ads \u00b7 above 200D \u00b7 above 50D \u00b7 risk: LOW",
-      "best_play": "Take some profit (80%). Sell 20-30% of your position to lock in gains; let the rest run unless your reason for owning changes. If RSI stays >70 for several more days, consider another trim. Stop-loss $343."
+      "best_play": "Take some profit (80%). Sell 20-30% of your position to lock in gains; let the rest run unless your reason for owning changes. If RSI stays >70 for several more days, consider another trim. Stop-loss $340."
     }
   },
   "MSFT": {
@@ -89,7 +89,7 @@
       "effective_action": "BUY",
       "confidence_pct": 90,
       "chart_rec": "buy",
-      "chart_read": "Price at $410 is -9.7% from the 30-week MA ($454) \u2014 Inside Tier 1. RSI 66 (bullish-leaning); volume 0.3\u00d7 avg (light); below 200D / above 50D.",
+      "chart_read": "Price at $406 is -10.6% from the 30-week MA ($454) \u2014 Inside Tier 2. RSI 64 (bullish-leaning); volume 0.4\u00d7 avg (light); below 200D / above 50D.",
       "add_zones": "Tier 1 ($431\u2013$454, ~25-35% of monthly DCA) \u00b7 Tier 2 ($409\u2013$431, ~50-65%) \u00b7 Tier 3 (below $409, max DCA).",
       "trim_zones": "Stretched / no-add: above $499 (10% above MA150). Trim if you're up >50% from your avg ($409) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -103,12 +103,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 50,
       "chart_rec": "buy",
-      "chart_read": "Price at $604 is -7.8% from the 30-week MA ($655) \u2014 Inside Tier 1. RSI 43 (bearish-leaning); volume 0.8\u00d7 avg (light); below 200D / below 50D.",
+      "chart_read": "Price at $603 is -8.0% from the 30-week MA ($655) \u2014 Inside Tier 1. RSI 43 (bearish-leaning); volume 1.0\u00d7 avg (normal); below 200D / below 50D.",
       "add_zones": "Tier 1 ($622\u2013$655, ~25-35% of monthly DCA) \u00b7 Tier 2 ($590\u2013$622, ~50-65%) \u00b7 Tier 3 (below $590, max DCA).",
       "trim_zones": "Stretched / no-add: above $721 (10% above MA150). Trim if you're up >50% from your avg ($633) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "AI / Social \u00b7 below 200D \u00b7 below 50D \u00b7 risk: MEDIUM",
-      "best_play": "Wait (50%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $558."
+      "best_play": "Wait (50%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $544."
     }
   },
   "AMZN": {
@@ -117,12 +117,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 90,
       "chart_rec": "skip",
-      "chart_read": "Price at $260 is +14.7% from the 30-week MA ($227) \u2014 Stretched (no-add zone). RSI 76 (overbought); volume 0.4\u00d7 avg (light); above 200D / above 50D.",
+      "chart_read": "Price at $260 is +14.5% from the 30-week MA ($227) \u2014 Stretched (no-add zone). RSI 75 (overbought); volume 0.5\u00d7 avg (light); above 200D / above 50D.",
       "add_zones": "Tier 1 ($216\u2013$227, ~25-35% of monthly DCA) \u00b7 Tier 2 ($204\u2013$216, ~50-65%) \u00b7 Tier 3 (below $204, max DCA).",
       "trim_zones": "Stretched / no-add: above $250 (10% above MA150). Trim if you're up >50% from your avg ($198) or RSI stays >75 for several days.",
       "catalyst": "\ud83d\udcc5 **Earnings this week** \u2014 single biggest move-driver. Wait for the print or split your buy in half. \u00b7 \ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Cloud / Consumer \u00b7 above 200D \u00b7 above 50D \u00b7 risk: LOW",
-      "best_play": "Wait (90%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $250."
+      "best_play": "Wait (90%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $239."
     }
   },
   "AVGO": {
@@ -131,12 +131,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 35,
       "chart_rec": "skip",
-      "chart_read": "Price at $417 is +19.5% from the 30-week MA ($349) \u2014 Stretched (no-add zone). RSI 70 (overbought); volume 0.1\u00d7 avg (light); above 200D / above 50D.",
+      "chart_read": "Price at $410 is +17.7% from the 30-week MA ($349) \u2014 Stretched (no-add zone). RSI 69 (bullish-leaning); volume 0.2\u00d7 avg (light); above 200D / above 50D.",
       "add_zones": "Tier 1 ($331\u2013$349, ~25-35% of monthly DCA) \u00b7 Tier 2 ($314\u2013$331, ~50-65%) \u00b7 Tier 3 (below $314, max DCA).",
       "trim_zones": "Stretched / no-add: above $384 (10% above MA150). Trim if you're up >50% from your avg ($353) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "AI Chips \u00b7 above 200D \u00b7 above 50D \u00b7 risk: LOW",
-      "best_play": "Wait (35%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $377."
+      "best_play": "Wait (35%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $374."
     }
   },
   "TSM": {
@@ -145,12 +145,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 35,
       "chart_rec": "skip",
-      "chart_read": "Price at $394 is +21.5% from the 30-week MA ($325) \u2014 Stretched (no-add zone). RSI 62 (bullish-leaning); volume 0.1\u00d7 avg (light); above 200D / above 50D.",
+      "chart_read": "Price at $392 is +20.7% from the 30-week MA ($325) \u2014 Stretched (no-add zone). RSI 60 (bullish-leaning); volume 0.2\u00d7 avg (light); above 200D / above 50D.",
       "add_zones": "Tier 1 ($308\u2013$325, ~25-35% of monthly DCA) \u00b7 Tier 2 ($292\u2013$308, ~50-65%) \u00b7 Tier 3 (below $292, max DCA).",
       "trim_zones": "Stretched / no-add: above $357 (10% above MA150). Trim if you're up >50% from your avg ($311) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Semis \u00b7 above 200D \u00b7 above 50D \u00b7 risk: LOW",
-      "best_play": "Wait (35%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $361."
+      "best_play": "Wait (35%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $354."
     }
   },
   "ORCL": {
@@ -159,7 +159,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 50,
       "chart_rec": "buy",
-      "chart_read": "Price at $163 is -17.5% from the 30-week MA ($198) \u2014 Inside Tier 3 (max DCA). RSI 66 (bullish-leaning); volume 0.1\u00d7 avg (light); below 200D / above 50D.",
+      "chart_read": "Price at $163 is -17.8% from the 30-week MA ($198) \u2014 Inside Tier 3 (max DCA). RSI 65 (bullish-leaning); volume 0.1\u00d7 avg (light); below 200D / above 50D.",
       "add_zones": "Tier 1 ($188\u2013$198, ~25-35% of monthly DCA) \u00b7 Tier 2 ($178\u2013$188, ~50-65%) \u00b7 Tier 3 (below $178, max DCA).",
       "trim_zones": "Stretched / no-add: above $218 (10% above MA150). Trim if you're up >50% from your avg ($226) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -173,26 +173,26 @@
       "effective_action": "BUY",
       "confidence_pct": 75,
       "chart_rec": "hold",
-      "chart_read": "Price at $52.91 is +1.2% from the 30-week MA ($52.26) \u2014 Above fair value (hold). RSI 53 (neutral); volume 0.1\u00d7 avg (light); above 200D / above 50D.",
-      "add_zones": "Tier 1 ($49.65\u2013$52.26, ~25-35% of monthly DCA) \u00b7 Tier 2 ($47.04\u2013$49.65, ~50-65%) \u00b7 Tier 3 (below $47.04, max DCA).",
+      "chart_read": "Price at $53.13 is +1.7% from the 30-week MA ($52.27) \u2014 Above fair value (hold). RSI 55 (neutral); volume 0.1\u00d7 avg (light); above 200D / above 50D.",
+      "add_zones": "Tier 1 ($49.65\u2013$52.27, ~25-35% of monthly DCA) \u00b7 Tier 2 ($47.04\u2013$49.65, ~50-65%) \u00b7 Tier 3 (below $47.04, max DCA).",
       "trim_zones": "Stretched / no-add: above $57.49 (10% above MA150). Trim if you're up >50% from your avg ($52.74) or RSI stays >75 for several days.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Financials \u00b7 above 200D \u00b7 above 50D \u00b7 risk: LOW",
-      "best_play": "Standard buy (75%). Add 25-50% of monthly DCA. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes. Stop-loss $49.75."
+      "best_play": "Standard buy (75%). Add 25-50% of monthly DCA. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes. Stop-loss $50.48."
     }
   },
   "APP": {
     "bucket": "swing",
     "analysis": {
-      "effective_action": "WATCH",
-      "confidence_pct": 55,
+      "effective_action": "WAIT",
+      "confidence_pct": 80,
       "chart_rec": "wait",
-      "chart_read": "Price $441 \u2014 Mid-range pullback (wait for setup). 20D MA $439 above 50D MA $438 (uptrend); Bollinger position 51% of range. RSI 63 (bullish-leaning); volume 0.0\u00d7 avg (light).",
+      "chart_read": "Price $439 \u2014 Mid-range pullback (wait for setup). 20D MA $439 above 50D MA $438 (uptrend); Bollinger position 50% of range. RSI 62 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $438\u2013$439 (between 20D and 50D), ideally with price tagging the lower BB ($370). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($508) or if RSI > 75 for several days. Stop-loss below 50D MA ($425) protects the swing thesis. Avg cost $488.",
+      "trim_zones": "Trim near upper BB ($507) or if RSI > 75 for several days. Stop-loss below 50D MA ($425) protects the swing thesis. Avg cost $488.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "AI Ads / Mobile \u00b7 below 200D \u00b7 above 50D \u00b7 risk: HIGH",
-      "best_play": "Mixed signals (55%) \u2014 chart and brain don't fully agree. Hold what you have; do not add today. If you have strong conviction in the underlying story, a tiny ~10% placeholder is OK; scale only after the chart catches up to the brain (or vice versa). Stop-loss $416."
+      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $416."
     }
   },
   "PANW": {
@@ -201,12 +201,12 @@
       "effective_action": "WATCH",
       "confidence_pct": 55,
       "chart_rec": "wait",
-      "chart_read": "Price $177 \u2014 Mid-range pullback (wait for setup). 20D MA $171 above 50D MA $163 (uptrend); Bollinger position 71% of range. RSI 71 (overbought); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $176 \u2014 Mid-range pullback (wait for setup). 20D MA $171 above 50D MA $163 (uptrend); Bollinger position 67% of range. RSI 69 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $163\u2013$171 (between 20D and 50D), ideally with price tagging the lower BB ($155). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($187) or if RSI > 75 for several days. Stop-loss below 50D MA ($158) protects the swing thesis. Avg cost $185.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Cybersecurity \u00b7 below 200D \u00b7 above 50D \u00b7 risk: HIGH",
-      "best_play": "Mixed signals (55%) \u2014 chart and brain don't fully agree. Hold what you have; do not add today. If you have strong conviction in the underlying story, a tiny ~10% placeholder is OK; scale only after the chart catches up to the brain (or vice versa). Stop-loss $165."
+      "best_play": "Mixed signals (55%) \u2014 chart and brain don't fully agree. Hold what you have; do not add today. If you have strong conviction in the underlying story, a tiny ~10% placeholder is OK; scale only after the chart catches up to the brain (or vice versa). Stop-loss $163."
     }
   },
   "CEG": {
@@ -215,7 +215,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 35,
       "chart_rec": "skip",
-      "chart_read": "Price $306 \u2014 Trend broken (momentum against you). 20D MA $292 below 50D MA $301 (downtrend); Bollinger position 78% of range. RSI 59 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $306 \u2014 Trend broken (momentum against you). 20D MA $292 below 50D MA $301 (downtrend); Bollinger position 79% of range. RSI 60 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $292 vs $301) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($317) or if RSI > 75 for several days. Stop-loss below 50D MA ($292) protects the swing thesis. Avg cost $286.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -229,8 +229,8 @@
       "effective_action": "WAIT",
       "confidence_pct": 90,
       "chart_rec": "skip",
-      "chart_read": "Price $371 \u2014 Trend broken (momentum against you). 20D MA $371 below 50D MA $384 (downtrend); Bollinger position 50% of range. RSI 61 (bullish-leaning); volume 0.1\u00d7 avg (light).",
-      "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $371 vs $384) and price holds there for several days.",
+      "chart_read": "Price $370 \u2014 Trend broken (momentum against you). 20D MA $370 below 50D MA $384 (downtrend); Bollinger position 49% of range. RSI 61 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $370 vs $384) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($406) or if RSI > 75 for several days. Stop-loss below 50D MA ($372) protects the swing thesis. Avg cost $329.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "EV / AI / Robotics \u00b7 below 200D \u00b7 below 50D \u00b7 risk: HIGH",
@@ -243,26 +243,26 @@
       "effective_action": "WAIT",
       "confidence_pct": 80,
       "chart_rec": "wait",
-      "chart_read": "Price $54.03 \u2014 Mid-range pullback (wait for setup). 20D MA $53.34 above 50D MA $51.77 (uptrend); Bollinger position 56% of range. RSI 58 (bullish-leaning); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $51.77\u2013$53.34 (between 20D and 50D), ideally with price tagging the lower BB ($47.66). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($59.03) or if RSI > 75 for several days. Stop-loss below 50D MA ($50.22) protects the swing thesis. Avg cost $54.81.",
+      "chart_read": "Price $53.86 \u2014 Mid-range pullback (wait for setup). 20D MA $53.34 above 50D MA $51.77 (uptrend); Bollinger position 55% of range. RSI 57 (bullish-leaning); volume 0.2\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $51.77\u2013$53.34 (between 20D and 50D), ideally with price tagging the lower BB ($47.65). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($59.02) or if RSI > 75 for several days. Stop-loss below 50D MA ($50.22) protects the swing thesis. Avg cost $54.81.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Uranium \u00b7 above 200D \u00b7 above 50D \u00b7 risk: MEDIUM",
-      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $49.51."
+      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $49.24."
     }
   },
   "DEFT": {
     "bucket": "swing",
     "analysis": {
       "effective_action": "WAIT",
-      "confidence_pct": 50,
-      "chart_rec": "buy",
-      "chart_read": "Price $0.7413 \u2014 Pullback in uptrend (buy zone). 20D MA $0.7695 above 50D MA $0.6947 (uptrend); Bollinger position 24% of range. RSI 50 (neutral); volume 0.0\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $0.6947\u2013$0.7695 (between 20D and 50D), ideally with price tagging the lower BB ($0.7157). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($0.8232) or if RSI > 75 for several days. Stop-loss below 50D MA ($0.6739) protects the swing thesis. Avg cost $1.18.",
+      "confidence_pct": 80,
+      "chart_rec": "wait",
+      "chart_read": "Price $0.7429 \u2014 Mid-range pullback (wait for setup). 20D MA $0.7695 above 50D MA $0.6948 (uptrend); Bollinger position 25% of range. RSI 50 (neutral); volume 0.0\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $0.6948\u2013$0.7695 (between 20D and 50D), ideally with price tagging the lower BB ($0.7160). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($0.8231) or if RSI > 75 for several days. Stop-loss below 50D MA ($0.6739) protects the swing thesis. Avg cost $1.18.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Defense \u00b7 below 200D \u00b7 above 50D \u00b7 risk: HIGH",
-      "best_play": "Wait (50%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $0.6600."
+      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $0.6600."
     }
   },
   "SOUN": {
@@ -271,7 +271,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 80,
       "chart_rec": "wait",
-      "chart_read": "Price $7.75 sits +0.5\u03c3 from the 20-day MA ($7.47) \u2014 Within normal range (+0.5\u03c3 from MA20). Volatility (ATR) is steady; RSI 65 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $7.74 sits +0.5\u03c3 from the 20-day MA ($7.47) \u2014 Within normal range (+0.5\u03c3 from MA20). Volatility (ATR) is steady; RSI 65 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Capitulation buy zone: $6.40\u2013$6.94 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $8.28 (+1.5\u00d7 ATR above MA20). Avg cost $11.61; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -285,12 +285,12 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "wait",
-      "chart_read": "Price $73.23 sits -1.1\u03c3 from the 20-day MA ($79.00) \u2014 Within normal range (-1.1\u03c3 from MA20). Volatility (ATR) is rising; RSI 54 (neutral); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Capitulation buy zone: $68.37\u2013$73.69 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
-      "trim_zones": "Overextended / trim zone: above $86.97 (+1.5\u00d7 ATR above MA20). Avg cost $125; trim 20-30% on volatile spikes if you're up >25% from cost.",
+      "chart_read": "Price $73.07 sits -1.1\u03c3 from the 20-day MA ($78.99) \u2014 Within normal range (-1.1\u03c3 from MA20). Volatility (ATR) is rising; RSI 54 (neutral); volume 0.2\u00d7 avg (light).",
+      "add_zones": "Capitulation buy zone: $68.37\u2013$73.68 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "trim_zones": "Overextended / trim zone: above $86.96 (+1.5\u00d7 ATR above MA20). Avg cost $125; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "FinTech / Crypto \u00b7 below 200D \u00b7 below 50D \u00b7 risk: VERY HIGH",
-      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $64.12."
+      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $64.84."
     }
   },
   "COIN": {
@@ -299,12 +299,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 80,
       "chart_rec": "wait",
-      "chart_read": "Price $184 sits -0.4\u03c3 from the 20-day MA ($188) \u2014 Balanced near MA20. Volatility (ATR) is steady; RSI 58 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $183 sits -0.4\u03c3 from the 20-day MA ($188) \u2014 Balanced near MA20. Volatility (ATR) is steady; RSI 58 (bullish-leaning); volume 0.2\u00d7 avg (light).",
       "add_zones": "Capitulation buy zone: $164\u2013$176 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $206 (+1.5\u00d7 ATR above MA20). Avg cost $177; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Crypto Exchange \u00b7 below 200D \u00b7 below 50D \u00b7 risk: VERY HIGH",
-      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $163."
+      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $165."
     }
   },
   "IONQ": {
@@ -313,26 +313,26 @@
       "effective_action": "WATCH",
       "confidence_pct": 55,
       "chart_rec": "wait",
-      "chart_read": "Price $42.30 sits +1.0\u03c3 from the 20-day MA ($38.60) \u2014 Within normal range (+1.0\u03c3 from MA20). Volatility (ATR) is rising; RSI 72 (overbought); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Capitulation buy zone: $31.34\u2013$34.97 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
-      "trim_zones": "Overextended / trim zone: above $44.05 (+1.5\u00d7 ATR above MA20). Avg cost $41.34; trim 20-30% on volatile spikes if you're up >25% from cost.",
+      "chart_read": "Price $42.76 sits +1.1\u03c3 from the 20-day MA ($38.62) \u2014 Within normal range (+1.1\u03c3 from MA20). Volatility (ATR) is rising; RSI 73 (overbought); volume 0.1\u00d7 avg (light).",
+      "add_zones": "Capitulation buy zone: $31.31\u2013$34.97 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "trim_zones": "Overextended / trim zone: above $44.11 (+1.5\u00d7 ATR above MA20). Avg cost $41.34; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Quantum Computing \u00b7 below 200D \u00b7 above 50D \u00b7 risk: VERY HIGH",
-      "best_play": "Mixed signals (55%) \u2014 chart and brain don't fully agree. Hold what you have; do not add today. If you have strong conviction in the underlying story, a tiny ~10% placeholder is OK; scale only after the chart catches up to the brain (or vice versa). Stop-loss $37.42."
+      "best_play": "Mixed signals (55%) \u2014 chart and brain don't fully agree. Hold what you have; do not add today. If you have strong conviction in the underlying story, a tiny ~10% placeholder is OK; scale only after the chart catches up to the brain (or vice versa). Stop-loss $37.46."
     }
   },
   "BMNR": {
     "bucket": "spec",
     "analysis": {
-      "effective_action": "EXIT",
-      "confidence_pct": 85,
+      "effective_action": "WAIT",
+      "confidence_pct": 80,
       "chart_rec": "wait",
-      "chart_read": "Price $20.96 sits -0.5\u03c3 from the 20-day MA ($21.56) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 48 (neutral); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Capitulation buy zone: $19.01\u2013$20.28 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
-      "trim_zones": "Overextended / trim zone: above $23.47 (+1.5\u00d7 ATR above MA20). Avg cost $30.91; trim 20-30% on volatile spikes if you're up >25% from cost.",
+      "chart_read": "Price $21.05 sits -0.4\u03c3 from the 20-day MA ($21.56) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 49 (neutral); volume 0.1\u00d7 avg (light).",
+      "add_zones": "Capitulation buy zone: $18.99\u2013$20.28 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "trim_zones": "Overextended / trim zone: above $23.49 (+1.5\u00d7 ATR above MA20). Avg cost $30.91; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
-      "fundamentals": "TBD \u00b7 below 200D \u00b7 below 50D \u00b7 risk: VERY HIGH",
-      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $18.69."
+      "fundamentals": "TBD \u00b7 below 200D \u00b7 above 50D \u00b7 risk: VERY HIGH",
+      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $19.83."
     }
   },
   "OSCR": {
@@ -341,12 +341,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 90,
       "chart_rec": "skip",
-      "chart_read": "Price $17.65 sits +2.7\u03c3 from the 20-day MA ($15.61) \u2014 Overextended (+2.7\u03c3 above MA20). Volatility (ATR) is steady; RSI 83 (extreme overbought); volume 0.0\u00d7 avg (light).",
-      "add_zones": "Capitulation buy zone: $14.12\u2013$14.86 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
-      "trim_zones": "Overextended / trim zone: above $16.72 (+1.5\u00d7 ATR above MA20). Avg cost $15.01; trim 20-30% on volatile spikes if you're up >25% from cost.",
+      "chart_read": "Price $17.66 sits +2.7\u03c3 from the 20-day MA ($15.61) \u2014 Overextended (+2.7\u03c3 above MA20). Volatility (ATR) is steady; RSI 83 (extreme overbought); volume 0.1\u00d7 avg (light).",
+      "add_zones": "Capitulation buy zone: $14.10\u2013$14.85 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "trim_zones": "Overextended / trim zone: above $16.74 (+1.5\u00d7 ATR above MA20). Avg cost $15.01; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "InsurTech \u00b7 above 200D \u00b7 above 50D \u00b7 risk: HIGH",
-      "best_play": "Wait (90%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $16.80."
+      "best_play": "Wait (90%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $16.49."
     }
   },
   "SOFI": {
@@ -355,12 +355,12 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "wait",
-      "chart_read": "Price $15.83 sits -1.8\u03c3 from the 20-day MA ($17.60) \u2014 Capitulation territory (-1.8\u03c3 below MA20). Volatility (ATR) is steady; RSI 48 (neutral); volume 0.2\u00d7 avg (light).",
-      "add_zones": "Capitulation buy zone: $15.67\u2013$16.64 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "chart_read": "Price $15.77 sits -1.9\u03c3 from the 20-day MA ($17.60) \u2014 Capitulation territory (-1.9\u03c3 below MA20). Volatility (ATR) is steady; RSI 47 (neutral); volume 0.3\u00d7 avg (light).",
+      "add_zones": "Capitulation buy zone: $15.67\u2013$16.63 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $19.05 (+1.5\u00d7 ATR above MA20). Avg cost $26.31; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "FinTech \u00b7 below 200D \u00b7 below 50D \u00b7 risk: VERY HIGH",
-      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $14.29."
+      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $14.30."
     }
   },
   "IBIT": {
@@ -369,12 +369,12 @@
       "effective_action": "WAIT",
       "confidence_pct": 80,
       "chart_rec": "wait",
-      "chart_read": "Price $43.40 sits +1.0\u03c3 from the 20-day MA ($42.20) \u2014 Within normal range (+1.0\u03c3 from MA20). Volatility (ATR) is settling down; RSI 61 (bullish-leaning); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Capitulation buy zone: $39.70\u2013$40.95 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "chart_read": "Price $43.33 sits +0.9\u03c3 from the 20-day MA ($42.20) \u2014 Within normal range (+0.9\u03c3 from MA20). Volatility (ATR) is settling down; RSI 60 (bullish-leaning); volume 0.2\u00d7 avg (light).",
+      "add_zones": "Capitulation buy zone: $39.68\u2013$40.94 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $44.08 (+1.5\u00d7 ATR above MA20). Avg cost $53.43; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Bitcoin \u00b7 below 200D \u00b7 above 50D \u00b7 risk: VERY HIGH",
-      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $41.28."
+      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $41.42."
     }
   },
   "ETHA": {
@@ -383,26 +383,26 @@
       "effective_action": "WAIT",
       "confidence_pct": 80,
       "chart_rec": "wait",
-      "chart_read": "Price $17.13 sits -0.1\u03c3 from the 20-day MA ($17.19) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 51 (neutral); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Capitulation buy zone: $15.86\u2013$16.52 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "chart_read": "Price $17.09 sits -0.1\u03c3 from the 20-day MA ($17.19) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 50 (neutral); volume 0.2\u00d7 avg (light).",
+      "add_zones": "Capitulation buy zone: $15.85\u2013$16.52 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $18.19 (+1.5\u00d7 ATR above MA20). Avg cost $23.41; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Ethereum \u00b7 below 200D \u00b7 above 50D \u00b7 risk: VERY HIGH",
-      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $16.04."
+      "best_play": "Wait (80%). Hold your position; do not add. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation). Stop-loss $16.07."
     }
   },
   "CLSK": {
     "bucket": "spec",
     "analysis": {
-      "effective_action": "WATCH",
-      "confidence_pct": 55,
+      "effective_action": "BUY",
+      "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $12.18 sits +1.3\u03c3 from the 20-day MA ($11.10) \u2014 Within normal range (+1.3\u03c3 from MA20). Volatility (ATR) is steady; RSI 68 (bullish-leaning); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Capitulation buy zone: $9.43\u2013$10.27 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
-      "trim_zones": "Overextended / trim zone: above $12.36 (+1.5\u00d7 ATR above MA20). Avg cost $12.44; trim 20-30% on volatile spikes if you're up >25% from cost.",
+      "chart_read": "Price $12.27 sits +1.4\u03c3 from the 20-day MA ($11.11) \u2014 Within normal range (+1.4\u03c3 from MA20). Volatility (ATR) is steady; RSI 68 (bullish-leaning); volume 0.3\u00d7 avg (light).",
+      "add_zones": "Capitulation buy zone: $9.40\u2013$10.26 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "trim_zones": "Overextended / trim zone: above $12.39 (+1.5\u00d7 ATR above MA20). Avg cost $12.44; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
-      "fundamentals": "Bitcoin Mining \u00b7 below 200D \u00b7 above 50D \u00b7 risk: VERY HIGH",
-      "best_play": "Mixed signals (55%) \u2014 chart and brain don't fully agree. Hold what you have; do not add today. If you have strong conviction in the underlying story, a tiny ~10% placeholder is OK; scale only after the chart catches up to the brain (or vice versa). Stop-loss $10.75."
+      "fundamentals": "Bitcoin Mining \u00b7 above 200D \u00b7 above 50D \u00b7 risk: HIGH",
+      "best_play": "Standard buy (65%). Add 25-50% of monthly DCA. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes. Stop-loss $10.96."
     }
   },
   "NVDA": {
@@ -411,9 +411,9 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $207 \u2014 Mid-range pullback (wait for setup). 20D MA $197 above 50D MA $187 (uptrend); Bollinger position 71% of range. RSI 68 (bullish-leaning); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $187\u2013$197 (between 20D and 50D), ideally with price tagging the lower BB ($172). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($221) once you're in. Stop-loss below 50D MA ($181).",
+      "chart_read": "Price $204 \u2014 Mid-range pullback (wait for setup). 20D MA $196 above 50D MA $187 (uptrend); Bollinger position 65% of range. RSI 64 (bullish-leaning); volume 0.2\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $187\u2013$196 (between 20D and 50D), ideally with price tagging the lower BB ($173). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($220) once you're in. Stop-loss below 50D MA ($181).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "AI GPU / Data Centers \u00b7 above 200D \u00b7 above 50D",
       "best_play": "Standard buy (65%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
@@ -425,7 +425,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $269 \u2014 Mid-range pullback (wait for setup). 20D MA $265 above 50D MA $261 (uptrend); Bollinger position 67% of range. RSI 59 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $270 \u2014 Mid-range pullback (wait for setup). 20D MA $265 above 50D MA $261 (uptrend); Bollinger position 70% of range. RSI 61 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $261\u2013$265 (between 20D and 50D), ideally with price tagging the lower BB ($252). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($278) once you're in. Stop-loss below 50D MA ($253).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -439,7 +439,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $205 \u2014 Stretched in uptrend (don't chase). 20D MA $175 above 50D MA $148 (uptrend); Bollinger position 78% of range. RSI 71 (overbought); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $205 \u2014 Stretched in uptrend (don't chase). 20D MA $175 above 50D MA $148 (uptrend); Bollinger position 77% of range. RSI 71 (overbought); volume 0.2\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $148\u2013$175 (between 20D and 50D), ideally with price tagging the lower BB ($121). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($230) once you're in. Stop-loss below 50D MA ($144).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -453,7 +453,7 @@
       "effective_action": "WATCH",
       "confidence_pct": 45,
       "chart_rec": "skip",
-      "chart_read": "Price $29.18 \u2014 Trend broken (momentum against you). 20D MA $26.91 below 50D MA $27.55 (downtrend); Bollinger position 93% of range. RSI 72 (overbought); volume 0.0\u00d7 avg (light).",
+      "chart_read": "Price $29.16 \u2014 Trend broken (momentum against you). 20D MA $26.91 below 50D MA $27.55 (downtrend); Bollinger position 92% of range. RSI 71 (overbought); volume 0.1\u00d7 avg (light).",
       "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $26.91 vs $27.55) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($29.57) once you're in. Stop-loss below 50D MA ($26.72).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -467,9 +467,9 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $105 \u2014 Stretched in uptrend (don't chase). 20D MA $98.18 above 50D MA $96.63 (uptrend); Bollinger position 101% of range. RSI 72 (overbought); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $96.63\u2013$98.18 (between 20D and 50D), ideally with price tagging the lower BB ($91.82). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($105) once you're in. Stop-loss below 50D MA ($93.73).",
+      "chart_read": "Price $104 \u2014 Stretched in uptrend (don't chase). 20D MA $98.17 above 50D MA $96.62 (uptrend); Bollinger position 100% of range. RSI 70 (overbought); volume 0.1\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $96.62\u2013$98.17 (between 20D and 50D), ideally with price tagging the lower BB ($91.87). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($104) once you're in. Stop-loss below 50D MA ($93.73).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Seasonal \u00b7 above 200D \u00b7 above 50D",
       "best_play": "Standard buy (65%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
@@ -481,9 +481,9 @@
       "effective_action": "WATCH",
       "confidence_pct": 45,
       "chart_rec": "skip",
-      "chart_read": "Price $77.68 \u2014 Trend broken (momentum against you). 20D MA $75.81 below 50D MA $76.82 (downtrend); Bollinger position 79% of range. RSI 59 (bullish-leaning); volume 0.0\u00d7 avg (light).",
-      "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $75.81 vs $76.82) and price holds there for several days.",
-      "trim_zones": "Trim near upper BB ($78.99) once you're in. Stop-loss below 50D MA ($74.52).",
+      "chart_read": "Price $77.41 \u2014 Trend broken (momentum against you). 20D MA $75.79 below 50D MA $76.82 (downtrend); Bollinger position 76% of range. RSI 58 (bullish-leaning); volume 0.0\u00d7 avg (light).",
+      "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $75.79 vs $76.82) and price holds there for several days.",
+      "trim_zones": "Trim near upper BB ($78.95) once you're in. Stop-loss below 50D MA ($74.51).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Seasonal \u00b7 above 200D \u00b7 above 50D",
       "best_play": "Mixed signals (45%) \u2014 chart and brain don't fully agree. No starter today. If you have strong conviction in the underlying story, a tiny ~10% placeholder is OK; scale only after the chart catches up to the brain (or vice versa)."
@@ -495,7 +495,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $712 \u2014 Mid-range pullback (wait for setup). 20D MA $695 above 50D MA $679 (uptrend); Bollinger position 72% of range. RSI 78 (overbought); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $711 \u2014 Mid-range pullback (wait for setup). 20D MA $695 above 50D MA $679 (uptrend); Bollinger position 71% of range. RSI 78 (overbought); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $679\u2013$695 (between 20D and 50D), ideally with price tagging the lower BB ($655). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($735) once you're in. Stop-loss below 50D MA ($659).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -509,7 +509,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $716 \u2014 Mid-range pullback (wait for setup). 20D MA $698 above 50D MA $682 (uptrend); Bollinger position 72% of range. RSI 78 (overbought); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $715 \u2014 Mid-range pullback (wait for setup). 20D MA $698 above 50D MA $682 (uptrend); Bollinger position 71% of range. RSI 78 (overbought); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $682\u2013$698 (between 20D and 50D), ideally with price tagging the lower BB ($658). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($738) once you're in. Stop-loss below 50D MA ($662).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -523,7 +523,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $310 \u2014 Mid-range pullback (wait for setup). 20D MA $309 above 50D MA $299 (uptrend); Bollinger position 58% of range. RSI 51 (neutral); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $311 \u2014 Mid-range pullback (wait for setup). 20D MA $309 above 50D MA $299 (uptrend); Bollinger position 59% of range. RSI 51 (neutral); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $299\u2013$309 (between 20D and 50D), ideally with price tagging the lower BB ($297). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($321) once you're in. Stop-loss below 50D MA ($290).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -537,7 +537,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $911 \u2014 Mid-range pullback (wait for setup). 20D MA $909 above 50D MA $870 (uptrend); Bollinger position 52% of range. RSI 51 (neutral); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $914 \u2014 Mid-range pullback (wait for setup). 20D MA $909 above 50D MA $870 (uptrend); Bollinger position 56% of range. RSI 52 (neutral); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $870\u2013$909 (between 20D and 50D), ideally with price tagging the lower BB ($861). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($957) once you're in. Stop-loss below 50D MA ($844).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -551,7 +551,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $187 \u2014 Mid-range pullback (wait for setup). 20D MA $183 above 50D MA $172 (uptrend); Bollinger position 61% of range. RSI 64 (bullish-leaning); volume 0.0\u00d7 avg (light).",
+      "chart_read": "Price $188 \u2014 Mid-range pullback (wait for setup). 20D MA $183 above 50D MA $172 (uptrend); Bollinger position 62% of range. RSI 65 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $172\u2013$183 (between 20D and 50D), ideally with price tagging the lower BB ($166). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($200) once you're in. Stop-loss below 50D MA ($167).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -565,7 +565,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $128 \u2014 Mid-range pullback (wait for setup). 20D MA $127 above 50D MA $117 (uptrend); Bollinger position 58% of range. RSI 59 (bullish-leaning); volume 0.0\u00d7 avg (light).",
+      "chart_read": "Price $128 \u2014 Mid-range pullback (wait for setup). 20D MA $127 above 50D MA $117 (uptrend); Bollinger position 58% of range. RSI 59 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $117\u2013$127 (between 20D and 50D), ideally with price tagging the lower BB ($117). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($137) once you're in. Stop-loss below 50D MA ($114).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -579,7 +579,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $69.11 \u2014 Mid-range pullback (wait for setup). 20D MA $69.05 above 50D MA $67.07 (uptrend); Bollinger position 51% of range. RSI 51 (neutral); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $69.17 \u2014 Mid-range pullback (wait for setup). 20D MA $69.05 above 50D MA $67.07 (uptrend); Bollinger position 52% of range. RSI 51 (neutral); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $67.07\u2013$69.05 (between 20D and 50D), ideally with price tagging the lower BB ($66.54). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($71.55) once you're in. Stop-loss below 50D MA ($65.05).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -593,9 +593,9 @@
       "effective_action": "WAIT",
       "confidence_pct": 60,
       "chart_rec": "wait",
-      "chart_read": "Price $66.69 \u2014 Mid-range pullback (wait for setup). 20D MA $64.83 above 50D MA $62.08 (uptrend); Bollinger position 67% of range. RSI 61 (bullish-leaning); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $62.08\u2013$64.83 (between 20D and 50D), ideally with price tagging the lower BB ($59.26). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($70.40) once you're in. Stop-loss below 50D MA ($60.22).",
+      "chart_read": "Price $66.54 \u2014 Mid-range pullback (wait for setup). 20D MA $64.82 above 50D MA $62.08 (uptrend); Bollinger position 65% of range. RSI 60 (bullish-leaning); volume 0.2\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $62.08\u2013$64.82 (between 20D and 50D), ideally with price tagging the lower BB ($59.27). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($70.38) once you're in. Stop-loss below 50D MA ($60.21).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Bonus \u00b7 below 200D \u00b7 above 50D",
       "best_play": "Wait (60%). No entry today. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation)."
@@ -607,7 +607,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 60,
       "chart_rec": "wait",
-      "chart_read": "Price $162 \u2014 Mid-range pullback (wait for setup). 20D MA $150 above 50D MA $141 (uptrend); Bollinger position 65% of range. RSI 69 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $162 \u2014 Mid-range pullback (wait for setup). 20D MA $150 above 50D MA $141 (uptrend); Bollinger position 66% of range. RSI 69 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $141\u2013$150 (between 20D and 50D), ideally with price tagging the lower BB ($110). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($190) once you're in. Stop-loss below 50D MA ($137).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -621,9 +621,9 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $454 \u2014 Stretched in uptrend (don't chase). 20D MA $408 above 50D MA $368 (uptrend); Bollinger position 80% of range. RSI 80 (overbought); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $453 \u2014 Stretched in uptrend (don't chase). 20D MA $408 above 50D MA $368 (uptrend); Bollinger position 80% of range. RSI 80 (overbought); volume 0.2\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $368\u2013$408 (between 20D and 50D), ideally with price tagging the lower BB ($332). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($484) once you're in. Stop-loss below 50D MA ($357).",
+      "trim_zones": "Trim near upper BB ($483) once you're in. Stop-loss below 50D MA ($356).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Industry \u00b7 above 200D \u00b7 above 50D",
       "best_play": "Standard buy (65%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
@@ -635,7 +635,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $501 \u2014 Stretched in uptrend (don't chase). 20D MA $457 above 50D MA $420 (uptrend); Bollinger position 81% of range. RSI 84 (extreme overbought); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $499 \u2014 Stretched in uptrend (don't chase). 20D MA $457 above 50D MA $420 (uptrend); Bollinger position 79% of range. RSI 83 (extreme overbought); volume 0.2\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $420\u2013$457 (between 20D and 50D), ideally with price tagging the lower BB ($385). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($529) once you're in. Stop-loss below 50D MA ($408).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -663,9 +663,9 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $1,670 \u2014 Mid-range pullback (wait for setup). 20D MA $1,746 above 50D MA $1,584 (uptrend); Bollinger position 33% of range. RSI 45 (bearish-leaning); volume 0.3\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $1,584\u2013$1,746 (between 20D and 50D), ideally with price tagging the lower BB ($1,525). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($1,968) once you're in. Stop-loss below 50D MA ($1,536).",
+      "chart_read": "Price $1,686 \u2014 Mid-range pullback (wait for setup). 20D MA $1,747 above 50D MA $1,584 (uptrend); Bollinger position 36% of range. RSI 46 (neutral); volume 0.4\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $1,584\u2013$1,747 (between 20D and 50D), ideally with price tagging the lower BB ($1,527). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($1,968) once you're in. Stop-loss below 50D MA ($1,537).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Industry \u00b7 above 200D \u00b7 above 50D",
       "best_play": "Standard buy (65%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
@@ -674,15 +674,15 @@
   "ASML": {
     "bucket": "swing",
     "analysis": {
-      "effective_action": "BUY",
-      "confidence_pct": 65,
+      "effective_action": "WATCH",
+      "confidence_pct": 55,
       "chart_rec": "wait",
-      "chart_read": "Price $1,401 \u2014 Mid-range pullback (wait for setup). 20D MA $1,426 above 50D MA $1,401 (uptrend); Bollinger position 40% of range. RSI 40 (bearish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $1,400 \u2014 Mid-range pullback (wait for setup). 20D MA $1,426 above 50D MA $1,401 (uptrend); Bollinger position 40% of range. RSI 40 (bearish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $1,401\u2013$1,426 (between 20D and 50D), ideally with price tagging the lower BB ($1,303). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($1,548) once you're in. Stop-loss below 50D MA ($1,359).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
-      "fundamentals": "Industry \u00b7 above 200D \u00b7 above 50D",
-      "best_play": "Standard buy (65%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
+      "fundamentals": "Industry \u00b7 above 200D \u00b7 below 50D",
+      "best_play": "Mixed signals (55%) \u2014 chart and brain don't fully agree. No starter today. If you have strong conviction in the underlying story, a tiny ~10% placeholder is OK; scale only after the chart catches up to the brain (or vice versa)."
     }
   },
   "IPO": {
@@ -691,9 +691,9 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $48.02 \u2014 Mid-range pullback (wait for setup). 20D MA $46.55 above 50D MA $44.59 (uptrend); Bollinger position 63% of range. RSI 69 (bullish-leaning); volume 0.4\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $44.59\u2013$46.55 (between 20D and 50D), ideally with price tagging the lower BB ($40.87). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($52.23) once you're in. Stop-loss below 50D MA ($43.25).",
+      "chart_read": "Price $48.50 \u2014 Mid-range pullback (wait for setup). 20D MA $46.87 above 50D MA $44.67 (uptrend); Bollinger position 65% of range. RSI 68 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $44.67\u2013$46.87 (between 20D and 50D), ideally with price tagging the lower BB ($41.55). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($52.19) once you're in. Stop-loss below 50D MA ($43.33).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Corporate \u00b7 above 200D \u00b7 above 50D",
       "best_play": "Standard buy (65%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
@@ -705,9 +705,9 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $20.68 \u2014 Mid-range pullback (wait for setup). 20D MA $20.37 above 50D MA $19.65 (uptrend); Bollinger position 59% of range. RSI 60 (bullish-leaning); volume 1.1\u00d7 avg (normal).",
-      "add_zones": "Buy zone: pullback into $19.65\u2013$20.37 (between 20D and 50D), ideally with price tagging the lower BB ($18.56). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($22.18) once you're in. Stop-loss below 50D MA ($19.07).",
+      "chart_read": "Price $20.68 \u2014 Mid-range pullback (wait for setup). 20D MA $20.46 above 50D MA $19.66 (uptrend); Bollinger position 57% of range. RSI 53 (neutral); volume 0.1\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $19.66\u2013$20.46 (between 20D and 50D), ideally with price tagging the lower BB ($18.79). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($22.12) once you're in. Stop-loss below 50D MA ($19.07).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Corporate \u00b7 above 200D \u00b7 above 50D",
       "best_play": "Standard buy (65%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
@@ -719,7 +719,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $178 \u2014 Mid-range pullback (wait for setup). 20D MA $174 above 50D MA $168 (uptrend); Bollinger position 70% of range. RSI 66 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $179 \u2014 Mid-range pullback (wait for setup). 20D MA $174 above 50D MA $168 (uptrend); Bollinger position 73% of range. RSI 66 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $168\u2013$174 (between 20D and 50D), ideally with price tagging the lower BB ($163). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($185) once you're in. Stop-loss below 50D MA ($163).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -733,7 +733,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 60,
       "chart_rec": "wait",
-      "chart_read": "Price $214 \u2014 Mid-range pullback (wait for setup). 20D MA $208 above 50D MA $206 (uptrend); Bollinger position 69% of range. RSI 71 (overbought); volume 0.0\u00d7 avg (light).",
+      "chart_read": "Price $212 \u2014 Mid-range pullback (wait for setup). 20D MA $208 above 50D MA $206 (uptrend); Bollinger position 63% of range. RSI 68 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $206\u2013$208 (between 20D and 50D), ideally with price tagging the lower BB ($193). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($224) once you're in. Stop-loss below 50D MA ($200).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -747,7 +747,7 @@
       "effective_action": "STRONG BUY",
       "confidence_pct": 95,
       "chart_rec": "buy",
-      "chart_read": "Price $202 \u2014 Pullback in uptrend (buy zone). 20D MA $203 above 50D MA $202 (uptrend); Bollinger position 12% of range. RSI 42 (bearish-leaning); volume 0.0\u00d7 avg (light).",
+      "chart_read": "Price $202 \u2014 Pullback in uptrend (buy zone). 20D MA $203 above 50D MA $202 (uptrend); Bollinger position 10% of range. RSI 42 (bearish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $202\u2013$203 (between 20D and 50D), ideally with price tagging the lower BB ($202). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($204) once you're in. Stop-loss below 50D MA ($196).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -761,9 +761,9 @@
       "effective_action": "WAIT",
       "confidence_pct": 70,
       "chart_rec": "skip",
-      "chart_read": "Price $56.63 \u2014 Trend broken (momentum against you). 20D MA $57.92 below 50D MA $59.58 (downtrend); Bollinger position 35% of range. RSI 53 (neutral); volume 0.1\u00d7 avg (light).",
-      "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $57.92 vs $59.58) and price holds there for several days.",
-      "trim_zones": "Trim near upper BB ($62.20) once you're in. Stop-loss below 50D MA ($57.79).",
+      "chart_read": "Price $56.30 \u2014 Trend broken (momentum against you). 20D MA $57.90 below 50D MA $59.57 (downtrend); Bollinger position 31% of range. RSI 52 (neutral); volume 0.1\u00d7 avg (light).",
+      "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $57.90 vs $59.57) and price holds there for several days.",
+      "trim_zones": "Trim near upper BB ($62.21) once you're in. Stop-loss below 50D MA ($57.78).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Industry \u00b7 below 200D \u00b7 below 50D",
       "best_play": "Wait (70%). No entry today. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation)."
@@ -775,7 +775,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $130 \u2014 Mid-range pullback (wait for setup). 20D MA $133 above 50D MA $128 (uptrend); Bollinger position 28% of range. RSI 51 (neutral); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $130 \u2014 Mid-range pullback (wait for setup). 20D MA $133 above 50D MA $128 (uptrend); Bollinger position 25% of range. RSI 50 (neutral); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $128\u2013$133 (between 20D and 50D), ideally with price tagging the lower BB ($126). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($140) once you're in. Stop-loss below 50D MA ($124).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -789,7 +789,7 @@
       "effective_action": "BUY",
       "confidence_pct": 90,
       "chart_rec": "buy",
-      "chart_read": "Price $167 \u2014 Pullback in uptrend (buy zone). 20D MA $171 above 50D MA $170 (uptrend); Bollinger position 16% of range. RSI 45 (neutral); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $167 \u2014 Pullback in uptrend (buy zone). 20D MA $171 above 50D MA $170 (uptrend); Bollinger position 14% of range. RSI 44 (bearish-leaning); volume 0.2\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $170\u2013$171 (between 20D and 50D), ideally with price tagging the lower BB ($165). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($178) once you're in. Stop-loss below 50D MA ($165).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -803,8 +803,8 @@
       "effective_action": "STRONG BUY",
       "confidence_pct": 95,
       "chart_rec": "buy",
-      "chart_read": "Price $172 \u2014 Pullback in uptrend (buy zone). 20D MA $186 above 50D MA $170 (uptrend); Bollinger position 24% of range. RSI 50 (neutral); volume 0.2\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $170\u2013$186 (between 20D and 50D), ideally with price tagging the lower BB ($159). Standard size on confirmation.",
+      "chart_read": "Price $171 \u2014 Pullback in uptrend (buy zone). 20D MA $186 above 50D MA $170 (uptrend); Bollinger position 22% of range. RSI 49 (neutral); volume 0.3\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $170\u2013$186 (between 20D and 50D), ideally with price tagging the lower BB ($158). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($214) once you're in. Stop-loss below 50D MA ($165).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Industry \u00b7 above 200D \u00b7 above 50D",
@@ -817,9 +817,9 @@
       "effective_action": "WATCH",
       "confidence_pct": 55,
       "chart_rec": "wait",
-      "chart_read": "Price $79.25 \u2014 Mid-range pullback (wait for setup). 20D MA $82.15 above 50D MA $81.71 (uptrend); Bollinger position 29% of range. RSI 40 (bearish-leaning); volume 0.2\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $81.71\u2013$82.15 (between 20D and 50D), ideally with price tagging the lower BB ($75.09). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($89.22) once you're in. Stop-loss below 50D MA ($79.26).",
+      "chart_read": "Price $78.78 \u2014 Mid-range pullback (wait for setup). 20D MA $82.13 above 50D MA $81.70 (uptrend); Bollinger position 26% of range. RSI 39 (bearish-leaning); volume 0.2\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $81.70\u2013$82.13 (between 20D and 50D), ideally with price tagging the lower BB ($75.02). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($89.24) once you're in. Stop-loss below 50D MA ($79.25).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Industry \u00b7 above 200D \u00b7 below 50D",
       "best_play": "Mixed signals (55%) \u2014 chart and brain don't fully agree. No starter today. If you have strong conviction in the underlying story, a tiny ~10% placeholder is OK; scale only after the chart catches up to the brain (or vice versa)."
@@ -831,9 +831,9 @@
       "effective_action": "BUY",
       "confidence_pct": 90,
       "chart_rec": "buy",
-      "chart_read": "Price $57.73 \u2014 Pullback in uptrend (buy zone). 20D MA $64.51 above 50D MA $62.20 (uptrend); Bollinger position 13% of range. RSI 28 (oversold); volume 0.0\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $62.20\u2013$64.51 (between 20D and 50D), ideally with price tagging the lower BB ($55.36). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($73.65) once you're in. Stop-loss below 50D MA ($60.33).",
+      "chart_read": "Price $57.33 \u2014 Pullback in uptrend (buy zone). 20D MA $64.49 above 50D MA $62.19 (uptrend); Bollinger position 11% of range. RSI 27 (oversold); volume 0.1\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $62.19\u2013$64.49 (between 20D and 50D), ideally with price tagging the lower BB ($55.28). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($73.69) once you're in. Stop-loss below 50D MA ($60.33).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Industry \u00b7 above 200D \u00b7 below 50D",
       "best_play": "Standard buy (90%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
@@ -845,8 +845,8 @@
       "effective_action": "WAIT",
       "confidence_pct": 35,
       "chart_rec": "skip",
-      "chart_read": "Price $170 \u2014 Falling knife in downtrend (skip). 20D MA $183 below 50D MA $184 (downtrend); Bollinger position 11% of range. RSI 29 (oversold); volume 0.0\u00d7 avg (light).",
-      "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $183 vs $184) and price holds there for several days.",
+      "chart_read": "Price $171 \u2014 Falling knife in downtrend (skip). 20D MA $184 below 50D MA $184 (downtrend); Bollinger position 13% of range. RSI 30 (bearish-leaning); volume 0.1\u00d7 avg (light).",
+      "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $184 vs $184) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($201) once you're in. Stop-loss below 50D MA ($179).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Industry \u00b7 above 200D \u00b7 below 50D",
@@ -859,9 +859,9 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $78.32 \u2014 Mid-range pullback (wait for setup). 20D MA $77.89 above 50D MA $75.21 (uptrend); Bollinger position 55% of range. RSI 55 (bullish-leaning); volume 0.1\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $75.21\u2013$77.89 (between 20D and 50D), ideally with price tagging the lower BB ($73.15). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($82.63) once you're in. Stop-loss below 50D MA ($72.95).",
+      "chart_read": "Price $78.23 \u2014 Mid-range pullback (wait for setup). 20D MA $77.89 above 50D MA $75.20 (uptrend); Bollinger position 54% of range. RSI 55 (bullish-leaning); volume 0.2\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $75.20\u2013$77.89 (between 20D and 50D), ideally with price tagging the lower BB ($73.15). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($82.62) once you're in. Stop-loss below 50D MA ($72.95).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Industry \u00b7 above 200D \u00b7 above 50D",
       "best_play": "Standard buy (65%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
@@ -873,9 +873,9 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $57.67 \u2014 Mid-range pullback (wait for setup). 20D MA $57.24 above 50D MA $54.66 (uptrend); Bollinger position 54% of range. RSI 53 (neutral); volume 0.2\u00d7 avg (light).",
-      "add_zones": "Buy zone: pullback into $54.66\u2013$57.24 (between 20D and 50D), ideally with price tagging the lower BB ($52.25). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($62.23) once you're in. Stop-loss below 50D MA ($53.02).",
+      "chart_read": "Price $57.45 \u2014 Mid-range pullback (wait for setup). 20D MA $57.23 above 50D MA $54.66 (uptrend); Bollinger position 52% of range. RSI 53 (neutral); volume 0.2\u00d7 avg (light).",
+      "add_zones": "Buy zone: pullback into $54.66\u2013$57.23 (between 20D and 50D), ideally with price tagging the lower BB ($52.24). Standard size on confirmation.",
+      "trim_zones": "Trim near upper BB ($62.22) once you're in. Stop-loss below 50D MA ($53.02).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Industry \u00b7 above 200D \u00b7 above 50D",
       "best_play": "Standard buy (65%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
@@ -887,7 +887,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 35,
       "chart_rec": "skip",
-      "chart_read": "Price $26.14 \u2014 Trend broken (momentum against you). 20D MA $26.36 below 50D MA $27.12 (downtrend); Bollinger position 31% of range. RSI 45 (neutral); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $26.18 \u2014 Trend broken (momentum against you). 20D MA $26.36 below 50D MA $27.12 (downtrend); Bollinger position 35% of range. RSI 46 (neutral); volume 0.1\u00d7 avg (light).",
       "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $26.36 vs $27.12) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($26.94) once you're in. Stop-loss below 50D MA ($26.31).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -901,7 +901,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $174 \u2014 Mid-range pullback (wait for setup). 20D MA $172 above 50D MA $165 (uptrend); Bollinger position 63% of range. RSI 55 (neutral); volume 0.0\u00d7 avg (light).",
+      "chart_read": "Price $173 \u2014 Mid-range pullback (wait for setup). 20D MA $172 above 50D MA $165 (uptrend); Bollinger position 58% of range. RSI 54 (neutral); volume 0.0\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $165\u2013$172 (between 20D and 50D), ideally with price tagging the lower BB ($166). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($178) once you're in. Stop-loss below 50D MA ($160).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -915,7 +915,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $25.14 \u2014 Stretched in uptrend (don't chase). 20D MA $24.49 above 50D MA $24.07 (uptrend); Bollinger position 99% of range. RSI 62 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $25.13 \u2014 Stretched in uptrend (don't chase). 20D MA $24.49 above 50D MA $24.07 (uptrend); Bollinger position 99% of range. RSI 62 (bullish-leaning); volume 0.2\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $24.07\u2013$24.49 (between 20D and 50D), ideally with price tagging the lower BB ($23.83). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($25.15) once you're in. Stop-loss below 50D MA ($23.35).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -929,7 +929,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $84.31 \u2014 Mid-range pullback (wait for setup). 20D MA $84.36 above 50D MA $83.35 (uptrend); Bollinger position 49% of range. RSI 58 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $84.35 \u2014 Mid-range pullback (wait for setup). 20D MA $84.36 above 50D MA $83.35 (uptrend); Bollinger position 50% of range. RSI 58 (bullish-leaning); volume 0.2\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $83.35\u2013$84.36 (between 20D and 50D), ideally with price tagging the lower BB ($80.28). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($88.44) once you're in. Stop-loss below 50D MA ($80.85).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -957,7 +957,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 70,
       "chart_rec": "skip",
-      "chart_read": "Price $510 \u2014 Falling knife in downtrend (skip). 20D MA $580 below 50D MA $618 (downtrend); Bollinger position 14% of range. RSI 5 (extreme oversold); volume 0.0\u00d7 avg (light).",
+      "chart_read": "Price $510 \u2014 Falling knife in downtrend (skip). 20D MA $580 below 50D MA $618 (downtrend); Bollinger position 14% of range. RSI 5 (extreme oversold); volume 0.1\u00d7 avg (light).",
       "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $580 vs $618) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($676) once you're in. Stop-loss below 50D MA ($599).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -971,7 +971,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 70,
       "chart_rec": "skip",
-      "chart_read": "Price $175 \u2014 Falling knife in downtrend (skip). 20D MA $190 below 50D MA $197 (downtrend); Bollinger position 16% of range. RSI 16 (extreme oversold); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $174 \u2014 Falling knife in downtrend (skip). 20D MA $190 below 50D MA $197 (downtrend); Bollinger position 16% of range. RSI 15 (extreme oversold); volume 0.1\u00d7 avg (light).",
       "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $190 vs $197) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($214) once you're in. Stop-loss below 50D MA ($191).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -985,7 +985,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 70,
       "chart_rec": "skip",
-      "chart_read": "Price $577 \u2014 Falling knife in downtrend (skip). 20D MA $642 below 50D MA $689 (downtrend); Bollinger position 18% of range. RSI 12 (extreme oversold); volume 0.0\u00d7 avg (light).",
+      "chart_read": "Price $575 \u2014 Falling knife in downtrend (skip). 20D MA $642 below 50D MA $689 (downtrend); Bollinger position 17% of range. RSI 10 (extreme oversold); volume 0.0\u00d7 avg (light).",
       "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $642 vs $689) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($744) once you're in. Stop-loss below 50D MA ($668).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -999,9 +999,9 @@
       "effective_action": "WAIT",
       "confidence_pct": 35,
       "chart_rec": "skip",
-      "chart_read": "Price $424 \u2014 Falling knife in downtrend (skip). 20D MA $434 below 50D MA $445 (downtrend); Bollinger position 19% of range. RSI 41 (bearish-leaning); volume 0.1\u00d7 avg (light).",
-      "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $434 vs $445) and price holds there for several days.",
-      "trim_zones": "Trim near upper BB ($448) once you're in. Stop-loss below 50D MA ($431).",
+      "chart_read": "Price $423 \u2014 Falling knife in downtrend (skip). 20D MA $433 below 50D MA $445 (downtrend); Bollinger position 17% of range. RSI 41 (bearish-leaning); volume 0.2\u00d7 avg (light).",
+      "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $433 vs $445) and price holds there for several days.",
+      "trim_zones": "Trim near upper BB ($449) once you're in. Stop-loss below 50D MA ($431).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Macro \u00b7 above 200D \u00b7 below 50D",
       "best_play": "Wait (35%). No entry today. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation)."
@@ -1011,14 +1011,14 @@
     "bucket": "swing",
     "analysis": {
       "effective_action": "WAIT",
-      "confidence_pct": 70,
+      "confidence_pct": 35,
       "chart_rec": "skip",
-      "chart_read": "Price $217 \u2014 Falling knife in downtrend (skip). 20D MA $225 below 50D MA $230 (downtrend); Bollinger position 23% of range. RSI 34 (bearish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $216 \u2014 Falling knife in downtrend (skip). 20D MA $225 below 50D MA $230 (downtrend); Bollinger position 21% of range. RSI 32 (bearish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $225 vs $230) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($240) once you're in. Stop-loss below 50D MA ($223).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
-      "fundamentals": "Macro \u00b7 below 200D \u00b7 below 50D",
-      "best_play": "Wait (70%). No entry today. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation)."
+      "fundamentals": "Macro \u00b7 above 200D \u00b7 below 50D",
+      "best_play": "Wait (35%). No entry today. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation)."
     }
   },
   "XLF": {
@@ -1027,9 +1027,9 @@
       "effective_action": "WAIT",
       "confidence_pct": 60,
       "chart_rec": "wait",
-      "chart_read": "Price $51.78 \u2014 Mid-range pullback (wait for setup). 20D MA $51.52 above 50D MA $50.68 (uptrend); Bollinger position 57% of range. RSI 63 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $51.83 \u2014 Mid-range pullback (wait for setup). 20D MA $51.52 above 50D MA $50.68 (uptrend); Bollinger position 59% of range. RSI 63 (bullish-leaning); volume 0.2\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $50.68\u2013$51.52 (between 20D and 50D), ideally with price tagging the lower BB ($49.77). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($53.26) once you're in. Stop-loss below 50D MA ($49.16).",
+      "trim_zones": "Trim near upper BB ($53.27) once you're in. Stop-loss below 50D MA ($49.16).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Macro \u00b7 below 200D \u00b7 above 50D",
       "best_play": "Wait (60%). No entry today. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation)."
@@ -1041,7 +1041,7 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $159 \u2014 Stretched in uptrend (don't chase). 20D MA $150 above 50D MA $143 (uptrend); Bollinger position 75% of range. RSI 80 (extreme overbought); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $158 \u2014 Mid-range pullback (wait for setup). 20D MA $150 above 50D MA $143 (uptrend); Bollinger position 73% of range. RSI 78 (overbought); volume 0.1\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $143\u2013$150 (between 20D and 50D), ideally with price tagging the lower BB ($134). Standard size on confirmation.",
       "trim_zones": "Trim near upper BB ($167) once you're in. Stop-loss below 50D MA ($138).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -1055,9 +1055,9 @@
       "effective_action": "BUY",
       "confidence_pct": 65,
       "chart_rec": "wait",
-      "chart_read": "Price $340 \u2014 Stretched in uptrend (don't chase). 20D MA $277 above 50D MA $232 (uptrend); Bollinger position 86% of range. RSI 81 (extreme overbought); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $343 \u2014 Stretched in uptrend (don't chase). 20D MA $277 above 50D MA $232 (uptrend); Bollinger position 88% of range. RSI 82 (extreme overbought); volume 0.2\u00d7 avg (light).",
       "add_zones": "Buy zone: pullback into $232\u2013$277 (between 20D and 50D), ideally with price tagging the lower BB ($190). Standard size on confirmation.",
-      "trim_zones": "Trim near upper BB ($364) once you're in. Stop-loss below 50D MA ($225).",
+      "trim_zones": "Trim near upper BB ($365) once you're in. Stop-loss below 50D MA ($225).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Bonus \u00b7 above 200D \u00b7 above 50D",
       "best_play": "Standard buy (65%). Start with 25-50% of normal full size. Confirm the next leg before sizing up. \u26a0\ufe0f Macro event this week \u2014 keep half powder dry until it passes."
@@ -1069,9 +1069,9 @@
       "effective_action": "WAIT",
       "confidence_pct": 70,
       "chart_rec": "skip",
-      "chart_read": "Price $26.70 \u2014 Trend broken (momentum against you). 20D MA $26.38 below 50D MA $27.83 (downtrend); Bollinger position 54% of range. RSI 56 (bullish-leaning); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $26.65 \u2014 Trend broken (momentum against you). 20D MA $26.38 below 50D MA $27.83 (downtrend); Bollinger position 53% of range. RSI 56 (bullish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $26.38 vs $27.83) and price holds there for several days.",
-      "trim_zones": "Trim near upper BB ($31.01) once you're in. Stop-loss below 50D MA ($27.00).",
+      "trim_zones": "Trim near upper BB ($31.00) once you're in. Stop-loss below 50D MA ($27.00).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Bonus \u00b7 below 200D \u00b7 below 50D",
       "best_play": "Wait (70%). No entry today. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation)."
@@ -1097,7 +1097,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 70,
       "chart_rec": "skip",
-      "chart_read": "Price $158 \u2014 Trend broken (momentum against you). 20D MA $158 below 50D MA $160 (downtrend); Bollinger position 48% of range. RSI 53 (neutral); volume 0.1\u00d7 avg (light).",
+      "chart_read": "Price $158 \u2014 Trend broken (momentum against you). 20D MA $158 below 50D MA $160 (downtrend); Bollinger position 46% of range. RSI 53 (neutral); volume 0.1\u00d7 avg (light).",
       "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $158 vs $160) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($168) once you're in. Stop-loss below 50D MA ($156).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -1111,7 +1111,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 70,
       "chart_rec": "skip",
-      "chart_read": "Price $151 \u2014 Trend broken (momentum against you). 20D MA $159 below 50D MA $159 (downtrend); Bollinger position 26% of range. RSI 38 (bearish-leaning); volume 0.0\u00d7 avg (light).",
+      "chart_read": "Price $152 \u2014 Trend broken (momentum against you). 20D MA $159 below 50D MA $159 (downtrend); Bollinger position 28% of range. RSI 39 (bearish-leaning); volume 0.1\u00d7 avg (light).",
       "add_zones": "No add today \u2014 trend is broken. Re-enter only when 20D crosses BACK above 50D (currently $159 vs $159) and price holds there for several days.",
       "trim_zones": "Trim near upper BB ($174) once you're in. Stop-loss below 50D MA ($155).",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -1125,12 +1125,12 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "wait",
-      "chart_read": "Price $83.38 sits -0.8\u03c3 from the 20-day MA ($85.43) \u2014 Within normal range (-0.8\u03c3 from MA20). Volatility (ATR) is settling down; RSI 31 (bearish-leaning); volume 0.9\u00d7 avg (normal).",
-      "add_zones": "Capitulation buy zone: $80.18\u2013$82.80 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
-      "trim_zones": "Overextended / trim zone: above $89.36 (+1.5\u00d7 ATR above MA20). Avg cost $186; trim 20-30% on volatile spikes if you're up >25% from cost.",
+      "chart_read": "Price $83.16 sits -0.9\u03c3 from the 20-day MA ($85.42) \u2014 Within normal range (-0.9\u03c3 from MA20). Volatility (ATR) is settling down; RSI 30 (bearish-leaning); volume 0.9\u00d7 avg (normal).",
+      "add_zones": "Capitulation buy zone: $80.17\u2013$82.79 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "trim_zones": "Overextended / trim zone: above $89.35 (+1.5\u00d7 ATR above MA20). Avg cost $186; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "L1 / DeFi \u00b7 risk: VERY HIGH",
-      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $66.37."
+      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $66.58."
     }
   },
   "XRP": {
@@ -1139,7 +1139,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 80,
       "chart_rec": "wait",
-      "chart_read": "Price $1.37 sits -0.8\u03c3 from the 20-day MA ($1.41) \u2014 Within normal range (-0.8\u03c3 from MA20). Volatility (ATR) is settling down; RSI 33 (bearish-leaning); volume 0.9\u00d7 avg (normal).",
+      "chart_read": "Price $1.37 sits -0.9\u03c3 from the 20-day MA ($1.41) \u2014 Within normal range (-0.9\u03c3 from MA20). Volatility (ATR) is settling down; RSI 33 (bearish-leaning); volume 0.9\u00d7 avg (normal).",
       "add_zones": "Capitulation buy zone: $1.33\u2013$1.37 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $1.46 (+1.5\u00d7 ATR above MA20). Avg cost $1.28; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -1153,12 +1153,12 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "wait",
-      "chart_read": "Price $9.15 sits -0.4\u03c3 from the 20-day MA ($9.27) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 37 (bearish-leaning); volume 0.5\u00d7 avg (light).",
+      "chart_read": "Price $9.13 sits -0.5\u03c3 from the 20-day MA ($9.27) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 37 (bearish-leaning); volume 0.5\u00d7 avg (light).",
       "add_zones": "Capitulation buy zone: $8.71\u2013$8.99 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $9.69 (+1.5\u00d7 ATR above MA20). Avg cost $14.95; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Oracles \u00b7 risk: VERY HIGH",
-      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $7.30."
+      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $7.31."
     }
   },
   "DOT": {
@@ -1181,9 +1181,9 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "wait",
-      "chart_read": "Price $0.1110 sits +0.3\u03c3 from the 20-day MA ($0.1093) \u2014 Balanced near MA20. Volatility (ATR) is rising; RSI 44 (bearish-leaning); volume 0.8\u00d7 avg (normal).",
+      "chart_read": "Price $0.1108 sits +0.3\u03c3 from the 20-day MA ($0.1092) \u2014 Balanced near MA20. Volatility (ATR) is rising; RSI 44 (bearish-leaning); volume 0.8\u00d7 avg (light).",
       "add_zones": "Capitulation buy zone: $0.0986\u2013$0.1039 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
-      "trim_zones": "Overextended / trim zone: above $0.1173 (+1.5\u00d7 ATR above MA20). Avg cost $0.2439; trim 20-30% on volatile spikes if you're up >25% from cost.",
+      "trim_zones": "Overextended / trim zone: above $0.1172 (+1.5\u00d7 ATR above MA20). Avg cost $0.2439; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "L1 / Payments \u00b7 risk: VERY HIGH",
       "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $0.0888."
@@ -1195,12 +1195,12 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "wait",
-      "chart_read": "Price $92.96 sits -0.8\u03c3 from the 20-day MA ($97.59) \u2014 Within normal range (-0.8\u03c3 from MA20). Volatility (ATR) is steady; RSI 20 (oversold); volume 0.7\u00d7 avg (light).",
-      "add_zones": "Capitulation buy zone: $86.11\u2013$91.85 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "chart_read": "Price $92.79 sits -0.8\u03c3 from the 20-day MA ($97.58) \u2014 Within normal range (-0.8\u03c3 from MA20). Volatility (ATR) is steady; RSI 20 (oversold); volume 0.7\u00d7 avg (light).",
+      "add_zones": "Capitulation buy zone: $86.10\u2013$91.84 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $106 (+1.5\u00d7 ATR above MA20). Avg cost $280; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "DeFi Lending \u00b7 risk: VERY HIGH",
-      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $74.18."
+      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $74.38."
     }
   },
   "ONDO": {
@@ -1209,12 +1209,12 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "wait",
-      "chart_read": "Price $0.2634 sits +0.3\u03c3 from the 20-day MA ($0.2600) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 43 (bearish-leaning); volume 1.0\u00d7 avg (normal).",
-      "add_zones": "Capitulation buy zone: $0.2379\u2013$0.2489 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "chart_read": "Price $0.2628 sits +0.3\u03c3 from the 20-day MA ($0.2600) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 42 (bearish-leaning); volume 1.0\u00d7 avg (normal).",
+      "add_zones": "Capitulation buy zone: $0.2378\u2013$0.2489 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $0.2766 (+1.5\u00d7 ATR above MA20). Avg cost $1.11; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "RWA Tokenization \u00b7 risk: VERY HIGH",
-      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $0.2102."
+      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $0.2105."
     }
   },
   "NEAR": {
@@ -1223,7 +1223,7 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "wait",
-      "chart_read": "Price $1.32 sits -1.1\u03c3 from the 20-day MA ($1.38) \u2014 Within normal range (-1.1\u03c3 from MA20). Volatility (ATR) is steady; RSI 30 (oversold); volume 0.7\u00d7 avg (light).",
+      "chart_read": "Price $1.32 sits -1.3\u03c3 from the 20-day MA ($1.38) \u2014 Within normal range (-1.3\u03c3 from MA20). Volatility (ATR) is steady; RSI 29 (oversold); volume 0.7\u00d7 avg (light).",
       "add_zones": "Capitulation buy zone: $1.28\u2013$1.33 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $1.45 (+1.5\u00d7 ATR above MA20). Avg cost $3.15; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
@@ -1242,7 +1242,7 @@
       "trim_zones": "Overextended / trim zone: above $9.82 (+1.5\u00d7 ATR above MA20). Avg cost $38.02; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "L1 / DeFi \u00b7 risk: VERY HIGH",
-      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $7.28."
+      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $7.30."
     }
   },
   "KAS": {
@@ -1251,12 +1251,12 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "wait",
-      "chart_read": "Price $0.0324 sits -0.9\u03c3 from the 20-day MA ($0.0336) \u2014 Within normal range (-0.9\u03c3 from MA20). Volatility (ATR) is settling down; RSI 39 (bearish-leaning); volume 0.7\u00d7 avg (light).",
+      "chart_read": "Price $0.0324 sits -0.8\u03c3 from the 20-day MA ($0.0336) \u2014 Within normal range (-0.8\u03c3 from MA20). Volatility (ATR) is settling down; RSI 40 (bearish-leaning); volume 0.7\u00d7 avg (light).",
       "add_zones": "Capitulation buy zone: $0.0309\u2013$0.0322 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $0.0356 (+1.5\u00d7 ATR above MA20). Avg cost $0.1300; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "PoW / Fast \u00b7 risk: VERY HIGH",
-      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $0.0259."
+      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $0.0260."
     }
   },
   "HBAR": {
@@ -1265,8 +1265,8 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "wait",
-      "chart_read": "Price $0.0885 sits -0.3\u03c3 from the 20-day MA ($0.0892) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 42 (bearish-leaning); volume 0.8\u00d7 avg (light).",
-      "add_zones": "Capitulation buy zone: $0.0838\u2013$0.0865 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "chart_read": "Price $0.0884 sits -0.3\u03c3 from the 20-day MA ($0.0892) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 41 (bearish-leaning); volume 0.8\u00d7 avg (light).",
+      "add_zones": "Capitulation buy zone: $0.0837\u2013$0.0865 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $0.0932 (+1.5\u00d7 ATR above MA20). Avg cost $0.2350; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Enterprise DLT \u00b7 risk: VERY HIGH",
@@ -1279,12 +1279,12 @@
       "effective_action": "EXIT",
       "confidence_pct": 85,
       "chart_rec": "skip",
-      "chart_read": "Price $0.1071 sits +2.7\u03c3 from the 20-day MA ($0.0971) \u2014 Overextended (+2.7\u03c3 above MA20). Volatility (ATR) is steady; RSI 68 (bullish-leaning); volume 1.9\u00d7 avg (heavy).",
-      "add_zones": "Capitulation buy zone: $0.0897\u2013$0.0934 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "chart_read": "Price $0.1068 sits +2.6\u03c3 from the 20-day MA ($0.0971) \u2014 Overextended (+2.6\u03c3 above MA20). Volatility (ATR) is steady; RSI 67 (bullish-leaning); volume 1.9\u00d7 avg (heavy).",
+      "add_zones": "Capitulation buy zone: $0.0896\u2013$0.0933 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended / trim zone: above $0.1026 (+1.5\u00d7 ATR above MA20). Avg cost $0.3840; trim 20-30% on volatile spikes if you're up >25% from cost.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Meme / Payments \u00b7 risk: VERY HIGH",
-      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $0.0850."
+      "best_play": "Get out (85%). Sell to flat. Don't average down. Re-evaluate why you owned this \u2014 what would have to change for you to want it back? Stop-loss $0.0855."
     }
   },
   "BTC": {
@@ -1293,9 +1293,9 @@
       "effective_action": "WAIT",
       "confidence_pct": 80,
       "chart_rec": "wait",
-      "chart_read": "Price $76,520 sits +0.3\u03c3 from the 20-day MA ($75,879) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 54 (neutral); volume 1.0\u00d7 avg (normal).",
-      "add_zones": "Capitulation buy zone: $71,556\u2013$73,717 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
-      "trim_zones": "Overextended zone: above $79,121 (+1.5\u00d7 ATR above MA20). If you take a position there, expect mean reversion.",
+      "chart_read": "Price $76,420 sits +0.3\u03c3 from the 20-day MA ($75,874) \u2014 Balanced near MA20. Volatility (ATR) is settling down; RSI 54 (neutral); volume 1.0\u00d7 avg (normal).",
+      "add_zones": "Capitulation buy zone: $71,533\u2013$73,704 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
+      "trim_zones": "Overextended zone: above $79,129 (+1.5\u00d7 ATR above MA20). If you take a position there, expect mean reversion.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
       "fundamentals": "Bitcoin",
       "best_play": "Wait (80%). No entry today. The setup isn't ready \u2014 wait for either a clean pullback to the chart's add zone OR a brain flip to BUY (typically needs trend reclamation)."
@@ -1307,7 +1307,7 @@
       "effective_action": "WAIT",
       "confidence_pct": 80,
       "chart_rec": "wait",
-      "chart_read": "Price $2,268 sits -0.6\u03c3 from the 20-day MA ($2,319) \u2014 Within normal range (-0.6\u03c3 from MA20). Volatility (ATR) is settling down; RSI 43 (bearish-leaning); volume 1.1\u00d7 avg (normal).",
+      "chart_read": "Price $2,263 sits -0.7\u03c3 from the 20-day MA ($2,319) \u2014 Within normal range (-0.7\u03c3 from MA20). Volatility (ATR) is settling down; RSI 43 (bearish-leaning); volume 1.1\u00d7 avg (normal).",
       "add_zones": "Capitulation buy zone: $2,155\u2013$2,237 (1-2\u00d7 ATR below MA20). Best entries come from a big drop into this band WITH a volume spike (>1.5\u00d7 avg). Otherwise wait.",
       "trim_zones": "Overextended zone: above $2,442 (+1.5\u00d7 ATR above MA20). If you take a position there, expect mean reversion.",
       "catalyst": "\ud83c\udfdb\ufe0f **FOMC this week** \u2014 Fed decision can override the chart in either direction. Keep half powder dry until after the announcement settles. \u00b7 \ud83d\udcca **CPI \u2014 May 2026 this week** \u2014 inflation prints reset rate expectations and tend to move tech / financials hard.",
