@@ -3348,11 +3348,20 @@ function buildWatchlist() {
 }
 
 // ── Per-ticker analysis sidecar (charts/_analysis.json) ───────────────────
-// Loaded once at boot; the per-ticker page reads from this map by ticker.
+// Loaded async at boot. The per-ticker page reads from this map by ticker.
+// Race condition guard: if a stock modal is already open when the sidecar
+// finishes loading (e.g. user direct-linked to /alpha-director/nvda before
+// the JSON resolved), re-render the modal so it picks up the new fields.
 window._tickerAnalysis = {};
+window._currentModalTicker = null;
 fetch('charts/_analysis.json?v=' + Date.now())
   .then(r => r.ok ? r.json() : {})
-  .then(j => { window._tickerAnalysis = j || {}; })
+  .then(j => {
+    window._tickerAnalysis = j || {};
+    if (window._currentModalTicker && window._openStockModal) {
+      window._openStockModal(window._currentModalTicker);
+    }
+  })
   .catch(() => {});
 
 // ── Init ───────────────────────────────────────────────────────────────────
@@ -4076,6 +4085,9 @@ function _chartLegendHtml(ticker) {
 
 window._openStockModal = function(ticker) {
   ticker = (ticker || '').toUpperCase();
+  // Track current ticker so the sidecar fetcher can re-render this modal
+  // if it was opened before _tickerAnalysis finished loading.
+  window._currentModalTicker = ticker;
 
   // Primary: look up pre-populated stores
   var pos = (window.__portPositions__ || {})[ticker];
@@ -4441,6 +4453,7 @@ window._openStockModal = function(ticker) {
 window.closeStockModal = function() {
   document.getElementById('stock-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
+  window._currentModalTicker = null;
 };
 
 document.addEventListener('keydown', function(e){
