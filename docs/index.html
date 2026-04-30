@@ -4041,6 +4041,43 @@ window._openStockModal = function(ticker) {
       opp = allOpps.find(function(p){ return (p.ticker||'').toUpperCase() === ticker; }) || null;
       if (opp) window.__oppData__[ticker] = opp;
     }
+
+    // Crypto fallback — altcoins live in D.crypto.positions; BTC/ETH are
+    // synthesized from top-level D.crypto.btc_*/eth_* fields. Map to a
+    // position-shaped record so the rest of the modal renders normally.
+    if (!pos) {
+      var c = D.crypto || {};
+      var altcoin = (c.positions || []).find(function(p){
+        return (p.symbol||'').toUpperCase() === ticker;
+      });
+      if (altcoin) {
+        pos = Object.assign({}, altcoin, {
+          ticker: altcoin.symbol,
+          shares: altcoin.qty,
+          value:  altcoin.value_usd,
+          chg_1d: altcoin.chg_24h,
+          class:  'spec',
+        });
+      } else if (ticker === 'BTC' && c.btc_price) {
+        pos = {
+          ticker: 'BTC', class: 'spec', theme: 'Bitcoin',
+          price: c.btc_price, chg_1d: c.btc_chg,
+          market_cap: c.btc_mcap, vol_24h: c.btc_vol,
+          avg: 0, shares: 0, value: 0, pnl_pct: 0,
+          action: 'WAIT', verdict: 'MACRO',
+          reason: 'BTC dominance ' + (c.btc_dominance || '?') + '%; ' + (c.regime || ''),
+        };
+      } else if (ticker === 'ETH' && c.eth_price) {
+        pos = {
+          ticker: 'ETH', class: 'spec', theme: 'Ethereum',
+          price: c.eth_price, chg_1d: c.eth_chg,
+          market_cap: c.eth_mcap, vol_24h: c.eth_vol,
+          avg: 0, shares: 0, value: 0, pnl_pct: 0,
+          action: 'WAIT', verdict: 'MACRO',
+          reason: c.regime || '',
+        };
+      }
+    }
   } catch(e) { /* D not ready */ }
 
   // Social-trends lookup: action/target/upside/risk/confidence from trends.json
