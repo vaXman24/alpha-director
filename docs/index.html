@@ -4650,5 +4650,710 @@ window._openCryptoModal = function(symbol) {
   window.addEventListener('popstate', _routeFromURL);
 })();
 </script>
+
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<!-- ═══ Search · Favorites · Trade Journal (client-side overlay)         ═══ -->
+<!-- ═══════════════════════════════════════════════════════════════════════ -->
+<style>
+  /* Header search */
+  .ad-search-wrap{position:relative;display:inline-block}
+  .ad-search-input{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--t);padding:7px 12px;border-radius:18px;font-size:11px;width:170px;font-weight:700;outline:none;transition:all .15s}
+  .ad-search-input::placeholder{color:var(--t2);font-weight:600}
+  .ad-search-input:focus{border-color:var(--a);width:240px;background:rgba(255,255,255,.1)}
+  .ad-search-results{display:none;position:absolute;top:calc(100% + 6px);right:0;width:380px;max-height:440px;overflow-y:auto;background:#0c0c0c;border:1px solid #222;border-radius:8px;z-index:1000;box-shadow:0 8px 24px rgba(0,0,0,.55)}
+  .ad-search-row{display:grid;grid-template-columns:22px 64px 52px 72px 60px 1fr;align-items:center;gap:6px;padding:8px 10px;font-size:11px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.04)}
+  .ad-search-row:last-child{border-bottom:0}
+  .ad-search-row:hover{background:rgba(255,255,255,.05)}
+  .ad-search-fav{font-size:14px;cursor:pointer;text-align:center;line-height:1}
+  .ad-search-tk{font-weight:800;color:var(--t)}
+  .ad-search-src{font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;background:rgba(167,139,250,.12);color:#a78bfa;text-align:center}
+  .ad-search-src.port{background:rgba(0,230,118,.12);color:var(--g)}
+  .ad-search-src.watch{background:rgba(0,180,216,.12);color:#00b4d8}
+  .ad-search-src.crypto{background:rgba(247,147,26,.12);color:#f7931a}
+  .ad-search-px{font-weight:600;color:var(--t2)}
+  .ad-search-chg.g{color:var(--g);font-weight:700}
+  .ad-search-chg.r{color:var(--r);font-weight:700}
+  .ad-search-theme{font-size:10px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ad-search-empty{padding:14px 12px;font-size:11px;color:var(--t3);line-height:1.5}
+
+  /* Favorites section */
+  .ad-favorites-section{margin-bottom:16px}
+  .ad-fav-empty{color:var(--t3);font-size:11px;padding:10px 0;line-height:1.5}
+
+  /* Star overlay on cards */
+  .ad-fav-star{position:absolute;top:8px;right:8px;font-size:14px;cursor:pointer;user-select:none;z-index:5;text-shadow:0 0 4px rgba(0,0,0,.85);transition:transform .12s,opacity .12s;line-height:1}
+  .ad-fav-star:hover{transform:scale(1.3)}
+  .ad-fav-star-off{opacity:.4;color:var(--t2)}
+  .ad-fav-star-on{opacity:1;color:var(--a);text-shadow:0 0 6px rgba(255,215,64,.55)}
+
+  /* Trade journal panel inside modal */
+  .ad-action-panel{margin-top:22px;padding-top:18px;border-top:1px solid #181818}
+  .ad-panel-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+  .ad-fav-toggle{background:transparent;border:1px solid var(--a);color:var(--a);padding:4px 11px;border-radius:14px;font-size:10px;cursor:pointer;font-weight:800;letter-spacing:.4px}
+  .ad-fav-toggle:hover{background:rgba(255,215,64,.1)}
+  .ad-fav-toggle.on{background:rgba(255,215,64,.15)}
+
+  .ad-action-form{background:#0a0a0a;border:1px solid #181818;border-radius:8px;padding:12px;margin:6px 0}
+  .ad-action-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;align-items:center}
+  .ad-action-row:last-child{margin-bottom:0}
+  .ad-radio{cursor:pointer;flex:0 0 auto}
+  .ad-radio input{display:none}
+  .ad-radio-pill{display:inline-block;padding:6px 11px;border:1px solid #2a2a2a;border-radius:6px;font-size:11px;font-weight:800;color:var(--t2);letter-spacing:.3px;transition:all .12s;background:#070707}
+  .ad-radio:hover .ad-radio-pill{border-color:#444;color:var(--t)}
+  .ad-radio input:checked + .ad-radio-pill.ad-act-added{background:rgba(0,230,118,.15);border-color:var(--g);color:var(--g)}
+  .ad-radio input:checked + .ad-radio-pill.ad-act-trimmed{background:rgba(255,215,64,.15);border-color:var(--a);color:var(--a)}
+  .ad-radio input:checked + .ad-radio-pill.ad-act-exited{background:rgba(255,61,113,.15);border-color:var(--r);color:var(--r)}
+  .ad-action-form input[type="number"],.ad-action-form input[type="date"]{background:#050505;border:1px solid #222;color:var(--t);padding:7px 10px;border-radius:6px;font-size:12px;width:120px;outline:none;font-family:inherit}
+  .ad-action-form input:focus{border-color:var(--a)}
+  .ad-action-btn{border:0;padding:8px 14px;border-radius:6px;font-size:11px;font-weight:800;cursor:pointer;letter-spacing:.3px}
+  .ad-action-submit{background:var(--g);color:#001b08}
+  .ad-action-submit:hover{filter:brightness(1.1)}
+  .ad-action-export{background:rgba(167,139,250,.15);color:#a78bfa;border:1px solid rgba(167,139,250,.35)}
+  .ad-action-export:hover{background:rgba(167,139,250,.22)}
+
+  .ad-trades-list{margin-top:6px}
+  .ad-trades-empty{font-size:10px;color:var(--t3);padding:6px 2px}
+  .ad-trade-row{display:grid;grid-template-columns:80px 1fr 80px 88px 24px;align-items:center;gap:8px;padding:6px 9px;font-size:11px;background:#0c0c0c;border:1px solid #161616;border-radius:5px;margin-bottom:4px}
+  .ad-trade-act{font-size:10px;font-weight:800;padding:2px 6px;border-radius:4px;text-align:center;letter-spacing:.3px}
+  .ad-trade-act.ad-act-added{background:rgba(0,230,118,.15);color:var(--g)}
+  .ad-trade-act.ad-act-trimmed{background:rgba(255,215,64,.15);color:var(--a)}
+  .ad-trade-act.ad-act-exited{background:rgba(255,61,113,.15);color:var(--r)}
+  .ad-trade-qty{color:var(--t);font-weight:600}
+  .ad-trade-date{color:var(--t3);font-size:10px}
+  .ad-trade-usd{color:var(--t2);font-weight:700;text-align:right}
+  .ad-trade-del{background:transparent;border:0;color:var(--r);cursor:pointer;font-size:18px;line-height:1;padding:0;opacity:.55}
+  .ad-trade-del:hover{opacity:1}
+  .ad-edited-badge{display:inline-block;font-size:9px;font-weight:800;padding:2px 6px;border-radius:3px;background:rgba(167,139,250,.18);color:#a78bfa;letter-spacing:.4px;margin-left:6px}
+
+  /* Mobile */
+  @media (max-width:720px){
+    .ad-search-input{width:130px}
+    .ad-search-input:focus{width:180px}
+    .ad-search-results{width:92vw;right:-10px}
+    .ad-action-row{gap:6px}
+    .ad-action-form input[type="number"],.ad-action-form input[type="date"]{width:calc(50% - 4px);min-width:0}
+  }
+</style>
+
+<script>
+(function(){
+  // ── Storage keys ─────────────────────────────────────────────────────────
+  var FAV_KEY    = 'ad_favorites_v1';
+  var TRADES_KEY = 'ad_trades_v1';
+
+  // ── Storage helpers ──────────────────────────────────────────────────────
+  function _read(key){ try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e){ return []; } }
+  function _write(key, val){ try { localStorage.setItem(key, JSON.stringify(val)); } catch(e){} }
+  function loadFavorites(){ return _read(FAV_KEY); }
+  function saveFavorites(arr){ _write(FAV_KEY, arr); }
+  function isFav(t){ return loadFavorites().indexOf((t||'').toUpperCase()) >= 0; }
+  function toggleFav(t){
+    t = (t||'').toUpperCase(); if (!t) return;
+    var arr = loadFavorites();
+    var i = arr.indexOf(t);
+    if (i >= 0) arr.splice(i, 1); else arr.push(t);
+    saveFavorites(arr);
+    rerenderFavorites();
+    decorateCardsWithStars();
+  }
+  function loadTrades(){ return _read(TRADES_KEY); }
+  function saveTrades(a){ _write(TRADES_KEY, a); }
+  function tradesFor(t){
+    t = (t||'').toUpperCase();
+    return loadTrades().filter(function(x){ return (x.ticker||'').toUpperCase() === t; })
+                       .sort(function(a,b){ return (b.date||'').localeCompare(a.date||'') || (b.ts||0)-(a.ts||0); });
+  }
+  function addTrade(t){ var a = loadTrades(); a.push(t); saveTrades(a); }
+  function deleteTrade(ts){ saveTrades(loadTrades().filter(function(x){ return x.ts !== ts; })); }
+
+  window.adIsFav = isFav;
+  window.adToggleFav = toggleFav;
+
+  // ── Apply trade log to a position object ─────────────────────────────────
+  // Pure function: returns a NEW object with shares/avg/cost/value/pnl_pct
+  // adjusted by replaying the user's trade log against the canonical baseline.
+  function applyTradesToPos(p){
+    if (!p) return p;
+    var trades = tradesFor(p.ticker);
+    if (!trades.length) return p;
+
+    var baseShares = (p._baseline && p._baseline.shares != null) ? p._baseline.shares : (p.shares || 0);
+    var baseAvg    = (p._baseline && p._baseline.avg    != null) ? p._baseline.avg    : (p.avg    || 0);
+
+    var shares = baseShares;
+    var avg    = baseAvg;
+    var cost   = shares * avg;
+
+    // Replay chronologically
+    var ordered = trades.slice().sort(function(a,b){
+      return (a.date||'').localeCompare(b.date||'') || (a.ts||0)-(b.ts||0);
+    });
+    for (var i = 0; i < ordered.length; i++){
+      var t = ordered[i];
+      var q  = Number(t.shares) || 0;
+      var px = Number(t.price)  || 0;
+      if (q <= 0 || px <= 0) continue;
+      if (t.action === 'ADDED'){
+        var ns = shares + q;
+        if (ns > 0) avg = (cost + q*px) / ns;
+        shares = ns;
+        cost = shares * avg;
+      } else if (t.action === 'TRIMMED'){
+        shares = Math.max(0, shares - q);
+        cost = shares * avg;
+      } else if (t.action === 'EXITED'){
+        shares = 0; cost = 0;
+      }
+    }
+    var price = Number(p.price) || 0;
+    var value = shares * price;
+    var pnlPct = cost > 0 ? Math.round((value/cost - 1) * 1000) / 10 : 0;
+
+    var out = Object.assign({}, p);
+    out._baseline = p._baseline || { shares: baseShares, avg: baseAvg };
+    out.shares  = Math.round(shares*1e4)/1e4;
+    out.avg     = Math.round(avg*100)/100;
+    out.cost    = Math.round(cost);
+    out.value   = Math.round(value);
+    out.pnl_pct = pnlPct;
+    out._userEdited = true;
+    return out;
+  }
+
+  // Mutate D in place — applies trade log on top of canonical baseline.
+  // Idempotent: stores original baseline on first run; subsequent runs
+  // re-apply from the same baseline.
+  function applyAllTrades(){
+    if (typeof D === 'undefined' || !D || !D.portfolio || !Array.isArray(D.portfolio.positions)) return false;
+    var changed = false;
+    var positions = D.portfolio.positions;
+    for (var i = 0; i < positions.length; i++){
+      var orig = positions[i];
+      if (!orig) continue;
+      // Snapshot baseline once per data refresh — keyed on a dataset signature.
+      // We recompute baseline whenever D.updated changes.
+      if (!orig._baseline_for || orig._baseline_for !== D.updated){
+        orig._baseline = { shares: orig.shares || 0, avg: orig.avg || 0 };
+        orig._baseline_for = D.updated;
+        // Also clear _userEdited flag so it gets recomputed below
+        orig._userEdited = false;
+      }
+      var trades = tradesFor(orig.ticker);
+      if (!trades.length){
+        // Restore from baseline if previously edited
+        if (orig._userEdited){
+          orig.shares = orig._baseline.shares;
+          orig.avg    = orig._baseline.avg;
+          orig.cost   = Math.round(orig.shares * orig.avg);
+          var px0 = Number(orig.price) || 0;
+          orig.value = Math.round(orig.shares * px0);
+          orig.pnl_pct = orig.cost > 0 ? Math.round((orig.value/orig.cost - 1) * 1000) / 10 : 0;
+          orig._userEdited = false;
+          changed = true;
+        }
+        continue;
+      }
+      var updated = applyTradesToPos(orig);
+      // Only flag changed if shares/avg differ from baseline meaningfully
+      if (Math.abs((updated.shares||0) - (orig._baseline.shares||0)) > 1e-6 ||
+          Math.abs((updated.avg||0) - (orig._baseline.avg||0)) > 1e-4){
+        Object.assign(orig, updated);
+        changed = true;
+      }
+    }
+    if (changed){
+      // Recompute portfolio totals
+      var totV = 0, totC = 0;
+      for (var k = 0; k < positions.length; k++){
+        totV += Number(positions[k].value) || 0;
+        totC += Number(positions[k].cost) || 0;
+      }
+      D.portfolio.total_value = totV;
+      D.portfolio.total_cost = totC;
+      D.portfolio.total_pnl_pct = totC > 0 ? Math.round((totV/totC - 1) * 1000) / 10 : 0;
+    }
+    return changed;
+  }
+
+  // ── Lookup ticker across all data sources ───────────────────────────────
+  function lookupTicker(t){
+    t = (t || '').toUpperCase();
+    if (!t || typeof D === 'undefined' || !D) return null;
+    var pos = (D.portfolio && D.portfolio.positions || []).find(function(p){ return (p.ticker||'').toUpperCase() === t; });
+    if (pos) return pos;
+    var opp = (D.outside_opps || []).find(function(p){ return (p.ticker||'').toUpperCase() === t; });
+    if (opp) return opp;
+    var cry = (D.crypto && D.crypto.positions || []).find(function(p){ return (p.symbol||'').toUpperCase() === t; });
+    if (cry) return Object.assign({}, cry, { ticker: cry.symbol });
+    var trd = (D.trend_ticker_data || {})[t];
+    if (trd) return Object.assign({ ticker: t }, trd);
+    return null;
+  }
+
+  // ── Search universe (every ticker the dashboard has data for) ───────────
+  function searchUniverse(){
+    if (typeof D === 'undefined' || !D) return [];
+    var seen = {};
+    var out = [];
+    function add(t, item, source){
+      if (!t) return;
+      var T = t.toUpperCase();
+      if (seen[T]) return;
+      seen[T] = true;
+      out.push(Object.assign({ _src: source }, item, { ticker: T }));
+    }
+    (D.portfolio && D.portfolio.positions || []).forEach(function(p){ add(p.ticker, p, 'port'); });
+    (D.outside_opps || []).forEach(function(p){ add(p.ticker, p, 'watch'); });
+    (D.crypto && D.crypto.positions || []).forEach(function(p){ add(p.symbol, p, 'crypto'); });
+    Object.keys(D.trend_ticker_data || {}).forEach(function(k){ add(k, D.trend_ticker_data[k], 'trend'); });
+    // Always include favorites even if missing data
+    loadFavorites().forEach(function(t){
+      if (!seen[t]) add(t, { theme: '(no data — add to portfolio.json on VPS to track)' }, 'fav');
+    });
+    return out;
+  }
+
+  // ── Inject the search input into the header ─────────────────────────────
+  function injectSearchInput(){
+    if (document.getElementById('ad-search-input')) return;
+    var fxRates = document.getElementById('fx-rates');
+    if (!fxRates || !fxRates.parentNode) return;
+    var wrap = document.createElement('div');
+    wrap.className = 'ad-search-wrap';
+    wrap.innerHTML =
+      '<input id="ad-search-input" class="ad-search-input" placeholder="🔍 Search ticker…" autocomplete="off" spellcheck="false">' +
+      '<div id="ad-search-results" class="ad-search-results"></div>';
+    fxRates.parentNode.insertBefore(wrap, fxRates);
+
+    var input = document.getElementById('ad-search-input');
+    var results = document.getElementById('ad-search-results');
+
+    function fmtPx(v){ return v != null && !isNaN(+v) ? '$' + (+v).toFixed(2) : ''; }
+    function render(q){
+      q = (q || '').trim().toUpperCase();
+      if (!q){ results.style.display = 'none'; results.innerHTML = ''; return; }
+      var universe = searchUniverse();
+      var matches = universe.filter(function(p){
+        var T = (p.ticker || '').toUpperCase();
+        var theme = (p.theme || '').toUpperCase();
+        return T.indexOf(q) === 0 || theme.indexOf(q) >= 0 || T.indexOf(q) >= 0;
+      })
+      .sort(function(a, b){
+        var at = (a.ticker || '').toUpperCase();
+        var bt = (b.ticker || '').toUpperCase();
+        if (at === q && bt !== q) return -1;
+        if (bt === q && at !== q) return 1;
+        var ap = at.indexOf(q) === 0 ? 0 : 1;
+        var bp = bt.indexOf(q) === 0 ? 0 : 1;
+        if (ap !== bp) return ap - bp;
+        return at.localeCompare(bt);
+      })
+      .slice(0, 12);
+
+      if (!matches.length){
+        results.innerHTML = '<div class="ad-search-empty">No match for <b>' + q + '</b>.<br><span style="color:var(--t2)">Tip: any tracked ticker is searchable. Untracked tickers must be added to <code>/opt/sentinel/portfolio.json</code> on the VPS.</span></div>';
+      } else {
+        results.innerHTML = matches.map(function(p){
+          var T = p.ticker;
+          var fav = isFav(T) ? '⭐' : '☆';
+          var price = fmtPx(p.price);
+          var chg = (p.chg_1d != null && !isNaN(+p.chg_1d))
+            ? '<span class="ad-search-chg ' + (+p.chg_1d >= 0 ? 'g' : 'r') + '">' + (+p.chg_1d >= 0 ? '+' : '') + (+p.chg_1d).toFixed(2) + '%</span>'
+            : '<span></span>';
+          var src = p._src || 'misc';
+          var srcLabel = src === 'port' ? 'PORT' : src === 'watch' ? 'WATCH' : src === 'crypto' ? 'CRYPTO' : src === 'trend' ? 'TREND' : 'FAV';
+          return '<div class="ad-search-row" data-ticker="' + T + '">' +
+            '<span class="ad-search-fav" data-action="fav" data-ticker="' + T + '" title="Toggle favorite">' + fav + '</span>' +
+            '<span class="ad-search-tk">' + T + '</span>' +
+            '<span class="ad-search-src ' + src + '">' + srcLabel + '</span>' +
+            '<span class="ad-search-px">' + price + '</span>' +
+            chg +
+            '<span class="ad-search-theme">' + ((p.theme || '').replace(/</g, '&lt;').slice(0, 50)) + '</span>' +
+          '</div>';
+        }).join('');
+      }
+      results.style.display = 'block';
+    }
+
+    input.addEventListener('input', function(){ render(input.value); });
+    input.addEventListener('focus', function(){ if (input.value) render(input.value); });
+    input.addEventListener('keydown', function(e){
+      if (e.key === 'Escape'){ input.value = ''; results.style.display = 'none'; input.blur(); }
+      if (e.key === 'Enter'){
+        var first = results.querySelector('.ad-search-row');
+        if (first){ openTicker(first.dataset.ticker); input.value=''; results.style.display='none'; }
+      }
+    });
+    document.addEventListener('click', function(e){ if (!wrap.contains(e.target)) results.style.display = 'none'; });
+    results.addEventListener('click', function(e){
+      var favBtn = e.target.closest('[data-action="fav"]');
+      if (favBtn){
+        e.stopPropagation();
+        toggleFav(favBtn.dataset.ticker);
+        render(input.value);
+        return;
+      }
+      var row = e.target.closest('.ad-search-row');
+      if (!row) return;
+      openTicker(row.dataset.ticker);
+      input.value = '';
+      results.style.display = 'none';
+    });
+
+    function openTicker(t){
+      if (typeof window._openStockModal === 'function') window._openStockModal(t);
+    }
+  }
+
+  // ── Favorites section ────────────────────────────────────────────────────
+  function ensureFavoritesSection(){
+    if (document.getElementById('ad-favorites-section')) return;
+    var actionSec = document.getElementById('action-section');
+    if (!actionSec || !actionSec.parentNode) return;
+    var sec = document.createElement('div');
+    sec.className = 'section ad-favorites-section';
+    sec.id = 'ad-favorites-section';
+    sec.innerHTML =
+      '<div class="sec-label">⭐ My Favorites <span id="ad-fav-count" style="font-weight:400;opacity:.6;font-size:11px"></span></div>' +
+      '<div class="port-grid" id="ad-fav-grid"></div>';
+    actionSec.parentNode.insertBefore(sec, actionSec.nextSibling);
+  }
+
+  function rerenderFavorites(){ ensureFavoritesSection(); renderFavoritesGrid(); }
+
+  function renderFavoritesGrid(){
+    var grid    = document.getElementById('ad-fav-grid');
+    var countEl = document.getElementById('ad-fav-count');
+    var section = document.getElementById('ad-favorites-section');
+    if (!grid || !section) return;
+    var favs = loadFavorites();
+    if (!favs.length){
+      section.style.display = 'none';
+      grid.innerHTML = '';
+      return;
+    }
+    section.style.display = '';
+    var items = favs.map(function(t){ return lookupTicker(t) || { ticker: t, _missing: true }; });
+    if (countEl) countEl.textContent = '· ' + items.length + ' pinned · click ⭐ to remove';
+    grid.innerHTML = items.map(renderFavCard).join('');
+  }
+
+  function renderFavCard(p){
+    var T = (p.ticker || '').toUpperCase();
+    if (p._missing){
+      return '<div class="scard ad-fav-card" style="cursor:pointer;position:relative;opacity:.55" onclick="window._openStockModal(\'' + T + '\')">' +
+        '<span class="ad-fav-star ad-fav-star-on" onclick="event.stopPropagation();window.adToggleFav(\'' + T + '\')" title="Remove from favorites">⭐</span>' +
+        '<div class="sc-top"><div><div class="sc-ticker">' + T + '</div><div class="sc-theme" style="font-size:10px">No data — add to portfolio.json on VPS</div></div></div>' +
+      '</div>';
+    }
+    var verdict = p.verdict || (p.above_200 === true ? 'YES' : p.above_200 === false ? 'NO' : 'WAIT');
+    var vclass  = (verdict || 'wait').toString().toLowerCase();
+    var price   = (p.price != null && !isNaN(+p.price)) ? '$' + (+p.price).toFixed(2) : '—';
+    var chg     = (p.chg_1d != null && !isNaN(+p.chg_1d))
+      ? '<span class="' + (+p.chg_1d >= 0 ? 'g' : 'r') + '" style="font-size:12px;font-weight:700">' + (+p.chg_1d >= 0 ? '+' : '') + (+p.chg_1d).toFixed(2) + '%</span>'
+      : '';
+    var action  = (p.action || 'WATCH').toString().toUpperCase();
+    var aColors = {
+      'STRONG BUY':['rgba(0,230,118,.15)','var(--g)'],
+      'BUY':['rgba(0,180,216,.15)','#00b4d8'],
+      'WATCH':['rgba(167,139,250,.18)','#a78bfa'],
+      'TRIM':['rgba(255,215,64,.15)','var(--a)'],
+      'EXIT':['rgba(255,61,113,.18)','var(--r)'],
+      'WAIT':['rgba(150,150,150,.12)','#888']
+    };
+    var c = aColors[action] || aColors.WAIT;
+    var conf = p._confidence != null
+      ? '<span style="margin-left:4px;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;background:rgba(0,0,0,.35);color:' + (p._confidence>=80?'var(--g)':p._confidence>=60?'#a78bfa':p._confidence>=40?'var(--a)':'var(--r)') + ';border:1px solid ' + (p._confidence>=80?'var(--g)':p._confidence>=60?'#a78bfa':p._confidence>=40?'var(--a)':'var(--r)') + '55">' + p._confidence + '%</span>'
+      : '';
+    var pnlBlk = (p.pnl_pct != null && p.cost && p.cost > 0)
+      ? '<div style="font-size:10px;color:' + (p.pnl_pct >= 0 ? 'var(--g)' : 'var(--r)') + ';font-weight:700;margin-top:5px">P&L ' + (p.pnl_pct>=0?'+':'') + p.pnl_pct + '% · ' + (p.shares||0) + 'sh @ avg $' + (p.avg||0) + '</div>'
+      : '';
+    var target = p.target
+      ? '<div style="font-size:10px;color:var(--t2);margin-top:3px">🎯 $' + (+p.target).toFixed(2) +
+        (p.upside_pct != null ? ' · <b style="color:' + (p.upside_pct>=0?'var(--g)':'var(--r)') + '">' + (p.upside_pct>=0?'+':'') + p.upside_pct + '%</b>' : '') + '</div>'
+      : '';
+    var edited = p._userEdited
+      ? '<span class="ad-edited-badge" title="Adjusted by your local trade log">EDITED</span>'
+      : '';
+    return '<div class="scard v-' + vclass + ' ad-fav-card" style="cursor:pointer;position:relative" onclick="window._openStockModal(\'' + T + '\')">' +
+      '<span class="ad-fav-star ad-fav-star-on" onclick="event.stopPropagation();window.adToggleFav(\'' + T + '\')" title="Remove from favorites">⭐</span>' +
+      '<div class="sc-top">' +
+        '<div>' +
+          '<div class="sc-ticker">' + T + edited + '</div>' +
+          '<div class="sc-theme" style="font-size:10px">' + ((p.theme||'').slice(0,46)) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="sc-price-row">' +
+        '<span class="sc-price">' + price + '</span>' +
+        chg +
+      '</div>' +
+      '<div style="margin-top:6px;display:flex;gap:5px;align-items:center;flex-wrap:wrap">' +
+        '<span style="font-size:10px;font-weight:800;padding:2px 7px;border-radius:4px;background:' + c[0] + ';color:' + c[1] + '">' + action + '</span>' +
+        conf +
+        (p.rsi != null ? '<span class="pill">RSI ' + (+p.rsi).toFixed(0) + '</span>' : '') +
+        (p.above_200 != null ? '<span class="pill ' + (p.above_200?'g':'r') + '">MA200 ' + (p.above_200?'▲':'▼') + '</span>' : '') +
+        (p.above_50 != null ? '<span class="pill ' + (p.above_50?'g':'r') + '">MA50 ' + (p.above_50?'▲':'▼') + '</span>' : '') +
+      '</div>' +
+      pnlBlk + target +
+    '</div>';
+  }
+
+  // ── Decorate existing cards with ⭐ stars ────────────────────────────────
+  function decorateCardsWithStars(){
+    var sels = '#port-grid .scard, #watchlist-grid .swing-card, #swing-grid .swing-card, #action-center .acard, #crypto-grid .scard, #crypto-grid .crypto-card';
+    document.querySelectorAll(sels).forEach(function(card){
+      if (card.classList.contains('ad-fav-card')) return; // favorites already have star
+      var existing = card.querySelector(':scope > .ad-fav-star');
+      var onclick = card.getAttribute('onclick') || '';
+      var m = onclick.match(/(?:_openStockModal|_openCryptoModal|_openPage)\(['"]([^'"]+)['"]\)/);
+      var t = (m && m[1] || '').toUpperCase();
+      if (!t){
+        // Last resort: read the .sc-ticker text
+        var tk = card.querySelector('.sc-ticker, .acard-ticker, [class*="ticker"]');
+        if (tk) t = (tk.textContent || '').trim().toUpperCase();
+      }
+      if (!t) return;
+      var on = isFav(t);
+      if (existing){
+        existing.textContent = on ? '⭐' : '☆';
+        existing.className = 'ad-fav-star ' + (on ? 'ad-fav-star-on' : 'ad-fav-star-off');
+        existing.title = on ? 'Remove from favorites' : 'Add to favorites';
+        return;
+      }
+      var s = document.createElement('span');
+      s.className = 'ad-fav-star ' + (on ? 'ad-fav-star-on' : 'ad-fav-star-off');
+      s.textContent = on ? '⭐' : '☆';
+      s.title = on ? 'Remove from favorites' : 'Add to favorites';
+      s.dataset.ticker = t;
+      s.onclick = function(e){ e.stopPropagation(); toggleFav(t); };
+      var cs = window.getComputedStyle(card);
+      if (cs.position === 'static') card.style.position = 'relative';
+      card.appendChild(s);
+    });
+  }
+
+  // ── Trade journal panel inside stock modal ──────────────────────────────
+  function renderActionPanel(ticker){
+    var T = (ticker || '').toUpperCase();
+    var pos = (window.__portPositions__ || {})[T] || lookupTicker(T) || {};
+    var trades = tradesFor(T);
+    var favOn = isFav(T);
+    var today = new Date().toISOString().slice(0, 10);
+    var curPrice = pos.price != null ? (+pos.price).toFixed(2) : '';
+    var curShares = pos.shares != null ? pos.shares : '';
+
+    var tradesHtml = trades.length ? trades.map(function(t){
+      var actClass = 'ad-act-' + (t.action || '').toLowerCase();
+      return '<div class="ad-trade-row">' +
+        '<span class="ad-trade-act ' + actClass + '">' + t.action + '</span>' +
+        '<span class="ad-trade-qty">' + t.shares + ' sh @ $' + (+t.price).toFixed(2) + '</span>' +
+        '<span class="ad-trade-date">' + t.date + '</span>' +
+        '<span class="ad-trade-usd">$' + Math.round(t.shares * t.price).toLocaleString() + '</span>' +
+        '<button class="ad-trade-del" onclick="window.adDeleteTrade(' + t.ts + ')" title="Delete this entry">×</button>' +
+      '</div>';
+    }).join('') : '<div class="ad-trades-empty">No trades logged yet for this ticker.</div>';
+
+    var posLine = (pos && pos.shares != null && pos.shares > 0)
+      ? '<span style="font-size:10px;color:var(--t3)">Current: <b style="color:var(--t)">' + pos.shares + 'sh @ avg $' + (pos.avg||0) + '</b></span>'
+      : '<span style="font-size:10px;color:var(--t3)">No current position recorded.</span>';
+
+    return '<div class="ad-action-panel">' +
+      '<div class="ad-panel-head">' +
+        '<div class="sm-section-title" style="margin:0">📒 Trade Journal &nbsp;' + posLine + '</div>' +
+        '<button class="ad-fav-toggle ' + (favOn?'on':'') + '" onclick="window.adToggleFavInModal(\'' + T + '\')">' + (favOn ? '⭐ Favorited' : '☆ Add to Favorites') + '</button>' +
+      '</div>' +
+      '<div class="ad-action-form">' +
+        '<div class="ad-action-row">' +
+          '<label class="ad-radio"><input type="radio" name="ad-act" value="ADDED" checked><span class="ad-radio-pill ad-act-added">+ ADDED</span></label>' +
+          '<label class="ad-radio"><input type="radio" name="ad-act" value="TRIMMED"><span class="ad-radio-pill ad-act-trimmed">✂ TRIMMED</span></label>' +
+          '<label class="ad-radio"><input type="radio" name="ad-act" value="EXITED"><span class="ad-radio-pill ad-act-exited">🚪 EXITED</span></label>' +
+        '</div>' +
+        '<div class="ad-action-row">' +
+          '<input type="number" id="ad-act-shares" placeholder="Shares" step="0.0001" min="0" inputmode="decimal">' +
+          '<input type="number" id="ad-act-price" placeholder="Price" step="0.01" min="0" inputmode="decimal" value="' + curPrice + '">' +
+          '<input type="date" id="ad-act-date" value="' + today + '">' +
+        '</div>' +
+        '<div class="ad-action-row">' +
+          '<button class="ad-action-btn ad-action-submit" onclick="window.adSubmitTrade(\'' + T + '\')">✓ Log & Recalculate</button>' +
+          '<button class="ad-action-btn ad-action-export" onclick="window.adExportTrades(\'' + T + '\')" title="Copy a JSON patch to paste into /opt/sentinel/deployments.json on the VPS">📋 Copy VPS Patch</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ad-trades-list">' +
+        '<div style="font-size:10px;color:var(--t3);font-weight:700;letter-spacing:.4px;margin:8px 0 4px">RECENT TRADES (LOCAL)</div>' +
+        tradesHtml +
+      '</div>' +
+    '</div>';
+  }
+
+  // Auto-fill shares=current shares when EXITED is picked
+  document.addEventListener('change', function(e){
+    if (e.target && e.target.name === 'ad-act'){
+      var sharesInp = document.getElementById('ad-act-shares');
+      if (!sharesInp) return;
+      if (e.target.value === 'EXITED' && !sharesInp.value){
+        var T = window._currentModalTicker;
+        var pos = (window.__portPositions__ || {})[T];
+        if (pos && pos.shares) sharesInp.value = pos.shares;
+      }
+    }
+  });
+
+  window.adToggleFavInModal = function(t){
+    toggleFav(t);
+    // Re-render panel inline
+    var infoEl = document.getElementById('sm-info-panel');
+    if (!infoEl) return;
+    var existing = infoEl.querySelector('.ad-action-panel');
+    if (existing){
+      var wrap = document.createElement('div');
+      wrap.innerHTML = renderActionPanel(t);
+      existing.replaceWith(wrap.firstElementChild || wrap);
+    }
+  };
+
+  window.adSubmitTrade = function(ticker){
+    var T = (ticker || '').toUpperCase();
+    var act = (document.querySelector('input[name="ad-act"]:checked') || {}).value;
+    var sharesEl = document.getElementById('ad-act-shares');
+    var priceEl  = document.getElementById('ad-act-price');
+    var dateEl   = document.getElementById('ad-act-date');
+    var shares = parseFloat(sharesEl && sharesEl.value);
+    var price  = parseFloat(priceEl  && priceEl.value);
+    var date   = dateEl && dateEl.value;
+    if (!act){ alert('Select an action'); return; }
+    if (!shares || shares <= 0){ alert('Enter shares > 0'); return; }
+    if (!price  || price  <= 0){ alert('Enter price > 0');  return; }
+    if (!date){ alert('Pick a date'); return; }
+    addTrade({ ticker: T, action: act, shares: shares, price: price, date: date, ts: Date.now() });
+    // Apply trades and full rebuild
+    applyAllTrades();
+    if (typeof _buildAll === 'function') _buildAll();
+    if (typeof window._buildAll === 'function') window._buildAll();
+    rerenderFavorites();
+    decorateCardsWithStars();
+    // Re-open modal so the panel + Position section reflect the new state
+    if (typeof window._openStockModal === 'function') window._openStockModal(T);
+  };
+
+  window.adDeleteTrade = function(ts){
+    if (!confirm('Delete this trade entry?')) return;
+    deleteTrade(ts);
+    applyAllTrades();
+    if (typeof window._buildAll === 'function') window._buildAll();
+    rerenderFavorites();
+    decorateCardsWithStars();
+    var t = window._currentModalTicker;
+    if (t && typeof window._openStockModal === 'function') window._openStockModal(t);
+  };
+
+  window.adExportTrades = function(ticker){
+    var T = (ticker || '').toUpperCase();
+    var trades = tradesFor(T);
+    if (!trades.length){ alert('No trades to export for ' + T); return; }
+    // Sort ascending for the patch
+    var ordered = trades.slice().sort(function(a,b){
+      return (a.date||'').localeCompare(b.date||'') || (a.ts||0)-(b.ts||0);
+    });
+    var patch = ordered.map(function(t){
+      return {
+        date:   t.date,
+        ticker: T,
+        type:   t.action === 'ADDED' ? 'buy' : t.action === 'TRIMMED' ? 'trim' : 'exit',
+        shares: t.shares,
+        price:  t.price,
+        usd:    Math.round(t.shares * t.price * 100) / 100
+      };
+    });
+    var json = JSON.stringify(patch, null, 2);
+    var msg = 'Append the following object(s) to the "transactions" array in\n/opt/sentinel/deployments.json on the VPS:';
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(json).then(function(){
+        alert('✓ Copied ' + patch.length + ' trade(s) for ' + T + ' to clipboard.\n\n' + msg);
+      }, function(){
+        window.prompt(msg, json);
+      });
+    } else {
+      window.prompt(msg, json);
+    }
+  };
+
+  // ── Wrap _openStockModal to inject our panel ─────────────────────────────
+  function hookModal(){
+    if (window._openStockModal && window._openStockModal.__adWrapped) return;
+    if (typeof window._openStockModal !== 'function') return;
+    var orig = window._openStockModal;
+    window._openStockModal = function(ticker, _fromRouter){
+      orig(ticker, _fromRouter);
+      try {
+        var T = (ticker || '').toUpperCase();
+        var infoEl = document.getElementById('sm-info-panel');
+        if (!infoEl) return;
+        var existing = infoEl.querySelector('.ad-action-panel');
+        if (existing) existing.remove();
+        var wrap = document.createElement('div');
+        wrap.innerHTML = renderActionPanel(T);
+        infoEl.appendChild(wrap.firstElementChild || wrap);
+      } catch(e){ console.warn('[AD-FAV] action-panel error', e); }
+    };
+    window._openStockModal.__adWrapped = true;
+  }
+
+  // ── MutationObserver — keep stars/favorites in sync as port-grid rebuilds.
+  // Also re-applies trade log to D after every fresh data fetch.
+  var _lastAppliedSig = null;
+  function _datasetSig(){
+    if (typeof D === 'undefined' || !D) return null;
+    return (D.updated || '') + '|' + ((D.portfolio && D.portfolio.positions || []).length);
+  }
+  function onPortGridChanged(){
+    try { decorateCardsWithStars(); } catch(e){}
+    try { rerenderFavorites(); } catch(e){}
+    // Apply trades exactly once per dataset signature
+    var sig = _datasetSig();
+    if (sig && sig !== _lastAppliedSig && loadTrades().length){
+      _lastAppliedSig = sig;
+      var changed = applyAllTrades();
+      if (changed && typeof window._buildAll === 'function'){
+        // Defer to next tick to avoid synchronous re-entry into the observer
+        setTimeout(function(){ try { window._buildAll(); } catch(e){} }, 0);
+      }
+    } else if (sig){
+      _lastAppliedSig = sig;
+    }
+  }
+  function startObserver(){
+    var pg = document.getElementById('port-grid');
+    if (!pg) return false;
+    var obs = new MutationObserver(onPortGridChanged);
+    obs.observe(pg, { childList: true });
+    return true;
+  }
+
+  // ── Boot ─────────────────────────────────────────────────────────────────
+  function boot(){
+    injectSearchInput();
+    ensureFavoritesSection();
+    hookModal();
+    if (!startObserver()){
+      // port-grid not ready yet — retry shortly
+      setTimeout(boot, 150);
+      return;
+    }
+    // Initial sync
+    onPortGridChanged();
+    // Belt-and-suspenders: re-decorate every 3s in case sections rebuild
+    // outside the observed node (action-center, watchlist-grid, etc.)
+    setInterval(function(){
+      try { decorateCardsWithStars(); } catch(e){}
+    }, 3000);
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
 </body>
 </html>
