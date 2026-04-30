@@ -3349,20 +3349,35 @@ function buildWatchlist() {
 
 // ── Per-ticker analysis sidecar (charts/_analysis.json) ───────────────────
 // Loaded async at boot. The per-ticker page reads from this map by ticker.
-// Race condition guard: if a stock modal is already open when the sidecar
-// finishes loading (e.g. user direct-linked to /alpha-director/nvda before
-// the JSON resolved), re-render the modal so it picks up the new fields.
+// Race-condition guard: if a stock modal is open when sidecar finishes
+// loading, re-render the modal so it picks up the integrated fields
+// (effective_action, confidence_pct, chart_read, add_zones, etc.).
 window._tickerAnalysis = {};
 window._currentModalTicker = null;
-fetch('charts/_analysis.json?v=' + Date.now())
-  .then(r => r.ok ? r.json() : {})
-  .then(j => {
-    window._tickerAnalysis = j || {};
-    if (window._currentModalTicker && window._openStockModal) {
-      window._openStockModal(window._currentModalTicker);
-    }
-  })
-  .catch(() => {});
+window._sidecarLoaded = false;
+function _loadSidecar(retry) {
+  fetch('charts/_analysis.json?v=' + Date.now(), {cache: 'no-store'})
+    .then(function(r){
+      if (!r.ok) throw new Error('sidecar HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(j){
+      window._tickerAnalysis = j || {};
+      window._sidecarLoaded = true;
+      console.log('[AD] sidecar loaded:', Object.keys(window._tickerAnalysis).length, 'tickers');
+      // Re-render any open modal so it picks up the new fields
+      if (window._currentModalTicker && window._openStockModal) {
+        window._openStockModal(window._currentModalTicker);
+      }
+    })
+    .catch(function(e){
+      console.warn('[AD] sidecar fetch failed:', e.message);
+      if (!retry) {
+        setTimeout(function(){ _loadSidecar(true); }, 1500); // retry once
+      }
+    });
+}
+_loadSidecar();
 
 // ── Init ───────────────────────────────────────────────────────────────────
 function _buildAll() {
@@ -4530,12 +4545,16 @@ window._openCryptoModal = function(symbol) {
     }
   }
 
-  // Open the right modal once D has positions; cap at 6s and route anyway.
+  // Open the right modal once BOTH D (data.json positions) AND the
+  // _tickerAnalysis sidecar are loaded. Cap at 6s; if sidecar still
+  // hasn't loaded, route anyway — the race-fix re-render below picks
+  // up the data when the sidecar fetch eventually resolves.
   function _waitAndRoute(tries){
     tries = tries || 0;
-    var ready = false;
-    try { ready = !!(D && D.portfolio && (D.portfolio.positions || []).length); } catch(e){}
-    if (ready || tries > 30) { _routeFromURL(); return; }
+    var dReady = false, sidecarReady = false;
+    try { dReady = !!(D && D.portfolio && (D.portfolio.positions || []).length); } catch(e){}
+    try { sidecarReady = !!(window._tickerAnalysis && Object.keys(window._tickerAnalysis).length > 0); } catch(e){}
+    if ((dReady && sidecarReady) || tries > 30) { _routeFromURL(); return; }
     setTimeout(function(){ _waitAndRoute(tries + 1); }, 200);
   }
   _waitAndRoute();
