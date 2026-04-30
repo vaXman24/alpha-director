@@ -233,6 +233,8 @@ html,body{overflow-x:clip;max-width:100vw}
 .sm-analysis-key{font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--t3);padding-top:3px;white-space:nowrap}
 .sm-analysis-val{color:var(--t)}
 .sm-analysis-val.status{font-weight:700;color:var(--a)}
+.sm-analysis-key.play{color:#10b981;border-top:1px solid var(--border);padding-top:11px;margin-top:6px}
+.sm-analysis-val.play{font-weight:600;color:#dcfce7;border-top:1px solid var(--border);padding-top:11px;margin-top:6px}
 @media(max-width:600px){
   .sm-analysis{grid-template-columns:1fr;gap:2px 0;padding:12px 14px}
   .sm-analysis-key{padding-top:8px}
@@ -3866,9 +3868,8 @@ function _smVerdictBadge(v){
 // ── Open stock modal ──────────────────────────────────────────────────────
 // Short legend explaining each color/line in the embedded 150D chart.
 // Class-aware so Core / Swing / Spec each describe their own overlays.
-// The RSI sub-panel below the price chart hosts the brain's current
-// decision (action + target/stop/entry-zone) — we surface that as a
-// dedicated legend group so users know where to look.
+// Brain decisions (action + target/stop/entry zone) are now rendered
+// directly on the main price chart, not in a separate panel.
 function _chartLegendHtml(ticker) {
   var bucket = (window._tickerAnalysis &&
                 window._tickerAnalysis[ticker] &&
@@ -3902,12 +3903,19 @@ function _chartLegendHtml(ticker) {
     ];
   }
 
-  // RSI panel + brain signal legend — common to all three classes
+  // Brain decision overlay items (drawn ON the main chart, not separate panel)
+  var brainItems = [
+    ['#10b981', 'BRAIN target — green dashed line at brain\'s target price (right edge labelled TGT $X)'],
+    ['#ef4444', 'BRAIN stop — red dashed line at brain\'s stop-loss (right edge labelled STP $X)'],
+    ['#06b6d4', 'BRAIN entry zone — translucent cyan band where brain says it\'s OK to add'],
+    ['#fbbf24', 'BRAIN action badge (top-right of chart) — current decision: STRONG BUY / BUY / TRIM / EXIT / WAIT'],
+  ];
+
+  // RSI panel — pure visualization
   var rsiItems = [
-    ['#cbd5e1', 'RSI(14) — momentum oscillator (history of overbought/oversold)'],
+    ['#cbd5e1', 'RSI(14) line — momentum oscillator history (sub-panel, x-axis aligned with price above)'],
     ['#ef4444', 'RSI ≥ 70 = overbought zone'],
     ['#10b981', 'RSI ≤ 30 = oversold zone'],
-    ['#fbbf24', 'BRAIN box (top-left of RSI panel) — current action + Target / Stop / Entry zone'],
   ];
 
   function fmtBlock(title, items) {
@@ -3921,7 +3929,8 @@ function _chartLegendHtml(ticker) {
   }
 
   return fmtBlock('Main chart', priceItems) +
-         fmtBlock('RSI panel (decisions)', rsiItems);
+         fmtBlock('Brain decision overlay', brainItems) +
+         fmtBlock('RSI sub-panel', rsiItems);
 }
 
 window._openStockModal = function(ticker) {
@@ -4052,10 +4061,13 @@ window._openStockModal = function(ticker) {
   var _ana = (window._tickerAnalysis && window._tickerAnalysis[ticker] && window._tickerAnalysis[ticker].analysis) || null;
   if (_ana) {
     infoHtml += '<div class="sm-analysis">' +
-      '<div class="sm-analysis-key">Status</div>'    + '<div class="sm-analysis-val status">' + (_ana.status || '—')    + '</div>' +
-      '<div class="sm-analysis-key">Meaning</div>'   + '<div class="sm-analysis-val">'        + (_ana.meaning || '—')   + '</div>' +
-      '<div class="sm-analysis-key">Why</div>'       + '<div class="sm-analysis-val">'        + (_ana.why || '—')       + '</div>' +
-      '<div class="sm-analysis-key">Watch for</div>' + '<div class="sm-analysis-val">'        + (_ana.watch_for || '—') + '</div>' +
+      '<div class="sm-analysis-key">Status</div>'      + '<div class="sm-analysis-val status">'  + (_ana.status      || '—') + '</div>' +
+      '<div class="sm-analysis-key">Meaning</div>'     + '<div class="sm-analysis-val">'         + (_ana.meaning     || '—') + '</div>' +
+      '<div class="sm-analysis-key">Why</div>'         + '<div class="sm-analysis-val">'         + (_ana.why         || '—') + '</div>' +
+      '<div class="sm-analysis-key">Watch for</div>'   + '<div class="sm-analysis-val">'         + (_ana.watch_for   || '—') + '</div>' +
+      (_ana.how_to_play
+        ? '<div class="sm-analysis-key play">How to play</div><div class="sm-analysis-val play">' + _ana.how_to_play + '</div>'
+        : '') +
     '</div>';
   }
 
