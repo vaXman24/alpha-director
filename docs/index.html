@@ -5202,8 +5202,8 @@ window._openCryptoModal = function(symbol) {
 
     var vpsConfigured = _vpsConfigured();
     var vpsBadge = vpsConfigured
-      ? '<span class="ad-vps-status on" title="Trades auto-sync to /opt/sentinel/deployments.json over HTTPS. Click to reconfigure or clear.">🔗 auto-sync ON</span>'
-      : '<span class="ad-vps-status off" onclick="document.getElementById(\'ad-vps-setup\').style.display=\'block\';this.style.display=\'none\'" title="Click to set up the HTTPS bridge so Log &amp; Recalculate writes to the VPS automatically.">🔗 auto-sync OFF</span>';
+      ? '<span class="ad-vps-status on" style="cursor:pointer" onclick="var s=document.getElementById(\'ad-vps-setup\');s.style.display=(s.style.display===\'none\'?\'block\':\'none\')" title="Trades auto-sync to /opt/sentinel/deployments.json. Click to expand for test / edit / clear.">🔗 auto-sync ON</span>'
+      : '<span class="ad-vps-status off" onclick="var s=document.getElementById(\'ad-vps-setup\');s.style.display=\'block\';this.style.display=\'none\'" title="Click to set up the HTTPS bridge so Log &amp; Recalculate writes to the VPS automatically.">🔗 auto-sync OFF</span>';
 
     var vpsSetupBlock = '<div id="ad-vps-setup" class="ad-vps-setup" style="display:' + (vpsConfigured ? 'none' : 'block') + '">' +
       '<div class="ad-vps-setup-title">🔗 VPS Trade API — auto-sync setup</div>' +
