@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Dark navy rounded background -->
+  <rect width="64" height="64" rx="12" ry="12" fill="#07090f"/>
+
+  <!-- Wizard hat body: curved pointy cone, swept slightly to the right -->
+  <path d="M 33 6
+           C 30 20, 26 34, 18 46
+           L 47 46
+           C 39 34, 35 20, 33 6 Z"
+        fill="#ffd740"/>
+
+  <!-- Hat band -->
+  <ellipse cx="32" cy="46" rx="15" ry="2.2" fill="#07090f"/>
+
+  <!-- Brim -->
+  <ellipse cx="32" cy="48" rx="22" ry="4.5" fill="#ffd740"/>
+
+  <!-- Five-pointed star on the hat (knocked out in dark) -->
+  <path d="M 30 24 L 31.3 28 L 35.5 28 L 32.1 30.5 L 33.4 34.5 L 30 32 L 26.6 34.5 L 27.9 30.5 L 24.5 28 L 28.7 28 Z"
+        fill="#07090f"/>
+
+  <!-- Sparkles around the hat -->
+  <circle cx="52" cy="18" r="1.6" fill="#ffd740"/>
+  <circle cx="13" cy="30" r="1.3" fill="#ffd740"/>
+  <circle cx="50" cy="38" r="1"   fill="#ffd740"/>
+  <circle cx="9"  cy="44" r="0.9" fill="#ffd740"/>
+</svg>

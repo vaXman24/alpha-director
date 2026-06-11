@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tradingview": {
+      "command": "C:\\Users\\kaiha\\AppData\\Roaming\\Python\\Python313\\Scripts\\tradingview-mcp.exe",
+      "args": []
+    }
+  }
+}

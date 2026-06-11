@@ -1,0 +1,220 @@
+//@version=6
+indicator("Alpha Director — Multi-Setup Signals", overlay=true, max_labels_count=500)
+
+// ╔══════════════════════════════════════════════════════════════════════╗
+// ║         ALPHA DIRECTOR — MULTI-SETUP SIGNAL INDICATOR               ║
+// ║                                                                      ║
+// ║  ① EMA Trend Continuation   — pullback to 20 EMA in uptrend         ║
+// ║  ② Higher High Breakout     — swing high break on volume            ║
+// ║  ③ Volatility Squeeze Fire  — BB inside KC → breakout               ║
+// ║  ④ Volume Breakout          — 2.5× avg vol + resistance break        ║
+// ║  ⑤ VWAP Reclaim             — close above VWAP on high volume        ║
+// ╚══════════════════════════════════════════════════════════════════════╝
+
+// ─── INPUTS ──────────────────────────────────────────────────────────────────
+
+// ① EMA Trend Continuation
+g1 = "① EMA Trend Continuation"
+i_ema_fast    = input.int(20,  "Fast EMA length",                    minval=1,            group=g1)
+i_ema_mid     = input.int(50,  "Mid EMA length",                     minval=1,            group=g1)
+i_ema_slow    = input.int(200, "Slow EMA length",                    minval=1,            group=g1)
+i_ema_tol     = input.float(0.3, "Pullback tolerance % (from EMA)", minval=0.0, step=0.05, group=g1)
+
+// ② Higher High Breakout
+g2 = "② Higher High Breakout"
+i_hh_lookback = input.int(20,  "Swing high lookback (bars)",         minval=3,            group=g2)
+i_hh_vol_per  = input.int(20,  "Volume average period",              minval=5,            group=g2)
+i_hh_vol_mult = input.float(1.0, "Min volume multiplier",           minval=0.1, step=0.1, group=g2)
+
+// ③ Volatility Squeeze
+g3 = "③ Volatility Squeeze"
+i_bb_len      = input.int(20,  "Bollinger Band length",              minval=5,            group=g3)
+i_bb_mult     = input.float(2.0, "BB std-dev multiplier",           minval=0.5, step=0.1, group=g3)
+i_kc_len      = input.int(20,  "Keltner Channel length",             minval=5,            group=g3)
+i_kc_mult     = input.float(1.5, "KC ATR multiplier",               minval=0.5, step=0.1, group=g3)
+
+// ④ Volume Breakout
+g4 = "④ Volume Breakout"
+i_vb_vol_per  = input.int(20,  "Volume average period",              minval=5,            group=g4)
+i_vb_vol_mult = input.float(2.5, "Min volume multiplier",           minval=1.0, step=0.1, group=g4)
+i_vb_res_bars = input.int(10,  "Resistance lookback (bars)",         minval=3,            group=g4)
+
+// ⑤ VWAP Reclaim
+g5 = "⑤ VWAP Reclaim"
+i_vwap_vol_per  = input.int(20,   "Volume average period",          minval=5,            group=g5)
+i_vwap_vol_mult = input.float(1.5, "Min volume multiplier",         minval=0.5, step=0.1, group=g5)
+
+// Display
+gd = "Display"
+i_show_emas = input.bool(true,  "Show EMAs",            group=gd)
+i_show_vwap = input.bool(true,  "Show VWAP",            group=gd)
+i_show_bb   = input.bool(false, "Show Bollinger Bands", group=gd)
+i_show_bg   = input.bool(true,  "Highlight uptrend background", group=gd)
+
+// ─── CORE SERIES ─────────────────────────────────────────────────────────────
+
+ema_fast  = ta.ema(close, i_ema_fast)
+ema_mid   = ta.ema(close, i_ema_mid)
+ema_slow  = ta.ema(close, i_ema_slow)
+vwap_val  = ta.vwap(hlc3)
+avg_vol   = ta.sma(volume, i_hh_vol_per)   // shared baseline volume
+
+// ─── STRATEGY ① — EMA Trend Continuation ────────────────────────────────────
+// Conditions:
+//   • Price > 200 EMA  (long-term uptrend)
+//   • 20 EMA > 50 EMA  (short-term momentum aligned)
+//   • Green candle (close > open)
+//   • Wick touched / pulled back within tolerance % of the 20 EMA
+//   • Close is above 20 EMA (bounced, not closing below it)
+
+s1_uptrend = close > ema_slow and ema_fast > ema_mid
+s1_green   = close > open
+s1_touch   = low  <= ema_fast * (1 + i_ema_tol / 100)   // low dipped to EMA zone
+s1_bounce  = close > ema_fast                             // closed back above EMA
+
+sig_ema_cont = s1_uptrend and s1_green and s1_touch and s1_bounce
+
+// ─── STRATEGY ② — Higher High Breakout ──────────────────────────────────────
+// Conditions:
+//   • Close breaks the N-bar swing high (previous bar's rolling high)
+//   • Previous close was at or below that high (first breakout bar only)
+//   • Volume confirms with multiplier threshold
+
+s2_swing_high  = ta.highest(high, i_hh_lookback)[1]       // rolling high, excludes current bar
+s2_vol_confirm = volume > avg_vol * i_hh_vol_mult
+s2_first_break = close > s2_swing_high and close[1] <= s2_swing_high[0]
+
+sig_hh_breakout = s2_first_break and s2_vol_confirm
+
+// ─── STRATEGY ③ — Volatility Squeeze ────────────────────────────────────────
+// Squeeze ON  = BB bands entirely inside KC bands (compression phase)
+// Squeeze FIRE= First bar after squeeze exits, with directional bias
+
+// Bollinger Bands
+bb_basis = ta.sma(close, i_bb_len)
+bb_dev   = ta.stdev(close, i_bb_len)
+bb_upper = bb_basis + i_bb_mult * bb_dev
+bb_lower = bb_basis - i_bb_mult * bb_dev
+
+// Keltner Channels (ATR-based, wider than BB during squeeze)
+kc_basis = ta.ema(close, i_kc_len)
+kc_atr   = ta.atr(i_kc_len)
+kc_upper = kc_basis + i_kc_mult * kc_atr
+kc_lower = kc_basis - i_kc_mult * kc_atr
+
+in_squeeze = bb_upper < kc_upper and bb_lower > kc_lower   // BB inside KC
+
+// Fire on the first bar after squeeze ends
+sig_squeeze_bull = in_squeeze[1] and not in_squeeze and close > kc_upper   // bullish breakout
+sig_squeeze_bear = in_squeeze[1] and not in_squeeze and close < kc_lower   // bearish breakdown
+
+// ─── STRATEGY ④ — Volume Breakout ───────────────────────────────────────────
+// Conditions:
+//   • Volume ≥ multiplier × 20-period average
+//   • Close breaks N-bar resistance level
+//   • Previous close was at or below that resistance (first bar only)
+
+s4_avg_vol   = ta.sma(volume, i_vb_vol_per)
+s4_resist    = ta.highest(high, i_vb_res_bars)[1]
+s4_vol_spike = volume >= s4_avg_vol * i_vb_vol_mult
+s4_breakout  = close > s4_resist and close[1] <= s4_resist
+
+sig_vol_breakout = s4_vol_spike and s4_breakout
+
+// ─── STRATEGY ⑤ — VWAP Reclaim ──────────────────────────────────────────────
+// Conditions:
+//   • Previous close was below VWAP
+//   • Current close is above VWAP (reclaim)
+//   • Volume confirms the move
+
+s5_avg_vol     = ta.sma(volume, i_vwap_vol_per)
+s5_vol_confirm = volume > s5_avg_vol * i_vwap_vol_mult
+s5_reclaim     = close[1] < vwap_val[1] and close > vwap_val
+
+sig_vwap_reclaim = s5_reclaim and s5_vol_confirm
+
+// ─── PLOTS — EMAs, VWAP, BB ──────────────────────────────────────────────────
+
+plot(i_show_emas ? ema_fast : na, "EMA Fast",  color=color.new(color.green,  0), linewidth=1)
+plot(i_show_emas ? ema_mid  : na, "EMA Mid",   color=color.new(color.yellow, 0), linewidth=1)
+plot(i_show_emas ? ema_slow : na, "EMA Slow",  color=color.new(color.red,    0), linewidth=2)
+
+plot(i_show_vwap ? vwap_val : na,
+     "VWAP", color=color.new(color.teal, 0), linewidth=2, style=plot.style_stepline)
+
+p_bb_u = plot(i_show_bb ? bb_upper : na, "BB Upper", color=color.new(color.gray, 55))
+p_bb_l = plot(i_show_bb ? bb_lower : na, "BB Lower", color=color.new(color.gray, 55))
+fill(p_bb_u, p_bb_l, color=color.new(color.gray, 88))
+
+// Subtle green background when all EMAs are aligned (uptrend context)
+bgcolor(i_show_bg and s1_uptrend ? color.new(color.lime, 96) : na, title="EMA uptrend background")
+
+// ─── SIGNAL SHAPES ───────────────────────────────────────────────────────────
+
+// ① EMA Continuation — lime triangle below bar
+plotshape(sig_ema_cont,
+    title="① EMA Continuation",
+    style=shape.triangleup, location=location.belowbar,
+    color=color.lime, size=size.small)
+
+// ② HH Breakout — blue triangle above bar
+plotshape(sig_hh_breakout,
+    title="② HH Breakout",
+    style=shape.triangleup, location=location.abovebar,
+    color=color.blue, size=size.small)
+
+// ③ Squeeze Fire — yellow diamond (bull) | fuchsia diamond (bear)
+plotshape(sig_squeeze_bull,
+    title="③ Squeeze Fire ↑",
+    style=shape.diamond, location=location.belowbar,
+    color=color.yellow, size=size.normal)
+
+plotshape(sig_squeeze_bear,
+    title="③ Squeeze Fire ↓",
+    style=shape.diamond, location=location.abovebar,
+    color=color.fuchsia, size=size.normal)
+
+// ④ Volume Breakout — purple label "VOL" below bar
+plotshape(sig_vol_breakout,
+    title="④ Volume Breakout",
+    style=shape.labelup, location=location.belowbar,
+    color=color.purple, textcolor=color.white, text="VOL",
+    size=size.small)
+
+// ⑤ VWAP Reclaim — teal circle below bar
+plotshape(sig_vwap_reclaim,
+    title="⑤ VWAP Reclaim",
+    style=shape.circle, location=location.belowbar,
+    color=color.teal, size=size.normal)
+
+// ─── ALERT CONDITIONS ────────────────────────────────────────────────────────
+
+alertcondition(sig_ema_cont,
+    "① EMA Trend Continuation",
+    "EMA Continuation — {{ticker}} green candle touched 20 EMA in uptrend @ ${{close}}")
+
+alertcondition(sig_hh_breakout,
+    "② Higher High Breakout",
+    "HH Breakout — {{ticker}} broke prior swing high on volume @ ${{close}}")
+
+alertcondition(sig_squeeze_bull,
+    "③ Squeeze Fire (Bullish)",
+    "Squeeze Fire ↑ — {{ticker}} bullish breakout from compression @ ${{close}}")
+
+alertcondition(sig_squeeze_bear,
+    "③ Squeeze Fire (Bearish)",
+    "Squeeze Fire ↓ — {{ticker}} bearish breakdown from compression @ ${{close}}")
+
+alertcondition(sig_vol_breakout,
+    "④ Volume Breakout",
+    "Volume Breakout — {{ticker}} broke resistance on high volume @ ${{close}}")
+
+alertcondition(sig_vwap_reclaim,
+    "⑤ VWAP Reclaim",
+    "VWAP Reclaim — {{ticker}} reclaimed VWAP on high volume @ ${{close}}")
+
+// Master alert — any bullish signal
+alertcondition(
+    sig_ema_cont or sig_hh_breakout or sig_squeeze_bull or sig_vol_breakout or sig_vwap_reclaim,
+    "Any Bullish Alpha Signal",
+    "Alpha Director — {{ticker}} bullish setup detected @ ${{close}}")
