@@ -1,0 +1,28 @@
+# Secrets / credentials
+.env
+.env.*
+*.pem
+*.key
+
+# Databases / caches / data artifacts
+*.db
+*.sqlite
+*.sqlite3
+cache/
+*.parquet
+*.bak
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Local-only sanitizer test artifacts (never publish)
+docs/_preview_public.html
+docs/_data_public_preview.json
