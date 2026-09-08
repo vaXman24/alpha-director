@@ -85,6 +85,9 @@ class ScoringTests(unittest.TestCase):
     def test_recent_long_weekend_quote_accepted(self):
         self.assertEqual(scorer._validated_price(100,NOW-timedelta(days=3),NOW),100)
 
+    def test_friday_daily_bar_accepted_tuesday_before_open(self):
+        self.assertEqual(scorer._validated_price(100,'2026-09-04T00:00:00-04:00',NOW),100)
+
     def test_quote_outage_never_uses_signal_event(self):
         yf=types.ModuleType('yfinance'); yf.Ticker=Mock(side_effect=RuntimeError('fixture'))
         with patch.dict(sys.modules,{'yfinance':yf}):

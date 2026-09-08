@@ -12,7 +12,7 @@ These three runtime modules were adopted from the deployed service and corrected
 
 ## Validation
 
-From the repository root, run `python tests/test_calibration_integrity.py`. The 19 tests mock external data and persistence; they do not write to a live database, send notifications, or execute trades.
+From the repository root, run `python tests/test_calibration_integrity.py`. The 20 tests mock external data and persistence; they do not write to a live database, send notifications, or execute trades.
 
 ## Deployment
 

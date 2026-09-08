@@ -193,7 +193,10 @@ def _validated_price(value, observed_at, now: datetime) -> float | None:
         if stamp.tzinfo is None:
             stamp = stamp.replace(tzinfo=timezone.utc)
         age = (now - stamp).total_seconds()
-        if math.isfinite(price) and price > 0 and 0 <= age <= _MAX_QUOTE_AGE_SECONDS:
+        # Daily bars are stamped at midnight, not at the closing auction.
+        # Count UTC dates so a Friday bar remains usable Tuesday morning.
+        age_days = (now.date() - stamp.astimezone(timezone.utc).date()).days
+        if math.isfinite(price) and price > 0 and age >= 0 and age_days <= _MAX_QUOTE_AGE_SECONDS // 86400:
             return price
     except (TypeError, ValueError, OverflowError):
         pass
